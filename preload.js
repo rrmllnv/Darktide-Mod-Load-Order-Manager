@@ -15,5 +15,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
   deleteProfile: (profilesDir, profileName) => ipcRenderer.invoke('delete-profile', profilesDir, profileName),
   renameProfile: (profilesDir, oldName, newName) => ipcRenderer.invoke('rename-profile', profilesDir, oldName, newName),
   createSymlink: (linkPath, targetPath) => ipcRenderer.invoke('create-symlink', linkPath, targetPath),
-  selectFolder: (defaultPath) => ipcRenderer.invoke('select-folder', defaultPath)
+  selectFolder: (defaultPath) => ipcRenderer.invoke('select-folder', defaultPath),
+  loadUserConfig: () => ipcRenderer.invoke('load-user-config'),
+  saveUserConfig: (userConfig) => ipcRenderer.invoke('save-user-config', userConfig)
 });

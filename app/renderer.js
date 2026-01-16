@@ -29,6 +29,9 @@ class ModLoadOrderManager {
         this.savedState = null;
         this.profilesDir = null;
         
+        // Настройки
+        this.userConfig = null;
+        
         // Элементы интерфейса
         this.elements = {};
         
@@ -91,10 +94,36 @@ class ModLoadOrderManager {
             bulkSelectionCount: document.getElementById('bulk-selection-count')
         };
         
+        // Загружаем настройки
+        await this.loadUserConfig();
+        
         // Получаем путь по умолчанию
         this.defaultPath = await window.electronAPI.getDefaultPath();
-        this.filePath = this.defaultPath;
+        
+        // Применяем сохраненный путь из настроек или используем путь по умолчанию
+        if (this.userConfig && this.userConfig.fileUrlModLoadOrder) {
+            this.filePath = this.userConfig.fileUrlModLoadOrder;
+        } else {
+            this.filePath = this.defaultPath;
+        }
         this.elements.pathInput.value = this.filePath;
+        
+        // Применяем настройки чекбоксов
+        if (this.userConfig) {
+            this.hideNewMods = this.userConfig.hideNewMods || false;
+            this.hideDeletedMods = this.userConfig.hideDeletedMods || false;
+            this.hideUnusedMods = this.userConfig.hideUnusedMods || false;
+            
+            if (this.elements.hideNewModsCheckbox) {
+                this.elements.hideNewModsCheckbox.checked = this.hideNewMods;
+            }
+            if (this.elements.hideDeletedModsCheckbox) {
+                this.elements.hideDeletedModsCheckbox.checked = this.hideDeletedMods;
+            }
+            if (this.elements.hideUnusedModsCheckbox) {
+                this.elements.hideUnusedModsCheckbox.checked = this.hideUnusedMods;
+            }
+        }
         
         // Инициализация сервисов и менеджеров
         this.statusManager = new StatusManager(this.elements.statusText);
@@ -160,16 +189,19 @@ class ModLoadOrderManager {
                 this.hideNewMods = checked;
                 const searchText = this.elements.searchInput.value;
                 this.updateModList(searchText);
+                this.saveUserConfig();
             },
             onHideUnusedModsChange: (checked) => {
                 this.hideUnusedMods = checked;
                 const searchText = this.elements.searchInput.value;
                 this.updateModList(searchText);
+                this.saveUserConfig();
             },
             onHideDeletedModsChange: (checked) => {
                 this.hideDeletedMods = checked;
                 const searchText = this.elements.searchInput.value;
                 this.updateModList(searchText);
+                this.saveUserConfig();
             },
             createSymlinkForMod: () => this.createSymlinkForMod(),
             saveCurrentProfile: () => this.saveCurrentProfile(),
@@ -217,17 +249,73 @@ class ModLoadOrderManager {
         }
     }
     
+    async loadUserConfig() {
+        try {
+            const result = await window.electronAPI.loadUserConfig();
+            if (result.success) {
+                this.userConfig = result.userConfig;
+            } else {
+                // Если не удалось загрузить, создаем настройки по умолчанию
+                this.userConfig = {
+                    fileUrlModLoadOrder: '',
+                    theme: '',
+                    hideNewMods: false,
+                    hideDeletedMods: false,
+                    hideUnusedMods: false
+                };
+            }
+        } catch (error) {
+            console.error('Ошибка загрузки настроек:', error);
+            this.userConfig = {
+                fileUrlModLoadOrder: '',
+                theme: '',
+                hideNewMods: false,
+                hideDeletedMods: false,
+                hideUnusedMods: false
+            };
+        }
+    }
+    
+    async saveUserConfig() {
+        try {
+            if (!this.userConfig) {
+                this.userConfig = {
+                    fileUrlModLoadOrder: '',
+                    theme: '',
+                    hideNewMods: false,
+                    hideDeletedMods: false,
+                    hideUnusedMods: false
+                };
+            }
+            
+            // Обновляем текущие значения
+            this.userConfig.fileUrlModLoadOrder = this.filePath || '';
+            this.userConfig.hideNewMods = this.hideNewMods;
+            this.userConfig.hideDeletedMods = this.hideDeletedMods;
+            this.userConfig.hideUnusedMods = this.hideUnusedMods;
+            
+            const result = await window.electronAPI.saveUserConfig(this.userConfig);
+            if (!result.success) {
+                console.error('Ошибка сохранения настроек:', result.error);
+            }
+        } catch (error) {
+            console.error('Ошибка сохранения настроек:', error);
+        }
+    }
+    
     async browseFile() {
         const result = await window.electronAPI.selectFile(this.filePath);
         if (result.success && !result.canceled) {
             this.filePath = result.filePath;
             this.elements.pathInput.value = this.filePath;
+            await this.saveUserConfig(); // Сохраняем новый путь
             await this.loadFile();
         }
     }
     
     async loadFile() {
         this.filePath = this.elements.pathInput.value;
+        await this.saveUserConfig(); // Сохраняем путь при загрузке файла
         
         try {
             const parsed = await this.fileService.loadFile(this.filePath);

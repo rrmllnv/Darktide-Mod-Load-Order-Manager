@@ -343,3 +343,66 @@ ipcMain.handle('select-folder', async (event, defaultPath) => {
 
   return { success: true, folderPath: result.filePaths[0] };
 });
+
+// Получить путь к файлу настроек
+function getUserConfigPath() {
+  const userDataDir = app.getPath('userData');
+  return path.join(userDataDir, 'UserConfig.json');
+}
+
+// Загрузить настройки
+ipcMain.handle('load-user-config', async () => {
+  try {
+    const userConfigPath = getUserConfigPath();
+    
+    if (!existsSync(userConfigPath)) {
+      // Создаем файл с настройками по умолчанию
+      const defaultUserConfig = {
+        fileUrlModLoadOrder: '',
+        theme: '',
+        hideNewMods: false,
+        hideDeletedMods: false,
+        hideUnusedMods: false
+      };
+      
+      await fs.writeFile(userConfigPath, JSON.stringify(defaultUserConfig, null, 2), 'utf-8');
+      return { success: true, userConfig: defaultUserConfig };
+    }
+    
+    const content = await fs.readFile(userConfigPath, 'utf-8');
+    const userConfig = JSON.parse(content);
+    
+    // Убеждаемся, что все поля присутствуют
+    const defaultUserConfig = {
+      fileUrlModLoadOrder: '',
+      theme: '',
+      hideNewMods: false,
+      hideDeletedMods: false,
+      hideUnusedMods: false
+    };
+    
+    const mergedUserConfig = { ...defaultUserConfig, ...userConfig };
+    
+    return { success: true, userConfig: mergedUserConfig };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+});
+
+// Сохранить настройки
+ipcMain.handle('save-user-config', async (event, userConfig) => {
+  try {
+    const userConfigPath = getUserConfigPath();
+    const userDataDir = app.getPath('userData');
+    
+    // Убеждаемся, что папка существует
+    if (!existsSync(userDataDir)) {
+      await fs.mkdir(userDataDir, { recursive: true });
+    }
+    
+    await fs.writeFile(userConfigPath, JSON.stringify(userConfig, null, 2), 'utf-8');
+    return { success: true };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+});
