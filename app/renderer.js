@@ -122,7 +122,7 @@ class ModLoadOrderManager {
         await this.configManager.loadUserConfig();
         
         // Загружаем локализацию из настроек
-        const locale = this.userConfig?.locale || 'ru';
+        const locale = this.userConfig?.locale || 'en';
         await this.localeManager.loadLocale(locale);
         
         // Применяем локализацию к интерфейсу
@@ -374,8 +374,8 @@ class ModLoadOrderManager {
         
         if (this.elements.settingsLocaleSelect) {
             const localeOptions = this.elements.settingsLocaleSelect.options;
-            if (localeOptions[0]) localeOptions[0].textContent = 'Русский';
-            if (localeOptions[1]) localeOptions[1].textContent = 'English';
+            if (localeOptions[0]) localeOptions[0].textContent = 'English';
+            if (localeOptions[1]) localeOptions[1].textContent = 'Русский';
         }
         
         if (this.elements.settingsOkBtn) this.elements.settingsOkBtn.textContent = t('ui.ok');

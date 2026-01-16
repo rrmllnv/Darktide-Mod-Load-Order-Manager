@@ -14,7 +14,7 @@ export class ConfigManager {
                 this.app.userConfig = {
                     fileUrlModLoadOrder: '',
                     theme: '',
-                    locale: 'ru',
+                    locale: 'en',
                     hideNewMods: false,
                     hideDeletedMods: false,
                     hideUnusedMods: false

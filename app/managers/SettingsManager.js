@@ -86,7 +86,7 @@ export class SettingsManager {
         
         // Применяем язык
         if (this.app.elements.settingsLocaleSelect) {
-            this.app.elements.settingsLocaleSelect.value = this.app.userConfig.locale || 'ru';
+            this.app.elements.settingsLocaleSelect.value = this.app.userConfig.locale || 'en';
         }
     }
     
@@ -97,7 +97,7 @@ export class SettingsManager {
             this.app.userConfig = {
                 fileUrlModLoadOrder: '',
                 theme: '',
-                locale: 'ru',
+                locale: 'en',
                 hideNewMods: false,
                 hideDeletedMods: false,
                 hideUnusedMods: false
