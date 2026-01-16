@@ -224,15 +224,37 @@ body.dark-theme .mod-status.disabled {
     color: #ff6b6b;
 }
 
+body.dark-theme .canvas-frame::-webkit-scrollbar {
+    width: 4px;
+}
+
 body.dark-theme .canvas-frame::-webkit-scrollbar-track {
     background: var(--scrollbar-track);
 }
 
 body.dark-theme .canvas-frame::-webkit-scrollbar-thumb {
     background: var(--scrollbar-thumb);
+    border-radius: 2px;
 }
 
 body.dark-theme .canvas-frame::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover);
+}
+
+body.dark-theme .profiles-list::-webkit-scrollbar {
+    width: 4px;
+}
+
+body.dark-theme .profiles-list::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+}
+
+body.dark-theme .profiles-list::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 2px;
+}
+
+body.dark-theme .profiles-list::-webkit-scrollbar-thumb:hover {
     background: var(--scrollbar-thumb-hover);
 }
 

@@ -99,7 +99,7 @@
 
 /* Скроллбар */
 .canvas-frame::-webkit-scrollbar {
-    width: 12px;
+    width: 4px;
 }
 
 .canvas-frame::-webkit-scrollbar-track {
@@ -108,7 +108,7 @@
 
 .canvas-frame::-webkit-scrollbar-thumb {
     background: #888;
-    border-radius: 6px;
+    border-radius: 2px;
 }
 
 .canvas-frame::-webkit-scrollbar-thumb:hover {
