@@ -72,8 +72,7 @@
         }
       ],
       "icon": "app/icons/darktide-icon.ico",
-      "requestedExecutionLevel": "asInvoker",
-      "artifactName": "${productName}.${ext}"
+      "requestedExecutionLevel": "asInvoker"
     },
     "nsis": {
       "oneClick": false,
@@ -85,6 +84,9 @@
       "installerHeaderIcon": "app/icons/darktide-icon.ico",
       "license": "LICENSE.txt",
       "artifactName": "${productName} Setup.${ext}"
+    },
+    "portable": {
+      "artifactName": "${productName}.${ext}"
     }
   }
 }
