@@ -92,18 +92,18 @@ export class ProfileManager {
         }
         
         if (!this.app.profilesDir) {
-            await this.app.uiManager.showMessage('Ошибка', 'Не удалось определить папку для профилей');
+            await this.app.uiManager.showMessage(this.app.t('messages.error'), this.app.t('messages.failedToDetermineProfilesDir'));
             return;
         }
         
-        this.app.modalManager.showModal('Введите имя профиля:', '', async (profileName) => {
+        this.app.modalManager.showModal(this.app.t('ui.enterProfileName') + ':', '', async (profileName) => {
             if (!profileName) {
                 return;
             }
             
             const cleanName = profileName.replace(/[^a-zA-Z0-9\s\-_]/g, '').trim();
             if (!cleanName) {
-                await this.app.uiManager.showMessage('Ошибка', 'Недопустимое имя профиля');
+                await this.app.uiManager.showMessage(this.app.t('messages.error'), this.app.t('messages.invalidProfileName'));
                 return;
             }
             
@@ -112,14 +112,14 @@ export class ProfileManager {
                 const result = await this.app.profileService.saveProfile(cleanName, state);
                 
                 if (!result.success) {
-                    await this.app.uiManager.showMessage('Ошибка', `Не удалось сохранить профиль:\n${result.error}`);
+                    await this.app.uiManager.showMessage(this.app.t('messages.error'), `${this.app.t('messages.failedToSaveProfile')}\n${result.error}`);
                     return;
                 }
                 
                 await this.refreshProfilesList();
-                await this.app.uiManager.showMessage('Успех', `Профиль '${cleanName}' сохранен`);
+                await this.app.uiManager.showMessage(this.app.t('messages.success'), this.app.t('messages.profileSaved', { profileName: cleanName }));
             } catch (error) {
-                await this.app.uiManager.showMessage('Ошибка', `Не удалось сохранить профиль:\n${error.message}`);
+                await this.app.uiManager.showMessage(this.app.t('messages.error'), `${this.app.t('messages.failedToSaveProfile')}\n${error.message}`);
             }
         });
     }
@@ -130,13 +130,13 @@ export class ProfileManager {
         }
         
         if (!this.app.profilesDir) {
-            await this.app.uiManager.showMessage('Ошибка', 'Не удалось определить папку для профилей');
+            await this.app.uiManager.showMessage(this.app.t('messages.error'), this.app.t('messages.failedToDetermineProfilesDir'));
             return;
         }
         
         const selectedIndex = this.app.elements.profilesList.selectedIndex;
         if (selectedIndex === -1) {
-            await this.app.uiManager.showMessage('Ошибка', 'Выберите профиль из списка');
+            await this.app.uiManager.showMessage(this.app.t('messages.error'), this.app.t('messages.selectProfileFromList'));
             return;
         }
         
@@ -145,7 +145,7 @@ export class ProfileManager {
         try {
             const result = await this.app.profileService.loadProfile(profileName);
             if (!result.success) {
-                await this.app.uiManager.showMessage('Ошибка', `Не удалось загрузить профиль:\n${result.error}`);
+                await this.app.uiManager.showMessage(this.app.t('messages.error'), `${this.app.t('messages.failedToLoadProfile')}\n${result.error}`);
                 return;
             }
             
@@ -179,9 +179,9 @@ export class ProfileManager {
             this.app.modManager.updateModList(searchText);
             this.app.updateStatistics();
             
-            await this.app.uiManager.showMessage('Успех', `Профиль '${profileName}' загружен`);
+            await this.app.uiManager.showMessage(this.app.t('messages.success'), this.app.t('messages.profileSaved', { profileName }));
         } catch (error) {
-            await this.app.uiManager.showMessage('Ошибка', `Не удалось загрузить профиль:\n${error.message}`);
+                await this.app.uiManager.showMessage(this.app.t('messages.error'), `${this.app.t('messages.failedToLoadProfile')}\n${error.message}`);
         }
     }
     
@@ -191,26 +191,26 @@ export class ProfileManager {
         }
         
         if (!this.app.profilesDir) {
-            await this.app.uiManager.showMessage('Ошибка', 'Не удалось определить папку для профилей');
+            await this.app.uiManager.showMessage(this.app.t('messages.error'), this.app.t('messages.failedToDetermineProfilesDir'));
             return;
         }
         
         const selectedIndex = this.app.elements.profilesList.selectedIndex;
         if (selectedIndex === -1) {
-            await this.app.uiManager.showMessage('Ошибка', 'Выберите профиль из списка');
+            await this.app.uiManager.showMessage(this.app.t('messages.error'), this.app.t('messages.selectProfileFromList'));
             return;
         }
         
         const oldProfileName = this.app.elements.profilesList.options[selectedIndex].value;
         
-        this.app.modalManager.showModal(`Введите новое имя для профиля '${oldProfileName}':`, oldProfileName, async (newProfileName) => {
+        this.app.modalManager.showModal(this.app.t('messages.enterNewProfileName', { oldProfileName }), oldProfileName, async (newProfileName) => {
             if (!newProfileName) {
                 return;
             }
             
             const cleanName = newProfileName.replace(/[^a-zA-Z0-9\s\-_]/g, '').trim();
             if (!cleanName) {
-                await this.app.uiManager.showMessage('Ошибка', 'Недопустимое имя профиля');
+                await this.app.uiManager.showMessage(this.app.t('messages.error'), this.app.t('messages.invalidProfileName'));
                 return;
             }
             
@@ -221,14 +221,14 @@ export class ProfileManager {
             try {
                 const result = await this.app.profileService.renameProfile(oldProfileName, cleanName);
                 if (!result.success) {
-                    await this.app.uiManager.showMessage('Ошибка', `Не удалось переименовать профиль:\n${result.error}`);
+                    await this.app.uiManager.showMessage(this.app.t('messages.error'), `${this.app.t('messages.failedToRenameProfile')}\n${result.error}`);
                     return;
                 }
                 
                 await this.refreshProfilesList();
-                await this.app.uiManager.showMessage('Успех', `Профиль '${oldProfileName}' переименован в '${cleanName}'`);
+                await this.app.uiManager.showMessage(this.app.t('messages.success'), this.app.t('messages.profileRenamed', { oldProfileName, newProfileName: cleanName }));
             } catch (error) {
-                await this.app.uiManager.showMessage('Ошибка', `Не удалось переименовать профиль:\n${error.message}`);
+                await this.app.uiManager.showMessage(this.app.t('messages.error'), `${this.app.t('messages.failedToRenameProfile')}\n${error.message}`);
             }
         });
     }
@@ -239,19 +239,19 @@ export class ProfileManager {
         }
         
         if (!this.app.profilesDir) {
-            await this.app.uiManager.showMessage('Ошибка', 'Не удалось определить папку для профилей');
+            await this.app.uiManager.showMessage(this.app.t('messages.error'), this.app.t('messages.failedToDetermineProfilesDir'));
             return;
         }
         
         const selectedIndex = this.app.elements.profilesList.selectedIndex;
         if (selectedIndex === -1) {
-            await this.app.uiManager.showMessage('Ошибка', 'Выберите профиль из списка для перезаписи');
+            await this.app.uiManager.showMessage(this.app.t('messages.error'), this.app.t('messages.selectProfileToOverwrite'));
             return;
         }
         
         const profileName = this.app.elements.profilesList.options[selectedIndex].value;
         
-        const confirmed = await this.app.uiManager.showConfirm(`Перезаписать профиль '${profileName}' текущим состоянием?`);
+        const confirmed = await this.app.uiManager.showConfirm(this.app.t('messages.overwriteProfileConfirm', { profileName }));
         if (!confirmed) {
             return;
         }
@@ -261,13 +261,13 @@ export class ProfileManager {
             const result = await this.app.profileService.saveProfile(profileName, state);
             
             if (!result.success) {
-                await this.app.uiManager.showMessage('Ошибка', `Не удалось перезаписать профиль:\n${result.error}`);
+                await this.app.uiManager.showMessage(this.app.t('messages.error'), `${this.app.t('messages.failedToOverwriteProfile')}\n${result.error}`);
                 return;
             }
             
-            await this.app.uiManager.showMessage('Успех', `Профиль '${profileName}' перезаписан`);
+            await this.app.uiManager.showMessage(this.app.t('messages.success'), this.app.t('messages.profileOverwritten', { profileName }));
         } catch (error) {
-            await this.app.uiManager.showMessage('Ошибка', `Не удалось перезаписать профиль:\n${error.message}`);
+            await this.app.uiManager.showMessage(this.app.t('messages.error'), `${this.app.t('messages.failedToOverwriteProfile')}\n${error.message}`);
         }
     }
     
@@ -277,19 +277,19 @@ export class ProfileManager {
         }
         
         if (!this.app.profilesDir) {
-            await this.app.uiManager.showMessage('Ошибка', 'Не удалось определить папку для профилей');
+            await this.app.uiManager.showMessage(this.app.t('messages.error'), this.app.t('messages.failedToDetermineProfilesDir'));
             return;
         }
         
         const selectedIndex = this.app.elements.profilesList.selectedIndex;
         if (selectedIndex === -1) {
-            await this.app.uiManager.showMessage('Ошибка', 'Выберите профиль из списка');
+            await this.app.uiManager.showMessage(this.app.t('messages.error'), this.app.t('messages.selectProfileFromList'));
             return;
         }
         
         const profileName = this.app.elements.profilesList.options[selectedIndex].value;
         
-        const confirmed = await this.app.uiManager.showConfirm(`Удалить профиль '${profileName}'?`);
+        const confirmed = await this.app.uiManager.showConfirm(this.app.t('messages.deleteProfileConfirm', { profileName }));
         if (!confirmed) {
             return;
         }
@@ -297,14 +297,14 @@ export class ProfileManager {
         try {
             const result = await this.app.profileService.deleteProfile(profileName);
             if (!result.success) {
-                await this.app.uiManager.showMessage('Ошибка', `Не удалось удалить профиль:\n${result.error}`);
+                await this.app.uiManager.showMessage(this.app.t('messages.error'), `${this.app.t('messages.failedToDeleteProfile')}\n${result.error}`);
                 return;
             }
             
             await this.refreshProfilesList();
-            await this.app.uiManager.showMessage('Успех', `Профиль '${profileName}' удален`);
+            await this.app.uiManager.showMessage(this.app.t('messages.success'), this.app.t('messages.profileDeleted', { profileName }));
         } catch (error) {
-            await this.app.uiManager.showMessage('Ошибка', `Не удалось удалить профиль:\n${error.message}`);
+            await this.app.uiManager.showMessage(this.app.t('messages.error'), `${this.app.t('messages.failedToDeleteProfile')}\n${error.message}`);
         }
     }
 }

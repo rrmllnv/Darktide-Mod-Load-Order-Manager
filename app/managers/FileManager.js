@@ -51,36 +51,36 @@ export class FileManager {
             await this.app.profileManager.initProfilesDirectory();
             
         } catch (error) {
-            await this.app.uiManager.showMessage('Ошибка', `Не удалось загрузить файл:\n${error.message}`);
+            await this.app.uiManager.showMessage(this.app.t('messages.error'), `${this.app.t('messages.fileLoadError')}\n${error.message}`);
             this.app.setStatus(`Ошибка: ${error.message}`);
         }
     }
     
     async saveFile() {
         if (this.app.modEntries.length === 0) {
-            await this.app.uiManager.showMessage('Ошибка', 'Нет модов для сохранения');
+            await this.app.uiManager.showMessage(this.app.t('messages.error'), this.app.t('messages.noModsToSave'));
             return;
         }
         
         try {
             await this.app.fileService.saveFile(this.app.filePath, this.app.headerLines, this.app.modEntries);
             
-            await this.app.uiManager.showMessage('Успех', 'Файл успешно сохранен!');
-            this.app.setStatus('Файл сохранен');
+            await this.app.uiManager.showMessage(this.app.t('messages.success'), this.app.t('messages.fileSaved'));
+            this.app.setStatus(this.app.t('messages.fileSavedStatus'));
             
             await this.loadFile();
             
         } catch (error) {
-            await this.app.uiManager.showMessage('Ошибка', `Не удалось сохранить файл:\n${error.message}`);
-            this.app.setStatus(`Ошибка сохранения: ${error.message}`);
+            await this.app.uiManager.showMessage(this.app.t('messages.error'), `${this.app.t('messages.fileSaveError')}\n${error.message}`);
+            this.app.setStatus(`${this.app.t('messages.saveError')} ${error.message}`);
         }
     }
     
     async reloadFile() {
-        const confirmed = await this.app.uiManager.showConfirm('Вернуться к исходному состоянию файла?\n\nВсе несохраненные изменения будут потеряны.');
+        const confirmed = await this.app.uiManager.showConfirm(this.app.t('messages.reloadConfirm'));
         if (confirmed) {
             await this.loadFile();
-            this.app.setStatus('Файл перезагружен. Состояние восстановлено из файла.');
+            this.app.setStatus(this.app.t('messages.fileReloaded'));
         }
     }
 }

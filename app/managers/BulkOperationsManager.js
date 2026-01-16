@@ -97,7 +97,7 @@ export class BulkOperationsManager {
             return;
         }
         
-        const confirmed = await this.app.uiManager.showConfirm(`Удалить ${selected.length} выбранных модов из списка?\n\nМоды будут удалены из файла при сохранении.`);
+        const confirmed = await this.app.uiManager.showConfirm(this.app.t('messages.deleteModsConfirm', { count: selected.length }));
         if (!confirmed) {
             return;
         }

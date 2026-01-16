@@ -33,25 +33,25 @@ export class ModManager {
         const parts = [];
         
         if (scanResult.added > 0) {
-            parts.push(`Найдено новых модов: ${scanResult.added}`);
+            parts.push(`${this.app.t('messages.scanNewMods')} ${scanResult.added}`);
         }
         if (scanResult.removed > 0) {
-            parts.push(`Удалено не найденных модов: ${scanResult.removed}`);
+            parts.push(`${this.app.t('messages.scanRemovedMods')} ${scanResult.removed}`);
         }
         if (scanResult.deleted > 0) {
-            parts.push(`Помечено как удаленные: ${scanResult.deleted}`);
+            parts.push(`${this.app.t('messages.scanDeletedMods')} ${scanResult.deleted}`);
         }
         if (scanResult.restored > 0) {
-            parts.push(`Восстановлено модов: ${scanResult.restored}`);
+            parts.push(`${this.app.t('messages.scanRestoredMods')} ${scanResult.restored}`);
         }
         
         if (parts.length > 0) {
             message = parts.join('\n');
         } else {
-            message = 'Изменений не обнаружено';
+            message = this.app.t('messages.scanNoChanges');
         }
         
-        this.app.uiManager.showMessage('Информация', message);
+        this.app.uiManager.showMessage(this.app.t('messages.info'), message);
     }
     
     updateModList(filterText = null) {
@@ -160,7 +160,7 @@ export class ModManager {
     async createSymlinkForMod() {
         const modsDir = this.app.filePath.substring(0, this.app.filePath.lastIndexOf('\\'));
         if (!modsDir) {
-            await this.app.uiManager.showMessage('Ошибка', 'Не удалось определить папку модов');
+            await this.app.uiManager.showMessage(this.app.t('messages.error'), this.app.t('messages.failedToDetermineModsDir'));
             return;
         }
         
@@ -173,14 +173,14 @@ export class ModManager {
         
         const targetExists = await window.electronAPI.fileExists(targetPath);
         if (!targetExists) {
-            await this.app.uiManager.showMessage('Ошибка', 'Выбранная папка не существует');
+            await this.app.uiManager.showMessage(this.app.t('messages.error'), this.app.t('messages.selectedFolderNotExists'));
             return;
         }
         
         const pathParts = targetPath.split('\\');
         const defaultModName = pathParts[pathParts.length - 1];
         
-        this.app.modalManager.showModal('Введите имя мода для симлинка:', defaultModName, async (modName) => {
+        this.app.modalManager.showModal(this.app.t('ui.enterModName'), defaultModName, async (modName) => {
             if (!modName || !modName.trim()) {
                 return;
             }
@@ -188,7 +188,7 @@ export class ModManager {
             const cleanModName = modName.trim();
             const linkPath = modsDir + '\\' + cleanModName;
             
-            const confirmed = await this.app.uiManager.showConfirm(`Создать символическую ссылку?\n\nИз: ${targetPath}\nВ: ${linkPath}\n\nИмя: ${cleanModName}`);
+            const confirmed = await this.app.uiManager.showConfirm(this.app.t('messages.createSymlinkConfirm', { targetPath, linkPath, modName: cleanModName }));
             if (!confirmed) {
                 return;
             }
@@ -196,7 +196,7 @@ export class ModManager {
             try {
                 const symlinkResult = await window.electronAPI.createSymlink(linkPath, targetPath);
                 if (!symlinkResult.success) {
-                    await this.app.uiManager.showMessage('Ошибка', `Не удалось создать символическую ссылку:\n${symlinkResult.error}`);
+                    await this.app.uiManager.showMessage(this.app.t('messages.error'), `${this.app.t('messages.failedToCreateSymlink')}\n${symlinkResult.error}`);
                     return;
                 }
                 
@@ -205,7 +205,7 @@ export class ModManager {
                 
                 await this.scanAndUpdate();
             } catch (error) {
-                await this.app.uiManager.showMessage('Ошибка', `Ошибка при создании символической ссылки:\n${error.message}`);
+                await this.app.uiManager.showMessage(this.app.t('messages.error'), `${this.app.t('messages.symlinkCreationError')}\n${error.message}`);
             }
         });
     }

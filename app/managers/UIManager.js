@@ -17,7 +17,7 @@ export class UIManager {
                 this.app.elements.messageOkBtn = document.getElementById('message-ok-btn');
             }
             
-            this.app.elements.messageTitle.textContent = title || 'Сообщение';
+            this.app.elements.messageTitle.textContent = title || this.app.t('ui.message');
             this.app.elements.messageText.textContent = message;
             this.app.elements.messageDialog.classList.add('show');
             
@@ -39,14 +39,14 @@ export class UIManager {
     // Показ подтверждения в модальном окне вместо confirm
     showConfirm(message) {
         return new Promise((resolve) => {
-            this.app.elements.messageTitle.textContent = 'Подтверждение';
+            this.app.elements.messageTitle.textContent = this.app.t('ui.confirmation');
             this.app.elements.messageText.textContent = message;
             
             // Заменяем кнопку OK на две кнопки Да/Нет
             const footer = this.app.elements.messageDialog.querySelector('.modal-footer');
             footer.innerHTML = `
-                <button id="confirm-yes-btn" class="btn btn-primary">Да</button>
-                <button id="confirm-no-btn" class="btn">Нет</button>
+                <button id="confirm-yes-btn" class="btn btn-primary">${this.app.t('ui.yes')}</button>
+                <button id="confirm-no-btn" class="btn">${this.app.t('ui.no')}</button>
             `;
             
             this.app.elements.messageDialog.classList.add('show');
@@ -91,10 +91,17 @@ export class UIManager {
         // Обновляем текст счетчика
         if (this.app.elements.bulkSelectionCount) {
             if (count === 0) {
-                this.app.elements.bulkSelectionCount.textContent = 'Нет выбранных модов';
+                this.app.elements.bulkSelectionCount.textContent = this.app.t('ui.noModsSelected');
             } else {
-                const modText = count === 1 ? 'мод' : count < 5 ? 'мода' : 'модов';
-                this.app.elements.bulkSelectionCount.textContent = `${count} ${modText} выбрано`;
+                let modText;
+                if (count === 1) {
+                    modText = this.app.t('ui.modSelected');
+                } else if (count < 5) {
+                    modText = this.app.t('ui.modsSelected');
+                } else {
+                    modText = this.app.t('ui.modsSelectedMany');
+                }
+                this.app.elements.bulkSelectionCount.textContent = `${count} ${modText}`;
             }
         }
         

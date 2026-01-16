@@ -7,6 +7,7 @@ import { ModalManager } from './ui/ModalManager.js';
 import { ModListRenderer } from './ui/ModListRenderer.js';
 import { EventBinder } from './ui/EventBinder.js';
 import { StatusManager } from './utils/StatusManager.js';
+import { LocaleManager } from './utils/LocaleManager.js';
 import { ConfigManager } from './managers/ConfigManager.js';
 import { FileManager } from './managers/FileManager.js';
 import { ProfileManager } from './managers/ProfileManager.js';
@@ -52,6 +53,7 @@ class ModLoadOrderManager {
         this.eventBinder = null;
         
         // Менеджеры функциональности
+        this.localeManager = new LocaleManager();
         this.configManager = new ConfigManager(this);
         this.fileManager = new FileManager(this);
         this.profileManager = new ProfileManager(this);
@@ -94,6 +96,7 @@ class ModLoadOrderManager {
             statusText: document.getElementById('status-text'),
             settingsDialog: document.getElementById('settings-dialog'),
             settingsThemeSelect: document.getElementById('settings-theme-select'),
+            settingsLocaleSelect: document.getElementById('settings-locale-select'),
             settingsOkBtn: document.getElementById('settings-ok-btn'),
             settingsCancelBtn: document.getElementById('settings-cancel-btn'),
             profileDialog: document.getElementById('profile-dialog'),
@@ -117,6 +120,18 @@ class ModLoadOrderManager {
         
         // Загружаем настройки
         await this.configManager.loadUserConfig();
+        
+        // Загружаем локализацию из настроек
+        const locale = this.userConfig?.locale || 'ru';
+        await this.localeManager.loadLocale(locale);
+        
+        // Применяем локализацию к интерфейсу
+        this.applyLocalization();
+        
+        // Обновляем элементы для выбора языка
+        if (this.elements.settingsLocaleSelect) {
+            this.elements.settingsLocaleSelect.value = locale;
+        }
         
         // Получаем путь по умолчанию
         this.defaultPath = await window.electronAPI.getDefaultPath();
@@ -258,6 +273,118 @@ class ModLoadOrderManager {
     
     updateBulkActionsPanel() {
         this.uiManager.updateBulkActionsPanel();
+    }
+    
+    // Применение локализации к интерфейсу
+    applyLocalization() {
+        const t = (key) => this.localeManager.t(key);
+        
+        // Основные элементы
+        if (this.elements.pathInput?.previousElementSibling) {
+            this.elements.pathInput.previousElementSibling.textContent = t('ui.file');
+        }
+        if (this.elements.browseBtn) this.elements.browseBtn.textContent = t('ui.browse');
+        if (this.elements.loadBtn) this.elements.loadBtn.textContent = t('ui.load');
+        if (this.elements.saveBtn) this.elements.saveBtn.textContent = t('ui.save');
+        if (this.elements.cancelBtn) this.elements.cancelBtn.textContent = t('ui.cancelChanges');
+        if (this.elements.statusText) this.elements.statusText.textContent = t('ui.ready');
+        
+        // Кнопки действий
+        if (this.elements.enableAllBtn) this.elements.enableAllBtn.title = t('ui.enableAll');
+        if (this.elements.disableAllBtn) this.elements.disableAllBtn.title = t('ui.disableAll');
+        if (this.elements.reloadFileBtn) this.elements.reloadFileBtn.title = t('ui.reloadFile');
+        if (this.elements.scanBtn) this.elements.scanBtn.title = t('ui.scan');
+        if (this.elements.settingsBtn) this.elements.settingsBtn.title = t('ui.settings');
+        
+        // Сортировка
+        const sortLabel = document.querySelector('.sort-label');
+        if (sortLabel) sortLabel.textContent = t('ui.sort');
+        
+        if (this.elements.sortSelect) {
+            const options = this.elements.sortSelect.options;
+            if (options[0]) options[0].textContent = t('ui.sortByFileOrder');
+            if (options[1]) options[1].textContent = t('ui.sortByName');
+            if (options[2]) options[2].textContent = t('ui.sortByStatus');
+            if (options[3]) options[3].textContent = t('ui.sortNewFirst');
+        }
+        
+        // Поиск
+        const searchLabel = document.querySelector('.search-label');
+        if (searchLabel) searchLabel.textContent = t('ui.search');
+        if (this.elements.searchInput) {
+            this.elements.searchInput.placeholder = t('ui.searchPlaceholder');
+        }
+        if (this.elements.clearSearchBtn) this.elements.clearSearchBtn.textContent = t('ui.clear');
+        
+        // Чекбоксы
+        const hideNewModsSpan = document.querySelector('#hide-new-mods-checkbox')?.nextElementSibling;
+        if (hideNewModsSpan) hideNewModsSpan.textContent = t('ui.hideNewMods');
+        const hideDeletedModsSpan = document.querySelector('#hide-deleted-mods-checkbox')?.nextElementSibling;
+        if (hideDeletedModsSpan) hideDeletedModsSpan.textContent = t('ui.hideDeletedMods');
+        const hideUnusedModsSpan = document.querySelector('#hide-unused-mods-checkbox')?.nextElementSibling;
+        if (hideUnusedModsSpan) hideUnusedModsSpan.textContent = t('ui.hideUnusedMods');
+        
+        // Действия
+        const addModLabel = document.querySelector('.symlink-frame .section-label');
+        if (addModLabel) addModLabel.textContent = t('ui.addMod');
+        if (this.elements.createSymlinkBtn) this.elements.createSymlinkBtn.textContent = t('ui.createSymlink');
+        
+        const actionsLabel = document.querySelector('#bulk-actions-panel .section-label');
+        if (actionsLabel) actionsLabel.textContent = t('ui.actions');
+        
+        if (this.elements.bulkEnableBtn) this.elements.bulkEnableBtn.title = t('ui.enableSelected');
+        if (this.elements.bulkDisableBtn) this.elements.bulkDisableBtn.title = t('ui.disableSelected');
+        if (this.elements.bulkDeleteBtn) this.elements.bulkDeleteBtn.title = t('ui.deleteSelected');
+        if (this.elements.bulkClearSelectionBtn) this.elements.bulkClearSelectionBtn.title = t('ui.clearSelection');
+        if (this.elements.bulkSelectEnabledBtn) this.elements.bulkSelectEnabledBtn.title = t('ui.selectEnabled');
+        if (this.elements.bulkSelectDisabledBtn) this.elements.bulkSelectDisabledBtn.title = t('ui.selectDisabled');
+        
+        // Профили
+        const profilesLabel = document.querySelector('.profiles-frame .section-label');
+        if (profilesLabel) profilesLabel.textContent = t('ui.profiles');
+        
+        if (this.elements.newProfileBtn) this.elements.newProfileBtn.title = t('ui.newProfile');
+        if (this.elements.loadProfileBtn) this.elements.loadProfileBtn.title = t('ui.loadProfile');
+        if (this.elements.overwriteProfileBtn) this.elements.overwriteProfileBtn.title = t('ui.overwriteProfile');
+        if (this.elements.renameProfileBtn) this.elements.renameProfileBtn.title = t('ui.renameProfile');
+        if (this.elements.deleteProfileBtn) this.elements.deleteProfileBtn.title = t('ui.deleteProfile');
+        
+        // Модальные окна
+        if (this.elements.modalTitle) this.elements.modalTitle.textContent = t('ui.enterProfileName');
+        if (this.elements.profileNameInput) this.elements.profileNameInput.placeholder = t('ui.profileNamePlaceholder');
+        if (this.elements.modalOkBtn) this.elements.modalOkBtn.textContent = t('ui.ok');
+        if (this.elements.modalCancelBtn) this.elements.modalCancelBtn.textContent = t('ui.cancel');
+        
+        if (this.elements.messageTitle) this.elements.messageTitle.textContent = t('ui.message');
+        if (this.elements.messageOkBtn) this.elements.messageOkBtn.textContent = t('ui.ok');
+        
+        const settingsTitle = document.querySelector('#settings-dialog .modal-title');
+        if (settingsTitle) settingsTitle.textContent = t('ui.settings');
+        const themeLabel = document.getElementById('settings-theme-label');
+        if (themeLabel) themeLabel.textContent = t('ui.theme');
+        
+        if (this.elements.settingsThemeSelect) {
+            const themeOptions = this.elements.settingsThemeSelect.options;
+            if (themeOptions[0]) themeOptions[0].textContent = t('ui.light');
+            if (themeOptions[1]) themeOptions[1].textContent = t('ui.dark');
+        }
+        
+        const localeLabel = document.getElementById('settings-locale-label');
+        if (localeLabel) localeLabel.textContent = t('ui.locale');
+        
+        if (this.elements.settingsLocaleSelect) {
+            const localeOptions = this.elements.settingsLocaleSelect.options;
+            if (localeOptions[0]) localeOptions[0].textContent = 'Русский';
+            if (localeOptions[1]) localeOptions[1].textContent = 'English';
+        }
+        
+        if (this.elements.settingsOkBtn) this.elements.settingsOkBtn.textContent = t('ui.ok');
+        if (this.elements.settingsCancelBtn) this.elements.settingsCancelBtn.textContent = t('ui.cancel');
+    }
+    
+    // Получить локализованную строку
+    t(key, params = {}) {
+        return this.localeManager.t(key, params);
     }
 }
 

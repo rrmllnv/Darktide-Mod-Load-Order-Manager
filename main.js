@@ -360,6 +360,7 @@ ipcMain.handle('load-user-config', async () => {
       const defaultUserConfig = {
         fileUrlModLoadOrder: '',
         theme: '',
+        locale: 'ru',
         hideNewMods: false,
         hideDeletedMods: false,
         hideUnusedMods: false

@@ -83,6 +83,11 @@ export class SettingsManager {
         if (this.app.elements.settingsThemeSelect) {
             this.app.elements.settingsThemeSelect.value = this.app.userConfig.theme || '';
         }
+        
+        // Применяем язык
+        if (this.app.elements.settingsLocaleSelect) {
+            this.app.elements.settingsLocaleSelect.value = this.app.userConfig.locale || 'ru';
+        }
     }
     
     // Сохранение настроек из формы
@@ -92,6 +97,7 @@ export class SettingsManager {
             this.app.userConfig = {
                 fileUrlModLoadOrder: '',
                 theme: '',
+                locale: 'ru',
                 hideNewMods: false,
                 hideDeletedMods: false,
                 hideUnusedMods: false
@@ -103,20 +109,36 @@ export class SettingsManager {
             this.app.userConfig.theme = this.app.elements.settingsThemeSelect.value || '';
         }
         
+        if (this.app.elements.settingsLocaleSelect) {
+            this.app.userConfig.locale = this.app.elements.settingsLocaleSelect.value || 'ru';
+        }
+        
         // Сохраняем настройки в файл
         this.app.configManager.saveUserConfig();
     }
     
     // Применение настроек к интерфейсу
-    applySettings() {
+    async applySettings() {
         if (!this.app.userConfig) {
             return;
+        }
+        
+        // Применяем язык
+        if (this.app.userConfig.locale !== undefined) {
+            await this.applyLocale(this.app.userConfig.locale);
         }
         
         // Применяем тему
         if (this.app.userConfig.theme !== undefined) {
             this.applyTheme(this.app.userConfig.theme);
         }
+    }
+    
+    // Применение языка
+    async applyLocale(locale) {
+        await this.app.localeManager.loadLocale(locale);
+        this.app.localeManager.setLocale(locale);
+        this.app.applyLocalization();
     }
     
     // Применение темы
