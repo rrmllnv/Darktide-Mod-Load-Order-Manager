@@ -7,6 +7,12 @@ import { ModalManager } from './ui/ModalManager.js';
 import { ModListRenderer } from './ui/ModListRenderer.js';
 import { EventBinder } from './ui/EventBinder.js';
 import { StatusManager } from './utils/StatusManager.js';
+import { ConfigManager } from './managers/ConfigManager.js';
+import { FileManager } from './managers/FileManager.js';
+import { ProfileManager } from './managers/ProfileManager.js';
+import { ModManager } from './managers/ModManager.js';
+import { UIManager } from './managers/UIManager.js';
+import { BulkOperationsManager } from './managers/BulkOperationsManager.js';
 
 // Главный класс приложения
 class ModLoadOrderManager {
@@ -43,6 +49,14 @@ class ModLoadOrderManager {
         this.modListRenderer = null;
         this.statusManager = null;
         this.eventBinder = null;
+        
+        // Менеджеры функциональности
+        this.configManager = new ConfigManager(this);
+        this.fileManager = new FileManager(this);
+        this.profileManager = new ProfileManager(this);
+        this.modManager = new ModManager(this);
+        this.uiManager = new UIManager(this);
+        this.bulkOperationsManager = new BulkOperationsManager(this);
         
         // Инициализация
         this.init();
@@ -95,35 +109,13 @@ class ModLoadOrderManager {
         };
         
         // Загружаем настройки
-        await this.loadUserConfig();
+        await this.configManager.loadUserConfig();
         
         // Получаем путь по умолчанию
         this.defaultPath = await window.electronAPI.getDefaultPath();
         
-        // Применяем сохраненный путь из настроек или используем путь по умолчанию
-        if (this.userConfig && this.userConfig.fileUrlModLoadOrder) {
-            this.filePath = this.userConfig.fileUrlModLoadOrder;
-        } else {
-            this.filePath = this.defaultPath;
-        }
-        this.elements.pathInput.value = this.filePath;
-        
-        // Применяем настройки чекбоксов
-        if (this.userConfig) {
-            this.hideNewMods = this.userConfig.hideNewMods || false;
-            this.hideDeletedMods = this.userConfig.hideDeletedMods || false;
-            this.hideUnusedMods = this.userConfig.hideUnusedMods || false;
-            
-            if (this.elements.hideNewModsCheckbox) {
-                this.elements.hideNewModsCheckbox.checked = this.hideNewMods;
-            }
-            if (this.elements.hideDeletedModsCheckbox) {
-                this.elements.hideDeletedModsCheckbox.checked = this.hideDeletedMods;
-            }
-            if (this.elements.hideUnusedModsCheckbox) {
-                this.elements.hideUnusedModsCheckbox.checked = this.hideUnusedMods;
-            }
-        }
+        // Применяем настройки
+        this.configManager.applyUserConfig();
         
         // Инициализация сервисов и менеджеров
         this.statusManager = new StatusManager(this.elements.statusText);
@@ -131,7 +123,7 @@ class ModLoadOrderManager {
         this.modalManager = new ModalManager(this.elements);
         
         // Инициализация папки профилей
-        await this.initProfilesDirectory();
+        await this.profileManager.initProfilesDirectory();
         
         // Инициализация сервиса сканирования
         this.modScanService = new ModScanService(this.filePath, (msg) => this.setStatus(msg));
@@ -141,11 +133,11 @@ class ModLoadOrderManager {
             this.elements,
             this.modEntries,
             {
-                onCheckboxChange: (modName) => this.onCheckboxChange(modName),
-                onModSelect: (modName, ctrlKey, shiftKey) => this.selectMod(modName, ctrlKey, shiftKey),
+                onCheckboxChange: (modName) => this.modManager.onCheckboxChange(modName),
+                onModSelect: (modName, ctrlKey, shiftKey) => this.modManager.selectMod(modName, ctrlKey, shiftKey),
                 onDrop: () => {
                     const searchText = this.elements.searchInput.value;
-                    this.updateModList(searchText);
+                    this.modManager.updateModList(searchText);
                 },
                 getSelectedMods: () => Array.from(this.selectedModNames),
                 getLastSelectedIndex: () => this.lastSelectedModIndex,
@@ -170,979 +162,94 @@ class ModLoadOrderManager {
             if (!e.target.closest('.mod-item') && !e.target.closest('#mods-list')) {
                 // Очищаем выбор только если не кликнули по кнопкам массовых действий
                 if (!e.target.closest('#bulk-actions-panel') && !e.target.closest('.btn-icon')) {
-                    this.clearSelection();
+                    this.modManager.clearSelection();
                 }
             }
         });
         
         // Привязка событий
         this.eventBinder = new EventBinder(this.elements, {
-            browseFile: () => this.browseFile(),
-            loadFile: () => this.loadFile(),
-            onSortChange: () => this.onSortChange(),
-            enableAll: () => this.enableAll(),
-            disableAll: () => this.disableAll(),
-            scanAndUpdate: () => this.scanAndUpdate(),
-            onSearchChange: () => this.onSearchChange(),
-            clearSearch: () => this.clearSearch(),
+            browseFile: () => this.fileManager.browseFile(),
+            loadFile: () => this.fileManager.loadFile(),
+            onSortChange: () => this.modManager.onSortChange(),
+            enableAll: () => this.modManager.enableAll(),
+            disableAll: () => this.modManager.disableAll(),
+            scanAndUpdate: () => this.modManager.scanAndUpdate(),
+            onSearchChange: () => this.modManager.onSearchChange(),
+            clearSearch: () => this.modManager.clearSearch(),
             onHideNewModsChange: (checked) => {
                 this.hideNewMods = checked;
                 const searchText = this.elements.searchInput.value;
-                this.updateModList(searchText);
-                this.saveUserConfig();
+                this.modManager.updateModList(searchText);
+                this.configManager.saveUserConfig();
             },
             onHideUnusedModsChange: (checked) => {
                 this.hideUnusedMods = checked;
                 const searchText = this.elements.searchInput.value;
-                this.updateModList(searchText);
-                this.saveUserConfig();
+                this.modManager.updateModList(searchText);
+                this.configManager.saveUserConfig();
             },
             onHideDeletedModsChange: (checked) => {
                 this.hideDeletedMods = checked;
                 const searchText = this.elements.searchInput.value;
-                this.updateModList(searchText);
-                this.saveUserConfig();
+                this.modManager.updateModList(searchText);
+                this.configManager.saveUserConfig();
             },
-            createSymlinkForMod: () => this.createSymlinkForMod(),
-            saveCurrentProfile: () => this.saveCurrentProfile(),
-            overwriteSelectedProfile: () => this.overwriteSelectedProfile(),
-            loadSelectedProfile: () => this.loadSelectedProfile(),
-            reloadFile: () => this.reloadFile(),
-            renameSelectedProfile: () => this.renameSelectedProfile(),
-            deleteSelectedProfile: () => this.deleteSelectedProfile(),
-            saveFile: () => this.saveFile(),
-            bulkSelectEnabled: () => this.bulkSelectEnabled(),
-            bulkSelectDisabled: () => this.bulkSelectDisabled(),
-            bulkEnable: () => this.bulkEnable(),
-            bulkDisable: () => this.bulkDisable(),
-            bulkDelete: () => this.bulkDelete(),
-            bulkClearSelection: () => this.clearSelection()
+            createSymlinkForMod: () => this.modManager.createSymlinkForMod(),
+            saveCurrentProfile: () => this.profileManager.saveCurrentProfile(),
+            overwriteSelectedProfile: () => this.profileManager.overwriteSelectedProfile(),
+            loadSelectedProfile: () => this.profileManager.loadSelectedProfile(),
+            reloadFile: () => this.fileManager.reloadFile(),
+            renameSelectedProfile: () => this.profileManager.renameSelectedProfile(),
+            deleteSelectedProfile: () => this.profileManager.deleteSelectedProfile(),
+            saveFile: () => this.fileManager.saveFile(),
+            bulkSelectEnabled: () => this.bulkOperationsManager.bulkSelectEnabled(),
+            bulkSelectDisabled: () => this.bulkOperationsManager.bulkSelectDisabled(),
+            bulkEnable: () => this.bulkOperationsManager.bulkEnable(),
+            bulkDisable: () => this.bulkOperationsManager.bulkDisable(),
+            bulkDelete: () => this.bulkOperationsManager.bulkDelete(),
+            bulkClearSelection: () => this.modManager.clearSelection()
         });
         
         // Загрузка файла при старте
-        await this.loadFile();
+        await this.fileManager.loadFile();
     }
     
-    async initProfilesDirectory() {
-        try {
-            const modsDir = this.filePath ? this.filePath.substring(0, this.filePath.lastIndexOf('\\')) : '';
-            if (!modsDir) {
-                const defaultModsDir = this.defaultPath.substring(0, this.defaultPath.lastIndexOf('\\'));
-                const result = await window.electronAPI.getProfilesDirectory(defaultModsDir);
-                if (result.success) {
-                    this.profilesDir = result.path;
-                }
-            } else {
-                const result = await window.electronAPI.getProfilesDirectory(modsDir);
-                if (result.success) {
-                    this.profilesDir = result.path;
-                }
-            }
-            
-            // Инициализация сервиса профилей
-            this.profileService = new ProfileService(this.profilesDir);
-            
-            // Обновляем список профилей
-            await this.refreshProfilesList();
-        } catch (error) {
-            console.error('Ошибка инициализации папки профилей:', error);
-        }
-    }
-    
-    async loadUserConfig() {
-        try {
-            const result = await window.electronAPI.loadUserConfig();
-            if (result.success) {
-                this.userConfig = result.userConfig;
-            } else {
-                // Если не удалось загрузить, создаем настройки по умолчанию
-                this.userConfig = {
-                    fileUrlModLoadOrder: '',
-                    theme: '',
-                    hideNewMods: false,
-                    hideDeletedMods: false,
-                    hideUnusedMods: false
-                };
-            }
-        } catch (error) {
-            console.error('Ошибка загрузки настроек:', error);
-            this.userConfig = {
-                fileUrlModLoadOrder: '',
-                theme: '',
-                hideNewMods: false,
-                hideDeletedMods: false,
-                hideUnusedMods: false
-            };
-        }
-    }
-    
-    async saveUserConfig() {
-        try {
-            if (!this.userConfig) {
-                this.userConfig = {
-                    fileUrlModLoadOrder: '',
-                    theme: '',
-                    hideNewMods: false,
-                    hideDeletedMods: false,
-                    hideUnusedMods: false
-                };
-            }
-            
-            // Обновляем текущие значения
-            this.userConfig.fileUrlModLoadOrder = this.filePath || '';
-            this.userConfig.hideNewMods = this.hideNewMods;
-            this.userConfig.hideDeletedMods = this.hideDeletedMods;
-            this.userConfig.hideUnusedMods = this.hideUnusedMods;
-            
-            const result = await window.electronAPI.saveUserConfig(this.userConfig);
-            if (!result.success) {
-                console.error('Ошибка сохранения настроек:', result.error);
-            }
-        } catch (error) {
-            console.error('Ошибка сохранения настроек:', error);
-        }
-    }
-    
-    async browseFile() {
-        const result = await window.electronAPI.selectFile(this.filePath);
-        if (result.success && !result.canceled) {
-            this.filePath = result.filePath;
-            this.elements.pathInput.value = this.filePath;
-            await this.saveUserConfig(); // Сохраняем новый путь
-            await this.loadFile();
-        }
-    }
-    
-    async loadFile() {
-        this.filePath = this.elements.pathInput.value;
-        await this.saveUserConfig(); // Сохраняем путь при загрузке файла
-        
-        try {
-            const parsed = await this.fileService.loadFile(this.filePath);
-            this.headerLines = parsed.headerLines;
-            this.modEntries = parsed.modEntries;
-            
-            // Обновляем ссылку на modEntries в рендерере
-            if (this.modListRenderer) {
-                this.modListRenderer.modEntries = this.modEntries;
-            }
-            
-            // Обновляем сервис сканирования с новым путем
-            this.modScanService = new ModScanService(this.filePath, (msg) => this.setStatus(msg));
-            
-            // Сканирование папки модов для поиска новых модов
-            const scanResult = await this.modScanService.scanModsDirectory(this.modEntries, this.selectedModName);
-            this.selectedModName = scanResult.selectedModName;
-            
-            // Обновляем ссылку на modEntries в рендерере после сканирования
-            if (this.modListRenderer) {
-                this.modListRenderer.modEntries = this.modEntries;
-            }
-            
-            // Обновление интерфейса
-            this.clearSelection(); // Очищаем выбор при загрузке файла
-            this.updateModList();
-            this.updateStatistics();
-            
-            // Обновляем папку профилей после загрузки файла
-            await this.initProfilesDirectory();
-            
-        } catch (error) {
-            await this.showMessage('Ошибка', `Не удалось загрузить файл:\n${error.message}`);
-            this.setStatus(`Ошибка: ${error.message}`);
-        }
-    }
-    
-    async scanAndUpdate() {
-        const scanResult = await this.modScanService.scanModsDirectory(this.modEntries, this.selectedModName);
-        this.selectedModName = scanResult.selectedModName;
-        
-        // Обновляем ссылку на modEntries в рендерере после сканирования
-        if (this.modListRenderer) {
-            this.modListRenderer.modEntries = this.modEntries;
-        }
-        
-        // Очищаем выбор удаленных модов
-        if (scanResult.removed > 0) {
-            const currentSelected = Array.from(this.selectedModNames);
-            currentSelected.forEach(modName => {
-                if (!this.modEntries.find(m => m.name === modName)) {
-                    this.selectedModNames.delete(modName);
-                }
-            });
-        }
-        
-        // Обновляем интерфейс
-        const searchText = this.elements.searchInput.value;
-        this.updateModList(searchText);
-        this.updateStatistics();
-        
-        // Показываем результат
-        let message = '';
-        const parts = [];
-        
-        if (scanResult.added > 0) {
-            parts.push(`Найдено новых модов: ${scanResult.added}`);
-        }
-        if (scanResult.removed > 0) {
-            parts.push(`Удалено не найденных модов: ${scanResult.removed}`);
-        }
-        if (scanResult.deleted > 0) {
-            parts.push(`Помечено как удаленные: ${scanResult.deleted}`);
-        }
-        if (scanResult.restored > 0) {
-            parts.push(`Восстановлено модов: ${scanResult.restored}`);
-        }
-        
-        if (parts.length > 0) {
-            message = parts.join('\n');
-        } else {
-            message = 'Изменений не обнаружено';
-        }
-        
-        this.showMessage('Информация', message);
-    }
-    
-    updateModList(filterText = null) {
-        this.modListRenderer.updateModList(
-            filterText,
-            this.hideNewMods,
-            this.hideUnusedMods,
-            this.hideDeletedMods,
-            this.selectedModName,
-            this.selectedModNames
-        );
-        this.updateStatistics();
-        this.updateBulkActionsPanel();
-    }
-    
-    onSortChange() {
-        const searchText = this.elements.searchInput.value;
-        this.updateModList(searchText);
-    }
-    
+    // Методы для обратной совместимости и делегирования
     onCheckboxChange(modName) {
-        const modEntry = this.modEntries.find(m => m.name === modName);
-        if (modEntry && modEntry.statusElement) {
-            modEntry.statusElement.textContent = modEntry.enabled ? '✓' : '✗';
-            modEntry.statusElement.className = `mod-status ${modEntry.enabled ? 'enabled' : 'disabled'}`;
-        }
-        
-        this.updateStatistics();
-        
-        if (this.selectedModName === modName) {
-            this.selectMod(modName);
-        }
+        this.modManager.onCheckboxChange(modName);
     }
     
     selectMod(modName, ctrlKey = false, shiftKey = false) {
-        // Получаем индекс текущего мода в отфильтрованном списке
-        const filteredMods = this.modListRenderer.filteredModEntries || [];
-        const currentIndex = filteredMods.findIndex(m => m.name === modName);
-        
-        if (shiftKey && this.lastSelectedModIndex !== -1) {
-            // Shift+Click - выбираем диапазон
-            const startIndex = Math.min(this.lastSelectedModIndex, currentIndex);
-            const endIndex = Math.max(this.lastSelectedModIndex, currentIndex);
-            
-            for (let i = startIndex; i <= endIndex; i++) {
-                if (filteredMods[i]) {
-                    this.selectedModNames.add(filteredMods[i].name);
-                }
-            }
-        } else if (ctrlKey) {
-            // Ctrl+Click - переключаем выбор
-            if (this.selectedModNames.has(modName)) {
-                this.selectedModNames.delete(modName);
-            } else {
-                this.selectedModNames.add(modName);
-            }
-        } else {
-            // Обычный клик - одиночный выбор
-            this.selectedModNames.clear();
-            this.selectedModNames.add(modName);
-            this.selectedModName = modName; // Для совместимости
-        }
-        
-        // Обновляем lastSelectedModIndex
-        if (currentIndex !== -1) {
-            this.lastSelectedModIndex = currentIndex;
-            if (this.modListRenderer.callbacks.setLastSelectedIndex) {
-                this.modListRenderer.callbacks.setLastSelectedIndex(currentIndex);
-            }
-        }
-        
-        // Обновляем визуальное выделение
-        this.updateModListSelection();
-        
-        // Обновляем информацию о выбранном моде (для одиночного выбора)
-        if (this.selectedModNames.size === 1) {
-            const singleMod = Array.from(this.selectedModNames)[0];
-            this.selectedModName = singleMod;
-        } else {
-            this.selectedModName = '';
-        }
-        
-        this.updateBulkActionsPanel();
+        this.modManager.selectMod(modName, ctrlKey, shiftKey);
     }
     
-    // Обновление визуального выделения выбранных модов
     updateModListSelection() {
-        this.modEntries.forEach(modEntry => {
-            if (modEntry.modItem) {
-                if (this.selectedModNames.has(modEntry.name)) {
-                    modEntry.modItem.classList.add('selected');
-                } else {
-                    modEntry.modItem.classList.remove('selected');
-                }
-            }
-        });
+        this.modManager.updateModListSelection();
     }
     
-    // Очистка множественного выбора
     clearSelection() {
-        this.selectedModNames.clear();
-        this.selectedModName = '';
-        this.lastSelectedModIndex = -1;
-        this.updateModListSelection();
-        this.updateBulkActionsPanel();
-    }
-    
-    
-    async createSymlinkForMod() {
-        const modsDir = this.filePath.substring(0, this.filePath.lastIndexOf('\\'));
-        if (!modsDir) {
-            await this.showMessage('Ошибка', 'Не удалось определить папку модов');
-            return;
-        }
-        
-        const result = await window.electronAPI.selectFolder('');
-        if (!result.success || result.canceled) {
-            return;
-        }
-        
-        const targetPath = result.folderPath;
-        
-        const targetExists = await window.electronAPI.fileExists(targetPath);
-        if (!targetExists) {
-            await this.showMessage('Ошибка', 'Выбранная папка не существует');
-            return;
-        }
-        
-        const pathParts = targetPath.split('\\');
-        const defaultModName = pathParts[pathParts.length - 1];
-        
-        this.modalManager.showModal('Введите имя мода для симлинка:', defaultModName, async (modName) => {
-            if (!modName || !modName.trim()) {
-                return;
-            }
-            
-            const cleanModName = modName.trim();
-            const linkPath = modsDir + '\\' + cleanModName;
-            
-            const confirmed = await this.showConfirm(`Создать символическую ссылку?\n\nИз: ${targetPath}\nВ: ${linkPath}\n\nИмя: ${cleanModName}`);
-            if (!confirmed) {
-                return;
-            }
-            
-            try {
-                const symlinkResult = await window.electronAPI.createSymlink(linkPath, targetPath);
-                if (!symlinkResult.success) {
-                    await this.showMessage('Ошибка', `Не удалось создать символическую ссылку:\n${symlinkResult.error}`);
-                    return;
-                }
-                
-                await this.showMessage('Успех', `Символическая ссылка успешно создана!\n\n${linkPath} -> ${targetPath}`);
-                this.setStatus(`Символическая ссылка создана: ${cleanModName}`);
-                
-                await this.scanAndUpdate();
-            } catch (error) {
-                await this.showMessage('Ошибка', `Ошибка при создании символической ссылки:\n${error.message}`);
-            }
-        });
+        this.modManager.clearSelection();
     }
     
     updateStatistics() {
         this.statusManager.updateStatistics(this.modEntries);
     }
     
-    
-    onSearchChange() {
-        const searchText = this.elements.searchInput.value;
-        this.updateModList(searchText);
-    }
-    
-    clearSearch() {
-        this.elements.searchInput.value = '';
-        this.updateModList();
-    }
-    
-    enableAll() {
-        this.modEntries.forEach(modEntry => {
-            modEntry.enabled = true;
-            if (modEntry.checkbox) {
-                modEntry.checkbox.checked = true;
-            }
-        });
-        const searchText = this.elements.searchInput.value;
-        this.updateModList(searchText);
-    }
-    
-    disableAll() {
-        this.modEntries.forEach(modEntry => {
-            modEntry.enabled = false;
-            if (modEntry.checkbox) {
-                modEntry.checkbox.checked = false;
-            }
-        });
-        const searchText = this.elements.searchInput.value;
-        this.updateModList(searchText);
-    }
-    
-    async saveFile() {
-        if (this.modEntries.length === 0) {
-            await this.showMessage('Ошибка', 'Нет модов для сохранения');
-            return;
-        }
-        
-        try {
-            await this.fileService.saveFile(this.filePath, this.headerLines, this.modEntries);
-            
-            await this.showMessage('Успех', 'Файл успешно сохранен!');
-            this.setStatus('Файл сохранен');
-            
-            await this.loadFile();
-            
-        } catch (error) {
-            await this.showMessage('Ошибка', `Не удалось сохранить файл:\n${error.message}`);
-            this.setStatus(`Ошибка сохранения: ${error.message}`);
-        }
-    }
-    
-    saveCurrentState() {
-        return this.profileService.saveState(this.modEntries);
-    }
-    
-    restoreState(state) {
-        const result = this.profileService.restoreState(state, this.modEntries);
-        this.modEntries = result.modEntries;
-        
-        // Очищаем все старые ссылки на DOM элементы, чтобы они не мешали
-        this.modEntries.forEach(modEntry => {
-            modEntry.checkbox = null;
-            modEntry.statusElement = null;
-            modEntry.modItem = null;
-        });
-        
-        // Обновляем ссылку на modEntries в рендерере
-        if (this.modListRenderer) {
-            this.modListRenderer.modEntries = this.modEntries;
-        }
-        
-        // Очищаем выбор при восстановлении состояния
-        this.clearSelection();
-        
-        const searchText = this.elements.searchInput.value;
-        this.updateModList(searchText);
-        this.updateStatistics();
-    }
-    
-    async refreshProfilesList() {
-        if (!this.profilesDir) {
-            await this.initProfilesDirectory();
-        }
-        
-        this.elements.profilesList.innerHTML = '';
-        
-        if (!this.profilesDir) {
-            return;
-        }
-        
-        try {
-            const result = await this.profileService.listProfiles();
-            if (result.success) {
-                result.profiles.forEach(profileName => {
-                    const option = document.createElement('option');
-                    option.value = profileName;
-                    option.textContent = profileName;
-                    this.elements.profilesList.appendChild(option);
-                });
-            }
-        } catch (error) {
-            console.error('Ошибка обновления списка профилей:', error);
-        }
-    }
-    
-    async saveCurrentProfile() {
-        if (!this.profilesDir) {
-            await this.initProfilesDirectory();
-        }
-        
-        if (!this.profilesDir) {
-            await this.showMessage('Ошибка', 'Не удалось определить папку для профилей');
-            return;
-        }
-        
-        this.modalManager.showModal('Введите имя профиля:', '', async (profileName) => {
-            if (!profileName) {
-                return;
-            }
-            
-            const cleanName = profileName.replace(/[^a-zA-Z0-9\s\-_]/g, '').trim();
-            if (!cleanName) {
-                await this.showMessage('Ошибка', 'Недопустимое имя профиля');
-                return;
-            }
-            
-            try {
-                const state = this.saveCurrentState();
-                const result = await this.profileService.saveProfile(cleanName, state);
-                
-                if (!result.success) {
-                    await this.showMessage('Ошибка', `Не удалось сохранить профиль:\n${result.error}`);
-                    return;
-                }
-                
-                await this.refreshProfilesList();
-                await this.showMessage('Успех', `Профиль '${cleanName}' сохранен`);
-            } catch (error) {
-                await this.showMessage('Ошибка', `Не удалось сохранить профиль:\n${error.message}`);
-            }
-        });
-    }
-    
-    async loadSelectedProfile() {
-        if (!this.profilesDir) {
-            await this.initProfilesDirectory();
-        }
-        
-        if (!this.profilesDir) {
-            await this.showMessage('Ошибка', 'Не удалось определить папку для профилей');
-            return;
-        }
-        
-        const selectedIndex = this.elements.profilesList.selectedIndex;
-        if (selectedIndex === -1) {
-            await this.showMessage('Ошибка', 'Выберите профиль из списка');
-            return;
-        }
-        
-        const profileName = this.elements.profilesList.options[selectedIndex].value;
-        
-        try {
-            const result = await this.profileService.loadProfile(profileName);
-            if (!result.success) {
-                await this.showMessage('Ошибка', `Не удалось загрузить профиль:\n${result.error}`);
-                return;
-            }
-            
-            this.restoreState(result.state);
-            
-            // Обновляем ссылку на modEntries в рендерере после восстановления
-            if (this.modListRenderer) {
-                this.modListRenderer.modEntries = this.modEntries;
-            }
-            
-            // Сканируем папку модов после загрузки профиля
-            const scanResult = await this.modScanService.scanModsDirectory(this.modEntries, this.selectedModName);
-            this.selectedModName = scanResult.selectedModName;
-            
-            // Обновляем ссылку на modEntries в рендерере после сканирования
-            if (this.modListRenderer) {
-                this.modListRenderer.modEntries = this.modEntries;
-            }
-            
-            // Очищаем выбор удаленных модов
-            if (scanResult.removed > 0) {
-                const currentSelected = Array.from(this.selectedModNames);
-                currentSelected.forEach(modName => {
-                    if (!this.modEntries.find(m => m.name === modName)) {
-                        this.selectedModNames.delete(modName);
-                    }
-                });
-            }
-            
-            const searchText = this.elements.searchInput.value;
-            this.updateModList(searchText);
-            this.updateStatistics();
-            
-            await this.showMessage('Успех', `Профиль '${profileName}' загружен`);
-        } catch (error) {
-            await this.showMessage('Ошибка', `Не удалось загрузить профиль:\n${error.message}`);
-        }
-    }
-    
-    async reloadFile() {
-        const confirmed = await this.showConfirm('Вернуться к исходному состоянию файла?\n\nВсе несохраненные изменения будут потеряны.');
-        if (confirmed) {
-            await this.loadFile();
-            this.setStatus('Файл перезагружен. Состояние восстановлено из файла.');
-        }
-    }
-    
-    async renameSelectedProfile() {
-        if (!this.profilesDir) {
-            await this.initProfilesDirectory();
-        }
-        
-        if (!this.profilesDir) {
-            await this.showMessage('Ошибка', 'Не удалось определить папку для профилей');
-            return;
-        }
-        
-        const selectedIndex = this.elements.profilesList.selectedIndex;
-        if (selectedIndex === -1) {
-            await this.showMessage('Ошибка', 'Выберите профиль из списка');
-            return;
-        }
-        
-        const oldProfileName = this.elements.profilesList.options[selectedIndex].value;
-        
-        this.modalManager.showModal(`Введите новое имя для профиля '${oldProfileName}':`, oldProfileName, async (newProfileName) => {
-            if (!newProfileName) {
-                return;
-            }
-            
-            const cleanName = newProfileName.replace(/[^a-zA-Z0-9\s\-_]/g, '').trim();
-            if (!cleanName) {
-                await this.showMessage('Ошибка', 'Недопустимое имя профиля');
-                return;
-            }
-            
-            if (cleanName === oldProfileName) {
-                return;
-            }
-            
-            try {
-                const result = await this.profileService.renameProfile(oldProfileName, cleanName);
-                if (!result.success) {
-                    await this.showMessage('Ошибка', `Не удалось переименовать профиль:\n${result.error}`);
-                    return;
-                }
-                
-                await this.refreshProfilesList();
-                await this.showMessage('Успех', `Профиль '${oldProfileName}' переименован в '${cleanName}'`);
-            } catch (error) {
-                await this.showMessage('Ошибка', `Не удалось переименовать профиль:\n${error.message}`);
-            }
-        });
-    }
-    
-    async overwriteSelectedProfile() {
-        if (!this.profilesDir) {
-            await this.initProfilesDirectory();
-        }
-        
-        if (!this.profilesDir) {
-            await this.showMessage('Ошибка', 'Не удалось определить папку для профилей');
-            return;
-        }
-        
-        const selectedIndex = this.elements.profilesList.selectedIndex;
-        if (selectedIndex === -1) {
-            await this.showMessage('Ошибка', 'Выберите профиль из списка для перезаписи');
-            return;
-        }
-        
-        const profileName = this.elements.profilesList.options[selectedIndex].value;
-        
-        const confirmed = await this.showConfirm(`Перезаписать профиль '${profileName}' текущим состоянием?`);
-        if (!confirmed) {
-            return;
-        }
-        
-        try {
-            const state = this.saveCurrentState();
-            const result = await this.profileService.saveProfile(profileName, state);
-            
-            if (!result.success) {
-                await this.showMessage('Ошибка', `Не удалось перезаписать профиль:\n${result.error}`);
-                return;
-            }
-            
-            await this.showMessage('Успех', `Профиль '${profileName}' перезаписан`);
-        } catch (error) {
-            await this.showMessage('Ошибка', `Не удалось перезаписать профиль:\n${error.message}`);
-        }
-    }
-    
-    async deleteSelectedProfile() {
-        if (!this.profilesDir) {
-            await this.initProfilesDirectory();
-        }
-        
-        if (!this.profilesDir) {
-            await this.showMessage('Ошибка', 'Не удалось определить папку для профилей');
-            return;
-        }
-        
-        const selectedIndex = this.elements.profilesList.selectedIndex;
-        if (selectedIndex === -1) {
-            await this.showMessage('Ошибка', 'Выберите профиль из списка');
-            return;
-        }
-        
-        const profileName = this.elements.profilesList.options[selectedIndex].value;
-        
-        const confirmed = await this.showConfirm(`Удалить профиль '${profileName}'?`);
-        if (!confirmed) {
-            return;
-        }
-        
-        try {
-            const result = await this.profileService.deleteProfile(profileName);
-            if (!result.success) {
-                await this.showMessage('Ошибка', `Не удалось удалить профиль:\n${result.error}`);
-                return;
-            }
-            
-            await this.refreshProfilesList();
-            await this.showMessage('Успех', `Профиль '${profileName}' удален`);
-        } catch (error) {
-            await this.showMessage('Ошибка', `Не удалось удалить профиль:\n${error.message}`);
-        }
-    }
-    
     setStatus(message) {
         this.statusManager.setStatus(message);
     }
     
-    // Показ сообщения в модальном окне вместо alert
     showMessage(title, message) {
-        return new Promise((resolve) => {
-            // Восстанавливаем кнопку OK на случай, если она была заменена
-            const footer = this.elements.messageDialog.querySelector('.modal-footer');
-            if (!footer.querySelector('#message-ok-btn')) {
-                footer.innerHTML = '<button id="message-ok-btn" class="btn btn-primary">OK</button>';
-                this.elements.messageOkBtn = document.getElementById('message-ok-btn');
-            } else {
-                // Обновляем ссылку на кнопку, если она уже есть
-                this.elements.messageOkBtn = document.getElementById('message-ok-btn');
-            }
-            
-            this.elements.messageTitle.textContent = title || 'Сообщение';
-            this.elements.messageText.textContent = message;
-            this.elements.messageDialog.classList.add('show');
-            
-            // Удаляем старые обработчики, если есть
-            const newOkBtn = this.elements.messageOkBtn.cloneNode(true);
-            this.elements.messageOkBtn.parentNode.replaceChild(newOkBtn, this.elements.messageOkBtn);
-            this.elements.messageOkBtn = newOkBtn;
-            
-            const handleOk = () => {
-                this.elements.messageDialog.classList.remove('show');
-                this.elements.messageOkBtn.removeEventListener('click', handleOk);
-                resolve();
-            };
-            
-            this.elements.messageOkBtn.addEventListener('click', handleOk);
-        });
+        return this.uiManager.showMessage(title, message);
     }
     
-    // Показ подтверждения в модальном окне вместо confirm
     showConfirm(message) {
-        return new Promise((resolve) => {
-            this.elements.messageTitle.textContent = 'Подтверждение';
-            this.elements.messageText.textContent = message;
-            
-            // Заменяем кнопку OK на две кнопки Да/Нет
-            const footer = this.elements.messageDialog.querySelector('.modal-footer');
-            footer.innerHTML = `
-                <button id="confirm-yes-btn" class="btn btn-primary">Да</button>
-                <button id="confirm-no-btn" class="btn">Нет</button>
-            `;
-            
-            this.elements.messageDialog.classList.add('show');
-            
-            const yesBtn = document.getElementById('confirm-yes-btn');
-            const noBtn = document.getElementById('confirm-no-btn');
-            
-            const handleYes = () => {
-                this.elements.messageDialog.classList.remove('show');
-                // Восстанавливаем кнопку OK
-                footer.innerHTML = '<button id="message-ok-btn" class="btn btn-primary">OK</button>';
-                this.elements.messageOkBtn = document.getElementById('message-ok-btn');
-                yesBtn.removeEventListener('click', handleYes);
-                noBtn.removeEventListener('click', handleNo);
-                resolve(true);
-            };
-            
-            const handleNo = () => {
-                this.elements.messageDialog.classList.remove('show');
-                // Восстанавливаем кнопку OK
-                footer.innerHTML = '<button id="message-ok-btn" class="btn btn-primary">OK</button>';
-                this.elements.messageOkBtn = document.getElementById('message-ok-btn');
-                yesBtn.removeEventListener('click', handleYes);
-                noBtn.removeEventListener('click', handleNo);
-                resolve(false);
-            };
-            
-            yesBtn.addEventListener('click', handleYes);
-            noBtn.addEventListener('click', handleNo);
-        });
+        return this.uiManager.showConfirm(message);
     }
     
-    // Обновление панели массовых действий
     updateBulkActionsPanel() {
-        if (!this.elements.bulkActionsPanel) {
-            return;
-        }
-        
-        const count = this.selectedModNames.size;
-        const hasSelection = count >= 1;
-        
-        // Обновляем текст счетчика
-        if (this.elements.bulkSelectionCount) {
-            if (count === 0) {
-                this.elements.bulkSelectionCount.textContent = 'Нет выбранных модов';
-            } else {
-                const modText = count === 1 ? 'мод' : count < 5 ? 'мода' : 'модов';
-                this.elements.bulkSelectionCount.textContent = `${count} ${modText} выбрано`;
-            }
-        }
-        
-        // Делаем кнопки активными/неактивными в зависимости от выбора
-        if (this.elements.bulkEnableBtn) {
-            this.elements.bulkEnableBtn.disabled = !hasSelection;
-        }
-        if (this.elements.bulkDisableBtn) {
-            this.elements.bulkDisableBtn.disabled = !hasSelection;
-        }
-        if (this.elements.bulkDeleteBtn) {
-            this.elements.bulkDeleteBtn.disabled = !hasSelection;
-        }
-        if (this.elements.bulkClearSelectionBtn) {
-            this.elements.bulkClearSelectionBtn.disabled = !hasSelection;
-        }
-        
-        // Добавляем/убираем класс для визуального отображения неактивного состояния
-        if (hasSelection) {
-            this.elements.bulkActionsPanel.classList.remove('disabled');
-        } else {
-            this.elements.bulkActionsPanel.classList.add('disabled');
-        }
-    }
-    
-    // Выделить все включенные моды
-    bulkSelectEnabled() {
-        this.selectedModNames.clear();
-        this.selectedModName = '';
-        this.lastSelectedModIndex = -1;
-        
-        this.modEntries.forEach(modEntry => {
-            if (modEntry.enabled) {
-                this.selectedModNames.add(modEntry.name);
-            }
-        });
-        
-        // Обновляем визуальное выделение
-        this.updateModListSelection();
-        
-        this.updateBulkActionsPanel();
-    }
-    
-    // Выделить все выключенные моды
-    bulkSelectDisabled() {
-        this.selectedModNames.clear();
-        this.selectedModName = '';
-        this.lastSelectedModIndex = -1;
-        
-        this.modEntries.forEach(modEntry => {
-            if (!modEntry.enabled) {
-                this.selectedModNames.add(modEntry.name);
-            }
-        });
-        
-        // Обновляем визуальное выделение
-        this.updateModListSelection();
-        
-        this.updateBulkActionsPanel();
-    }
-    
-    // Массовое включение выбранных модов
-    bulkEnable() {
-        const selected = Array.from(this.selectedModNames);
-        if (selected.length === 0) {
-            return;
-        }
-        
-        selected.forEach(modName => {
-            const modEntry = this.modEntries.find(m => m.name === modName);
-            if (modEntry) {
-                modEntry.enabled = true;
-                if (modEntry.checkbox) {
-                    modEntry.checkbox.checked = true;
-                }
-                if (modEntry.statusElement) {
-                    modEntry.statusElement.textContent = '✓';
-                    modEntry.statusElement.className = 'mod-status enabled';
-                }
-            }
-        });
-        
-        this.updateStatistics();
-        this.setStatus(`Включено модов: ${selected.length}`);
-    }
-    
-    // Массовое выключение выбранных модов
-    bulkDisable() {
-        const selected = Array.from(this.selectedModNames);
-        if (selected.length === 0) {
-            return;
-        }
-        
-        selected.forEach(modName => {
-            const modEntry = this.modEntries.find(m => m.name === modName);
-            if (modEntry) {
-                modEntry.enabled = false;
-                if (modEntry.checkbox) {
-                    modEntry.checkbox.checked = false;
-                }
-                if (modEntry.statusElement) {
-                    modEntry.statusElement.textContent = '✗';
-                    modEntry.statusElement.className = 'mod-status disabled';
-                }
-            }
-        });
-        
-        this.updateStatistics();
-        this.setStatus(`Выключено модов: ${selected.length}`);
-    }
-    
-    // Массовое удаление выбранных модов
-    async bulkDelete() {
-        const selected = Array.from(this.selectedModNames);
-        if (selected.length === 0) {
-            return;
-        }
-        
-        const confirmed = await this.showConfirm(`Удалить ${selected.length} выбранных модов из списка?\n\nМоды будут удалены из файла при сохранении.`);
-        if (!confirmed) {
-            return;
-        }
-        
-        // Удаляем моды из списка
-        selected.forEach(modName => {
-            const modIndex = this.modEntries.findIndex(m => m.name === modName);
-            if (modIndex !== -1) {
-                this.modEntries.splice(modIndex, 1);
-            }
-        });
-        
-        // Обновляем ссылку в рендерере
-        if (this.modListRenderer) {
-            this.modListRenderer.modEntries = this.modEntries;
-        }
-        
-        // Очищаем выбор
-        this.clearSelection();
-        
-        // Обновляем интерфейс
-        const searchText = this.elements.searchInput.value;
-        this.updateModList(searchText);
-        this.updateStatistics();
-        
-        this.setStatus(`Удалено модов: ${selected.length}. Не забудьте сохранить файл.`);
+        this.uiManager.updateBulkActionsPanel();
     }
 }
 
