@@ -67,21 +67,7 @@ export class ConfigManager {
         }
         this.app.elements.pathInput.value = this.app.filePath;
         
-        // Применяем настройки чекбоксов
-        if (this.app.userConfig) {
-            this.app.hideNewMods = this.app.userConfig.hideNewMods || false;
-            this.app.hideDeletedMods = this.app.userConfig.hideDeletedMods || false;
-            this.app.hideUnusedMods = this.app.userConfig.hideUnusedMods || false;
-            
-            if (this.app.elements.hideNewModsCheckbox) {
-                this.app.elements.hideNewModsCheckbox.checked = this.app.hideNewMods;
-            }
-            if (this.app.elements.hideDeletedModsCheckbox) {
-                this.app.elements.hideDeletedModsCheckbox.checked = this.app.hideDeletedMods;
-            }
-            if (this.app.elements.hideUnusedModsCheckbox) {
-                this.app.elements.hideUnusedModsCheckbox.checked = this.app.hideUnusedMods;
-            }
-        }
+        // Применяем остальные настройки через SettingsManager
+        this.app.settingsManager.applyAllSettings();
     }
 }

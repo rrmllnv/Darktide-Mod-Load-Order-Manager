@@ -161,6 +161,9 @@
 
     <!-- Фрейм для кнопок сохранения -->
     <div class="save-frame">
+        <button id="settings-btn" class="btn-icon" title="Настройки">
+            <i class="fas fa-cog"></i>
+        </button>
         <button id="save-btn" class="btn btn-primary">Сохранить</button>
         <button id="cancel-btn" class="btn">Отменить изменения</button>
     </div>
@@ -197,6 +200,27 @@
             </div>
             <div class="modal-footer">
                 <button id="message-ok-btn" class="btn btn-primary">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно для настроек -->
+    <div id="settings-dialog" class="modal">
+        <div class="modal-content modal-content-settings">
+            <div class="modal-header">
+                <span class="modal-title">Настройки</span>
+            </div>
+            <div class="modal-body">
+                <div class="settings-section">
+                    <label class="settings-label">Тема:</label>
+                    <select id="settings-theme-select" class="settings-input">
+                        <option value="">По умолчанию</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="settings-ok-btn" class="btn btn-primary">OK</button>
+                <button id="settings-cancel-btn" class="btn">Отмена</button>
             </div>
         </div>
     </div>

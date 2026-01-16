@@ -13,6 +13,7 @@ import { ProfileManager } from './managers/ProfileManager.js';
 import { ModManager } from './managers/ModManager.js';
 import { UIManager } from './managers/UIManager.js';
 import { BulkOperationsManager } from './managers/BulkOperationsManager.js';
+import { SettingsManager } from './managers/SettingsManager.js';
 
 // Главный класс приложения
 class ModLoadOrderManager {
@@ -57,6 +58,7 @@ class ModLoadOrderManager {
         this.modManager = new ModManager(this);
         this.uiManager = new UIManager(this);
         this.bulkOperationsManager = new BulkOperationsManager(this);
+        this.settingsManager = new SettingsManager(this);
         
         // Инициализация
         this.init();
@@ -88,7 +90,12 @@ class ModLoadOrderManager {
             deleteProfileBtn: document.getElementById('delete-profile-btn'),
             saveBtn: document.getElementById('save-btn'),
             cancelBtn: document.getElementById('cancel-btn'),
+            settingsBtn: document.getElementById('settings-btn'),
             statusText: document.getElementById('status-text'),
+            settingsDialog: document.getElementById('settings-dialog'),
+            settingsThemeSelect: document.getElementById('settings-theme-select'),
+            settingsOkBtn: document.getElementById('settings-ok-btn'),
+            settingsCancelBtn: document.getElementById('settings-cancel-btn'),
             profileDialog: document.getElementById('profile-dialog'),
             modalTitle: document.getElementById('modal-title'),
             profileNameInput: document.getElementById('profile-name-input'),
@@ -203,6 +210,7 @@ class ModLoadOrderManager {
             renameSelectedProfile: () => this.profileManager.renameSelectedProfile(),
             deleteSelectedProfile: () => this.profileManager.deleteSelectedProfile(),
             saveFile: () => this.fileManager.saveFile(),
+            openSettings: () => this.settingsManager.openSettings(),
             bulkSelectEnabled: () => this.bulkOperationsManager.bulkSelectEnabled(),
             bulkSelectDisabled: () => this.bulkOperationsManager.bulkSelectDisabled(),
             bulkEnable: () => this.bulkOperationsManager.bulkEnable(),

@@ -506,11 +506,19 @@ body {
 /* Фрейм для кнопок сохранения */
 .save-frame {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: center;
     padding: 10px;
     background-color: #ffffff;
     border-top: 1px solid #d0d0d0;
     gap: 5px;
+}
+
+.save-frame .btn-icon {
+    margin-right: auto;
+    width: auto;
+    min-width: 35px;
+    flex-shrink: 0;
 }
 
 /* Статус бар */
@@ -584,6 +592,35 @@ body {
 /* Модальное окно для сообщений */
 .modal-content-message {
     width: 450px;
+}
+
+/* Модальное окно для настроек */
+.modal-content-settings {
+    width: 500px;
+}
+
+.settings-section {
+    margin-bottom: 20px;
+}
+
+.settings-section:last-child {
+    margin-bottom: 0;
+}
+
+.settings-label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.settings-input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 13px;
+    box-sizing: border-box;
 }
 
 .message-text {
