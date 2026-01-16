@@ -19,11 +19,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/rrmllnv/darktide-mods.git"
+    "url": "https://github.com/rrmllnv/Darktide-Mod-Load-Order-Manager.git"
   },
-  "homepage": "https://github.com/rrmllnv/darktide-mods",
+  "homepage": "https://github.com/rrmllnv/Darktide-Mod-Load-Order-Manager",
   "bugs": {
-    "url": "https://github.com/rrmllnv/darktide-mods/issues"
+    "url": "https://github.com/rrmllnv/Darktide-Mod-Load-Order-Manager/issues"
   },
   "contributors": [],
   "private": true,
