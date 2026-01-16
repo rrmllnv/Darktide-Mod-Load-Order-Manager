@@ -113,16 +113,24 @@ export class SettingsManager {
             return;
         }
         
-        // Применяем тему (если будет реализована)
-        if (this.app.userConfig.theme) {
+        // Применяем тему
+        if (this.app.userConfig.theme !== undefined) {
             this.applyTheme(this.app.userConfig.theme);
         }
     }
     
-    // Применение темы (заглушка для будущей реализации)
+    // Применение темы
     applyTheme(theme) {
-        // Здесь будет логика применения темы
-        // Пока оставляем пустым
+        const body = document.body;
+        
+        // Удаляем все классы тем
+        body.classList.remove('dark-theme');
+        
+        // Применяем выбранную тему
+        if (theme === 'dark') {
+            body.classList.add('dark-theme');
+        }
+        // Если theme пустая или 'light', применяется светлая тема (по умолчанию)
     }
     
     // Применение всех настроек при загрузке приложения
@@ -153,8 +161,8 @@ export class SettingsManager {
             }
         }
         
-        // Применяем тему (если будет реализована)
-        if (this.app.userConfig.theme) {
+        // Применяем тему
+        if (this.app.userConfig.theme !== undefined) {
             this.applyTheme(this.app.userConfig.theme);
         }
     }
