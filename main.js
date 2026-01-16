@@ -165,30 +165,34 @@ ipcMain.handle('scan-mods-directory', async (event, modsDir) => {
 
 // Получить путь к папке профилей
 ipcMain.handle('get-profiles-directory', async (event, modsDir) => {
+  // Приоритет 1: AppData (Roaming) - стандартное место для пользовательских данных
   try {
-    let profilesDir = path.join(modsDir, 'ModLoadOrderManager_profiles');
-    
-    // Пытаемся создать папку
-    if (!existsSync(profilesDir)) {
-      try {
-        await fs.mkdir(profilesDir, { recursive: true });
-      } catch (error) {
-        // Если нет прав, используем папку рядом с программой
-        profilesDir = path.join(__dirname, 'profiles');
-        await fs.mkdir(profilesDir, { recursive: true });
-      }
-    }
-
+    const userDataDir = app.getPath('userData');
+    const profilesDir = path.join(userDataDir, 'profiles');
+    await fs.mkdir(profilesDir, { recursive: true });
     return { success: true, path: profilesDir };
   } catch (error) {
-    try {
-      // Последняя попытка - папка рядом с программой
-      const profilesDir = path.join(__dirname, 'profiles');
+    // Если не получилось создать в AppData, пробуем следующий вариант
+  }
+
+  // Приоритет 2: Рядом с mod_load_order.txt (если указана папка модов)
+  try {
+    if (modsDir) {
+      const profilesDir = path.join(modsDir, 'ModLoadOrderManager_profiles');
       await fs.mkdir(profilesDir, { recursive: true });
       return { success: true, path: profilesDir };
-    } catch (error2) {
-      return { success: false, error: error2.message };
     }
+  } catch (error) {
+    // Если не получилось, пробуем следующий вариант
+  }
+
+  // Приоритет 3: Рядом с программой (последний fallback)
+  try {
+    const profilesDir = path.join(__dirname, 'profiles');
+    await fs.mkdir(profilesDir, { recursive: true });
+    return { success: true, path: profilesDir };
+  } catch (error2) {
+    return { success: false, error: error2.message };
   }
 });
 
