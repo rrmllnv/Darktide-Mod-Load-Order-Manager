@@ -314,7 +314,7 @@ class ModLoadOrderManager {
         if (this.elements.searchInput) {
             this.elements.searchInput.placeholder = t('ui.searchPlaceholder');
         }
-        if (this.elements.clearSearchBtn) this.elements.clearSearchBtn.textContent = t('ui.clear');
+        if (this.elements.clearSearchBtn) this.elements.clearSearchBtn.title = t('ui.clear');
         
         // Чекбоксы
         const hideNewModsSpan = document.querySelector('#hide-new-mods-checkbox')?.nextElementSibling;

@@ -24,12 +24,36 @@
     margin-bottom: 5px;
 }
 
-.search-input {
-    width: 100%;
-    padding: 5px;
+.search-input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 5px;
     margin-bottom: 5px;
+}
+
+.search-input {
+    flex: 1;
+    padding: 5px;
     border: 1px solid #ccc;
     border-radius: 3px;
+    height: 28px;
+    box-sizing: border-box;
+}
+
+.search-input-wrapper .btn-icon {
+    width: auto;
+    min-width: 30px;
+    padding: 5px 8px;
+    flex-shrink: 0;
+    height: 28px;
+    min-height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-input-wrapper .btn-icon i {
+    font-size: 12px;
 }
 
 .hide-new-mods-frame,
