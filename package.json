@@ -43,7 +43,10 @@
       "output": "dist"
     },
     "files": [
-      "**/*",
+      "main.js",
+      "preload.js",
+      "app/**/*",
+      "LICENSE.txt",
       "!node_modules/**/*",
       "!dist/**/*",
       "!.git/**/*",
