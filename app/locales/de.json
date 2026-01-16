@@ -41,6 +41,17 @@
         "light": "Hell",
         "dark": "Dunkel",
         "locale": "Sprache:",
+        "languageNames": {
+            "en": "Englisch",
+            "ru": "Russisch",
+            "de": "Deutsch",
+            "fr": "Französisch",
+            "it": "Italienisch",
+            "pt": "Portugiesisch",
+            "ko": "Koreanisch",
+            "zh": "Chinesisch",
+            "ja": "Japanisch"
+        },
         "ok": "OK",
         "cancel": "Abbrechen",
         "yes": "Ja",

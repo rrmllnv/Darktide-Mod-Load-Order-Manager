@@ -41,6 +41,17 @@
         "light": "Light",
         "dark": "Dark",
         "locale": "Language:",
+        "languageNames": {
+            "en": "English",
+            "ru": "Russian",
+            "de": "German",
+            "fr": "French",
+            "it": "Italian",
+            "pt": "Portuguese",
+            "ko": "Korean",
+            "zh": "Chinese",
+            "ja": "Japanese"
+        },
         "ok": "OK",
         "cancel": "Cancel",
         "yes": "Yes",

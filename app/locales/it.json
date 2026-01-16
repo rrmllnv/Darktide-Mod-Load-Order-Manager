@@ -41,6 +41,17 @@
         "light": "Chiaro",
         "dark": "Scuro",
         "locale": "Lingua:",
+        "languageNames": {
+            "en": "Inglese",
+            "ru": "Russo",
+            "de": "Tedesco",
+            "fr": "Francese",
+            "it": "Italiano",
+            "pt": "Portoghese",
+            "ko": "Coreano",
+            "zh": "Cinese",
+            "ja": "Giapponese"
+        },
         "ok": "OK",
         "cancel": "Annulla",
         "yes": "Sì",

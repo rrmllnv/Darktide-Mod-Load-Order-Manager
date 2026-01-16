@@ -374,15 +374,58 @@ class ModLoadOrderManager {
         
         if (this.elements.settingsLocaleSelect) {
             const localeOptions = this.elements.settingsLocaleSelect.options;
-            if (localeOptions[0]) localeOptions[0].textContent = 'English';
-            if (localeOptions[1]) localeOptions[1].textContent = 'Русский (Russian)';
-            if (localeOptions[2]) localeOptions[2].textContent = 'Deutsch (German)';
-            if (localeOptions[3]) localeOptions[3].textContent = 'Français (French)';
-            if (localeOptions[4]) localeOptions[4].textContent = 'Italiano (Italian)';
-            if (localeOptions[5]) localeOptions[5].textContent = 'Português (Portuguese)';
-            if (localeOptions[6]) localeOptions[6].textContent = '한국어 (Korean)';
-            if (localeOptions[7]) localeOptions[7].textContent = '中文 (Chinese)';
-            if (localeOptions[8]) localeOptions[8].textContent = '日本語 (Japanese)';
+            const langNames = this.localeManager.translations.ui?.languageNames || {};
+            
+            // Названия языков на их родном языке
+            const nativeNames = {
+                'en': 'English',
+                'ru': 'Русский',
+                'de': 'Deutsch',
+                'fr': 'Français',
+                'it': 'Italiano',
+                'pt': 'Português',
+                'ko': '한국어',
+                'zh': '中文',
+                'ja': '日本語'
+            };
+            
+            // Формируем текст для каждого языка: родное название + (название на текущем языке)
+            if (localeOptions[0]) {
+                const enName = langNames['en'] || 'English';
+                localeOptions[0].textContent = `English (${enName})`;
+            }
+            if (localeOptions[1]) {
+                const ruName = langNames['ru'] || 'Russian';
+                localeOptions[1].textContent = `${nativeNames['ru']} (${ruName})`;
+            }
+            if (localeOptions[2]) {
+                const deName = langNames['de'] || 'German';
+                localeOptions[2].textContent = `${nativeNames['de']} (${deName})`;
+            }
+            if (localeOptions[3]) {
+                const frName = langNames['fr'] || 'French';
+                localeOptions[3].textContent = `${nativeNames['fr']} (${frName})`;
+            }
+            if (localeOptions[4]) {
+                const itName = langNames['it'] || 'Italian';
+                localeOptions[4].textContent = `${nativeNames['it']} (${itName})`;
+            }
+            if (localeOptions[5]) {
+                const ptName = langNames['pt'] || 'Portuguese';
+                localeOptions[5].textContent = `${nativeNames['pt']} (${ptName})`;
+            }
+            if (localeOptions[6]) {
+                const koName = langNames['ko'] || 'Korean';
+                localeOptions[6].textContent = `${nativeNames['ko']} (${koName})`;
+            }
+            if (localeOptions[7]) {
+                const zhName = langNames['zh'] || 'Chinese';
+                localeOptions[7].textContent = `${nativeNames['zh']} (${zhName})`;
+            }
+            if (localeOptions[8]) {
+                const jaName = langNames['ja'] || 'Japanese';
+                localeOptions[8].textContent = `${nativeNames['ja']} (${jaName})`;
+            }
         }
         
         if (this.elements.settingsOkBtn) this.elements.settingsOkBtn.textContent = t('ui.ok');
