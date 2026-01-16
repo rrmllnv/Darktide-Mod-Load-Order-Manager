@@ -1,0 +1,38 @@
+/* Стили для панели массовых действий */
+.bulk-actions-frame {
+    padding: 10px;
+    background-color: #fff3cd;
+    border: 1px solid #ffc107;
+    border-radius: 3px;
+    margin-bottom: 10px;
+}
+
+.bulk-actions-buttons {
+    display: flex;
+    gap: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.bulk-actions-buttons .btn-icon {
+    flex: 1;
+    min-width: 40px;
+}
+
+.bulk-actions-info {
+    font-size: 11px;
+    color: #856404;
+    text-align: center;
+    margin-top: 5px;
+}
+
+.bulk-actions-frame.disabled {
+    opacity: 0.6;
+    background-color: #f5f5f5;
+    border-color: #ccc;
+}
+
+.bulk-actions-frame.disabled .bulk-actions-buttons button {
+    cursor: not-allowed;
+    opacity: 0.5;
+}

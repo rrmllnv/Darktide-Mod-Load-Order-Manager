@@ -1,0 +1,125 @@
+/* Стили для всех кнопок */
+/* Кнопки */
+.btn {
+    padding: 5px 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background-color 0.2s;
+}
+
+.btn:hover {
+    background-color: #e0e0e0;
+}
+
+.btn:active {
+    background-color: #d0d0d0;
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    background-color: #0078d4;
+    color: white;
+    border-color: #0078d4;
+}
+
+.btn-primary:hover {
+    background-color: #0063b1;
+}
+
+.btn-icon {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 35px;
+}
+
+.btn-icon:hover {
+    background-color: #e0e0e0;
+}
+
+.btn-icon:active {
+    background-color: #d0d0d0;
+}
+
+.btn-icon:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-icon i {
+    font-size: 16px;
+    color: #333;
+}
+
+.btn-action {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 35px;
+}
+
+.btn-action:hover {
+    background-color: #e0e0e0;
+}
+
+.btn-action:active {
+    background-color: #d0d0d0;
+}
+
+.btn-action:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-action i {
+    font-size: 16px;
+    color: #333;
+}
+
+.btn-full {
+    width: 100%;
+    margin-bottom: 2px;
+    padding: 5px 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background-color 0.2s;
+}
+
+.btn-full:hover {
+    background-color: #e0e0e0;
+}
+
+.btn-full:active {
+    background-color: #d0d0d0;
+}
+
+.btn-full:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

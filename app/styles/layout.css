@@ -1,0 +1,140 @@
+/* Основные контейнеры и layout */
+/* Фрейм для пути к файлу */
+.path-frame {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #d0d0d0;
+    gap: 5px;
+}
+
+.path-frame label {
+    margin-right: 5px;
+}
+
+.path-input {
+    flex: 1;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+/* Основной контейнер */
+.main-container {
+    display: flex;
+    flex: 1;
+    padding: 10px;
+    gap: 10px;
+    overflow: hidden;
+}
+
+/* Левая панель */
+.left-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.header-frame {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+    gap: 5px;
+}
+
+.sort-frame {
+    margin-left: auto;
+}
+
+.header-label {
+    font-weight: bold;
+    font-size: 10pt;
+}
+
+.button-frame {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.button-frame .btn-icon {
+    width: auto;
+    min-width: 35px;
+    padding: 5px 10px;
+}
+
+.selection-buttons-frame {
+    margin-left: 10px;
+}
+
+.sort-label {
+    font-size: 8pt;
+    margin-right: 2px;
+}
+
+.sort-combo {
+    width: 160px;
+    padding: 8px;
+    margin-right: 2px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    font-size: 13px;
+    transition: background-color 0.2s;
+    min-height: 35px;
+    box-sizing: border-box;
+}
+
+.sort-combo:hover {
+    background-color: #e0e0e0;
+}
+
+.sort-combo:focus {
+    outline: 2px solid #0078d4;
+    outline-offset: -2px;
+    border-color: #0078d4;
+}
+
+.btn-small {
+    padding: 3px 8px;
+    font-size: 11px;
+    margin-left: 2px;
+}
+
+/* Правая панель */
+.right-container {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+/* Фрейм для кнопок сохранения */
+.save-frame {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #ffffff;
+    border-top: 1px solid #d0d0d0;
+    gap: 5px;
+}
+
+.save-frame .btn-icon {
+    margin-right: auto;
+    width: auto;
+    min-width: 35px;
+    flex-shrink: 0;
+}
+
+/* Статус бар */
+.status-bar {
+    padding: 5px 10px;
+    background-color: #e0e0e0;
+    border-top: 1px solid #ccc;
+    font-size: 11px;
+}

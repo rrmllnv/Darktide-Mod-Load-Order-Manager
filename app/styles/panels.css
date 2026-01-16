@@ -1,0 +1,151 @@
+/* Стили для панелей (поиск, информация, профили) */
+.search-panel,
+.info-panel {
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 10px;
+}
+
+.search-panel {
+    display: flex;
+    flex-direction: column;
+}
+
+.panel-title {
+    font-weight: bold;
+    font-size: 9pt;
+    margin-bottom: 10px;
+}
+
+.search-label {
+    font-weight: bold;
+    font-size: 9pt;
+    margin-bottom: 5px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.hide-new-mods-frame,
+.hide-unused-mods-frame {
+    margin-top: 8px;
+}
+
+.hide-new-mods-label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    font-size: 11px;
+    user-select: none;
+}
+
+.hide-new-mods-label input[type="checkbox"] {
+    cursor: pointer;
+    margin: 0;
+}
+
+.info-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.stats-frame,
+.info-frame {
+    display: flex;
+    flex-direction: column;
+}
+
+.section-label {
+    font-weight: bold;
+    font-size: 9pt;
+    margin-bottom: 5px;
+}
+
+.stat-item {
+    font-size: 8pt;
+    margin: 2px 0;
+}
+
+.stat-enabled {
+    color: green;
+}
+
+.stat-disabled {
+    color: red;
+}
+
+.separator {
+    height: 1px;
+    background-color: #d0d0d0;
+    margin: 10px 0;
+}
+
+.mod-info {
+    font-size: 8pt;
+    margin-bottom: 10px;
+    word-wrap: break-word;
+    line-height: 1.4;
+}
+
+.symlink-frame {
+    margin-bottom: 10px;
+}
+
+.sort-buttons-frame,
+.profiles-frame {
+    margin-bottom: 10px;
+}
+
+.buttons-row {
+    display: flex;
+    gap: 2px;
+    margin-bottom: 2px;
+}
+
+.btn-half {
+    flex: 1;
+}
+
+.btn-third {
+    flex: 1;
+}
+
+.profiles-list {
+    width: 100%;
+    margin-bottom: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 8pt;
+    padding: 0;
+}
+
+.profiles-list option {
+    padding: 5px;
+}
+
+.profile-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.profile-buttons-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 5px;
+}
+
+.profile-column {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
