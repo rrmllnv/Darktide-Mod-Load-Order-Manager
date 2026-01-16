@@ -14,12 +14,13 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 980,
     height: 900,
+    icon: path.join(__dirname, 'app', 'icons', 'darktide-icon.ico'), // Иконка в заголовке окна
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
       preload: path.join(__dirname, 'preload.js')
     },
-    title: 'Mod Load Order Manager',
+    title: 'Darktide Mod Load Order Manager',
     autoHideMenuBar: true // Скрываем стандартное меню Electron
   });
 
