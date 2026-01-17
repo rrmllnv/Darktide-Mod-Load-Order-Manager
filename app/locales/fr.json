@@ -96,6 +96,7 @@
         "enterNewProfileName": "Entrez le nouveau nom pour le profil '{oldProfileName}':",
         "invalidProfileName": "Nom de profil invalide",
         "profileSaved": "Profil '{profileName}' enregistré",
+        "profileLoaded": "Profil '{profileName}' chargé",
         "profileRenamed": "Profil '{oldProfileName}' renommé en '{newProfileName}'",
         "profileOverwritten": "Profil '{profileName}' écrasé",
         "profileDeleted": "Profil '{profileName}' supprimé",

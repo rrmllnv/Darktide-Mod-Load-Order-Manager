@@ -96,6 +96,7 @@
         "enterNewProfileName": "프로필 '{oldProfileName}'의 새 이름 입력:",
         "invalidProfileName": "잘못된 프로필 이름",
         "profileSaved": "프로필 '{profileName}' 저장됨",
+        "profileLoaded": "프로필 '{profileName}' 로드됨",
         "profileRenamed": "프로필 '{oldProfileName}'이(가) '{newProfileName}'(으)로 이름 변경됨",
         "profileOverwritten": "프로필 '{profileName}' 덮어쓰기됨",
         "profileDeleted": "프로필 '{profileName}' 삭제됨",

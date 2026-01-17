@@ -96,6 +96,7 @@
         "enterNewProfileName": "Neuen Namen für Profil '{oldProfileName}' eingeben:",
         "invalidProfileName": "Ungültiger Profilname",
         "profileSaved": "Profil '{profileName}' gespeichert",
+        "profileLoaded": "Profil '{profileName}' geladen",
         "profileRenamed": "Profil '{oldProfileName}' umbenannt in '{newProfileName}'",
         "profileOverwritten": "Profil '{profileName}' überschrieben",
         "profileDeleted": "Profil '{profileName}' gelöscht",

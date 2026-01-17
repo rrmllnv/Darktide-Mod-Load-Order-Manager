@@ -96,6 +96,7 @@
         "enterNewProfileName": "プロファイル '{oldProfileName}' の新しい名前を入力:",
         "invalidProfileName": "無効なプロファイル名",
         "profileSaved": "プロファイル '{profileName}' が保存されました",
+        "profileLoaded": "プロファイル '{profileName}' が読み込まれました",
         "profileRenamed": "プロファイル '{oldProfileName}' が '{newProfileName}' に名前変更されました",
         "profileOverwritten": "プロファイル '{profileName}' が上書きされました",
         "profileDeleted": "プロファイル '{profileName}' が削除されました",

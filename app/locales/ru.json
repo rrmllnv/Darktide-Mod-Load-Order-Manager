@@ -96,6 +96,7 @@
         "enterNewProfileName": "Введите новое имя для профиля '{oldProfileName}':",
         "invalidProfileName": "Недопустимое имя профиля",
         "profileSaved": "Профиль '{profileName}' сохранен",
+        "profileLoaded": "Профиль '{profileName}' загружен",
         "profileRenamed": "Профиль '{oldProfileName}' переименован в '{newProfileName}'",
         "profileOverwritten": "Профиль '{profileName}' перезаписан",
         "profileDeleted": "Профиль '{profileName}' удален",

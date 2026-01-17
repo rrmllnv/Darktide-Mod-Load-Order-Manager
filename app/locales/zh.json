@@ -96,6 +96,7 @@
         "enterNewProfileName": "输入配置文件 '{oldProfileName}' 的新名称:",
         "invalidProfileName": "无效的配置文件名称",
         "profileSaved": "配置文件 '{profileName}' 已保存",
+        "profileLoaded": "配置文件 '{profileName}' 已加载",
         "profileRenamed": "配置文件 '{oldProfileName}' 已重命名为 '{newProfileName}'",
         "profileOverwritten": "配置文件 '{profileName}' 已覆盖",
         "profileDeleted": "配置文件 '{profileName}' 已删除",

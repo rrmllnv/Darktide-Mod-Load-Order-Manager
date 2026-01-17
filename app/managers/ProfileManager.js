@@ -179,7 +179,7 @@ export class ProfileManager {
             this.app.modManager.updateModList(searchText);
             this.app.updateStatistics();
             
-            await this.app.uiManager.showMessage(this.app.t('messages.success'), this.app.t('messages.profileSaved', { profileName }));
+            await this.app.uiManager.showMessage(this.app.t('messages.success'), this.app.t('messages.profileLoaded', { profileName }));
         } catch (error) {
                 await this.app.uiManager.showMessage(this.app.t('messages.error'), `${this.app.t('messages.failedToLoadProfile')}\n${error.message}`);
         }
