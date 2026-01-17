@@ -139,6 +139,12 @@ export class SettingsManager {
         await this.app.localeManager.loadLocale(locale);
         this.app.localeManager.setLocale(locale);
         this.app.applyLocalization();
+        
+        // Обновляем список модов, чтобы применились новые переводы флагов
+        if (this.app.modListRenderer && this.app.elements.searchInput) {
+            const searchText = this.app.elements.searchInput.value;
+            this.app.modManager.updateModList(searchText);
+        }
     }
     
     // Применение темы
