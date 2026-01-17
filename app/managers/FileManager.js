@@ -12,12 +12,56 @@ export class FileManager {
             this.app.elements.pathInput.value = this.app.filePath;
             await this.app.configManager.saveUserConfig();
             await this.loadFile();
+            await this.updateOpenFileButton();
+        }
+    }
+    
+    async openFile() {
+        if (!this.app.filePath) {
+            await this.app.uiManager.showMessage(this.app.t('messages.error'), this.app.t('messages.filePathNotSet'));
+            return;
+        }
+        
+        const result = await window.electronAPI.openFile(this.app.filePath);
+        if (!result.success) {
+            await this.app.uiManager.showMessage(this.app.t('messages.error'), result.error || this.app.t('messages.failedToOpenFile'));
+        }
+    }
+    
+    async openModsFolder() {
+        if (!this.app.filePath) {
+            await this.app.uiManager.showMessage(this.app.t('messages.error'), this.app.t('messages.filePathNotSet'));
+            return;
+        }
+        
+        const modsDir = this.app.filePath.substring(0, this.app.filePath.lastIndexOf('\\'));
+        if (!modsDir) {
+            await this.app.uiManager.showMessage(this.app.t('messages.error'), this.app.t('messages.failedToDetermineModsDir'));
+            return;
+        }
+        
+        const result = await window.electronAPI.openFolder(modsDir);
+        if (!result.success) {
+            await this.app.uiManager.showMessage(this.app.t('messages.error'), result.error || this.app.t('messages.failedToOpenFolder'));
+        }
+    }
+    
+    async updateOpenFileButton() {
+        if (this.app.elements.openFileBtn) {
+            if (this.app.filePath) {
+                const fileExists = await window.electronAPI.fileExists(this.app.filePath);
+                this.app.elements.openFileBtn.style.display = fileExists ? 'inline-block' : 'none';
+            } else {
+                this.app.elements.openFileBtn.style.display = 'none';
+            }
         }
     }
     
     async loadFile() {
         this.app.filePath = this.app.elements.pathInput.value;
         await this.app.configManager.saveUserConfig();
+        
+        await this.updateOpenFileButton();
         
         try {
             const parsed = await this.app.fileService.loadFile(this.app.filePath);

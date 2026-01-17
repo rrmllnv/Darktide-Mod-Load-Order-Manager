@@ -8,6 +8,22 @@ export class EventBinder {
     bindAll() {
         this.elements.browseBtn.addEventListener('click', () => this.callbacks.browseFile());
         
+        if (this.elements.openFileBtn) {
+            this.elements.openFileBtn.addEventListener('click', async () => {
+                if (this.callbacks.openFile) {
+                    await this.callbacks.openFile();
+                }
+            });
+        }
+        
+        if (this.elements.openModsFolderBtn) {
+            this.elements.openModsFolderBtn.addEventListener('click', async () => {
+                if (this.callbacks.openModsFolder) {
+                    await this.callbacks.openModsFolder();
+                }
+            });
+        }
+        
         if (this.elements.launchDtkitBtn) {
             this.elements.launchDtkitBtn.addEventListener('click', () => this.callbacks.launchDtkitPatch());
         }

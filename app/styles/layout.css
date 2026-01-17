@@ -13,9 +13,32 @@
 
 .path-input {
     flex: 1;
-    padding: 5px;
+    padding: 5px 10px;
     border: 1px solid #ccc;
     border-radius: 3px;
+    font-size: 12px;
+    box-sizing: border-box;
+    height: auto;
+    line-height: 1.4;
+}
+
+.path-frame .btn,
+.path-frame .btn-icon {
+    padding: 5px 10px;
+    font-size: 12px;
+    box-sizing: border-box;
+    line-height: 1.4;
+    min-height: auto;
+    height: calc(1.4em + 10px);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+}
+
+.path-frame .btn-icon {
+    width: auto;
+    min-width: auto;
 }
 
 .main-container {

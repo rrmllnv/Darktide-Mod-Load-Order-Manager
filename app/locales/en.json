@@ -2,6 +2,8 @@
     "ui": {
         "file": "File:",
         "browse": "Browse...",
+        "openFile": "Open file",
+        "openModsFolder": "Open mods folder",
         "load": "Load",
         "save": "Save",
         "cancelChanges": "Cancel changes",
@@ -94,6 +96,8 @@
         "launchDtkitPatchError": "Error launching application",
         "failedToDetermineGameDir": "Failed to determine game directory",
         "filePathNotSet": "File path not set",
+        "failedToOpenFile": "Failed to open file",
+        "failedToOpenFolder": "Failed to open folder",
         "deleteModsConfirm": "Delete {count} selected mods from list?\n\nMods will be removed from file on save.",
         "createSymlinkConfirm": "Create symbolic link?\n\nFrom: {targetPath}\nTo: {linkPath}\n\nName: {modName}",
         "overwriteProfileConfirm": "Overwrite profile '{profileName}' with current state?",

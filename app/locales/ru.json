@@ -2,6 +2,8 @@
     "ui": {
         "file": "Файл:",
         "browse": "Обзор...",
+        "openFile": "Открыть файл",
+        "openModsFolder": "Открыть папку с модами",
         "load": "Загрузить",
         "save": "Сохранить",
         "cancelChanges": "Отменить изменения",
@@ -94,6 +96,8 @@
         "launchDtkitPatchError": "Ошибка при запуске приложения",
         "failedToDetermineGameDir": "Не удалось определить директорию игры",
         "filePathNotSet": "Путь к файлу не установлен",
+        "failedToOpenFile": "Не удалось открыть файл",
+        "failedToOpenFolder": "Не удалось открыть папку",
         "deleteModsConfirm": "Удалить {count} выбранных модов из списка?\n\nМоды будут удалены из файла при сохранении.",
         "createSymlinkConfirm": "Создать символическую ссылку?\n\nИз: {targetPath}\nВ: {linkPath}\n\nИмя: {modName}",
         "overwriteProfileConfirm": "Перезаписать профиль '{profileName}' текущим состоянием?",

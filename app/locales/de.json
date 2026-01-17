@@ -2,6 +2,8 @@
     "ui": {
         "file": "Datei:",
         "browse": "Durchsuchen...",
+        "openFile": "Datei öffnen",
+        "openModsFolder": "Mods-Ordner öffnen",
         "load": "Laden",
         "save": "Speichern",
         "cancelChanges": "Änderungen abbrechen",
@@ -94,6 +96,8 @@
         "launchDtkitPatchError": "Fehler beim Starten der Anwendung",
         "failedToDetermineGameDir": "Spielverzeichnis konnte nicht bestimmt werden",
         "filePathNotSet": "Dateipfad nicht festgelegt",
+        "failedToOpenFile": "Datei konnte nicht geöffnet werden",
+        "failedToOpenFolder": "Ordner konnte nicht geöffnet werden",
         "deleteModsConfirm": "{count} ausgewählte Mods aus Liste löschen?\n\nMods werden beim Speichern aus der Datei entfernt.",
         "createSymlinkConfirm": "Symbolischen Link erstellen?\n\nVon: {targetPath}\nNach: {linkPath}\n\nName: {modName}",
         "overwriteProfileConfirm": "Profil '{profileName}' mit aktuellem Status überschreiben?",

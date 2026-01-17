@@ -60,6 +60,8 @@ class ModLoadOrderManager {
         this.elements = {
             pathInput: document.getElementById('path-input'),
             browseBtn: document.getElementById('browse-btn'),
+            openFileBtn: document.getElementById('open-file-btn'),
+            openModsFolderBtn: document.getElementById('open-mods-folder-btn'),
             sortSelect: document.getElementById('sort-select'),
             launchDtkitBtn: document.getElementById('launch-dtkit-btn'),
             enableAllBtn: document.getElementById('enable-all-btn'),
@@ -170,6 +172,8 @@ class ModLoadOrderManager {
         
         this.eventBinder = new EventBinder(this.elements, {
             browseFile: () => this.fileManager.browseFile(),
+            openFile: () => this.fileManager.openFile(),
+            openModsFolder: () => this.fileManager.openModsFolder(),
             launchDtkitPatch: () => this.fileManager.launchDtkitPatch(),
             onSortChange: () => this.modManager.onSortChange(),
             enableAll: () => this.modManager.enableAll(),
@@ -214,6 +218,7 @@ class ModLoadOrderManager {
         });
         
         await this.fileManager.loadFile();
+        await this.fileManager.updateOpenFileButton();
         
         this.initFileSystemDragDrop();
     }
@@ -354,6 +359,8 @@ class ModLoadOrderManager {
             this.elements.pathInput.previousElementSibling.textContent = t('ui.file');
         }
         if (this.elements.browseBtn) this.elements.browseBtn.textContent = t('ui.browse');
+        if (this.elements.openFileBtn) this.elements.openFileBtn.title = t('ui.openFile');
+        if (this.elements.openModsFolderBtn) this.elements.openModsFolderBtn.title = t('ui.openModsFolder');
         if (this.elements.saveBtn) this.elements.saveBtn.textContent = t('ui.save');
         if (this.elements.cancelBtn) this.elements.cancelBtn.textContent = t('ui.cancelChanges');
         if (this.elements.statusText) this.elements.statusText.textContent = t('ui.ready');

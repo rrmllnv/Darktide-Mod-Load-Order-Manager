@@ -19,7 +19,8 @@ contextBridge.exposeInMainWorld('electronAPI', {
   saveUserConfig: (userConfig) => ipcRenderer.invoke('save-user-config', userConfig),
   checkIsDirectory: (filePath) => ipcRenderer.invoke('check-is-directory', filePath),
   copyFolderToMods: (sourcePath, modsDir) => ipcRenderer.invoke('copy-folder-to-mods', sourcePath, modsDir),
-  selectFolder: () => ipcRenderer.invoke('select-folder'),
   findModLoadOrderFile: () => ipcRenderer.invoke('find-mod-load-order-file'),
-  launchDtkitPatch: (gameDir) => ipcRenderer.invoke('launch-dtkit-patch', gameDir)
+  launchDtkitPatch: (gameDir) => ipcRenderer.invoke('launch-dtkit-patch', gameDir),
+  openFile: (filePath) => ipcRenderer.invoke('open-file', filePath),
+  openFolder: (folderPath) => ipcRenderer.invoke('open-folder', folderPath)
 });

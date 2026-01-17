@@ -2,6 +2,8 @@
     "ui": {
         "file": "文件:",
         "browse": "浏览...",
+        "openFile": "打开文件",
+        "openModsFolder": "打开模组文件夹",
         "load": "加载",
         "save": "保存",
         "cancelChanges": "取消更改",
@@ -94,6 +96,8 @@
         "launchDtkitPatchError": "启动应用程序时出错",
         "failedToDetermineGameDir": "无法确定游戏目录",
         "filePathNotSet": "未设置文件路径",
+        "failedToOpenFile": "无法打开文件",
+        "failedToOpenFolder": "无法打开文件夹",
         "deleteModsConfirm": "从列表中删除 {count} 个选定的模组？\n\n保存时模组将从文件中移除。",
         "createSymlinkConfirm": "创建符号链接？\n\n从: {targetPath}\n到: {linkPath}\n\n名称: {modName}",
         "overwriteProfileConfirm": "用当前状态覆盖配置文件 '{profileName}'？",

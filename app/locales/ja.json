@@ -2,6 +2,8 @@
     "ui": {
         "file": "ファイル:",
         "browse": "参照...",
+        "openFile": "ファイルを開く",
+        "openModsFolder": "Modsフォルダを開く",
         "load": "読み込み",
         "save": "保存",
         "cancelChanges": "変更をキャンセル",
@@ -94,6 +96,8 @@
         "launchDtkitPatchError": "アプリケーションの起動エラー",
         "failedToDetermineGameDir": "ゲームディレクトリを特定できませんでした",
         "filePathNotSet": "ファイルパスが設定されていません",
+        "failedToOpenFile": "ファイルを開けませんでした",
+        "failedToOpenFolder": "フォルダを開けませんでした",
         "deleteModsConfirm": "リストから {count} 個の選択されたMODを削除しますか？\n\n保存時にMODがファイルから削除されます。",
         "createSymlinkConfirm": "シンボリックリンクを作成しますか？\n\n元: {targetPath}\n先: {linkPath}\n\n名前: {modName}",
         "overwriteProfileConfirm": "現在の状態でプロファイル '{profileName}' を上書きしますか？",

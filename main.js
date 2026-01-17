@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, dialog } = require('electron');
+const { app, BrowserWindow, ipcMain, dialog, shell } = require('electron');
 const path = require('path');
 const fs = require('fs').promises;
 const { existsSync, readdirSync, statSync, lstatSync, symlink } = require('fs');
@@ -477,6 +477,32 @@ ipcMain.handle('launch-dtkit-patch', async (event, gameDir) => {
     
     child.unref();
     
+    return { success: true };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+});
+
+ipcMain.handle('open-file', async (event, filePath) => {
+  try {
+    if (!filePath || !existsSync(filePath)) {
+      return { success: false, error: 'Файл не найден' };
+    }
+    
+    await shell.openPath(filePath);
+    return { success: true };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+});
+
+ipcMain.handle('open-folder', async (event, folderPath) => {
+  try {
+    if (!folderPath || !existsSync(folderPath)) {
+      return { success: false, error: 'Папка не найдена' };
+    }
+    
+    await shell.openPath(folderPath);
     return { success: true };
   } catch (error) {
     return { success: false, error: error.message };
