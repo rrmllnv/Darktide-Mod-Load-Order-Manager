@@ -146,8 +146,9 @@ body.dark-theme .sort-combo:hover {
 }
 
 body.dark-theme .sort-combo:focus {
-    outline: none;
-    border-color: var(--border-primary);
+    outline: 2px solid var(--btn-primary-bg);
+    outline-offset: -2px;
+    border-color: var(--btn-primary-bg);
 }
 
 body.dark-theme .btn-small {
@@ -382,8 +383,9 @@ body.dark-theme .profiles-list {
 }
 
 body.dark-theme .profiles-list:focus {
-    outline: none;
-    border-color: var(--border-primary);
+    outline: 2px solid var(--btn-primary-bg);
+    outline-offset: -2px;
+    border-color: var(--btn-primary-bg);
 }
 
 body.dark-theme .profiles-list option {

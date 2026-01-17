@@ -148,8 +148,9 @@
 }
 
 .sort-combo:focus {
-    outline: none;
-    border-color: #999;
+    outline: 2px solid #0078d4;
+    outline-offset: -2px;
+    border-color: #0078d4;
 }
 
 .btn-small {
