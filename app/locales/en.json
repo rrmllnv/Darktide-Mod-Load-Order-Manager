@@ -13,7 +13,7 @@
         "scan": "Update list",
         "selectEnabled": "Select all enabled",
         "selectDisabled": "Select all disabled",
-        "sort": "Sort:",
+        "sort": "Sort",
         "sortByFileOrder": "By file order",
         "sortByName": "By name",
         "sortByStatus": "By status",

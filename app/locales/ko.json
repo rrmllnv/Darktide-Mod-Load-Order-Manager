@@ -13,7 +13,7 @@
         "scan": "목록 업데이트",
         "selectEnabled": "활성화된 항목 모두 선택",
         "selectDisabled": "비활성화된 항목 모두 선택",
-        "sort": "정렬:",
+        "sort": "정렬",
         "sortByFileOrder": "파일 순서대로",
         "sortByName": "이름순",
         "sortByStatus": "상태순",

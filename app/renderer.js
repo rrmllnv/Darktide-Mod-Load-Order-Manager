@@ -413,10 +413,9 @@ class ModLoadOrderManager {
         if (createSymlinkSpan) createSymlinkSpan.textContent = t('ui.createSymlink');
         
         // Сортировка
-        const sortLabel = document.querySelector('.sort-label');
-        if (sortLabel) sortLabel.textContent = t('ui.sort');
-        
         if (this.elements.sortSelect) {
+            this.elements.sortSelect.title = t('ui.sort');
+            
             const options = this.elements.sortSelect.options;
             if (options[0]) options[0].textContent = t('ui.sortByFileOrder');
             if (options[1]) options[1].textContent = t('ui.sortByName');

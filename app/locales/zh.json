@@ -13,7 +13,7 @@
         "scan": "更新列表",
         "selectEnabled": "选择所有已启用",
         "selectDisabled": "选择所有已禁用",
-        "sort": "排序:",
+        "sort": "排序",
         "sortByFileOrder": "按文件顺序",
         "sortByName": "按名称",
         "sortByStatus": "按状态",

@@ -13,7 +13,7 @@
         "scan": "Mettre à jour la liste",
         "selectEnabled": "Sélectionner tous les activés",
         "selectDisabled": "Sélectionner tous les désactivés",
-        "sort": "Trier:",
+        "sort": "Trier",
         "sortByFileOrder": "Par ordre du fichier",
         "sortByName": "Par nom",
         "sortByStatus": "Par statut",
