@@ -369,7 +369,7 @@ class ModLoadOrderManager {
     }
     
     updateStatistics() {
-        this.statusManager.updateStatistics(this.modEntries);
+        this.statusManager.updateStatistics(this.modEntries, this.selectedModNames);
     }
     
     setStatus(message) {

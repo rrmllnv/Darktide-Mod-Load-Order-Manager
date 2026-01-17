@@ -124,6 +124,9 @@
     "status": {
         "total": "合計: {total} | 有効: {enabled} | 無効: {disabled}",
         "totalWithNew": "合計: {total} | 有効: {enabled} | 無効: {disabled} | 新規: {newModsCount}",
+        "newMods": "新規: {count}",
+        "notFoundMods": "見つかりません: {count}",
+        "selectedMods": "選択済み: {count}",
         "modsEnabled": "MOD有効: {count}",
         "modsDisabled": "MOD無効: {count}",
         "modsDeleted": "MOD削除: {count}. ファイルを保存することを忘れないでください。",

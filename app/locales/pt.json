@@ -124,6 +124,9 @@
     "status": {
         "total": "Total: {total} | Habilitado: {enabled} | Desabilitado: {disabled}",
         "totalWithNew": "Total: {total} | Habilitado: {enabled} | Desabilitado: {disabled} | Novo: {newModsCount}",
+        "newMods": "Novo: {count}",
+        "notFoundMods": "Não encontrado: {count}",
+        "selectedMods": "Selecionado: {count}",
         "modsEnabled": "Mods habilitados: {count}",
         "modsDisabled": "Mods desabilitados: {count}",
         "modsDeleted": "Mods excluídos: {count}. Não se esqueça de salvar o arquivo.",

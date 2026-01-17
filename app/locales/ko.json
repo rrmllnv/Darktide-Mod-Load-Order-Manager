@@ -124,6 +124,9 @@
     "status": {
         "total": "전체: {total} | 활성화: {enabled} | 비활성화: {disabled}",
         "totalWithNew": "전체: {total} | 활성화: {enabled} | 비활성화: {disabled} | 신규: {newModsCount}",
+        "newMods": "신규: {count}",
+        "notFoundMods": "찾을 수 없음: {count}",
+        "selectedMods": "선택됨: {count}",
         "modsEnabled": "모드 활성화: {count}",
         "modsDisabled": "모드 비활성화: {count}",
         "modsDeleted": "모드 삭제: {count}. 파일을 저장하는 것을 잊지 마세요.",

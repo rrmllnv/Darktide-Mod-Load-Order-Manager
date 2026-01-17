@@ -124,6 +124,9 @@
     "status": {
         "total": "总计: {total} | 已启用: {enabled} | 已禁用: {disabled}",
         "totalWithNew": "总计: {total} | 已启用: {enabled} | 已禁用: {disabled} | 新增: {newModsCount}",
+        "newMods": "新增: {count}",
+        "notFoundMods": "未找到: {count}",
+        "selectedMods": "已选择: {count}",
         "modsEnabled": "已启用模组: {count}",
         "modsDisabled": "已禁用模组: {count}",
         "modsDeleted": "已删除模组: {count}. 不要忘记保存文件。",

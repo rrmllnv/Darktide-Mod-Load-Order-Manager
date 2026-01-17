@@ -11,34 +11,31 @@ export class StatusManager {
         }
     }
     
-    updateStatistics(modEntries) {
-        if (!this.app) {
-            // Fallback для обратной совместимости
-            const total = modEntries.length;
-            const enabled = modEntries.filter(m => m.enabled).length;
-            const disabled = total - enabled;
-            const newModsCount = modEntries.filter(m => m.isNew).length;
-            
-            let statsText = `Всего: ${total} | Включено: ${enabled} | Выключено: ${disabled}`;
-            if (newModsCount > 0) {
-                statsText += ` | Новых: ${newModsCount}`;
-            }
-            
-            this.setStatus(statsText);
-            return;
-        }
-        
+    updateStatistics(modEntries, selectedModNames = null) {
         const total = modEntries.length;
         const enabled = modEntries.filter(m => m.enabled).length;
         const disabled = total - enabled;
         const newModsCount = modEntries.filter(m => m.isNew).length;
+        const notFoundCount = modEntries.filter(m => m.isNotFound).length;
+        const selectedCount = selectedModNames ? selectedModNames.size : 0;
         
-        // Формируем строку статистики для статус бара с локализацией
-        let statsText;
+        // Формируем базовую строку статистики
+        let statsText = this.app.t('status.total', { total, enabled, disabled });
+        
+        // Добавляем дополнительные счетчики, если они больше 0
+        const parts = [];
         if (newModsCount > 0) {
-            statsText = this.app.t('status.totalWithNew', { total, enabled, disabled, newModsCount });
-        } else {
-            statsText = this.app.t('status.total', { total, enabled, disabled });
+            parts.push(this.app.t('status.newMods', { count: newModsCount }));
+        }
+        if (notFoundCount > 0) {
+            parts.push(this.app.t('status.notFoundMods', { count: notFoundCount }));
+        }
+        if (selectedCount > 0) {
+            parts.push(this.app.t('status.selectedMods', { count: selectedCount }));
+        }
+        
+        if (parts.length > 0) {
+            statsText += ' | ' + parts.join(' | ');
         }
         
         this.setStatus(statsText);

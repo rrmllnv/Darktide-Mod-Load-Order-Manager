@@ -135,6 +135,7 @@ export class ModManager {
         }
         
         this.app.uiManager.updateBulkActionsPanel();
+        this.app.updateStatistics();
     }
     
     updateModListSelection() {
@@ -155,6 +156,7 @@ export class ModManager {
         this.app.lastSelectedModIndex = -1;
         this.updateModListSelection();
         this.app.uiManager.updateBulkActionsPanel();
+        this.app.updateStatistics();
     }
     
     async createSymlinkForMod() {

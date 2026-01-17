@@ -124,6 +124,9 @@
     "status": {
         "total": "Всего: {total} | Включено: {enabled} | Выключено: {disabled}",
         "totalWithNew": "Всего: {total} | Включено: {enabled} | Выключено: {disabled} | Новых: {newModsCount}",
+        "newMods": "Новых: {count}",
+        "notFoundMods": "Не найдено: {count}",
+        "selectedMods": "Выделено: {count}",
         "modsEnabled": "Включено модов: {count}",
         "modsDisabled": "Выключено модов: {count}",
         "modsDeleted": "Удалено модов: {count}. Не забудьте сохранить файл.",
