@@ -105,5 +105,15 @@
         "selectedFolderNotExists": "選択したフォルダが存在しません",
         "failedToCreateSymlink": "シンボリックリンクを作成できませんでした:",
         "symlinkCreationError": "シンボリックリンクの作成中にエラーが発生しました:"
+    },
+    "status": {
+        "total": "合計: {total} | 有効: {enabled} | 無効: {disabled}",
+        "totalWithNew": "合計: {total} | 有効: {enabled} | 無効: {disabled} | 新規: {newModsCount}",
+        "modsEnabled": "MOD有効: {count}",
+        "modsDisabled": "MOD無効: {count}",
+        "modsDeleted": "MOD削除: {count}. ファイルを保存することを忘れないでください。",
+        "symlinkCreated": "シンボリックリンク作成: {modName}",
+        "scanWarning": "警告: MODフォルダをスキャンできませんでした: {error}",
+        "error": "エラー: {error}"
     }
 }

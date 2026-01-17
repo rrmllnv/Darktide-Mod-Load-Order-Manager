@@ -105,5 +105,15 @@
         "selectedFolderNotExists": "所选文件夹不存在",
         "failedToCreateSymlink": "无法创建符号链接:",
         "symlinkCreationError": "创建符号链接时出错:"
+    },
+    "status": {
+        "total": "总计: {total} | 已启用: {enabled} | 已禁用: {disabled}",
+        "totalWithNew": "总计: {total} | 已启用: {enabled} | 已禁用: {disabled} | 新增: {newModsCount}",
+        "modsEnabled": "已启用模组: {count}",
+        "modsDisabled": "已禁用模组: {count}",
+        "modsDeleted": "已删除模组: {count}. 不要忘记保存文件。",
+        "symlinkCreated": "符号链接已创建: {modName}",
+        "scanWarning": "警告: 无法扫描模组文件夹: {error}",
+        "error": "错误: {error}"
     }
 }

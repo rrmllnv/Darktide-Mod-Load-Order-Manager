@@ -105,5 +105,15 @@
         "selectedFolderNotExists": "선택한 폴더가 존재하지 않습니다",
         "failedToCreateSymlink": "심볼릭 링크를 만들 수 없습니다:",
         "symlinkCreationError": "심볼릭 링크 생성 중 오류:"
+    },
+    "status": {
+        "total": "전체: {total} | 활성화: {enabled} | 비활성화: {disabled}",
+        "totalWithNew": "전체: {total} | 활성화: {enabled} | 비활성화: {disabled} | 신규: {newModsCount}",
+        "modsEnabled": "모드 활성화: {count}",
+        "modsDisabled": "모드 비활성화: {count}",
+        "modsDeleted": "모드 삭제: {count}. 파일을 저장하는 것을 잊지 마세요.",
+        "symlinkCreated": "심볼릭 링크 생성: {modName}",
+        "scanWarning": "경고: 모드 폴더를 스캔할 수 없습니다: {error}",
+        "error": "오류: {error}"
     }
 }

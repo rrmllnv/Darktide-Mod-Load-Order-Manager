@@ -31,7 +31,7 @@ export class FileManager {
             }
             
             // Обновляем сервис сканирования с новым путем
-            this.app.modScanService = new ModScanService(this.app.filePath, (msg) => this.app.setStatus(msg));
+            this.app.modScanService = new ModScanService(this.app.filePath, (msg) => this.app.setStatus(msg), this.app);
             
             // Сканирование папки модов для поиска новых модов
             const scanResult = await this.app.modScanService.scanModsDirectory(this.app.modEntries, this.app.selectedModName);

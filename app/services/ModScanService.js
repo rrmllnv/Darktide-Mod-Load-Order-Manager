@@ -2,9 +2,10 @@ import { ModEntry } from '../models/ModEntry.js';
 
 // Сервис для сканирования папки модов
 export class ModScanService {
-    constructor(filePath, statusCallback) {
+    constructor(filePath, statusCallback, app = null) {
         this.filePath = filePath;
         this.setStatus = statusCallback;
+        this.app = app;
     }
     
     // Сканирование папки модов
@@ -27,7 +28,12 @@ export class ModScanService {
             // Сканируем папки в директории mods
             const result = await window.electronAPI.scanModsDirectory(modsDir);
             if (!result.success) {
-                this.setStatus(`Предупреждение: не удалось просканировать папку модов: ${result.error}`);
+                // Используем локализацию, если доступен app
+                if (this.app && this.app.t) {
+                    this.setStatus(this.app.t('status.scanWarning', { error: result.error }));
+                } else {
+                    this.setStatus(`Предупреждение: не удалось просканировать папку модов: ${result.error}`);
+                }
                 return { added: 0, removed: 0, deleted: 0, restored: 0, selectedModName };
             }
             
@@ -115,7 +121,12 @@ export class ModScanService {
             
         } catch (error) {
             // Не показываем ошибку пользователю, просто логируем в статус
-            this.setStatus(`Предупреждение: не удалось просканировать папку модов: ${error.message}`);
+            // Используем локализацию, если доступен app
+            if (this.app && this.app.t) {
+                this.setStatus(this.app.t('status.scanWarning', { error: error.message }));
+            } else {
+                this.setStatus(`Предупреждение: не удалось просканировать папку модов: ${error.message}`);
+            }
             return { added: 0, removed: 0, deleted: 0, restored: 0, selectedModName };
         }
     }

@@ -62,7 +62,7 @@ export class BulkOperationsManager {
         });
         
         this.app.updateStatistics();
-        this.app.setStatus(`Включено модов: ${selected.length}`);
+        this.app.setStatus(this.app.t('status.modsEnabled', { count: selected.length }));
     }
     
     // Массовое выключение выбранных модов
@@ -87,7 +87,7 @@ export class BulkOperationsManager {
         });
         
         this.app.updateStatistics();
-        this.app.setStatus(`Выключено модов: ${selected.length}`);
+        this.app.setStatus(this.app.t('status.modsDisabled', { count: selected.length }));
     }
     
     // Массовое удаление выбранных модов
@@ -123,6 +123,6 @@ export class BulkOperationsManager {
         this.app.modManager.updateModList(searchText);
         this.app.updateStatistics();
         
-        this.app.setStatus(`Удалено модов: ${selected.length}. Не забудьте сохранить файл.`);
+        this.app.setStatus(this.app.t('status.modsDeleted', { count: selected.length }));
     }
 }

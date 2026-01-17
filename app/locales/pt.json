@@ -105,5 +105,15 @@
         "selectedFolderNotExists": "A pasta selecionada não existe",
         "failedToCreateSymlink": "Falha ao criar link simbólico:",
         "symlinkCreationError": "Erro ao criar link simbólico:"
+    },
+    "status": {
+        "total": "Total: {total} | Habilitado: {enabled} | Desabilitado: {disabled}",
+        "totalWithNew": "Total: {total} | Habilitado: {enabled} | Desabilitado: {disabled} | Novo: {newModsCount}",
+        "modsEnabled": "Mods habilitados: {count}",
+        "modsDisabled": "Mods desabilitados: {count}",
+        "modsDeleted": "Mods excluídos: {count}. Não se esqueça de salvar o arquivo.",
+        "symlinkCreated": "Link simbólico criado: {modName}",
+        "scanWarning": "Aviso: falha ao escanear a pasta de mods: {error}",
+        "error": "Erro: {error}"
     }
 }

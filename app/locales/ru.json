@@ -105,5 +105,15 @@
         "selectedFolderNotExists": "Выбранная папка не существует",
         "failedToCreateSymlink": "Не удалось создать символическую ссылку:",
         "symlinkCreationError": "Ошибка при создании символической ссылки:"
+    },
+    "status": {
+        "total": "Всего: {total} | Включено: {enabled} | Выключено: {disabled}",
+        "totalWithNew": "Всего: {total} | Включено: {enabled} | Выключено: {disabled} | Новых: {newModsCount}",
+        "modsEnabled": "Включено модов: {count}",
+        "modsDisabled": "Выключено модов: {count}",
+        "modsDeleted": "Удалено модов: {count}. Не забудьте сохранить файл.",
+        "symlinkCreated": "Символическая ссылка создана: {modName}",
+        "scanWarning": "Предупреждение: не удалось просканировать папку модов: {error}",
+        "error": "Ошибка: {error}"
     }
 }

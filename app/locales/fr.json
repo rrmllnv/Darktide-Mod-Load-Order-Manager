@@ -105,5 +105,15 @@
         "selectedFolderNotExists": "Le dossier sélectionné n'existe pas",
         "failedToCreateSymlink": "Impossible de créer le lien symbolique:",
         "symlinkCreationError": "Erreur lors de la création du lien symbolique:"
+    },
+    "status": {
+        "total": "Total: {total} | Activé: {enabled} | Désactivé: {disabled}",
+        "totalWithNew": "Total: {total} | Activé: {enabled} | Désactivé: {disabled} | Nouveau: {newModsCount}",
+        "modsEnabled": "Mods activés: {count}",
+        "modsDisabled": "Mods désactivés: {count}",
+        "modsDeleted": "Mods supprimés: {count}. N'oubliez pas de sauvegarder le fichier.",
+        "symlinkCreated": "Lien symbolique créé: {modName}",
+        "scanWarning": "Avertissement: impossible de scanner le dossier des mods: {error}",
+        "error": "Erreur: {error}"
     }
 }

@@ -140,7 +140,7 @@ class ModLoadOrderManager {
         this.configManager.applyUserConfig();
         
         // Инициализация сервисов и менеджеров
-        this.statusManager = new StatusManager(this.elements.statusText);
+        this.statusManager = new StatusManager(this.elements.statusText, this);
         this.fileService = new FileService((msg) => this.setStatus(msg));
         this.modalManager = new ModalManager(this.elements);
         
@@ -148,7 +148,7 @@ class ModLoadOrderManager {
         await this.profileManager.initProfilesDirectory();
         
         // Инициализация сервиса сканирования
-        this.modScanService = new ModScanService(this.filePath, (msg) => this.setStatus(msg));
+        this.modScanService = new ModScanService(this.filePath, (msg) => this.setStatus(msg), this);
         
         // Инициализация рендерера списка модов (создаем после инициализации сервисов)
         this.modListRenderer = new ModListRenderer(
