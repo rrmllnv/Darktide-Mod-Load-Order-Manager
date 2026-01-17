@@ -1,4 +1,3 @@
-// Менеджер работы с профилями
 import { ProfileService } from '../services/ProfileService.js';
 
 export class ProfileManager {
@@ -22,10 +21,8 @@ export class ProfileManager {
                 }
             }
             
-            // Инициализация сервиса профилей
             this.app.profileService = new ProfileService(this.app.profilesDir);
             
-            // Обновляем список профилей
             await this.refreshProfilesList();
         } catch (error) {
             console.error('Ошибка инициализации папки профилей:', error);
@@ -46,14 +43,11 @@ export class ProfileManager {
         const result = this.app.profileService.restoreState(state, this.app.modEntries);
         this.app.modEntries = result.modEntries;
         
-        // Восстанавливаем настройки из профиля
         if (result.settings) {
-            // Восстанавливаем настройки фильтрации
             this.app.hideNewMods = result.settings.hideNewMods || false;
             this.app.hideNotFoundMods = result.settings.hideNotFoundMods || false;
             this.app.hideUnusedMods = result.settings.hideUnusedMods || false;
             
-            // Применяем настройки фильтрации к чекбоксам
             if (this.app.elements.hideNewModsCheckbox) {
                 this.app.elements.hideNewModsCheckbox.checked = this.app.hideNewMods;
             }
@@ -64,39 +58,32 @@ export class ProfileManager {
                 this.app.elements.hideUnusedModsCheckbox.checked = this.app.hideUnusedMods;
             }
             
-            // Восстанавливаем сортировку
             if (result.settings.sort && this.app.elements.sortSelect) {
-                // Конвертируем старые локализованные значения в ключи
                 let sortValue = result.settings.sort;
                 if (sortValue === 'По порядку файла') sortValue = 'fileOrder';
                 else if (sortValue === 'По имени') sortValue = 'name';
                 else if (sortValue === 'По статусу') sortValue = 'status';
                 else if (sortValue === 'Новые сначала') sortValue = 'newFirst';
                 
-                // Проверяем, что значение существует в селекте
                 const option = Array.from(this.app.elements.sortSelect.options).find(opt => opt.value === sortValue);
                 if (option) {
                     this.app.elements.sortSelect.value = sortValue;
                 } else {
-                    // Если значение не найдено, используем значение по умолчанию
                     this.app.elements.sortSelect.value = 'fileOrder';
                 }
             }
         }
         
-        // Очищаем все старые ссылки на DOM элементы, чтобы они не мешали
         this.app.modEntries.forEach(modEntry => {
             modEntry.checkbox = null;
             modEntry.statusElement = null;
             modEntry.modItem = null;
         });
         
-        // Обновляем ссылку на modEntries в рендерере
         if (this.app.modListRenderer) {
             this.app.modListRenderer.modEntries = this.app.modEntries;
         }
         
-        // Очищаем выбор при восстановлении состояния
         this.app.modManager.clearSelection();
         
         const searchText = this.app.elements.searchInput.value;
@@ -195,21 +182,17 @@ export class ProfileManager {
             
             this.restoreState(result.state);
             
-            // Обновляем ссылку на modEntries в рендерере после восстановления
             if (this.app.modListRenderer) {
                 this.app.modListRenderer.modEntries = this.app.modEntries;
             }
             
-            // Сканируем папку модов после загрузки профиля
             const scanResult = await this.app.modScanService.scanModsDirectory(this.app.modEntries, this.app.selectedModName);
             this.app.selectedModName = scanResult.selectedModName;
             
-            // Обновляем ссылку на modEntries в рендерере после сканирования
             if (this.app.modListRenderer) {
                 this.app.modListRenderer.modEntries = this.app.modEntries;
             }
             
-            // Очищаем выбор удаленных модов
             if (scanResult.removed > 0) {
                 const currentSelected = Array.from(this.app.selectedModNames);
                 currentSelected.forEach(modName => {

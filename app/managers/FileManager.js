@@ -1,4 +1,3 @@
-// Менеджер работы с файлами
 import { ModScanService } from '../services/ModScanService.js';
 
 export class FileManager {
@@ -11,43 +10,37 @@ export class FileManager {
         if (result.success && !result.canceled) {
             this.app.filePath = result.filePath;
             this.app.elements.pathInput.value = this.app.filePath;
-            await this.app.configManager.saveUserConfig(); // Сохраняем новый путь
+            await this.app.configManager.saveUserConfig();
             await this.loadFile();
         }
     }
     
     async loadFile() {
         this.app.filePath = this.app.elements.pathInput.value;
-        await this.app.configManager.saveUserConfig(); // Сохраняем путь при загрузке файла
+        await this.app.configManager.saveUserConfig();
         
         try {
             const parsed = await this.app.fileService.loadFile(this.app.filePath);
             this.app.headerLines = parsed.headerLines;
             this.app.modEntries = parsed.modEntries;
             
-            // Обновляем ссылку на modEntries в рендерере
             if (this.app.modListRenderer) {
                 this.app.modListRenderer.modEntries = this.app.modEntries;
             }
             
-            // Обновляем сервис сканирования с новым путем
             this.app.modScanService = new ModScanService(this.app.filePath, (msg) => this.app.setStatus(msg), this.app);
             
-            // Сканирование папки модов для поиска новых модов
             const scanResult = await this.app.modScanService.scanModsDirectory(this.app.modEntries, this.app.selectedModName);
             this.app.selectedModName = scanResult.selectedModName;
             
-            // Обновляем ссылку на modEntries в рендерере после сканирования
             if (this.app.modListRenderer) {
                 this.app.modListRenderer.modEntries = this.app.modEntries;
             }
             
-            // Обновление интерфейса
-            this.app.modManager.clearSelection(); // Очищаем выбор при загрузке файла
+            this.app.modManager.clearSelection();
             this.app.modManager.updateModList();
             this.app.updateStatistics();
             
-            // Обновляем папку профилей после загрузки файла
             await this.app.profileManager.initProfilesDirectory();
             
         } catch (error) {
@@ -68,11 +61,9 @@ export class FileManager {
         }
         
         try {
-            // Получаем текущую сортировку и сортируем все моды в этом порядке
             const currentSort = this.app.elements.sortSelect ? this.app.elements.sortSelect.value : null;
             let sortedModEntries = null;
             if (currentSort && this.app.modEntries.length > 0) {
-                // Используем Sorter для сортировки всех модов по текущей сортировке
                 const { Sorter } = await import('../utils/Sorter.js');
                 sortedModEntries = Sorter.sortMods([...this.app.modEntries], currentSort);
             }
@@ -98,7 +89,6 @@ export class FileManager {
     }
     
     async addModFolder() {
-        // Получаем директорию модов
         const modsDir = this.app.filePath ? this.app.filePath.substring(0, this.app.filePath.lastIndexOf('\\')) : '';
         if (!modsDir) {
             await this.app.uiManager.showMessage(
@@ -108,7 +98,6 @@ export class FileManager {
             return;
         }
         
-        // Открываем диалог выбора папки
         const result = await window.electronAPI.selectFolder();
         
         if (!result.success || result.canceled) {
@@ -117,7 +106,6 @@ export class FileManager {
         
         const selectedFolder = result.folderPath;
         
-        // Проверяем, что это папка
         const isDirectory = await window.electronAPI.checkIsDirectory(selectedFolder);
         if (!isDirectory) {
             await this.app.uiManager.showMessage(
@@ -127,7 +115,6 @@ export class FileManager {
             return;
         }
         
-        // Копируем папку
         try {
             const copyResult = await window.electronAPI.copyFolderToMods(selectedFolder, modsDir);
             
@@ -137,7 +124,6 @@ export class FileManager {
                     (this.app.t('messages.folderCopied') || 'Папка скопирована: {folderName}').replace('{folderName}', copyResult.folderName)
                 );
                 
-                // Обновляем список модов
                 await this.app.modManager.scanAndUpdate();
             } else {
                 await this.app.uiManager.showMessage(
@@ -159,14 +145,12 @@ export class FileManager {
             return;
         }
         
-        // Определяем путь к папке mods (та же директория, где находится mod_load_order.txt)
         const modsDir = this.app.filePath.substring(0, this.app.filePath.lastIndexOf('\\'));
         if (!modsDir) {
             await this.app.uiManager.showMessage(this.app.t('messages.error'), this.app.t('messages.failedToDetermineModsDir'));
             return;
         }
         
-        // Поднимаемся на уровень выше (из mods в корень игры)
         const gameDir = modsDir.substring(0, modsDir.lastIndexOf('\\'));
         if (!gameDir) {
             await this.app.uiManager.showMessage(this.app.t('messages.error'), this.app.t('messages.failedToDetermineGameDir') || 'Не удалось определить директорию игры');

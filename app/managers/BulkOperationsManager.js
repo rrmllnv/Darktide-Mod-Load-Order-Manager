@@ -1,10 +1,8 @@
-// Менеджер массовых операций
 export class BulkOperationsManager {
     constructor(app) {
         this.app = app;
     }
     
-    // Выделить все включенные моды
     bulkSelectEnabled() {
         this.app.selectedModNames.clear();
         this.app.selectedModName = '';
@@ -16,13 +14,11 @@ export class BulkOperationsManager {
             }
         });
         
-        // Обновляем визуальное выделение
         this.app.modManager.updateModListSelection();
         
         this.app.uiManager.updateBulkActionsPanel();
     }
     
-    // Выделить все выключенные моды
     bulkSelectDisabled() {
         this.app.selectedModNames.clear();
         this.app.selectedModName = '';
@@ -34,13 +30,11 @@ export class BulkOperationsManager {
             }
         });
         
-        // Обновляем визуальное выделение
         this.app.modManager.updateModListSelection();
         
         this.app.uiManager.updateBulkActionsPanel();
     }
     
-    // Массовое включение выбранных модов
     bulkEnable() {
         const selected = Array.from(this.app.selectedModNames);
         if (selected.length === 0) {
@@ -65,7 +59,6 @@ export class BulkOperationsManager {
         this.app.setStatus(this.app.t('status.modsEnabled', { count: selected.length }));
     }
     
-    // Массовое выключение выбранных модов
     bulkDisable() {
         const selected = Array.from(this.app.selectedModNames);
         if (selected.length === 0) {
@@ -90,7 +83,6 @@ export class BulkOperationsManager {
         this.app.setStatus(this.app.t('status.modsDisabled', { count: selected.length }));
     }
     
-    // Массовое удаление выбранных модов
     async bulkDelete() {
         const selected = Array.from(this.app.selectedModNames);
         if (selected.length === 0) {
@@ -102,7 +94,6 @@ export class BulkOperationsManager {
             return;
         }
         
-        // Удаляем моды из списка
         selected.forEach(modName => {
             const modIndex = this.app.modEntries.findIndex(m => m.name === modName);
             if (modIndex !== -1) {
@@ -110,15 +101,12 @@ export class BulkOperationsManager {
             }
         });
         
-        // Обновляем ссылку в рендерере
         if (this.app.modListRenderer) {
             this.app.modListRenderer.modEntries = this.app.modEntries;
         }
         
-        // Очищаем выбор
         this.app.modManager.clearSelection();
         
-        // Обновляем интерфейс
         const searchText = this.app.elements.searchInput.value;
         this.app.modManager.updateModList(searchText);
         this.app.updateStatistics();

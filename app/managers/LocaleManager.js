@@ -1,4 +1,3 @@
-// Менеджер локализации
 export class LocaleManager {
     constructor() {
         this.currentLocale = 'ru';
@@ -16,7 +15,6 @@ export class LocaleManager {
             return this.translations;
         } catch (error) {
             console.error('Error loading locale:', error);
-            // Fallback на русский
             if (locale !== 'ru') {
                 return await this.loadLocale('ru');
             }
@@ -42,7 +40,6 @@ export class LocaleManager {
             return key;
         }
         
-        // Замена параметров в строке
         if (Object.keys(params).length > 0) {
             return value.replace(/\{(\w+)\}/g, (match, paramKey) => {
                 return params[paramKey] !== undefined ? params[paramKey] : match;

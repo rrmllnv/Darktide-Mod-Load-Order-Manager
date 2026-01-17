@@ -1,13 +1,10 @@
-// Менеджер UI компонентов
 export class UIManager {
     constructor(app) {
         this.app = app;
     }
     
-    // Показ сообщения в модальном окне вместо alert
     showMessage(title, message) {
         return new Promise((resolve) => {
-            // Определяем тип сообщения
             const isError = title === this.app.t('messages.error') || 
                            title === 'Ошибка' || 
                            title === 'Error' ||
@@ -23,19 +20,14 @@ export class UIManager {
                           title === 'Info' ||
                           title?.toLowerCase().includes('info');
             
-            // Для всех типов сообщений (ошибка, успех, информация) используем "Закрыть"
-            // "Сохранить" не используется в showMessage, только в showConfirm
             const buttonText = this.app.t('ui.close');
             
-            // Восстанавливаем кнопку OK на случай, если она была заменена
             const footer = this.app.elements.messageDialog.querySelector('.modal-footer');
             if (!footer.querySelector('#message-ok-btn')) {
                 footer.innerHTML = `<button id="message-ok-btn" class="btn btn-primary">${buttonText}</button>`;
                 this.app.elements.messageOkBtn = document.getElementById('message-ok-btn');
             } else {
-                // Обновляем ссылку на кнопку, если она уже есть
                 this.app.elements.messageOkBtn = document.getElementById('message-ok-btn');
-                // Обновляем текст кнопки в зависимости от типа сообщения
                 if (this.app.elements.messageOkBtn) {
                     this.app.elements.messageOkBtn.textContent = buttonText;
                 }
@@ -45,7 +37,6 @@ export class UIManager {
             this.app.elements.messageText.textContent = message;
             this.app.elements.messageDialog.classList.add('show');
             
-            // Удаляем старые обработчики, если есть
             const newOkBtn = this.app.elements.messageOkBtn.cloneNode(true);
             this.app.elements.messageOkBtn.parentNode.replaceChild(newOkBtn, this.app.elements.messageOkBtn);
             this.app.elements.messageOkBtn = newOkBtn;
@@ -60,13 +51,11 @@ export class UIManager {
         });
     }
     
-    // Показ подтверждения в модальном окне вместо confirm
     showConfirm(message) {
         return new Promise((resolve) => {
             this.app.elements.messageTitle.textContent = this.app.t('ui.confirmation');
             this.app.elements.messageText.textContent = message;
             
-            // Заменяем кнопку OK на две кнопки Да/Нет
             const footer = this.app.elements.messageDialog.querySelector('.modal-footer');
             footer.innerHTML = `
                 <button id="confirm-yes-btn" class="btn btn-primary">${this.app.t('ui.yes')}</button>
@@ -80,7 +69,6 @@ export class UIManager {
             
             const handleYes = () => {
                 this.app.elements.messageDialog.classList.remove('show');
-                // Восстанавливаем кнопку OK (по умолчанию "Сохранить")
                 const saveText = this.app.t('ui.save');
                 footer.innerHTML = `<button id="message-ok-btn" class="btn btn-primary">${saveText}</button>`;
                 this.app.elements.messageOkBtn = document.getElementById('message-ok-btn');
@@ -91,7 +79,6 @@ export class UIManager {
             
             const handleNo = () => {
                 this.app.elements.messageDialog.classList.remove('show');
-                // Восстанавливаем кнопку OK (по умолчанию "Сохранить")
                 const saveText = this.app.t('ui.save');
                 footer.innerHTML = `<button id="message-ok-btn" class="btn btn-primary">${saveText}</button>`;
                 this.app.elements.messageOkBtn = document.getElementById('message-ok-btn');
@@ -105,7 +92,6 @@ export class UIManager {
         });
     }
     
-    // Обновление панели массовых действий
     updateBulkActionsPanel() {
         if (!this.app.elements.bulkActionsPanel) {
             return;
@@ -114,7 +100,6 @@ export class UIManager {
         const count = this.app.selectedModNames.size;
         const hasSelection = count >= 1;
         
-        // Обновляем текст счетчика
         if (this.app.elements.bulkSelectionCount) {
             if (count === 0) {
                 this.app.elements.bulkSelectionCount.textContent = this.app.t('ui.noModsSelected');
@@ -131,7 +116,6 @@ export class UIManager {
             }
         }
         
-        // Делаем кнопки активными/неактивными в зависимости от выбора
         if (this.app.elements.bulkEnableBtn) {
             this.app.elements.bulkEnableBtn.disabled = !hasSelection;
         }
@@ -145,7 +129,6 @@ export class UIManager {
             this.app.elements.bulkClearSelectionBtn.disabled = !hasSelection;
         }
         
-        // Добавляем/убираем класс для визуального отображения неактивного состояния
         if (hasSelection) {
             this.app.elements.bulkActionsPanel.classList.remove('disabled');
         } else {

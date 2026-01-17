@@ -1,4 +1,3 @@
-// Менеджер для управления статус-баром
 export class StatusManager {
     constructor(statusElement, app = null) {
         this.statusElement = statusElement;
@@ -19,10 +18,8 @@ export class StatusManager {
         const notFoundCount = modEntries.filter(m => m.isNotFound).length;
         const selectedCount = selectedModNames ? selectedModNames.size : 0;
         
-        // Формируем базовую строку статистики
         let statsText = this.app.t('status.total', { total, enabled, disabled });
         
-        // Добавляем дополнительные счетчики, если они больше 0
         const parts = [];
         if (newModsCount > 0) {
             parts.push(this.app.t('status.newMods', { count: newModsCount }));

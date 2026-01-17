@@ -1,4 +1,3 @@
-// Менеджер работы с модами
 export class ModManager {
     constructor(app) {
         this.app = app;
@@ -8,12 +7,10 @@ export class ModManager {
         const scanResult = await this.app.modScanService.scanModsDirectory(this.app.modEntries, this.app.selectedModName);
         this.app.selectedModName = scanResult.selectedModName;
         
-        // Обновляем ссылку на modEntries в рендерере после сканирования
         if (this.app.modListRenderer) {
             this.app.modListRenderer.modEntries = this.app.modEntries;
         }
         
-        // Очищаем выбор удаленных модов
         if (scanResult.removed > 0) {
             const currentSelected = Array.from(this.app.selectedModNames);
             currentSelected.forEach(modName => {
@@ -23,12 +20,10 @@ export class ModManager {
             });
         }
         
-        // Обновляем интерфейс
         const searchText = this.app.elements.searchInput.value;
         this.updateModList(searchText);
         this.app.updateStatistics();
         
-        // Показываем результат
         let message = '';
         const parts = [];
         
@@ -87,12 +82,10 @@ export class ModManager {
     }
     
     selectMod(modName, ctrlKey = false, shiftKey = false) {
-        // Получаем индекс текущего мода в отфильтрованном списке
         const filteredMods = this.app.modListRenderer.filteredModEntries || [];
         const currentIndex = filteredMods.findIndex(m => m.name === modName);
         
         if (shiftKey && this.app.lastSelectedModIndex !== -1) {
-            // Shift+Click - выбираем диапазон
             const startIndex = Math.min(this.app.lastSelectedModIndex, currentIndex);
             const endIndex = Math.max(this.app.lastSelectedModIndex, currentIndex);
             
@@ -102,20 +95,17 @@ export class ModManager {
                 }
             }
         } else if (ctrlKey) {
-            // Ctrl+Click - переключаем выбор
             if (this.app.selectedModNames.has(modName)) {
                 this.app.selectedModNames.delete(modName);
             } else {
                 this.app.selectedModNames.add(modName);
             }
         } else {
-            // Обычный клик - одиночный выбор
             this.app.selectedModNames.clear();
             this.app.selectedModNames.add(modName);
-            this.app.selectedModName = modName; // Для совместимости
+            this.app.selectedModName = modName;
         }
         
-        // Обновляем lastSelectedModIndex
         if (currentIndex !== -1) {
             this.app.lastSelectedModIndex = currentIndex;
             if (this.app.modListRenderer.callbacks.setLastSelectedIndex) {
@@ -123,10 +113,8 @@ export class ModManager {
             }
         }
         
-        // Обновляем визуальное выделение
         this.updateModListSelection();
         
-        // Обновляем информацию о выбранном моде (для одиночного выбора)
         if (this.app.selectedModNames.size === 1) {
             const singleMod = Array.from(this.app.selectedModNames)[0];
             this.app.selectedModName = singleMod;
