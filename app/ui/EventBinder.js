@@ -48,8 +48,34 @@ export class EventBinder {
             });
         }
         
+        // Кнопка добавления мода (dropdown)
+        if (this.elements.addModBtn) {
+            this.elements.addModBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (this.elements.addModDropdown) {
+                    this.elements.addModDropdown.classList.toggle('show');
+                }
+            });
+        }
+        
+        // Закрытие dropdown при клике вне его
+        document.addEventListener('click', (e) => {
+            if (this.elements.addModDropdown && 
+                !this.elements.addModDropdown.contains(e.target) && 
+                !this.elements.addModBtn?.contains(e.target)) {
+                this.elements.addModDropdown.classList.remove('show');
+            }
+        });
+        
         // Создание симлинка
-        this.elements.createSymlinkBtn.addEventListener('click', () => this.callbacks.createSymlinkForMod());
+        if (this.elements.createSymlinkBtn) {
+            this.elements.createSymlinkBtn.addEventListener('click', () => {
+                if (this.elements.addModDropdown) {
+                    this.elements.addModDropdown.classList.remove('show');
+                }
+                this.callbacks.createSymlinkForMod();
+            });
+        }
         
         // Профили
         this.elements.newProfileBtn.addEventListener('click', () => this.callbacks.saveCurrentProfile());

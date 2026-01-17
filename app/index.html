@@ -51,6 +51,18 @@
                         <i class="fas fa-square"></i>
                     </button>
                 </div>
+                <div class="button-frame add-mod-frame">
+                    <div class="dropdown">
+                        <button id="add-mod-btn" class="btn-icon" title="Добавить мод">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                        <div id="add-mod-dropdown" class="dropdown-content">
+                            <button id="create-symlink-btn" class="dropdown-item">
+                                <span>Создать симлинк</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
                 <div class="button-frame sort-frame">
                     <label class="sort-label">Сортировка:</label>
                     <select id="sort-select" class="sort-combo">
@@ -107,12 +119,6 @@
 
                 <!-- Информация о выбранном моде -->
                 <div class="info-frame">
-                    <!-- Создание симлинка -->
-                    <div class="symlink-frame">
-                        <label class="section-label">Добавить мод:</label>
-                        <button id="create-symlink-btn" class="btn-full">Создать симлинк</button>
-                    </div>
-
                     <!-- Массовые действия -->
                     <div id="bulk-actions-panel" class="bulk-actions-frame">
                         <label class="section-label">Действия:</label>

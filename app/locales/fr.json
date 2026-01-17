@@ -24,7 +24,7 @@
         "hideNewMods": "Masquer les nouveaux mods",
         "hideDeletedMods": "Masquer les mods supprimés",
         "hideUnusedMods": "Masquer tous les mods inutilisés",
-        "addMod": "Ajouter un mod:",
+        "addMod": "Ajouter un mod",
         "createSymlink": "Créer un lien symbolique",
         "actions": "Actions:",
         "enableSelected": "Activer la sélection",

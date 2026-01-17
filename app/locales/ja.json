@@ -24,7 +24,7 @@
         "hideNewMods": "新しいMODを非表示",
         "hideDeletedMods": "削除されたMODを非表示",
         "hideUnusedMods": "使用されていないMODをすべて非表示",
-        "addMod": "MODを追加:",
+        "addMod": "MODを追加",
         "createSymlink": "シンボリックリンクを作成",
         "actions": "操作:",
         "enableSelected": "選択したものを有効化",

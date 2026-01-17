@@ -83,6 +83,8 @@ class ModLoadOrderManager {
             hideUnusedModsCheckbox: document.getElementById('hide-unused-mods-checkbox'),
             hideDeletedModsCheckbox: document.getElementById('hide-deleted-mods-checkbox'),
             createSymlinkBtn: document.getElementById('create-symlink-btn'),
+            addModBtn: document.getElementById('add-mod-btn'),
+            addModDropdown: document.getElementById('add-mod-dropdown'),
             profilesList: document.getElementById('profiles-list'),
             newProfileBtn: document.getElementById('new-profile-btn'),
             overwriteProfileBtn: document.getElementById('overwrite-profile-btn'),
@@ -296,6 +298,11 @@ class ModLoadOrderManager {
         if (this.elements.reloadFileBtn) this.elements.reloadFileBtn.title = t('ui.reloadFile');
         if (this.elements.scanBtn) this.elements.scanBtn.title = t('ui.scan');
         if (this.elements.settingsBtn) this.elements.settingsBtn.title = t('ui.settings');
+        if (this.elements.addModBtn) this.elements.addModBtn.title = t('ui.addMod');
+        
+        // Обновляем текст в dropdown
+        const createSymlinkSpan = document.querySelector('#create-symlink-btn span');
+        if (createSymlinkSpan) createSymlinkSpan.textContent = t('ui.createSymlink');
         
         // Сортировка
         const sortLabel = document.querySelector('.sort-label');

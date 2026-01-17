@@ -24,7 +24,7 @@
         "hideNewMods": "隐藏新模组",
         "hideDeletedMods": "隐藏已删除模组",
         "hideUnusedMods": "隐藏所有未使用的模组",
-        "addMod": "添加模组:",
+        "addMod": "添加模组",
         "createSymlink": "创建符号链接",
         "actions": "操作:",
         "enableSelected": "启用所选",

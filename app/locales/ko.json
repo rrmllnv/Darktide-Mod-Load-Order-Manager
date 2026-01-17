@@ -24,7 +24,7 @@
         "hideNewMods": "새 모드 숨기기",
         "hideDeletedMods": "삭제된 모드 숨기기",
         "hideUnusedMods": "사용하지 않는 모드 모두 숨기기",
-        "addMod": "모드 추가:",
+        "addMod": "모드 추가",
         "createSymlink": "심볼릭 링크 만들기",
         "actions": "작업:",
         "enableSelected": "선택 항목 활성화",
