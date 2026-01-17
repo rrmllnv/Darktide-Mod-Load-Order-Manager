@@ -57,6 +57,8 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 980,
     height: 900,
+    minWidth: 870,
+    minHeight: 680,
     icon: path.join(__dirname, 'app', 'icons', 'darktide-icon.ico'), // Иконка в заголовке окна
     webPreferences: {
       nodeIntegration: false,
