@@ -64,7 +64,10 @@
         "noModsSelected": "Nessun mod selezionato",
         "modSelected": "mod selezionato",
         "modsSelected": "mod selezionati",
-        "modsSelectedMany": "mod selezionati"
+        "modsSelectedMany": "mod selezionati",
+        "flagNew": "[NUOVO]",
+        "flagDeleted": "[ELIMINATO]",
+        "flagSymlink": "[SYMLINK]"
     },
     "messages": {
         "success": "Successo",

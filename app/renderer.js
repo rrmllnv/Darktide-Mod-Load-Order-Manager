@@ -164,7 +164,8 @@ class ModLoadOrderManager {
                 getSelectedMods: () => Array.from(this.selectedModNames),
                 getLastSelectedIndex: () => this.lastSelectedModIndex,
                 setLastSelectedIndex: (index) => { this.lastSelectedModIndex = index; }
-            }
+            },
+            this
         );
         
         // Обработка клика вне списка для очистки выбора

@@ -3,11 +3,12 @@ import { DragDropManager } from './DragDropManager.js';
 
 // Рендерер для списка модов
 export class ModListRenderer {
-    constructor(elements, modEntries, callbacks) {
+    constructor(elements, modEntries, callbacks, app = null) {
         this.elements = elements;
         // Обеспечиваем, что modEntries всегда является массивом
         this._modEntries = Array.isArray(modEntries) ? modEntries : [];
         this.callbacks = callbacks; // { onCheckboxChange, onModSelect, onDrop }
+        this.app = app; // Для доступа к локализации
         this.filteredModEntries = [];
         this.dragDropManager = new DragDropManager(
             this._modEntries,
@@ -129,7 +130,12 @@ export class ModListRenderer {
         if (modEntry.isNew) {
             newLabel = document.createElement('span');
             newLabel.className = 'mod-new-label';
-            newLabel.textContent = '[NEW]';
+            // Используем локализацию, если доступна
+            if (this.app && this.app.t) {
+                newLabel.textContent = this.app.t('ui.flagNew');
+            } else {
+                newLabel.textContent = '[NEW]';
+            }
         }
         
         // Метка "DELETED" для модов с удаленной папкой
@@ -137,7 +143,12 @@ export class ModListRenderer {
         if (modEntry.isDeleted) {
             deletedLabel = document.createElement('span');
             deletedLabel.className = 'mod-deleted-label';
-            deletedLabel.textContent = '[DELETED]';
+            // Используем локализацию, если доступна
+            if (this.app && this.app.t) {
+                deletedLabel.textContent = this.app.t('ui.flagDeleted');
+            } else {
+                deletedLabel.textContent = '[DELETED]';
+            }
         }
         
         // Метка "SYMLINK" для модов-симлинков
@@ -145,7 +156,12 @@ export class ModListRenderer {
         if (modEntry.isSymlink) {
             symlinkLabel = document.createElement('span');
             symlinkLabel.className = 'mod-symlink-label';
-            symlinkLabel.textContent = '[SYMLINK]';
+            // Используем локализацию, если доступна
+            if (this.app && this.app.t) {
+                symlinkLabel.textContent = this.app.t('ui.flagSymlink');
+            } else {
+                symlinkLabel.textContent = '[SYMLINK]';
+            }
         }
         
         // Индикатор статуса

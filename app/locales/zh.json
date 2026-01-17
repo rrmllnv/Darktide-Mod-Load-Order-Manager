@@ -64,7 +64,10 @@
         "noModsSelected": "未选择模组",
         "modSelected": "个模组已选择",
         "modsSelected": "个模组已选择",
-        "modsSelectedMany": "个模组已选择"
+        "modsSelectedMany": "个模组已选择",
+        "flagNew": "[新增]",
+        "flagDeleted": "[已删除]",
+        "flagSymlink": "[符号链接]"
     },
     "messages": {
         "success": "成功",

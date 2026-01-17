@@ -64,7 +64,10 @@
         "noModsSelected": "Нет выбранных модов",
         "modSelected": "мод выбрано",
         "modsSelected": "мода выбрано",
-        "modsSelectedMany": "модов выбрано"
+        "modsSelectedMany": "модов выбрано",
+        "flagNew": "[НОВЫЙ]",
+        "flagDeleted": "[УДАЛЕН]",
+        "flagSymlink": "[СИМЛИНК]"
     },
     "messages": {
         "success": "Успех",

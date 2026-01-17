@@ -64,7 +64,10 @@
         "noModsSelected": "선택된 모드 없음",
         "modSelected": "모드 선택됨",
         "modsSelected": "모드 선택됨",
-        "modsSelectedMany": "모드 선택됨"
+        "modsSelectedMany": "모드 선택됨",
+        "flagNew": "[신규]",
+        "flagDeleted": "[삭제됨]",
+        "flagSymlink": "[심볼릭링크]"
     },
     "messages": {
         "success": "성공",
