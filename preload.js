@@ -19,5 +19,6 @@ contextBridge.exposeInMainWorld('electronAPI', {
   loadUserConfig: () => ipcRenderer.invoke('load-user-config'),
   saveUserConfig: (userConfig) => ipcRenderer.invoke('save-user-config', userConfig),
   checkIsDirectory: (filePath) => ipcRenderer.invoke('check-is-directory', filePath),
-  copyFolderToMods: (sourcePath, modsDir) => ipcRenderer.invoke('copy-folder-to-mods', sourcePath, modsDir)
+  copyFolderToMods: (sourcePath, modsDir) => ipcRenderer.invoke('copy-folder-to-mods', sourcePath, modsDir),
+  selectFolder: () => ipcRenderer.invoke('select-folder')
 });

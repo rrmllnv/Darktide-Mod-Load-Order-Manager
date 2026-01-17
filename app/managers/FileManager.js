@@ -83,4 +83,60 @@ export class FileManager {
             this.app.setStatus(this.app.t('messages.fileReloaded'));
         }
     }
+    
+    async addModFolder() {
+        // Получаем директорию модов
+        const modsDir = this.app.filePath ? this.app.filePath.substring(0, this.app.filePath.lastIndexOf('\\')) : '';
+        if (!modsDir) {
+            await this.app.uiManager.showMessage(
+                this.app.t('messages.error'),
+                this.app.t('messages.failedToDetermineModsDir')
+            );
+            return;
+        }
+        
+        // Открываем диалог выбора папки
+        const result = await window.electronAPI.selectFolder();
+        
+        if (!result.success || result.canceled) {
+            return;
+        }
+        
+        const selectedFolder = result.folderPath;
+        
+        // Проверяем, что это папка
+        const isDirectory = await window.electronAPI.checkIsDirectory(selectedFolder);
+        if (!isDirectory) {
+            await this.app.uiManager.showMessage(
+                this.app.t('messages.error'),
+                this.app.t('messages.dragDropNotFolder') || 'Выберите папку, а не файл'
+            );
+            return;
+        }
+        
+        // Копируем папку
+        try {
+            const copyResult = await window.electronAPI.copyFolderToMods(selectedFolder, modsDir);
+            
+            if (copyResult.success) {
+                await this.app.uiManager.showMessage(
+                    this.app.t('messages.success'),
+                    (this.app.t('messages.folderCopied') || 'Папка скопирована: {folderName}').replace('{folderName}', copyResult.folderName)
+                );
+                
+                // Обновляем список модов
+                await this.app.modManager.scanAndUpdate();
+            } else {
+                await this.app.uiManager.showMessage(
+                    this.app.t('messages.error'),
+                    copyResult.error || (this.app.t('messages.folderCopyError') || 'Ошибка при копировании папки')
+                );
+            }
+        } catch (error) {
+            await this.app.uiManager.showMessage(
+                this.app.t('messages.error'),
+                error.message || (this.app.t('messages.folderCopyError') || 'Ошибка при копировании папки')
+            );
+        }
+    }
 }

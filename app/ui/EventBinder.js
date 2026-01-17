@@ -67,6 +67,16 @@ export class EventBinder {
             }
         });
         
+        // Добавление папки мода
+        if (this.elements.addModFolderBtn) {
+            this.elements.addModFolderBtn.addEventListener('click', () => {
+                if (this.elements.addModDropdown) {
+                    this.elements.addModDropdown.classList.remove('show');
+                }
+                this.callbacks.addModFolder();
+            });
+        }
+        
         // Создание симлинка
         if (this.elements.createSymlinkBtn) {
             this.elements.createSymlinkBtn.addEventListener('click', () => {

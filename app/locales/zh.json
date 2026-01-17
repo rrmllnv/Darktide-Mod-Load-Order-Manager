@@ -25,6 +25,7 @@
         "hideDeletedMods": "隐藏已删除模组",
         "hideUnusedMods": "隐藏所有未使用的模组",
         "addMod": "添加模组",
+        "addModFolder": "添加模组文件夹",
         "createSymlink": "创建符号链接",
         "dragDropText": "将模组文件夹拖到此处",
         "actions": "操作:",

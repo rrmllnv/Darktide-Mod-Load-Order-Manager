@@ -25,6 +25,7 @@
         "hideDeletedMods": "削除されたMODを非表示",
         "hideUnusedMods": "使用されていないMODをすべて非表示",
         "addMod": "MODを追加",
+        "addModFolder": "MODフォルダを追加",
         "createSymlink": "シンボリックリンクを作成",
         "dragDropText": "MODフォルダをここにドラッグしてください",
         "actions": "操作:",

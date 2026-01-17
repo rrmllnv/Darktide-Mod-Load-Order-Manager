@@ -83,6 +83,7 @@ class ModLoadOrderManager {
             hideUnusedModsCheckbox: document.getElementById('hide-unused-mods-checkbox'),
             hideDeletedModsCheckbox: document.getElementById('hide-deleted-mods-checkbox'),
             createSymlinkBtn: document.getElementById('create-symlink-btn'),
+            addModFolderBtn: document.getElementById('add-mod-folder-btn'),
             addModBtn: document.getElementById('add-mod-btn'),
             addModDropdown: document.getElementById('add-mod-dropdown'),
             profilesList: document.getElementById('profiles-list'),
@@ -235,7 +236,8 @@ class ModLoadOrderManager {
             bulkEnable: () => this.bulkOperationsManager.bulkEnable(),
             bulkDisable: () => this.bulkOperationsManager.bulkDisable(),
             bulkDelete: () => this.bulkOperationsManager.bulkDelete(),
-            bulkClearSelection: () => this.modManager.clearSelection()
+            bulkClearSelection: () => this.modManager.clearSelection(),
+            addModFolder: () => this.fileManager.addModFolder()
         });
         
         // Загрузка файла при старте
@@ -442,7 +444,14 @@ class ModLoadOrderManager {
         // Действия
         const addModLabel = document.querySelector('.symlink-frame .section-label');
         if (addModLabel) addModLabel.textContent = t('ui.addMod');
-        if (this.elements.createSymlinkBtn) this.elements.createSymlinkBtn.textContent = t('ui.createSymlink');
+        if (this.elements.addModFolderBtn) {
+            const span = this.elements.addModFolderBtn.querySelector('span');
+            if (span) span.textContent = t('ui.addModFolder');
+        }
+        if (this.elements.createSymlinkBtn) {
+            const span = this.elements.createSymlinkBtn.querySelector('span');
+            if (span) span.textContent = t('ui.createSymlink');
+        }
         
         const actionsLabel = document.querySelector('#bulk-actions-panel .section-label');
         if (actionsLabel) actionsLabel.textContent = t('ui.actions');

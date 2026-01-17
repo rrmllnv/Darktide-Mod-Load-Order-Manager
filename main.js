@@ -123,6 +123,20 @@ ipcMain.handle('select-file', async (event, defaultPath) => {
   return { success: true, filePath: result.filePaths[0] };
 });
 
+// Выбрать папку через диалог
+ipcMain.handle('select-folder', async (event) => {
+  const result = await dialog.showOpenDialog(mainWindow, {
+    title: 'Выберите папку с модом',
+    properties: ['openDirectory']
+  });
+
+  if (result.canceled) {
+    return { success: false, canceled: true };
+  }
+
+  return { success: true, folderPath: result.filePaths[0] };
+});
+
 // Сканировать папку модов
 ipcMain.handle('scan-mods-directory', async (event, modsDir) => {
   try {
@@ -346,20 +360,6 @@ ipcMain.handle('create-symlink', async (event, linkPath, targetPath) => {
   }
 });
 
-// Выбрать папку через диалог
-ipcMain.handle('select-folder', async (event, defaultPath) => {
-  const result = await dialog.showOpenDialog(mainWindow, {
-    title: 'Выберите папку с модом',
-    defaultPath: defaultPath,
-    properties: ['openDirectory']
-  });
-
-  if (result.canceled) {
-    return { success: false, canceled: true };
-  }
-
-  return { success: true, folderPath: result.filePaths[0] };
-});
 
 // Получить путь к файлу настроек
 function getUserConfigPath() {

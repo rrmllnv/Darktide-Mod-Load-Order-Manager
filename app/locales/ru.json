@@ -25,6 +25,7 @@
         "hideDeletedMods": "Скрыть удаленные моды",
         "hideUnusedMods": "Скрыть все не используемые моды",
         "addMod": "Добавить мод",
+        "addModFolder": "Добавить папку мода",
         "createSymlink": "Создать симлинк",
         "dragDropText": "Перетащите папку мода сюда",
         "actions": "Действия:",

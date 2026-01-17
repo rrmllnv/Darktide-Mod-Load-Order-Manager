@@ -25,6 +25,7 @@
         "hideDeletedMods": "Hide deleted mods",
         "hideUnusedMods": "Hide all unused mods",
         "addMod": "Add mod",
+        "addModFolder": "Add mod folder",
         "createSymlink": "Create symlink",
         "dragDropText": "Drag mod folder here",
         "actions": "Actions:",

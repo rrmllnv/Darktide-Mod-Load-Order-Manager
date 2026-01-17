@@ -25,6 +25,7 @@
         "hideDeletedMods": "Masquer les mods supprimés",
         "hideUnusedMods": "Masquer tous les mods inutilisés",
         "addMod": "Ajouter un mod",
+        "addModFolder": "Ajouter un dossier de mod",
         "createSymlink": "Créer un lien symbolique",
         "dragDropText": "Glissez le dossier du mod ici",
         "actions": "Actions:",

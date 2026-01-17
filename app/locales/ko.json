@@ -25,6 +25,7 @@
         "hideDeletedMods": "삭제된 모드 숨기기",
         "hideUnusedMods": "사용하지 않는 모드 모두 숨기기",
         "addMod": "모드 추가",
+        "addModFolder": "모드 폴더 추가",
         "createSymlink": "심볼릭 링크 만들기",
         "dragDropText": "모드 폴더를 여기로 드래그하세요",
         "actions": "작업:",

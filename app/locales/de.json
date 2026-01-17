@@ -25,6 +25,7 @@
         "hideDeletedMods": "Gelöschte Mods ausblenden",
         "hideUnusedMods": "Alle ungenutzten Mods ausblenden",
         "addMod": "Mod hinzufügen",
+        "addModFolder": "Mod-Ordner hinzufügen",
         "createSymlink": "Symlink erstellen",
         "dragDropText": "Mod-Ordner hierher ziehen",
         "actions": "Aktionen:",
