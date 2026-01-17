@@ -6,7 +6,6 @@ const { promisify } = require('util');
 const { spawn } = require('child_process');
 const symlinkAsync = promisify(symlink);
 
-// Функция для рекурсивного копирования папки
 async function copyDirectory(src, dest) {
   await fs.mkdir(dest, { recursive: true });
   const entries = await fs.readdir(src, { withFileTypes: true });
@@ -23,10 +22,8 @@ async function copyDirectory(src, dest) {
   }
 }
 
-// Путь к файлу mod_load_order.txt по умолчанию
 const DEFAULT_PATH = 'C:\\Program Files (x86)\\Steam\\steamapps\\common\\Warhammer 40,000 DARKTIDE\\mods\\mod_load_order.txt';
 
-// Функция для поиска файла mod_load_order.txt в стандартных местах Steam
 function findModLoadOrderFile() {
   const standardPaths = [
     'C:\\Program Files (x86)\\Steam\\steamapps\\common\\Warhammer 40,000 DARKTIDE\\mods\\mod_load_order.txt',
@@ -40,14 +37,12 @@ function findModLoadOrderFile() {
     'F:\\SteamLibrary\\steamapps\\common\\Warhammer 40,000 DARKTIDE\\mods\\mod_load_order.txt'
   ];
   
-  // Проверяем каждый путь
   for (const filePath of standardPaths) {
     if (existsSync(filePath)) {
       return filePath;
     }
   }
   
-  // Если не найден, возвращаем путь по умолчанию
   return DEFAULT_PATH;
 }
 
@@ -59,22 +54,20 @@ function createWindow() {
     height: 900,
     minWidth: 870,
     minHeight: 680,
-    icon: path.join(__dirname, 'app', 'icons', 'darktide-icon.ico'), // Иконка в заголовке окна
+    icon: path.join(__dirname, 'app', 'icons', 'darktide-icon.ico'),
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
       preload: path.join(__dirname, 'preload.js')
     },
     title: 'Darktide Mod Load Order Manager',
-    autoHideMenuBar: true // Скрываем стандартное меню Electron
+    autoHideMenuBar: true
   });
 
   mainWindow.loadFile('app/index.html');
 
-  // Полностью скрываем меню
   mainWindow.setMenuBarVisibility(false);
 
-  // Открываем DevTools в режиме разработки
   if (process.argv.includes('--dev')) {
     mainWindow.webContents.openDevTools();
   }
@@ -96,19 +89,14 @@ app.on('window-all-closed', () => {
   }
 });
 
-// IPC обработчики
-
-// Получить путь по умолчанию
 ipcMain.handle('get-default-path', () => {
   return DEFAULT_PATH;
 });
 
-// Найти файл mod_load_order.txt в стандартных местах
 ipcMain.handle('find-mod-load-order-file', () => {
   return findModLoadOrderFile();
 });
 
-// Проверить существование файла
 ipcMain.handle('file-exists', async (event, filePath) => {
   try {
     return existsSync(filePath);
@@ -117,7 +105,6 @@ ipcMain.handle('file-exists', async (event, filePath) => {
   }
 });
 
-// Загрузить файл
 ipcMain.handle('load-file', async (event, filePath) => {
   try {
     const content = await fs.readFile(filePath, 'utf-8');
@@ -127,7 +114,6 @@ ipcMain.handle('load-file', async (event, filePath) => {
   }
 });
 
-// Сохранить файл
 ipcMain.handle('save-file', async (event, filePath, content) => {
   try {
     await fs.writeFile(filePath, content, 'utf-8');
@@ -137,7 +123,6 @@ ipcMain.handle('save-file', async (event, filePath, content) => {
   }
 });
 
-// Выбрать файл через диалог
 ipcMain.handle('select-file', async (event, defaultPath) => {
   const result = await dialog.showOpenDialog(mainWindow, {
     title: 'Выберите mod_load_order.txt',
@@ -156,7 +141,6 @@ ipcMain.handle('select-file', async (event, defaultPath) => {
   return { success: true, filePath: result.filePaths[0] };
 });
 
-// Выбрать папку через диалог
 ipcMain.handle('select-folder', async (event) => {
   const result = await dialog.showOpenDialog(mainWindow, {
     title: 'Выберите папку с модом',
@@ -170,7 +154,6 @@ ipcMain.handle('select-folder', async (event) => {
   return { success: true, folderPath: result.filePaths[0] };
 });
 
-// Сканировать папку модов
 ipcMain.handle('scan-mods-directory', async (event, modsDir) => {
   try {
     if (!existsSync(modsDir)) {
@@ -179,41 +162,33 @@ ipcMain.handle('scan-mods-directory', async (event, modsDir) => {
 
     const items = readdirSync(modsDir);
     const newMods = [];
-    const symlinkMods = new Map(); // Карта: имя мода -> является ли симлинком
+    const symlinkMods = new Map();
 
     for (const item of items) {
       const itemPath = path.join(modsDir, item);
       
-      // Используем lstatSync для проверки симлинков (не следует по ссылкам)
       const stats = lstatSync(itemPath);
       const isSymlink = stats.isSymbolicLink();
       
-      // Пропускаем файлы, ищем только папки (включая симлинки на папки)
       if (!stats.isDirectory() && !isSymlink) {
         continue;
       }
       
-      // Проверяем, является ли это симлинком
-      // Если симлинк, проверяем, указывает ли он на папку
       if (isSymlink) {
         try {
-          // Проверяем, на что указывает симлинк
           const targetStats = statSync(itemPath);
           if (!targetStats.isDirectory()) {
-            continue; // Симлинк указывает не на папку
+            continue;
           }
         } catch (e) {
-          // Симлинк указывает на несуществующий путь - пропускаем
           continue;
         }
       }
 
-      // Пропускаем служебные папки
       if (item.startsWith('_') || ['base', 'dmf'].includes(item.toLowerCase())) {
         continue;
       }
 
-      // Проверяем наличие файла .mod в папке
       const modFile = path.join(itemPath, `${item}.mod`);
       if (existsSync(modFile)) {
         newMods.push(item);
@@ -227,19 +202,15 @@ ipcMain.handle('scan-mods-directory', async (event, modsDir) => {
   }
 });
 
-// Получить путь к папке профилей
 ipcMain.handle('get-profiles-directory', async (event, modsDir) => {
-  // Приоритет 1: AppData (Roaming) - стандартное место для пользовательских данных
   try {
     const userDataDir = app.getPath('userData');
     const profilesDir = path.join(userDataDir, 'profiles');
     await fs.mkdir(profilesDir, { recursive: true });
     return { success: true, path: profilesDir };
   } catch (error) {
-    // Если не получилось создать в AppData, пробуем следующий вариант
   }
 
-  // Приоритет 2: Рядом с mod_load_order.txt (если указана папка модов)
   try {
     if (modsDir) {
       const profilesDir = path.join(modsDir, 'ModLoadOrderManager_profiles');
@@ -247,10 +218,8 @@ ipcMain.handle('get-profiles-directory', async (event, modsDir) => {
       return { success: true, path: profilesDir };
     }
   } catch (error) {
-    // Если не получилось, пробуем следующий вариант
   }
 
-  // Приоритет 3: Рядом с программой (последний fallback)
   try {
     const profilesDir = path.join(__dirname, 'profiles');
     await fs.mkdir(profilesDir, { recursive: true });
@@ -260,7 +229,6 @@ ipcMain.handle('get-profiles-directory', async (event, modsDir) => {
   }
 });
 
-// Получить список профилей
 ipcMain.handle('list-profiles', async (event, profilesDir) => {
   try {
     if (!existsSync(profilesDir)) {
@@ -270,7 +238,7 @@ ipcMain.handle('list-profiles', async (event, profilesDir) => {
     const files = readdirSync(profilesDir);
     const profiles = files
       .filter(file => file.endsWith('.json'))
-      .map(file => file.slice(0, -5)); // Убираем .json
+      .map(file => file.slice(0, -5));
 
     return { success: true, profiles };
   } catch (error) {
@@ -278,7 +246,6 @@ ipcMain.handle('list-profiles', async (event, profilesDir) => {
   }
 });
 
-// Сохранить профиль
 ipcMain.handle('save-profile', async (event, profilesDir, profileName, state) => {
   try {
     if (!existsSync(profilesDir)) {
@@ -294,7 +261,6 @@ ipcMain.handle('save-profile', async (event, profilesDir, profileName, state) =>
   }
 });
 
-// Загрузить профиль
 ipcMain.handle('load-profile', async (event, profilesDir, profileName) => {
   try {
     const profilePath = path.join(profilesDir, `${profileName}.json`);
@@ -307,7 +273,6 @@ ipcMain.handle('load-profile', async (event, profilesDir, profileName) => {
   }
 });
 
-// Удалить профиль
 ipcMain.handle('delete-profile', async (event, profilesDir, profileName) => {
   try {
     const profilePath = path.join(profilesDir, `${profileName}.json`);
@@ -321,7 +286,6 @@ ipcMain.handle('delete-profile', async (event, profilesDir, profileName) => {
   }
 });
 
-// Переименовать профиль
 ipcMain.handle('rename-profile', async (event, profilesDir, oldName, newName) => {
   try {
     const oldPath = path.join(profilesDir, `${oldName}.json`);
@@ -342,12 +306,9 @@ ipcMain.handle('rename-profile', async (event, profilesDir, oldName, newName) =>
   }
 });
 
-// Создать символическую ссылку
 ipcMain.handle('create-symlink', async (event, linkPath, targetPath) => {
   try {
-    // Проверяем, существует ли уже симлинк или папка
     if (existsSync(linkPath)) {
-      // Проверяем, является ли это симлинком
       try {
         const stats = await fs.lstat(linkPath);
         if (stats.isSymbolicLink()) {
@@ -360,21 +321,16 @@ ipcMain.handle('create-symlink', async (event, linkPath, targetPath) => {
       }
     }
     
-    // Проверяем, существует ли целевая папка
     if (!existsSync(targetPath)) {
       return { success: false, error: 'Целевая папка не существует' };
     }
     
-    // Создаем символическую ссылку
-    // На Windows нужно использовать 'junction' для директорий или 'dir' для символических ссылок
-    // 'dir' работает только с правами администратора или в Developer Mode
     const linkType = process.platform === 'win32' ? 'junction' : 'dir';
     
     try {
       await symlinkAsync(targetPath, linkPath, linkType);
       return { success: true };
     } catch (error) {
-      // Если не получилось создать junction, пробуем dir (требует прав администратора)
       if (process.platform === 'win32' && linkType === 'junction') {
         try {
           await symlinkAsync(targetPath, linkPath, 'dir');
@@ -393,19 +349,15 @@ ipcMain.handle('create-symlink', async (event, linkPath, targetPath) => {
   }
 });
 
-
-// Получить путь к файлу настроек
 function getUserConfigPath() {
   const userDataDir = app.getPath('userData');
   return path.join(userDataDir, 'UserConfig.json');
 }
 
-// Загрузить настройки
 ipcMain.handle('load-user-config', async () => {
   try {
     const userConfigPath = getUserConfigPath();
     
-    // Функция для получения структуры настроек по умолчанию
     function getDefaultUserConfig() {
       return {
         fileUrlModLoadOrder: '',
@@ -418,7 +370,6 @@ ipcMain.handle('load-user-config', async () => {
     }
     
     if (!existsSync(userConfigPath)) {
-      // Создаем файл с настройками по умолчанию
       const defaultUserConfig = getDefaultUserConfig();
       
       await fs.writeFile(userConfigPath, JSON.stringify(defaultUserConfig, null, 2), 'utf-8');
@@ -428,7 +379,6 @@ ipcMain.handle('load-user-config', async () => {
     const content = await fs.readFile(userConfigPath, 'utf-8');
     const userConfig = JSON.parse(content);
     
-    // Убеждаемся, что все поля присутствуют
     const defaultUserConfig = getDefaultUserConfig();
     
     const mergedUserConfig = { ...defaultUserConfig, ...userConfig };
@@ -439,13 +389,11 @@ ipcMain.handle('load-user-config', async () => {
   }
 });
 
-// Сохранить настройки
 ipcMain.handle('save-user-config', async (event, userConfig) => {
   try {
     const userConfigPath = getUserConfigPath();
     const userDataDir = app.getPath('userData');
     
-    // Убеждаемся, что папка существует
     if (!existsSync(userDataDir)) {
       await fs.mkdir(userDataDir, { recursive: true });
     }
@@ -457,7 +405,6 @@ ipcMain.handle('save-user-config', async (event, userConfig) => {
   }
 });
 
-// Проверить, является ли путь папкой
 ipcMain.handle('check-is-directory', async (event, filePath) => {
   try {
     if (!existsSync(filePath)) {
@@ -470,35 +417,28 @@ ipcMain.handle('check-is-directory', async (event, filePath) => {
   }
 });
 
-// Копировать папку в директорию модов
 ipcMain.handle('copy-folder-to-mods', async (event, sourcePath, modsDir) => {
   try {
-    // Проверяем, что исходная папка существует
     if (!existsSync(sourcePath)) {
       return { success: false, error: 'Исходная папка не существует' };
     }
     
-    // Проверяем, что это папка
     const stats = statSync(sourcePath);
     if (!stats.isDirectory()) {
       return { success: false, error: 'Указанный путь не является папкой' };
     }
     
-    // Проверяем, что директория модов существует
     if (!existsSync(modsDir)) {
       return { success: false, error: 'Директория модов не существует' };
     }
     
-    // Получаем имя папки
     const folderName = path.basename(sourcePath);
     const destPath = path.join(modsDir, folderName);
     
-    // Проверяем, не существует ли уже папка с таким именем
     if (existsSync(destPath)) {
       return { success: false, error: `Папка "${folderName}" уже существует в директории модов` };
     }
     
-    // Копируем папку
     await copyDirectory(sourcePath, destPath);
     
     return { success: true, folderName: folderName };
@@ -507,15 +447,12 @@ ipcMain.handle('copy-folder-to-mods', async (event, sourcePath, modsDir) => {
   }
 });
 
-// Запустить приложение dtkit-patch
 ipcMain.handle('launch-dtkit-patch', async (event, gameDir) => {
   try {
-    // Проверяем, существует ли директория игры
     if (!existsSync(gameDir)) {
       return { success: false, error: `Директория игры не найдена: ${gameDir}` };
     }
     
-    // Путь к dtkit-patch (может быть с расширением .exe или без)
     const dtkitPath = path.join(gameDir, 'tools', 'dtkit-patch');
     const dtkitPathExe = path.join(gameDir, 'tools', 'dtkit-patch.exe');
     
@@ -528,17 +465,14 @@ ipcMain.handle('launch-dtkit-patch', async (event, gameDir) => {
       return { success: false, error: `dtkit-patch не найден в: ${path.join(gameDir, 'tools')}` };
     }
     
-    // Путь к bundle
     const bundlePath = path.join(gameDir, 'bundle');
     
-    // Запускаем приложение с параметрами --toggle bundle (как в bat файле)
     const child = spawn(executablePath, ['--toggle', bundlePath], {
       cwd: gameDir,
       detached: true,
       stdio: 'ignore'
     });
     
-    // Отсоединяем процесс, чтобы он работал независимо
     child.unref();
     
     return { success: true };

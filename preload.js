@@ -1,6 +1,5 @@
 const { contextBridge, ipcRenderer } = require('electron');
 
-// Предоставляем безопасный API для renderer процесса
 contextBridge.exposeInMainWorld('electronAPI', {
   getDefaultPath: () => ipcRenderer.invoke('get-default-path'),
   fileExists: (filePath) => ipcRenderer.invoke('file-exists', filePath),
