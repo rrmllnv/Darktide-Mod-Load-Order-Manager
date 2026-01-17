@@ -7,18 +7,26 @@ export class UIManager {
     // Показ сообщения в модальном окне вместо alert
     showMessage(title, message) {
         return new Promise((resolve) => {
+            // Определяем, является ли сообщение об успехе
+            const isSuccess = title === this.app.t('messages.success') || 
+                             title === 'Успех' || 
+                             title === 'Success' ||
+                             title?.toLowerCase().includes('success');
+            
+            // Выбираем текст кнопки в зависимости от типа сообщения
+            const buttonText = isSuccess ? this.app.t('ui.close') : this.app.t('ui.save');
+            
             // Восстанавливаем кнопку OK на случай, если она была заменена
             const footer = this.app.elements.messageDialog.querySelector('.modal-footer');
             if (!footer.querySelector('#message-ok-btn')) {
-                const saveText = this.app.t('ui.save');
-                footer.innerHTML = `<button id="message-ok-btn" class="btn btn-primary">${saveText}</button>`;
+                footer.innerHTML = `<button id="message-ok-btn" class="btn btn-primary">${buttonText}</button>`;
                 this.app.elements.messageOkBtn = document.getElementById('message-ok-btn');
             } else {
                 // Обновляем ссылку на кнопку, если она уже есть
                 this.app.elements.messageOkBtn = document.getElementById('message-ok-btn');
-                // Обновляем текст кнопки на случай изменения языка
+                // Обновляем текст кнопки в зависимости от типа сообщения
                 if (this.app.elements.messageOkBtn) {
-                    this.app.elements.messageOkBtn.textContent = this.app.t('ui.save');
+                    this.app.elements.messageOkBtn.textContent = buttonText;
                 }
             }
             
@@ -61,7 +69,7 @@ export class UIManager {
             
             const handleYes = () => {
                 this.app.elements.messageDialog.classList.remove('show');
-                // Восстанавливаем кнопку OK
+                // Восстанавливаем кнопку OK (по умолчанию "Сохранить")
                 const saveText = this.app.t('ui.save');
                 footer.innerHTML = `<button id="message-ok-btn" class="btn btn-primary">${saveText}</button>`;
                 this.app.elements.messageOkBtn = document.getElementById('message-ok-btn');
@@ -72,7 +80,7 @@ export class UIManager {
             
             const handleNo = () => {
                 this.app.elements.messageDialog.classList.remove('show');
-                // Восстанавливаем кнопку OK
+                // Восстанавливаем кнопку OK (по умолчанию "Сохранить")
                 const saveText = this.app.t('ui.save');
                 footer.innerHTML = `<button id="message-ok-btn" class="btn btn-primary">${saveText}</button>`;
                 this.app.elements.messageOkBtn = document.getElementById('message-ok-btn');
