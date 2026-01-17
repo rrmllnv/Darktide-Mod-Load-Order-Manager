@@ -10,11 +10,16 @@ export class UIManager {
             // Восстанавливаем кнопку OK на случай, если она была заменена
             const footer = this.app.elements.messageDialog.querySelector('.modal-footer');
             if (!footer.querySelector('#message-ok-btn')) {
-                footer.innerHTML = '<button id="message-ok-btn" class="btn btn-primary">OK</button>';
+                const saveText = this.app.t('ui.save');
+                footer.innerHTML = `<button id="message-ok-btn" class="btn btn-primary">${saveText}</button>`;
                 this.app.elements.messageOkBtn = document.getElementById('message-ok-btn');
             } else {
                 // Обновляем ссылку на кнопку, если она уже есть
                 this.app.elements.messageOkBtn = document.getElementById('message-ok-btn');
+                // Обновляем текст кнопки на случай изменения языка
+                if (this.app.elements.messageOkBtn) {
+                    this.app.elements.messageOkBtn.textContent = this.app.t('ui.save');
+                }
             }
             
             this.app.elements.messageTitle.textContent = title || this.app.t('ui.message');
@@ -57,7 +62,8 @@ export class UIManager {
             const handleYes = () => {
                 this.app.elements.messageDialog.classList.remove('show');
                 // Восстанавливаем кнопку OK
-                footer.innerHTML = '<button id="message-ok-btn" class="btn btn-primary">OK</button>';
+                const saveText = this.app.t('ui.save');
+                footer.innerHTML = `<button id="message-ok-btn" class="btn btn-primary">${saveText}</button>`;
                 this.app.elements.messageOkBtn = document.getElementById('message-ok-btn');
                 yesBtn.removeEventListener('click', handleYes);
                 noBtn.removeEventListener('click', handleNo);
@@ -67,7 +73,8 @@ export class UIManager {
             const handleNo = () => {
                 this.app.elements.messageDialog.classList.remove('show');
                 // Восстанавливаем кнопку OK
-                footer.innerHTML = '<button id="message-ok-btn" class="btn btn-primary">OK</button>';
+                const saveText = this.app.t('ui.save');
+                footer.innerHTML = `<button id="message-ok-btn" class="btn btn-primary">${saveText}</button>`;
                 this.app.elements.messageOkBtn = document.getElementById('message-ok-btn');
                 yesBtn.removeEventListener('click', handleYes);
                 noBtn.removeEventListener('click', handleNo);

@@ -353,11 +353,11 @@ class ModLoadOrderManager {
         // Модальные окна
         if (this.elements.modalTitle) this.elements.modalTitle.textContent = t('ui.enterProfileName');
         if (this.elements.profileNameInput) this.elements.profileNameInput.placeholder = t('ui.profileNamePlaceholder');
-        if (this.elements.modalOkBtn) this.elements.modalOkBtn.textContent = t('ui.ok');
+        if (this.elements.modalOkBtn) this.elements.modalOkBtn.textContent = t('ui.save');
         if (this.elements.modalCancelBtn) this.elements.modalCancelBtn.textContent = t('ui.cancel');
         
         if (this.elements.messageTitle) this.elements.messageTitle.textContent = t('ui.message');
-        if (this.elements.messageOkBtn) this.elements.messageOkBtn.textContent = t('ui.ok');
+        if (this.elements.messageOkBtn) this.elements.messageOkBtn.textContent = t('ui.save');
         
         const settingsTitle = document.querySelector('#settings-dialog .modal-title');
         if (settingsTitle) settingsTitle.textContent = t('ui.settings');
@@ -429,7 +429,7 @@ class ModLoadOrderManager {
             }
         }
         
-        if (this.elements.settingsOkBtn) this.elements.settingsOkBtn.textContent = t('ui.ok');
+        if (this.elements.settingsOkBtn) this.elements.settingsOkBtn.textContent = t('ui.save');
         if (this.elements.settingsCancelBtn) this.elements.settingsCancelBtn.textContent = t('ui.cancel');
     }
     
