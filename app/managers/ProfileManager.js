@@ -33,12 +33,42 @@ export class ProfileManager {
     }
     
     saveCurrentState() {
-        return this.app.profileService.saveState(this.app.modEntries);
+        const settings = {
+            hideNewMods: this.app.hideNewMods || false,
+            hideDeletedMods: this.app.hideDeletedMods || false,
+            hideUnusedMods: this.app.hideUnusedMods || false,
+            sort: this.app.elements.sortSelect ? this.app.elements.sortSelect.value : null
+        };
+        return this.app.profileService.saveState(this.app.modEntries, settings);
     }
     
     restoreState(state) {
         const result = this.app.profileService.restoreState(state, this.app.modEntries);
         this.app.modEntries = result.modEntries;
+        
+        // Восстанавливаем настройки из профиля
+        if (result.settings) {
+            // Восстанавливаем настройки фильтрации
+            this.app.hideNewMods = result.settings.hideNewMods || false;
+            this.app.hideDeletedMods = result.settings.hideDeletedMods || false;
+            this.app.hideUnusedMods = result.settings.hideUnusedMods || false;
+            
+            // Применяем настройки фильтрации к чекбоксам
+            if (this.app.elements.hideNewModsCheckbox) {
+                this.app.elements.hideNewModsCheckbox.checked = this.app.hideNewMods;
+            }
+            if (this.app.elements.hideDeletedModsCheckbox) {
+                this.app.elements.hideDeletedModsCheckbox.checked = this.app.hideDeletedMods;
+            }
+            if (this.app.elements.hideUnusedModsCheckbox) {
+                this.app.elements.hideUnusedModsCheckbox.checked = this.app.hideUnusedMods;
+            }
+            
+            // Восстанавливаем сортировку
+            if (result.settings.sort && this.app.elements.sortSelect) {
+                this.app.elements.sortSelect.value = result.settings.sort;
+            }
+        }
         
         // Очищаем все старые ссылки на DOM элементы, чтобы они не мешали
         this.app.modEntries.forEach(modEntry => {

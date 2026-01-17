@@ -7,7 +7,7 @@ export class ProfileService {
     }
     
     // Сохранение текущего состояния в формат профиля
-    saveState(modEntries) {
+    saveState(modEntries, settings = {}) {
         // Сохраняем все моды, кроме тех, которые помечены как NEW и выключены
         // Если мод с флагом NEW включен (галочка стоит), он должен сохраниться в профиль
         const modsToSave = modEntries.filter(modEntry => {
@@ -24,7 +24,13 @@ export class ProfileService {
         
         const state = {
             _order: [], // Массив имен модов в порядке из файла
-            _mods: {}   // Объект с состоянием каждого мода
+            _mods: {},   // Объект с состоянием каждого мода
+            _settings: {
+                hideNewMods: settings.hideNewMods || false,
+                hideDeletedMods: settings.hideDeletedMods || false,
+                hideUnusedMods: settings.hideUnusedMods || false,
+                sort: settings.sort || null
+            }
         };
         
         for (const modEntry of sortedMods) {
@@ -38,17 +44,19 @@ export class ProfileService {
     // Восстановление состояния из профиля
     restoreState(state, existingModEntries) {
         if (!state) {
-            return { modEntries: [], selectedModName: '' };
+            return { modEntries: [], selectedModName: '', settings: null };
         }
         
         // Поддержка старого формата профиля (без порядка)
         let profileOrder = [];
         let profileMods = {};
+        let profileSettings = null;
         
         if (state._order && state._mods) {
             // Новый формат с порядком
             profileOrder = state._order;
             profileMods = state._mods;
+            profileSettings = state._settings || null;
         } else {
             // Старый формат (только состояние) - создаем порядок из ключей
             profileOrder = Object.keys(state);
@@ -108,7 +116,7 @@ export class ProfileService {
             restoredMods.push(modEntry);
         }
         
-        return { modEntries: restoredMods };
+        return { modEntries: restoredMods, settings: profileSettings };
     }
     
     // Список профилей
