@@ -170,10 +170,10 @@ export class SettingsManager {
             }
         }
         
-        if (this.app.userConfig.hideDeletedMods !== undefined) {
-            this.app.hideDeletedMods = this.app.userConfig.hideDeletedMods;
-            if (this.app.elements.hideDeletedModsCheckbox) {
-                this.app.elements.hideDeletedModsCheckbox.checked = this.app.hideDeletedMods;
+        if (this.app.userConfig.hideNotFoundMods !== undefined) {
+            this.app.hideNotFoundMods = this.app.userConfig.hideNotFoundMods;
+            if (this.app.elements.hideNotFoundModsCheckbox) {
+                this.app.elements.hideNotFoundModsCheckbox.checked = this.app.hideNotFoundMods;
             }
         }
         

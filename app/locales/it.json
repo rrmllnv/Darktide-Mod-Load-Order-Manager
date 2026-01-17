@@ -23,7 +23,7 @@
         "searchPlaceholder": "Inserisci nome mod...",
         "clear": "Pulisci",
         "hideNewMods": "Nascondi nuovi mod",
-        "hideDeletedMods": "Nascondi mod eliminati",
+        "hideNotFoundMods": "Nascondi mod non trovati",
         "hideUnusedMods": "Nascondi tutti i mod non utilizzati",
         "addMod": "Aggiungi mod",
         "addModFolder": "Aggiungi cartella mod",
@@ -70,7 +70,7 @@
         "modsSelected": "mod selezionati",
         "modsSelectedMany": "mod selezionati",
         "flagNew": "[NUOVO]",
-        "flagDeleted": "[ELIMINATO]",
+        "flagNotFound": "[NON TROVATO]",
         "flagSymlink": "[SYMLINK]"
     },
     "messages": {
@@ -88,7 +88,7 @@
         "saveConfirm": "Salvare le modifiche nel file?",
         "scanNewMods": "Nuovi mod trovati:",
         "scanRemovedMods": "Mod non trovati rimossi:",
-        "scanDeletedMods": "Contrassegnati come eliminati:",
+        "scanDeletedMods": "Contrassegnati come non trovati:",
         "scanRestoredMods": "Mod ripristinati:",
         "scanNoChanges": "Nessuna modifica rilevata",
         "launchDtkitPatchError": "Errore durante l'avvio dell'applicazione",

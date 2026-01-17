@@ -44,25 +44,25 @@ export class ModScanService {
             // Удаляем моды с флагом isNew, которых больше нет в файловой системе
             const modsToRemove = [];
             let newSelectedModName = selectedModName;
-            let deletedCount = 0; // Счетчик модов, помеченных как deleted
-            let restoredCount = 0; // Счетчик модов, у которых снят флаг deleted (папка появилась)
+            let notFoundCount = 0; // Счетчик модов, помеченных как не найденные
+            let restoredCount = 0; // Счетчик модов, у которых снят флаг not found (папка появилась)
             
             // Проверяем все моды из файла на наличие папок
             for (const mod of modEntries) {
-                const wasDeleted = mod.isDeleted; // Сохраняем предыдущее состояние
+                const wasNotFound = mod.isNotFound; // Сохраняем предыдущее состояние
                 
                 // Если мод не новый (есть в файле), но его папки нет в файловой системе
                 if (!mod.isNew && !fileSystemMods.has(mod.name)) {
-                    if (!wasDeleted) {
-                        // Мод только что помечен как deleted
-                        deletedCount++;
+                    if (!wasNotFound) {
+                        // Мод только что помечен как не найденный
+                        notFoundCount++;
                     }
-                    mod.isDeleted = true; // Помечаем как удаленный
+                    mod.isNotFound = true; // Помечаем как не найденный
                     mod.isSymlink = false; // Если папки нет, симлинк тоже не может быть
-                } else if (mod.isDeleted && fileSystemMods.has(mod.name)) {
+                } else if (mod.isNotFound && fileSystemMods.has(mod.name)) {
                     // Если папка появилась снова - снимаем флаг
-                    mod.isDeleted = false;
-                    if (wasDeleted) {
+                    mod.isNotFound = false;
+                    if (wasNotFound) {
                         // Флаг был снят (папка восстановлена)
                         restoredCount++;
                     }
@@ -106,7 +106,7 @@ export class ModScanService {
                     `--${modName}`, // По умолчанию закомментированы
                     true, // Флаг нового мода
                     baseIndex + idx, // Порядок для новых модов
-                    false, // isDeleted
+                    false, // isNotFound
                     isSymlink // Флаг симлинка
                 ));
             });
@@ -114,7 +114,7 @@ export class ModScanService {
             return { 
                 added: newMods.length, 
                 removed: modsToRemove.length, 
-                deleted: deletedCount,
+                deleted: notFoundCount,
                 restored: restoredCount,
                 selectedModName: newSelectedModName 
             };

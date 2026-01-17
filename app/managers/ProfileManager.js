@@ -35,7 +35,7 @@ export class ProfileManager {
     saveCurrentState() {
         const settings = {
             hideNewMods: this.app.hideNewMods || false,
-            hideDeletedMods: this.app.hideDeletedMods || false,
+            hideNotFoundMods: this.app.hideNotFoundMods || false,
             hideUnusedMods: this.app.hideUnusedMods || false,
             sort: this.app.elements.sortSelect ? this.app.elements.sortSelect.value : null
         };
@@ -50,15 +50,15 @@ export class ProfileManager {
         if (result.settings) {
             // Восстанавливаем настройки фильтрации
             this.app.hideNewMods = result.settings.hideNewMods || false;
-            this.app.hideDeletedMods = result.settings.hideDeletedMods || false;
+            this.app.hideNotFoundMods = result.settings.hideNotFoundMods || false;
             this.app.hideUnusedMods = result.settings.hideUnusedMods || false;
             
             // Применяем настройки фильтрации к чекбоксам
             if (this.app.elements.hideNewModsCheckbox) {
                 this.app.elements.hideNewModsCheckbox.checked = this.app.hideNewMods;
             }
-            if (this.app.elements.hideDeletedModsCheckbox) {
-                this.app.elements.hideDeletedModsCheckbox.checked = this.app.hideDeletedMods;
+            if (this.app.elements.hideNotFoundModsCheckbox) {
+                this.app.elements.hideNotFoundModsCheckbox.checked = this.app.hideNotFoundMods;
             }
             if (this.app.elements.hideUnusedModsCheckbox) {
                 this.app.elements.hideUnusedModsCheckbox.checked = this.app.hideUnusedMods;

@@ -31,7 +31,7 @@ class ModLoadOrderManager {
         this.lastSelectedModIndex = -1; // Для Shift+Click
         this.hideNewMods = false;
         this.hideUnusedMods = false;
-        this.hideDeletedMods = false;
+        this.hideNotFoundMods = false;
         
         // Система профилей
         this.savedState = null;
@@ -81,7 +81,7 @@ class ModLoadOrderManager {
             clearSearchBtn: document.getElementById('clear-search-btn'),
             hideNewModsCheckbox: document.getElementById('hide-new-mods-checkbox'),
             hideUnusedModsCheckbox: document.getElementById('hide-unused-mods-checkbox'),
-            hideDeletedModsCheckbox: document.getElementById('hide-deleted-mods-checkbox'),
+            hideNotFoundModsCheckbox: document.getElementById('hide-not-found-mods-checkbox'),
             createSymlinkBtn: document.getElementById('create-symlink-btn'),
             addModFolderBtn: document.getElementById('add-mod-folder-btn'),
             addModBtn: document.getElementById('add-mod-btn'),
@@ -216,8 +216,8 @@ class ModLoadOrderManager {
                 this.modManager.updateModList(searchText);
                 this.configManager.saveUserConfig();
             },
-            onHideDeletedModsChange: (checked) => {
-                this.hideDeletedMods = checked;
+            onHideNotFoundModsChange: (checked) => {
+                this.hideNotFoundMods = checked;
                 const searchText = this.elements.searchInput.value;
                 this.modManager.updateModList(searchText);
                 this.configManager.saveUserConfig();
@@ -436,8 +436,8 @@ class ModLoadOrderManager {
         // Чекбоксы
         const hideNewModsSpan = document.querySelector('#hide-new-mods-checkbox')?.nextElementSibling;
         if (hideNewModsSpan) hideNewModsSpan.textContent = t('ui.hideNewMods');
-        const hideDeletedModsSpan = document.querySelector('#hide-deleted-mods-checkbox')?.nextElementSibling;
-        if (hideDeletedModsSpan) hideDeletedModsSpan.textContent = t('ui.hideDeletedMods');
+        const hideNotFoundModsSpan = document.querySelector('#hide-not-found-mods-checkbox')?.nextElementSibling;
+        if (hideNotFoundModsSpan) hideNotFoundModsSpan.textContent = t('ui.hideNotFoundMods');
         const hideUnusedModsSpan = document.querySelector('#hide-unused-mods-checkbox')?.nextElementSibling;
         if (hideUnusedModsSpan) hideUnusedModsSpan.textContent = t('ui.hideUnusedMods');
         

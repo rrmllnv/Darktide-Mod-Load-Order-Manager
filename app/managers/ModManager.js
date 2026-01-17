@@ -59,7 +59,7 @@ export class ModManager {
             filterText,
             this.app.hideNewMods,
             this.app.hideUnusedMods,
-            this.app.hideDeletedMods,
+            this.app.hideNotFoundMods,
             this.app.selectedModName,
             this.app.selectedModNames
         );

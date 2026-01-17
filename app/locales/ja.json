@@ -23,7 +23,7 @@
         "searchPlaceholder": "MOD名を入力...",
         "clear": "クリア",
         "hideNewMods": "新しいMODを非表示",
-        "hideDeletedMods": "削除されたMODを非表示",
+        "hideNotFoundMods": "見つからないMODを非表示",
         "hideUnusedMods": "使用されていないMODをすべて非表示",
         "addMod": "MODを追加",
         "addModFolder": "MODフォルダを追加",
@@ -70,7 +70,7 @@
         "modsSelected": "MODが選択されました",
         "modsSelectedMany": "MODが選択されました",
         "flagNew": "[新規]",
-        "flagDeleted": "[削除済み]",
+        "flagNotFound": "[見つかりません]",
         "flagSymlink": "[シンボリックリンク]"
     },
     "messages": {
@@ -88,7 +88,7 @@
         "saveConfirm": "ファイルに変更を保存しますか？",
         "scanNewMods": "新しいMODが見つかりました:",
         "scanRemovedMods": "見つからないMODが削除されました:",
-        "scanDeletedMods": "削除済みとしてマークされました:",
+        "scanDeletedMods": "見つからないとしてマークされました:",
         "scanRestoredMods": "MODが復元されました:",
         "scanNoChanges": "変更は検出されませんでした",
         "launchDtkitPatchError": "アプリケーションの起動エラー",

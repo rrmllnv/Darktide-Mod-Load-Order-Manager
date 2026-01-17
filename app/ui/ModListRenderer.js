@@ -32,7 +32,7 @@ export class ModListRenderer {
     }
     
     // Обновление списка модов
-    updateModList(filterText = null, hideNewMods = false, hideUnusedMods = false, hideDeletedMods = false, selectedModName = '', selectedModNames = null) {
+    updateModList(filterText = null, hideNewMods = false, hideUnusedMods = false, hideNotFoundMods = false, selectedModName = '', selectedModNames = null) {
         // Обеспечиваем, что selectedModNames всегда является Set
         if (!selectedModNames || !(selectedModNames instanceof Set)) {
             selectedModNames = new Set();
@@ -73,9 +73,9 @@ export class ModListRenderer {
             filtered = filtered.filter(mod => mod.enabled);
         }
         
-        // Фильтрация удаленных модов, если включен чекбокс
-        if (hideDeletedMods) {
-            filtered = filtered.filter(mod => !mod.isDeleted);
+        // Фильтрация не найденных модов, если включен чекбокс
+        if (hideNotFoundMods) {
+            filtered = filtered.filter(mod => !mod.isNotFound);
         }
         
         // Сортировка модов
@@ -138,16 +138,16 @@ export class ModListRenderer {
             }
         }
         
-        // Метка "DELETED" для модов с удаленной папкой
-        let deletedLabel = null;
-        if (modEntry.isDeleted) {
-            deletedLabel = document.createElement('span');
-            deletedLabel.className = 'mod-deleted-label';
+        // Метка "NOT FOUND" для модов, которые не найдены в файловой системе
+        let notFoundLabel = null;
+        if (modEntry.isNotFound) {
+            notFoundLabel = document.createElement('span');
+            notFoundLabel.className = 'mod-not-found-label';
             // Используем локализацию, если доступна
             if (this.app && this.app.t) {
-                deletedLabel.textContent = this.app.t('ui.flagDeleted');
+                notFoundLabel.textContent = this.app.t('ui.flagNotFound');
             } else {
-                deletedLabel.textContent = '[DELETED]';
+                notFoundLabel.textContent = '[NOT FOUND]';
             }
         }
         
@@ -191,8 +191,8 @@ export class ModListRenderer {
         if (symlinkLabel) {
             modItem.appendChild(symlinkLabel);
         }
-        if (deletedLabel) {
-            modItem.appendChild(deletedLabel);
+        if (notFoundLabel) {
+            modItem.appendChild(notFoundLabel);
         }
         if (newLabel) {
             modItem.appendChild(newLabel);

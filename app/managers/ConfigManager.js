@@ -11,7 +11,7 @@ export class ConfigManager {
             theme: '',
             locale: 'en',
             hideNewMods: false,
-            hideDeletedMods: false,
+            hideNotFoundMods: false,
             hideUnusedMods: false
         };
     }
@@ -40,7 +40,7 @@ export class ConfigManager {
             // Обновляем текущие значения
             this.app.userConfig.fileUrlModLoadOrder = this.app.filePath || '';
             this.app.userConfig.hideNewMods = this.app.hideNewMods;
-            this.app.userConfig.hideDeletedMods = this.app.hideDeletedMods;
+            this.app.userConfig.hideNotFoundMods = this.app.hideNotFoundMods;
             this.app.userConfig.hideUnusedMods = this.app.hideUnusedMods;
             
             const result = await window.electronAPI.saveUserConfig(this.app.userConfig);

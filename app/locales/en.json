@@ -23,7 +23,7 @@
         "searchPlaceholder": "Enter mod name...",
         "clear": "Clear",
         "hideNewMods": "Hide new mods",
-        "hideDeletedMods": "Hide deleted mods",
+        "hideNotFoundMods": "Hide not found mods",
         "hideUnusedMods": "Hide all unused mods",
         "addMod": "Add mod",
         "addModFolder": "Add mod folder",
@@ -70,7 +70,7 @@
         "modsSelected": "mods selected",
         "modsSelectedMany": "mods selected",
         "flagNew": "[NEW]",
-        "flagDeleted": "[DELETED]",
+        "flagNotFound": "[NOT FOUND]",
         "flagSymlink": "[SYMLINK]"
     },
     "messages": {
@@ -88,7 +88,7 @@
         "saveConfirm": "Save changes to file?",
         "scanNewMods": "New mods found:",
         "scanRemovedMods": "Mods not found removed:",
-        "scanDeletedMods": "Marked as deleted:",
+        "scanDeletedMods": "Marked as not found:",
         "scanRestoredMods": "Mods restored:",
         "scanNoChanges": "No changes detected",
         "launchDtkitPatchError": "Error launching application",

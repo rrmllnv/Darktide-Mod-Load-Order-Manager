@@ -27,7 +27,7 @@ export class ProfileService {
             _mods: {},   // Объект с состоянием каждого мода
             _settings: {
                 hideNewMods: settings.hideNewMods || false,
-                hideDeletedMods: settings.hideDeletedMods || false,
+                hideNotFoundMods: settings.hideNotFoundMods || false,
                 hideUnusedMods: settings.hideUnusedMods || false,
                 sort: settings.sort || null
             }
@@ -96,7 +96,7 @@ export class ProfileService {
                     enabled ? modName : `--${modName}`,
                     false, // НЕ новый мод, так как он из профиля
                     index, // Порядок из профиля
-                    false, // isDeleted
+                    false, // isNotFound
                     false // isSymlink (из профиля не знаем, определится при сканировании)
                 ));
             }

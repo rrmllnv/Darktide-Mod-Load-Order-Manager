@@ -23,7 +23,7 @@
         "searchPlaceholder": "输入模组名称...",
         "clear": "清除",
         "hideNewMods": "隐藏新模组",
-        "hideDeletedMods": "隐藏已删除模组",
+        "hideNotFoundMods": "隐藏未找到的模组",
         "hideUnusedMods": "隐藏所有未使用的模组",
         "addMod": "添加模组",
         "addModFolder": "添加模组文件夹",
@@ -70,7 +70,7 @@
         "modsSelected": "个模组已选择",
         "modsSelectedMany": "个模组已选择",
         "flagNew": "[新增]",
-        "flagDeleted": "[已删除]",
+        "flagNotFound": "[未找到]",
         "flagSymlink": "[符号链接]"
     },
     "messages": {
@@ -88,7 +88,7 @@
         "saveConfirm": "保存更改到文件？",
         "scanNewMods": "发现新模组:",
         "scanRemovedMods": "未找到的模组已移除:",
-        "scanDeletedMods": "标记为已删除:",
+        "scanDeletedMods": "标记为未找到:",
         "scanRestoredMods": "模组已恢复:",
         "scanNoChanges": "未检测到更改",
         "launchDtkitPatchError": "启动应用程序时出错",

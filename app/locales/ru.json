@@ -23,7 +23,7 @@
         "searchPlaceholder": "Введите название мода...",
         "clear": "Очистить",
         "hideNewMods": "Скрыть новые моды",
-        "hideDeletedMods": "Скрыть удаленные моды",
+        "hideNotFoundMods": "Скрыть не найденные моды",
         "hideUnusedMods": "Скрыть все не используемые моды",
         "addMod": "Добавить мод",
         "addModFolder": "Добавить папку мода",
@@ -70,7 +70,7 @@
         "modsSelected": "мода выбрано",
         "modsSelectedMany": "модов выбрано",
         "flagNew": "[НОВЫЙ]",
-        "flagDeleted": "[УДАЛЕН]",
+        "flagNotFound": "[НЕ НАЙДЕН]",
         "flagSymlink": "[СИМЛИНК]"
     },
     "messages": {
@@ -88,7 +88,7 @@
         "saveConfirm": "Сохранить изменения в файл?",
         "scanNewMods": "Найдено новых модов:",
         "scanRemovedMods": "Удалено не найденных модов:",
-        "scanDeletedMods": "Помечено как удаленные:",
+        "scanDeletedMods": "Помечено как не найденные:",
         "scanRestoredMods": "Восстановлено модов:",
         "scanNoChanges": "Изменений не обнаружено",
         "launchDtkitPatchError": "Ошибка при запуске приложения",
