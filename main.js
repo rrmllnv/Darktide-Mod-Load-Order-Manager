@@ -3,6 +3,7 @@ const path = require('path');
 const fs = require('fs').promises;
 const { existsSync, readdirSync, statSync, lstatSync, symlink } = require('fs');
 const { promisify } = require('util');
+const { spawn } = require('child_process');
 const symlinkAsync = promisify(symlink);
 
 // Функция для рекурсивного копирования папки
@@ -499,6 +500,46 @@ ipcMain.handle('copy-folder-to-mods', async (event, sourcePath, modsDir) => {
     await copyDirectory(sourcePath, destPath);
     
     return { success: true, folderName: folderName };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+});
+
+// Запустить приложение dtkit-patch
+ipcMain.handle('launch-dtkit-patch', async (event, gameDir) => {
+  try {
+    // Проверяем, существует ли директория игры
+    if (!existsSync(gameDir)) {
+      return { success: false, error: `Директория игры не найдена: ${gameDir}` };
+    }
+    
+    // Путь к dtkit-patch (может быть с расширением .exe или без)
+    const dtkitPath = path.join(gameDir, 'tools', 'dtkit-patch');
+    const dtkitPathExe = path.join(gameDir, 'tools', 'dtkit-patch.exe');
+    
+    let executablePath = null;
+    if (existsSync(dtkitPathExe)) {
+      executablePath = dtkitPathExe;
+    } else if (existsSync(dtkitPath)) {
+      executablePath = dtkitPath;
+    } else {
+      return { success: false, error: `dtkit-patch не найден в: ${path.join(gameDir, 'tools')}` };
+    }
+    
+    // Путь к bundle
+    const bundlePath = path.join(gameDir, 'bundle');
+    
+    // Запускаем приложение с параметрами --toggle bundle (как в bat файле)
+    const child = spawn(executablePath, ['--toggle', bundlePath], {
+      cwd: gameDir,
+      detached: true,
+      stdio: 'ignore'
+    });
+    
+    // Отсоединяем процесс, чтобы он работал независимо
+    child.unref();
+    
+    return { success: true };
   } catch (error) {
     return { success: false, error: error.message };
   }

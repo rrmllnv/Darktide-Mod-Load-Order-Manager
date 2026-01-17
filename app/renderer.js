@@ -72,6 +72,7 @@ class ModLoadOrderManager {
             pathInput: document.getElementById('path-input'),
             browseBtn: document.getElementById('browse-btn'),
             sortSelect: document.getElementById('sort-select'),
+            launchDtkitBtn: document.getElementById('launch-dtkit-btn'),
             enableAllBtn: document.getElementById('enable-all-btn'),
             disableAllBtn: document.getElementById('disable-all-btn'),
             scanBtn: document.getElementById('scan-btn'),
@@ -196,6 +197,7 @@ class ModLoadOrderManager {
         // Привязка событий
         this.eventBinder = new EventBinder(this.elements, {
             browseFile: () => this.fileManager.browseFile(),
+            launchDtkitPatch: () => this.fileManager.launchDtkitPatch(),
             onSortChange: () => this.modManager.onSortChange(),
             enableAll: () => this.modManager.enableAll(),
             disableAll: () => this.modManager.disableAll(),
@@ -404,6 +406,7 @@ class ModLoadOrderManager {
         if (this.elements.disableAllBtn) this.elements.disableAllBtn.title = t('ui.disableAll');
         if (this.elements.reloadFileBtn) this.elements.reloadFileBtn.title = t('ui.reloadFile');
         if (this.elements.scanBtn) this.elements.scanBtn.title = t('ui.scan');
+        if (this.elements.launchDtkitBtn) this.elements.launchDtkitBtn.title = t('ui.launchDtkitPatch');
         if (this.elements.settingsBtn) this.elements.settingsBtn.title = t('ui.settings');
         if (this.elements.addModBtn) this.elements.addModBtn.title = t('ui.addMod');
         

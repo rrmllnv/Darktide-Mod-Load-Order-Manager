@@ -144,4 +144,34 @@ export class FileManager {
             );
         }
     }
+    
+    async launchDtkitPatch() {
+        if (!this.app.filePath) {
+            await this.app.uiManager.showMessage(this.app.t('messages.error'), this.app.t('messages.filePathNotSet') || 'Путь к файлу не установлен');
+            return;
+        }
+        
+        // Определяем путь к папке mods (та же директория, где находится mod_load_order.txt)
+        const modsDir = this.app.filePath.substring(0, this.app.filePath.lastIndexOf('\\'));
+        if (!modsDir) {
+            await this.app.uiManager.showMessage(this.app.t('messages.error'), this.app.t('messages.failedToDetermineModsDir'));
+            return;
+        }
+        
+        // Поднимаемся на уровень выше (из mods в корень игры)
+        const gameDir = modsDir.substring(0, modsDir.lastIndexOf('\\'));
+        if (!gameDir) {
+            await this.app.uiManager.showMessage(this.app.t('messages.error'), this.app.t('messages.failedToDetermineGameDir') || 'Не удалось определить директорию игры');
+            return;
+        }
+        
+        try {
+            const result = await window.electronAPI.launchDtkitPatch(gameDir);
+            if (!result.success) {
+                await this.app.uiManager.showMessage(this.app.t('messages.error'), result.error || this.app.t('messages.launchDtkitPatchError') || 'Ошибка при запуске приложения');
+            }
+        } catch (error) {
+            await this.app.uiManager.showMessage(this.app.t('messages.error'), error.message || this.app.t('messages.launchDtkitPatchError') || 'Ошибка при запуске приложения');
+        }
+    }
 }

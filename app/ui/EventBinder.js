@@ -10,6 +10,11 @@ export class EventBinder {
         // Кнопки управления файлом
         this.elements.browseBtn.addEventListener('click', () => this.callbacks.browseFile());
         
+        // Запуск dtkit-patch
+        if (this.elements.launchDtkitBtn) {
+            this.elements.launchDtkitBtn.addEventListener('click', () => this.callbacks.launchDtkitPatch());
+        }
+        
         // Сортировка
         this.elements.sortSelect.addEventListener('change', () => this.callbacks.onSortChange());
         

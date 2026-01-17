@@ -21,5 +21,6 @@ contextBridge.exposeInMainWorld('electronAPI', {
   checkIsDirectory: (filePath) => ipcRenderer.invoke('check-is-directory', filePath),
   copyFolderToMods: (sourcePath, modsDir) => ipcRenderer.invoke('copy-folder-to-mods', sourcePath, modsDir),
   selectFolder: () => ipcRenderer.invoke('select-folder'),
-  findModLoadOrderFile: () => ipcRenderer.invoke('find-mod-load-order-file')
+  findModLoadOrderFile: () => ipcRenderer.invoke('find-mod-load-order-file'),
+  launchDtkitPatch: (gameDir) => ipcRenderer.invoke('launch-dtkit-patch', gameDir)
 });
