@@ -231,4 +231,100 @@ export class ModManager {
         const searchText = this.app.elements.searchInput.value;
         this.updateModList(searchText);
     }
+    
+    enableMod(modName) {
+        const modEntry = this.app.modEntries.find(m => m.name === modName);
+        if (modEntry) {
+            modEntry.enabled = true;
+            if (modEntry.checkbox) {
+                modEntry.checkbox.checked = true;
+            }
+            if (modEntry.statusElement) {
+                modEntry.statusElement.textContent = '✓';
+                modEntry.statusElement.className = 'mod-status enabled';
+            }
+            this.app.updateStatistics();
+        }
+    }
+    
+    disableMod(modName) {
+        const modEntry = this.app.modEntries.find(m => m.name === modName);
+        if (modEntry) {
+            modEntry.enabled = false;
+            if (modEntry.checkbox) {
+                modEntry.checkbox.checked = false;
+            }
+            if (modEntry.statusElement) {
+                modEntry.statusElement.textContent = '✗';
+                modEntry.statusElement.className = 'mod-status disabled';
+            }
+            this.app.updateStatistics();
+        }
+    }
+    
+    copyModName(modName) {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(modName).then(() => {
+                this.app.setStatus(this.app.t('status.modNameCopied', { modName }));
+            }).catch(() => {
+                const textArea = document.createElement('textarea');
+                textArea.value = modName;
+                textArea.style.position = 'fixed';
+                textArea.style.opacity = '0';
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    this.app.setStatus(this.app.t('status.modNameCopied', { modName }));
+                } catch (err) {
+                    this.app.setStatus(this.app.t('status.copyError'));
+                }
+                document.body.removeChild(textArea);
+            });
+        } else {
+            const textArea = document.createElement('textarea');
+            textArea.value = modName;
+            textArea.style.position = 'fixed';
+            textArea.style.opacity = '0';
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                this.app.setStatus(this.app.t('status.modNameCopied', { modName }));
+            } catch (err) {
+                this.app.setStatus(this.app.t('status.copyError'));
+            }
+            document.body.removeChild(textArea);
+        }
+    }
+    
+    async deleteMod(modName) {
+        const confirmed = await this.app.uiManager.showConfirm(this.app.t('messages.deleteModConfirm', { modName }));
+        if (!confirmed) {
+            return;
+        }
+        
+        const modIndex = this.app.modEntries.findIndex(m => m.name === modName);
+        if (modIndex !== -1) {
+            this.app.modEntries.splice(modIndex, 1);
+        }
+        
+        if (this.app.selectedModNames.has(modName)) {
+            this.app.selectedModNames.delete(modName);
+        }
+        
+        if (this.app.selectedModName === modName) {
+            this.app.selectedModName = '';
+        }
+        
+        if (this.app.modListRenderer) {
+            this.app.modListRenderer.modEntries = this.app.modEntries;
+        }
+        
+        const searchText = this.app.elements.searchInput.value;
+        this.updateModList(searchText);
+        this.app.updateStatistics();
+        
+        this.app.setStatus(this.app.t('status.modDeleted', { modName }));
+    }
 }

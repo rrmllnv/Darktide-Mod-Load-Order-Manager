@@ -213,3 +213,40 @@
     border-top: 1px solid #ccc;
     font-size: 11px;
 }
+
+.context-menu {
+    display: none;
+    position: fixed;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 10000;
+    min-width: 180px;
+    overflow: hidden;
+}
+
+.context-menu.show {
+    display: block;
+}
+
+.context-menu-item {
+    width: 100%;
+    padding: 8px 12px;
+    text-align: left;
+    border: none;
+    background-color: #ffffff;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background-color 0.2s;
+}
+
+.context-menu-item:hover {
+    background-color: #f0f0f0;
+}
+
+.context-menu-separator {
+    height: 1px;
+    background-color: #ccc;
+    margin: 4px 0;
+}

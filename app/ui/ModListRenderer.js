@@ -153,6 +153,13 @@ export class ModListRenderer {
             }
         });
         
+        modItem.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+            if (this.callbacks.onModContextMenu) {
+                this.callbacks.onModContextMenu(modEntry.name, e.clientX, e.clientY);
+            }
+        });
+        
         this.dragDropManager.attachDragDrop(modItem, modEntry, index, currentSort);
         
         modItem.appendChild(checkbox);

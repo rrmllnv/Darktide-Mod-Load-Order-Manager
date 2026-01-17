@@ -674,3 +674,21 @@ body.dark-theme .drag-drop-icon {
 body.dark-theme .drag-drop-text {
     color: var(--text-primary);
 }
+
+body.dark-theme .context-menu {
+    background-color: var(--bg-secondary);
+    border-color: var(--border-primary);
+}
+
+body.dark-theme .context-menu-item {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+body.dark-theme .context-menu-item:hover {
+    background-color: var(--bg-hover);
+}
+
+body.dark-theme .context-menu-separator {
+    background-color: var(--border-primary);
+}

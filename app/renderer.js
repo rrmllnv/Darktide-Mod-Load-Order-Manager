@@ -35,6 +35,7 @@ class ModLoadOrderManager {
         this.userConfig = null;
         
         this.elements = {};
+        this.contextMenuModName = null;
         
         this.fileService = null;
         this.profileService = null;
@@ -87,6 +88,11 @@ class ModLoadOrderManager {
             saveBtn: document.getElementById('save-btn'),
             settingsBtn: document.getElementById('settings-btn'),
             statusText: document.getElementById('status-text'),
+            contextMenu: document.getElementById('mod-context-menu'),
+            contextMenuEnable: document.getElementById('context-menu-enable'),
+            contextMenuDisable: document.getElementById('context-menu-disable'),
+            contextMenuCopy: document.getElementById('context-menu-copy'),
+            contextMenuDelete: document.getElementById('context-menu-delete'),
             settingsDialog: document.getElementById('settings-dialog'),
             settingsThemeSelect: document.getElementById('settings-theme-select'),
             settingsLocaleSelect: document.getElementById('settings-locale-select'),
@@ -147,7 +153,8 @@ class ModLoadOrderManager {
                 },
                 getSelectedMods: () => Array.from(this.selectedModNames),
                 getLastSelectedIndex: () => this.lastSelectedModIndex,
-                setLastSelectedIndex: (index) => { this.lastSelectedModIndex = index; }
+                setLastSelectedIndex: (index) => { this.lastSelectedModIndex = index; },
+                onModContextMenu: (modName, x, y) => this.showContextMenu(modName, x, y)
             },
             this
         );
@@ -167,7 +174,68 @@ class ModLoadOrderManager {
                     this.modManager.clearSelection();
                 }
             }
+            
+            if (!e.target.closest('#mod-context-menu')) {
+                if (e.target.closest('.mod-item')) {
+                    const clickedModItem = e.target.closest('.mod-item');
+                    const modNameElement = clickedModItem.querySelector('.mod-name');
+                    if (modNameElement && modNameElement.textContent !== this.contextMenuModName) {
+                        this.hideContextMenu();
+                    }
+                } else {
+                    this.hideContextMenu();
+                }
+            }
         });
+        
+        document.addEventListener('contextmenu', (e) => {
+            if (!e.target.closest('#mod-context-menu') && !e.target.closest('.mod-item')) {
+                this.hideContextMenu();
+            }
+        });
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && this.elements.contextMenu && this.elements.contextMenu.classList.contains('show')) {
+                this.hideContextMenu();
+            }
+        });
+        
+        if (this.elements.contextMenuEnable) {
+            this.elements.contextMenuEnable.addEventListener('click', () => {
+                if (this.contextMenuModName) {
+                    this.modManager.enableMod(this.contextMenuModName);
+                    this.hideContextMenu();
+                }
+            });
+        }
+        
+        if (this.elements.contextMenuDisable) {
+            this.elements.contextMenuDisable.addEventListener('click', () => {
+                if (this.contextMenuModName) {
+                    this.modManager.disableMod(this.contextMenuModName);
+                    this.hideContextMenu();
+                }
+            });
+        }
+        
+        if (this.elements.contextMenuCopy) {
+            this.elements.contextMenuCopy.addEventListener('click', () => {
+                if (this.contextMenuModName) {
+                    this.modManager.copyModName(this.contextMenuModName);
+                    this.hideContextMenu();
+                }
+            });
+        }
+        
+        if (this.elements.contextMenuDelete) {
+            this.elements.contextMenuDelete.addEventListener('click', async () => {
+                if (this.contextMenuModName) {
+                    const modName = this.contextMenuModName;
+                    this.hideContextMenu();
+                    await this.modManager.deleteMod(modName);
+                }
+            });
+        }
         
         this.eventBinder = new EventBinder(this.elements, {
             browseFile: () => this.fileManager.browseFile(),
@@ -513,6 +581,51 @@ class ModLoadOrderManager {
     
     t(key, params = {}) {
         return this.localeManager.t(key, params);
+    }
+    
+    showContextMenu(modName, x, y) {
+        if (!this.elements.contextMenu) {
+            return;
+        }
+        
+        this.contextMenuModName = modName;
+        
+        const modEntry = this.modEntries.find(m => m.name === modName);
+        if (!modEntry) {
+            return;
+        }
+        
+        if (this.elements.contextMenuEnable) {
+            this.elements.contextMenuEnable.style.display = modEntry.enabled ? 'none' : 'block';
+        }
+        
+        if (this.elements.contextMenuDisable) {
+            this.elements.contextMenuDisable.style.display = modEntry.enabled ? 'block' : 'none';
+        }
+        
+        if (this.elements.contextMenuEnable && this.elements.contextMenuEnable.querySelector('span')) {
+            this.elements.contextMenuEnable.querySelector('span').textContent = this.t('ui.contextMenuEnable');
+        }
+        if (this.elements.contextMenuDisable && this.elements.contextMenuDisable.querySelector('span')) {
+            this.elements.contextMenuDisable.querySelector('span').textContent = this.t('ui.contextMenuDisable');
+        }
+        if (this.elements.contextMenuCopy && this.elements.contextMenuCopy.querySelector('span')) {
+            this.elements.contextMenuCopy.querySelector('span').textContent = this.t('ui.contextMenuCopyName');
+        }
+        if (this.elements.contextMenuDelete && this.elements.contextMenuDelete.querySelector('span')) {
+            this.elements.contextMenuDelete.querySelector('span').textContent = this.t('ui.contextMenuDelete');
+        }
+        
+        this.elements.contextMenu.style.left = `${x}px`;
+        this.elements.contextMenu.style.top = `${y}px`;
+        this.elements.contextMenu.classList.add('show');
+    }
+    
+    hideContextMenu() {
+        if (this.elements.contextMenu) {
+            this.elements.contextMenu.classList.remove('show');
+        }
+        this.contextMenuModName = null;
     }
 }
 
