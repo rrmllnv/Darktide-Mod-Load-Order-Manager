@@ -9,7 +9,6 @@ export class EventBinder {
     bindAll() {
         // Кнопки управления файлом
         this.elements.browseBtn.addEventListener('click', () => this.callbacks.browseFile());
-        this.elements.loadBtn.addEventListener('click', () => this.callbacks.loadFile());
         
         // Сортировка
         this.elements.sortSelect.addEventListener('change', () => this.callbacks.onSortChange());

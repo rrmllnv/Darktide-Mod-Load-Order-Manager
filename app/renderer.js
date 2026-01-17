@@ -71,7 +71,6 @@ class ModLoadOrderManager {
         this.elements = {
             pathInput: document.getElementById('path-input'),
             browseBtn: document.getElementById('browse-btn'),
-            loadBtn: document.getElementById('load-btn'),
             sortSelect: document.getElementById('sort-select'),
             enableAllBtn: document.getElementById('enable-all-btn'),
             disableAllBtn: document.getElementById('disable-all-btn'),
@@ -197,7 +196,6 @@ class ModLoadOrderManager {
         // Привязка событий
         this.eventBinder = new EventBinder(this.elements, {
             browseFile: () => this.fileManager.browseFile(),
-            loadFile: () => this.fileManager.loadFile(),
             onSortChange: () => this.modManager.onSortChange(),
             enableAll: () => this.modManager.enableAll(),
             disableAll: () => this.modManager.disableAll(),
@@ -397,7 +395,6 @@ class ModLoadOrderManager {
             this.elements.pathInput.previousElementSibling.textContent = t('ui.file');
         }
         if (this.elements.browseBtn) this.elements.browseBtn.textContent = t('ui.browse');
-        if (this.elements.loadBtn) this.elements.loadBtn.textContent = t('ui.load');
         if (this.elements.saveBtn) this.elements.saveBtn.textContent = t('ui.save');
         if (this.elements.cancelBtn) this.elements.cancelBtn.textContent = t('ui.cancelChanges');
         if (this.elements.statusText) this.elements.statusText.textContent = t('ui.ready');
