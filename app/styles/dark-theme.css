@@ -146,8 +146,8 @@ body.dark-theme .sort-combo:hover {
 }
 
 body.dark-theme .sort-combo:focus {
-    border-color: var(--btn-primary-bg);
-    outline-color: var(--btn-primary-bg);
+    outline: none;
+    border-color: var(--border-primary);
 }
 
 body.dark-theme .btn-small {
@@ -379,6 +379,11 @@ body.dark-theme .profiles-list {
     background-color: var(--bg-secondary);
     border-color: var(--border-secondary);
     color: var(--text-primary);
+}
+
+body.dark-theme .profiles-list:focus {
+    outline: none;
+    border-color: var(--border-primary);
 }
 
 body.dark-theme .profiles-list option {

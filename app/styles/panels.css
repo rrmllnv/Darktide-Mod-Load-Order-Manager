@@ -152,6 +152,11 @@
     padding: 0;
 }
 
+.profiles-list:focus {
+    outline: none;
+    border-color: #999;
+}
+
 .profiles-list option {
     padding: 5px;
 }
