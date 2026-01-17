@@ -1,4 +1,6 @@
 // Менеджер управления настройками
+import { ConfigManager } from './ConfigManager.js';
+
 export class SettingsManager {
     constructor(app) {
         this.app = app;
@@ -94,14 +96,7 @@ export class SettingsManager {
     saveSettingsFromForm() {
         // Инициализируем настройки, если их нет
         if (!this.app.userConfig) {
-            this.app.userConfig = {
-                fileUrlModLoadOrder: '',
-                theme: '',
-                locale: 'en',
-                hideNewMods: false,
-                hideDeletedMods: false,
-                hideUnusedMods: false
-            };
+            this.app.userConfig = ConfigManager.getDefaultUserConfig();
         }
         
         // Обновляем настройки из формы

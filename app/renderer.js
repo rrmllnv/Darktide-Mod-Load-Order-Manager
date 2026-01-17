@@ -140,8 +140,8 @@ class ModLoadOrderManager {
         // Получаем путь по умолчанию
         this.defaultPath = await window.electronAPI.getDefaultPath();
         
-        // Применяем настройки
-        this.configManager.applyUserConfig();
+        // Применяем настройки (теперь с поиском файла)
+        await this.configManager.applyUserConfig();
         
         // Инициализация сервисов и менеджеров
         this.statusManager = new StatusManager(this.elements.statusText, this);

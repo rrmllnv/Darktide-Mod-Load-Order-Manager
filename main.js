@@ -25,6 +25,31 @@ async function copyDirectory(src, dest) {
 // Путь к файлу mod_load_order.txt по умолчанию
 const DEFAULT_PATH = 'C:\\Program Files (x86)\\Steam\\steamapps\\common\\Warhammer 40,000 DARKTIDE\\mods\\mod_load_order.txt';
 
+// Функция для поиска файла mod_load_order.txt в стандартных местах Steam
+function findModLoadOrderFile() {
+  const standardPaths = [
+    'C:\\Program Files (x86)\\Steam\\steamapps\\common\\Warhammer 40,000 DARKTIDE\\mods\\mod_load_order.txt',
+    'C:\\Program Files\\Steam\\steamapps\\common\\Warhammer 40,000 DARKTIDE\\mods\\mod_load_order.txt',
+    'D:\\Steam\\steamapps\\common\\Warhammer 40,000 DARKTIDE\\mods\\mod_load_order.txt',
+    'E:\\Steam\\steamapps\\common\\Warhammer 40,000 DARKTIDE\\mods\\mod_load_order.txt',
+    'F:\\Steam\\steamapps\\common\\Warhammer 40,000 DARKTIDE\\mods\\mod_load_order.txt',
+    'C:\\SteamLibrary\\steamapps\\common\\Warhammer 40,000 DARKTIDE\\mods\\mod_load_order.txt',
+    'D:\\SteamLibrary\\steamapps\\common\\Warhammer 40,000 DARKTIDE\\mods\\mod_load_order.txt',
+    'E:\\SteamLibrary\\steamapps\\common\\Warhammer 40,000 DARKTIDE\\mods\\mod_load_order.txt',
+    'F:\\SteamLibrary\\steamapps\\common\\Warhammer 40,000 DARKTIDE\\mods\\mod_load_order.txt'
+  ];
+  
+  // Проверяем каждый путь
+  for (const filePath of standardPaths) {
+    if (existsSync(filePath)) {
+      return filePath;
+    }
+  }
+  
+  // Если не найден, возвращаем путь по умолчанию
+  return DEFAULT_PATH;
+}
+
 let mainWindow;
 
 function createWindow() {
@@ -73,6 +98,11 @@ app.on('window-all-closed', () => {
 // Получить путь по умолчанию
 ipcMain.handle('get-default-path', () => {
   return DEFAULT_PATH;
+});
+
+// Найти файл mod_load_order.txt в стандартных местах
+ipcMain.handle('find-mod-load-order-file', () => {
+  return findModLoadOrderFile();
 });
 
 // Проверить существование файла
@@ -372,9 +402,9 @@ ipcMain.handle('load-user-config', async () => {
   try {
     const userConfigPath = getUserConfigPath();
     
-    if (!existsSync(userConfigPath)) {
-      // Создаем файл с настройками по умолчанию
-      const defaultUserConfig = {
+    // Функция для получения структуры настроек по умолчанию
+    function getDefaultUserConfig() {
+      return {
         fileUrlModLoadOrder: '',
         theme: '',
         locale: 'en',
@@ -382,6 +412,11 @@ ipcMain.handle('load-user-config', async () => {
         hideDeletedMods: false,
         hideUnusedMods: false
       };
+    }
+    
+    if (!existsSync(userConfigPath)) {
+      // Создаем файл с настройками по умолчанию
+      const defaultUserConfig = getDefaultUserConfig();
       
       await fs.writeFile(userConfigPath, JSON.stringify(defaultUserConfig, null, 2), 'utf-8');
       return { success: true, userConfig: defaultUserConfig };
@@ -391,13 +426,7 @@ ipcMain.handle('load-user-config', async () => {
     const userConfig = JSON.parse(content);
     
     // Убеждаемся, что все поля присутствуют
-    const defaultUserConfig = {
-      fileUrlModLoadOrder: '',
-      theme: '',
-      hideNewMods: false,
-      hideDeletedMods: false,
-      hideUnusedMods: false
-    };
+    const defaultUserConfig = getDefaultUserConfig();
     
     const mergedUserConfig = { ...defaultUserConfig, ...userConfig };
     
