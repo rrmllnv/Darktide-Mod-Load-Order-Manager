@@ -46,7 +46,12 @@
 }
 
 .sort-frame {
+    /* margin-left: auto; */
+}
+
+.launch-dtkit-frame {
     margin-left: auto;
+    margin-right: 10px;
 }
 
 .header-label {
