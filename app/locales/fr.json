@@ -84,6 +84,7 @@
         "fileSaveError": "Impossible d'enregistrer le fichier:",
         "saveError": "Erreur d'enregistrement:",
         "reloadConfirm": "Revenir à l'état original du fichier?\n\nToutes les modifications non enregistrées seront perdues.",
+        "saveConfirm": "Enregistrer les modifications dans le fichier?",
         "scanNewMods": "Nouveaux mods trouvés:",
         "scanRemovedMods": "Mods non trouvés supprimés:",
         "scanDeletedMods": "Marqués comme supprimés:",

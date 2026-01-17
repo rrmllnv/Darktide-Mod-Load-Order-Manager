@@ -84,6 +84,7 @@
         "fileSaveError": "Falha ao salvar arquivo:",
         "saveError": "Erro ao salvar:",
         "reloadConfirm": "Voltar ao estado original do arquivo?\n\nTodas as alterações não salvas serão perdidas.",
+        "saveConfirm": "Salvar alterações no arquivo?",
         "scanNewMods": "Novos mods encontrados:",
         "scanRemovedMods": "Mods não encontrados removidos:",
         "scanDeletedMods": "Marcados como excluídos:",

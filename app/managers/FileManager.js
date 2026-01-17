@@ -62,6 +62,11 @@ export class FileManager {
             return;
         }
         
+        const confirmed = await this.app.uiManager.showConfirm(this.app.t('messages.saveConfirm'));
+        if (!confirmed) {
+            return;
+        }
+        
         try {
             await this.app.fileService.saveFile(this.app.filePath, this.app.headerLines, this.app.modEntries);
             

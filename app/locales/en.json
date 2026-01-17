@@ -84,6 +84,7 @@
         "fileSaveError": "Failed to save file:",
         "saveError": "Save error:",
         "reloadConfirm": "Return to original file state?\n\nAll unsaved changes will be lost.",
+        "saveConfirm": "Save changes to file?",
         "scanNewMods": "New mods found:",
         "scanRemovedMods": "Mods not found removed:",
         "scanDeletedMods": "Marked as deleted:",

@@ -84,6 +84,7 @@
         "fileSaveError": "Datei konnte nicht gespeichert werden:",
         "saveError": "Speicherfehler:",
         "reloadConfirm": "Zur ursprünglichen Datei zurückkehren?\n\nAlle nicht gespeicherten Änderungen gehen verloren.",
+        "saveConfirm": "Änderungen in Datei speichern?",
         "scanNewMods": "Neue Mods gefunden:",
         "scanRemovedMods": "Nicht gefundene Mods entfernt:",
         "scanDeletedMods": "Als gelöscht markiert:",

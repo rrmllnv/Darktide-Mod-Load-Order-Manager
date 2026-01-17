@@ -84,6 +84,7 @@
         "fileSaveError": "无法保存文件:",
         "saveError": "保存错误:",
         "reloadConfirm": "返回到原始文件状态？\n\n所有未保存的更改将丢失。",
+        "saveConfirm": "保存更改到文件？",
         "scanNewMods": "发现新模组:",
         "scanRemovedMods": "未找到的模组已移除:",
         "scanDeletedMods": "标记为已删除:",

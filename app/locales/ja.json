@@ -84,6 +84,7 @@
         "fileSaveError": "ファイルを保存できませんでした:",
         "saveError": "保存エラー:",
         "reloadConfirm": "元のファイル状態に戻りますか？\n\n保存されていないすべての変更が失われます。",
+        "saveConfirm": "ファイルに変更を保存しますか？",
         "scanNewMods": "新しいMODが見つかりました:",
         "scanRemovedMods": "見つからないMODが削除されました:",
         "scanDeletedMods": "削除済みとしてマークされました:",
