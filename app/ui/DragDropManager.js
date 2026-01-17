@@ -4,6 +4,40 @@ export class DragDropManager {
         this.modEntries = modEntries; // Ссылка на массив модов
         this.modsListElement = modsListElement;
         this.onDropCallback = onDropCallback;
+        
+        // Добавляем обработчики на родительские элементы, чтобы не показывался запрещающий курсор
+        this.setupParentHandlers();
+    }
+    
+    // Настройка обработчиков на родительских элементах
+    setupParentHandlers() {
+        // Получаем родительский контейнер (canvas-frame)
+        const canvasFrame = this.modsListElement.closest('.canvas-frame');
+        if (canvasFrame) {
+            // Обработчик dragover на контейнере - разрешаем перетаскивание
+            canvasFrame.addEventListener('dragover', (e) => {
+                // Проверяем, что перетаскивается элемент мода
+                if (document.querySelector('.mod-item.dragging')) {
+                    e.preventDefault();
+                    e.dataTransfer.dropEffect = 'move';
+                }
+            });
+            
+            // Обработчик dragenter - предотвращаем стандартное поведение
+            canvasFrame.addEventListener('dragenter', (e) => {
+                if (document.querySelector('.mod-item.dragging')) {
+                    e.preventDefault();
+                }
+            });
+        }
+        
+        // Обработчик dragover на самом списке модов
+        this.modsListElement.addEventListener('dragover', (e) => {
+            if (document.querySelector('.mod-item.dragging')) {
+                e.preventDefault();
+                e.dataTransfer.dropEffect = 'move';
+            }
+        });
     }
     
     // Обновление ссылки на массив модов
@@ -38,6 +72,7 @@ export class DragDropManager {
                 e.dataTransfer.dropEffect = 'move';
                 
                 const draggingItem = document.querySelector('.mod-item.dragging');
+                // Разрешаем перетаскивание даже над самим элементом, чтобы не показывался запрещающий курсор
                 if (draggingItem && draggingItem !== modItem) {
                     const allItems = Array.from(this.modsListElement.querySelectorAll('.mod-item'));
                     const draggingIndex = allItems.indexOf(draggingItem);
