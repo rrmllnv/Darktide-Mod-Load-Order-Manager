@@ -66,7 +66,21 @@ export class ProfileManager {
             
             // Восстанавливаем сортировку
             if (result.settings.sort && this.app.elements.sortSelect) {
-                this.app.elements.sortSelect.value = result.settings.sort;
+                // Конвертируем старые локализованные значения в ключи
+                let sortValue = result.settings.sort;
+                if (sortValue === 'По порядку файла') sortValue = 'fileOrder';
+                else if (sortValue === 'По имени') sortValue = 'name';
+                else if (sortValue === 'По статусу') sortValue = 'status';
+                else if (sortValue === 'Новые сначала') sortValue = 'newFirst';
+                
+                // Проверяем, что значение существует в селекте
+                const option = Array.from(this.app.elements.sortSelect.options).find(opt => opt.value === sortValue);
+                if (option) {
+                    this.app.elements.sortSelect.value = sortValue;
+                } else {
+                    // Если значение не найдено, используем значение по умолчанию
+                    this.app.elements.sortSelect.value = 'fileOrder';
+                }
             }
         }
         

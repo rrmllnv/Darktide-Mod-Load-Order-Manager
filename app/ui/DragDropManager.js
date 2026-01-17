@@ -48,7 +48,7 @@ export class DragDropManager {
     // Привязка drag and drop обработчиков к элементу мода
     attachDragDrop(modItem, modEntry, index, currentSort) {
         // Включаем drag and drop только для сортировки "По порядку файла"
-        if (currentSort === 'По порядку файла') {
+        if (currentSort === 'fileOrder' || currentSort === 'По порядку файла') {
             modItem.draggable = true;
             modItem.setAttribute('data-mod-name', modEntry.name);
             
