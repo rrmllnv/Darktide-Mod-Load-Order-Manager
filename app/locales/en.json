@@ -26,6 +26,7 @@
         "hideUnusedMods": "Hide all unused mods",
         "addMod": "Add mod",
         "createSymlink": "Create symlink",
+        "dragDropText": "Drag mod folder here",
         "actions": "Actions:",
         "enableSelected": "Enable selected",
         "disableSelected": "Disable selected",
@@ -107,7 +108,10 @@
         "failedToDetermineModsDir": "Failed to determine mods directory",
         "selectedFolderNotExists": "Selected folder does not exist",
         "failedToCreateSymlink": "Failed to create symbolic link:",
-        "symlinkCreationError": "Error creating symbolic link:"
+        "symlinkCreationError": "Error creating symbolic link:",
+        "dragDropNotFolder": "Drag a folder, not a file",
+        "folderCopied": "Folder copied: {folderName}",
+        "folderCopyError": "Error copying folder"
     },
     "status": {
         "total": "Total: {total} | Enabled: {enabled} | Disabled: {disabled}",

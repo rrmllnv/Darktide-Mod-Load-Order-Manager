@@ -26,6 +26,7 @@
         "hideUnusedMods": "Ocultar todos os mods não utilizados",
         "addMod": "Adicionar mod",
         "createSymlink": "Criar link simbólico",
+        "dragDropText": "Arraste a pasta do mod aqui",
         "actions": "Ações:",
         "enableSelected": "Ativar selecionados",
         "disableSelected": "Desativar selecionados",
@@ -107,7 +108,10 @@
         "failedToDetermineModsDir": "Falha ao determinar a pasta de mods",
         "selectedFolderNotExists": "A pasta selecionada não existe",
         "failedToCreateSymlink": "Falha ao criar link simbólico:",
-        "symlinkCreationError": "Erro ao criar link simbólico:"
+        "symlinkCreationError": "Erro ao criar link simbólico:",
+        "dragDropNotFolder": "Arraste uma pasta, não um arquivo",
+        "folderCopied": "Pasta copiada: {folderName}",
+        "folderCopyError": "Erro ao copiar pasta"
     },
     "status": {
         "total": "Total: {total} | Habilitado: {enabled} | Desabilitado: {disabled}",

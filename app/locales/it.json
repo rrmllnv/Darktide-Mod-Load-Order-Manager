@@ -26,6 +26,7 @@
         "hideUnusedMods": "Nascondi tutti i mod non utilizzati",
         "addMod": "Aggiungi mod",
         "createSymlink": "Crea collegamento simbolico",
+        "dragDropText": "Trascina la cartella del mod qui",
         "actions": "Azioni:",
         "enableSelected": "Abilita selezionati",
         "disableSelected": "Disabilita selezionati",
@@ -107,7 +108,10 @@
         "failedToDetermineModsDir": "Impossibile determinare la cartella dei mod",
         "selectedFolderNotExists": "La cartella selezionata non esiste",
         "failedToCreateSymlink": "Impossibile creare il collegamento simbolico:",
-        "symlinkCreationError": "Errore durante la creazione del collegamento simbolico:"
+        "symlinkCreationError": "Errore durante la creazione del collegamento simbolico:",
+        "dragDropNotFolder": "Trascina una cartella, non un file",
+        "folderCopied": "Cartella copiata: {folderName}",
+        "folderCopyError": "Errore durante la copia della cartella"
     },
     "status": {
         "total": "Totale: {total} | Abilitato: {enabled} | Disabilitato: {disabled}",

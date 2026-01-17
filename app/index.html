@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="styles/panels.css">
     <link rel="stylesheet" href="styles/modal.css">
     <link rel="stylesheet" href="styles/bulk-actions.css">
+    <link rel="stylesheet" href="styles/drag-drop.css">
 </head>
 <body>
     <!-- Фрейм для пути к файлу -->
@@ -254,6 +255,14 @@
                 <button id="settings-ok-btn" class="btn btn-primary">Сохранить</button>
                 <button id="settings-cancel-btn" class="btn">Отмена</button>
             </div>
+        </div>
+    </div>
+
+    <!-- Overlay для drag and drop из файловой системы -->
+    <div id="drag-drop-overlay" class="drag-drop-overlay">
+        <div class="drag-drop-content">
+            <i class="fas fa-folder-open drag-drop-icon"></i>
+            <div id="drag-drop-text" class="drag-drop-text">Перетащите папку мода сюда</div>
         </div>
     </div>
 

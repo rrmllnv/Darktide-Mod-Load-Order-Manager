@@ -26,6 +26,7 @@
         "hideUnusedMods": "隐藏所有未使用的模组",
         "addMod": "添加模组",
         "createSymlink": "创建符号链接",
+        "dragDropText": "将模组文件夹拖到此处",
         "actions": "操作:",
         "enableSelected": "启用所选",
         "disableSelected": "禁用所选",
@@ -107,7 +108,10 @@
         "failedToDetermineModsDir": "无法确定模组文件夹",
         "selectedFolderNotExists": "所选文件夹不存在",
         "failedToCreateSymlink": "无法创建符号链接:",
-        "symlinkCreationError": "创建符号链接时出错:"
+        "symlinkCreationError": "创建符号链接时出错:",
+        "dragDropNotFolder": "请拖拽文件夹，而不是文件",
+        "folderCopied": "文件夹已复制: {folderName}",
+        "folderCopyError": "复制文件夹时出错"
     },
     "status": {
         "total": "总计: {total} | 已启用: {enabled} | 已禁用: {disabled}",

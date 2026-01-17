@@ -26,6 +26,7 @@
         "hideUnusedMods": "Скрыть все не используемые моды",
         "addMod": "Добавить мод",
         "createSymlink": "Создать симлинк",
+        "dragDropText": "Перетащите папку мода сюда",
         "actions": "Действия:",
         "enableSelected": "Включить выбранные",
         "disableSelected": "Выключить выбранные",
@@ -107,7 +108,10 @@
         "failedToDetermineModsDir": "Не удалось определить папку модов",
         "selectedFolderNotExists": "Выбранная папка не существует",
         "failedToCreateSymlink": "Не удалось создать символическую ссылку:",
-        "symlinkCreationError": "Ошибка при создании символической ссылки:"
+        "symlinkCreationError": "Ошибка при создании символической ссылки:",
+        "dragDropNotFolder": "Перетащите папку, а не файл",
+        "folderCopied": "Папка скопирована: {folderName}",
+        "folderCopyError": "Ошибка при копировании папки"
     },
     "status": {
         "total": "Всего: {total} | Включено: {enabled} | Выключено: {disabled}",

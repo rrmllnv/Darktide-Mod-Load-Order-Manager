@@ -26,6 +26,7 @@
         "hideUnusedMods": "Alle ungenutzten Mods ausblenden",
         "addMod": "Mod hinzufügen",
         "createSymlink": "Symlink erstellen",
+        "dragDropText": "Mod-Ordner hierher ziehen",
         "actions": "Aktionen:",
         "enableSelected": "Ausgewählte aktivieren",
         "disableSelected": "Ausgewählte deaktivieren",
@@ -107,7 +108,10 @@
         "failedToDetermineModsDir": "Mod-Ordner konnte nicht bestimmt werden",
         "selectedFolderNotExists": "Ausgewählter Ordner existiert nicht",
         "failedToCreateSymlink": "Symbolischer Link konnte nicht erstellt werden:",
-        "symlinkCreationError": "Fehler beim Erstellen des symbolischen Links:"
+        "symlinkCreationError": "Fehler beim Erstellen des symbolischen Links:",
+        "dragDropNotFolder": "Ziehen Sie einen Ordner, keine Datei",
+        "folderCopied": "Ordner kopiert: {folderName}",
+        "folderCopyError": "Fehler beim Kopieren des Ordners"
     },
     "status": {
         "total": "Gesamt: {total} | Aktiviert: {enabled} | Deaktiviert: {disabled}",

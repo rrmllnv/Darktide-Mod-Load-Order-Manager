@@ -26,6 +26,7 @@
         "hideUnusedMods": "Masquer tous les mods inutilisés",
         "addMod": "Ajouter un mod",
         "createSymlink": "Créer un lien symbolique",
+        "dragDropText": "Glissez le dossier du mod ici",
         "actions": "Actions:",
         "enableSelected": "Activer la sélection",
         "disableSelected": "Désactiver la sélection",
@@ -107,7 +108,10 @@
         "failedToDetermineModsDir": "Impossible de déterminer le dossier des mods",
         "selectedFolderNotExists": "Le dossier sélectionné n'existe pas",
         "failedToCreateSymlink": "Impossible de créer le lien symbolique:",
-        "symlinkCreationError": "Erreur lors de la création du lien symbolique:"
+        "symlinkCreationError": "Erreur lors de la création du lien symbolique:",
+        "dragDropNotFolder": "Glissez un dossier, pas un fichier",
+        "folderCopied": "Dossier copié: {folderName}",
+        "folderCopyError": "Erreur lors de la copie du dossier"
     },
     "status": {
         "total": "Total: {total} | Activé: {enabled} | Désactivé: {disabled}",

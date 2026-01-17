@@ -17,5 +17,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
   createSymlink: (linkPath, targetPath) => ipcRenderer.invoke('create-symlink', linkPath, targetPath),
   selectFolder: (defaultPath) => ipcRenderer.invoke('select-folder', defaultPath),
   loadUserConfig: () => ipcRenderer.invoke('load-user-config'),
-  saveUserConfig: (userConfig) => ipcRenderer.invoke('save-user-config', userConfig)
+  saveUserConfig: (userConfig) => ipcRenderer.invoke('save-user-config', userConfig),
+  checkIsDirectory: (filePath) => ipcRenderer.invoke('check-is-directory', filePath),
+  copyFolderToMods: (sourcePath, modsDir) => ipcRenderer.invoke('copy-folder-to-mods', sourcePath, modsDir)
 });

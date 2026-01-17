@@ -5,6 +5,23 @@ const { existsSync, readdirSync, statSync, lstatSync, symlink } = require('fs');
 const { promisify } = require('util');
 const symlinkAsync = promisify(symlink);
 
+// Функция для рекурсивного копирования папки
+async function copyDirectory(src, dest) {
+  await fs.mkdir(dest, { recursive: true });
+  const entries = await fs.readdir(src, { withFileTypes: true });
+  
+  for (const entry of entries) {
+    const srcPath = path.join(src, entry.name);
+    const destPath = path.join(dest, entry.name);
+    
+    if (entry.isDirectory()) {
+      await copyDirectory(srcPath, destPath);
+    } else {
+      await fs.copyFile(srcPath, destPath);
+    }
+  }
+}
+
 // Путь к файлу mod_load_order.txt по умолчанию
 const DEFAULT_PATH = 'C:\\Program Files (x86)\\Steam\\steamapps\\common\\Warhammer 40,000 DARKTIDE\\mods\\mod_load_order.txt';
 
@@ -403,6 +420,56 @@ ipcMain.handle('save-user-config', async (event, userConfig) => {
     
     await fs.writeFile(userConfigPath, JSON.stringify(userConfig, null, 2), 'utf-8');
     return { success: true };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+});
+
+// Проверить, является ли путь папкой
+ipcMain.handle('check-is-directory', async (event, filePath) => {
+  try {
+    if (!existsSync(filePath)) {
+      return false;
+    }
+    const stats = statSync(filePath);
+    return stats.isDirectory();
+  } catch (error) {
+    return false;
+  }
+});
+
+// Копировать папку в директорию модов
+ipcMain.handle('copy-folder-to-mods', async (event, sourcePath, modsDir) => {
+  try {
+    // Проверяем, что исходная папка существует
+    if (!existsSync(sourcePath)) {
+      return { success: false, error: 'Исходная папка не существует' };
+    }
+    
+    // Проверяем, что это папка
+    const stats = statSync(sourcePath);
+    if (!stats.isDirectory()) {
+      return { success: false, error: 'Указанный путь не является папкой' };
+    }
+    
+    // Проверяем, что директория модов существует
+    if (!existsSync(modsDir)) {
+      return { success: false, error: 'Директория модов не существует' };
+    }
+    
+    // Получаем имя папки
+    const folderName = path.basename(sourcePath);
+    const destPath = path.join(modsDir, folderName);
+    
+    // Проверяем, не существует ли уже папка с таким именем
+    if (existsSync(destPath)) {
+      return { success: false, error: `Папка "${folderName}" уже существует в директории модов` };
+    }
+    
+    // Копируем папку
+    await copyDirectory(sourcePath, destPath);
+    
+    return { success: true, folderName: folderName };
   } catch (error) {
     return { success: false, error: error.message };
   }

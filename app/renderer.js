@@ -117,7 +117,8 @@ class ModLoadOrderManager {
             bulkDisableBtn: document.getElementById('bulk-disable-btn'),
             bulkDeleteBtn: document.getElementById('bulk-delete-btn'),
             bulkClearSelectionBtn: document.getElementById('bulk-clear-selection-btn'),
-            bulkSelectionCount: document.getElementById('bulk-selection-count')
+            bulkSelectionCount: document.getElementById('bulk-selection-count'),
+            dragDropOverlay: document.getElementById('drag-drop-overlay')
         };
         
         // Загружаем настройки
@@ -239,6 +240,113 @@ class ModLoadOrderManager {
         
         // Загрузка файла при старте
         await this.fileManager.loadFile();
+        
+        // Инициализация drag and drop из файловой системы
+        this.initFileSystemDragDrop();
+    }
+    
+    // Инициализация drag and drop из файловой системы
+    initFileSystemDragDrop() {
+        const overlay = this.elements.dragDropOverlay;
+        if (!overlay) return;
+        
+        // Предотвращаем стандартное поведение браузера при перетаскивании
+        document.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+        });
+        
+        document.addEventListener('dragenter', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // Проверяем, что перетаскиваются файлы/папки из файловой системы
+            if (e.dataTransfer.types.includes('Files')) {
+                overlay.classList.add('show');
+            }
+        });
+        
+        document.addEventListener('dragleave', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // Скрываем overlay только если мы покинули документ
+            if (!e.relatedTarget || !document.contains(e.relatedTarget)) {
+                overlay.classList.remove('show');
+            }
+        });
+        
+        document.addEventListener('drop', async (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            overlay.classList.remove('show');
+            
+            // Получаем перетащенные файлы/папки
+            const files = Array.from(e.dataTransfer.files);
+            
+            if (files.length === 0) {
+                return;
+            }
+            
+            // В Electron файлы из dataTransfer.files имеют свойство path
+            // Проверяем, что это папка (берем первый элемент)
+            const droppedItem = files[0];
+            
+            if (!droppedItem || !droppedItem.path) {
+                await this.uiManager.showMessage(
+                    this.t('messages.error'),
+                    this.t('messages.dragDropNotFolder') || 'Перетащите папку, а не файл'
+                );
+                return;
+            }
+            
+            // Проверяем, что это папка (через IPC, так как в renderer нет доступа к fs)
+            const isDirectory = await window.electronAPI.checkIsDirectory(droppedItem.path);
+            
+            if (!isDirectory) {
+                await this.uiManager.showMessage(
+                    this.t('messages.error'),
+                    this.t('messages.dragDropNotFolder') || 'Перетащите папку, а не файл'
+                );
+                return;
+            }
+            
+            // Получаем директорию модов
+            const modsDir = this.filePath ? this.filePath.substring(0, this.filePath.lastIndexOf('\\')) : '';
+            if (!modsDir) {
+                await this.uiManager.showMessage(
+                    this.t('messages.error'),
+                    this.t('messages.failedToDetermineModsDir')
+                );
+                return;
+            }
+            
+            // Копируем папку
+            try {
+                const result = await window.electronAPI.copyFolderToMods(droppedItem.path, modsDir);
+                
+                if (result.success) {
+                    await this.uiManager.showMessage(
+                        this.t('messages.success'),
+                        (this.t('messages.folderCopied') || 'Папка скопирована: {folderName}').replace('{folderName}', result.folderName)
+                    );
+                    
+                    // Обновляем список модов
+                    await this.modManager.scanAndUpdate();
+                } else {
+                    await this.uiManager.showMessage(
+                        this.t('messages.error'),
+                        result.error || (this.t('messages.folderCopyError') || 'Ошибка при копировании папки')
+                    );
+                }
+            } catch (error) {
+                await this.uiManager.showMessage(
+                    this.t('messages.error'),
+                    error.message || (this.t('messages.folderCopyError') || 'Ошибка при копировании папки')
+                );
+            }
+        });
     }
     
     // Методы для обратной совместимости и делегирования
@@ -438,6 +546,10 @@ class ModLoadOrderManager {
         
         if (this.elements.settingsOkBtn) this.elements.settingsOkBtn.textContent = t('ui.save');
         if (this.elements.settingsCancelBtn) this.elements.settingsCancelBtn.textContent = t('ui.cancel');
+        
+        // Обновляем текст overlay для drag and drop
+        const dragDropText = document.getElementById('drag-drop-text');
+        if (dragDropText) dragDropText.textContent = t('ui.dragDropText');
     }
     
     // Получить локализованную строку

@@ -26,6 +26,7 @@
         "hideUnusedMods": "使用されていないMODをすべて非表示",
         "addMod": "MODを追加",
         "createSymlink": "シンボリックリンクを作成",
+        "dragDropText": "MODフォルダをここにドラッグしてください",
         "actions": "操作:",
         "enableSelected": "選択したものを有効化",
         "disableSelected": "選択したものを無効化",
@@ -107,7 +108,10 @@
         "failedToDetermineModsDir": "MODフォルダを特定できませんでした",
         "selectedFolderNotExists": "選択したフォルダが存在しません",
         "failedToCreateSymlink": "シンボリックリンクを作成できませんでした:",
-        "symlinkCreationError": "シンボリックリンクの作成中にエラーが発生しました:"
+        "symlinkCreationError": "シンボリックリンクの作成中にエラーが発生しました:",
+        "dragDropNotFolder": "ファイルではなくフォルダをドラッグしてください",
+        "folderCopied": "フォルダをコピーしました: {folderName}",
+        "folderCopyError": "フォルダのコピー中にエラーが発生しました"
     },
     "status": {
         "total": "合計: {total} | 有効: {enabled} | 無効: {disabled}",

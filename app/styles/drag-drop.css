@@ -1,0 +1,53 @@
+/* Стили для drag and drop overlay */
+.drag-drop-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 10000;
+    pointer-events: none;
+}
+
+.drag-drop-overlay.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.drag-drop-content {
+    background-color: #ffffff;
+    border: 3px dashed #0078d4;
+    border-radius: 10px;
+    padding: 40px 60px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.drag-drop-icon {
+    font-size: 64px;
+    color: #0078d4;
+    margin-bottom: 20px;
+}
+
+.drag-drop-text {
+    font-size: 18px;
+    color: #333;
+    font-weight: bold;
+}
+
+/* Темная тема */
+body.dark-theme .drag-drop-content {
+    background-color: var(--bg-secondary);
+    border-color: var(--border-selected);
+}
+
+body.dark-theme .drag-drop-icon {
+    color: var(--border-selected);
+}
+
+body.dark-theme .drag-drop-text {
+    color: var(--text-primary);
+}

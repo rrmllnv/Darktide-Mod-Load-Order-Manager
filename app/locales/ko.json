@@ -26,6 +26,7 @@
         "hideUnusedMods": "사용하지 않는 모드 모두 숨기기",
         "addMod": "모드 추가",
         "createSymlink": "심볼릭 링크 만들기",
+        "dragDropText": "모드 폴더를 여기로 드래그하세요",
         "actions": "작업:",
         "enableSelected": "선택 항목 활성화",
         "disableSelected": "선택 항목 비활성화",
@@ -107,7 +108,10 @@
         "failedToDetermineModsDir": "모드 폴더를 확인할 수 없습니다",
         "selectedFolderNotExists": "선택한 폴더가 존재하지 않습니다",
         "failedToCreateSymlink": "심볼릭 링크를 만들 수 없습니다:",
-        "symlinkCreationError": "심볼릭 링크 생성 중 오류:"
+        "symlinkCreationError": "심볼릭 링크 생성 중 오류:",
+        "dragDropNotFolder": "파일이 아닌 폴더를 드래그하세요",
+        "folderCopied": "폴더 복사됨: {folderName}",
+        "folderCopyError": "폴더 복사 중 오류"
     },
     "status": {
         "total": "전체: {total} | 활성화: {enabled} | 비활성화: {disabled}",
