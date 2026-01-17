@@ -1,6 +1,5 @@
 import { ModEntry } from '../models/ModEntry.js';
 
-// Сервис для сканирования папки модов
 export class ModScanService {
     constructor(filePath, statusCallback, app = null) {
         this.filePath = filePath;
@@ -8,10 +7,8 @@ export class ModScanService {
         this.app = app;
     }
     
-    // Сканирование папки модов
     async scanModsDirectory(modEntries, selectedModName) {
         try {
-            // Определяем путь к папке mods (та же директория, где находится mod_load_order.txt)
             const modsDir = this.filePath.substring(0, this.filePath.lastIndexOf('\\'));
             if (!modsDir) {
                 return { added: 0, removed: 0, selectedModName };
@@ -22,13 +19,10 @@ export class ModScanService {
                 return { added: 0, removed: 0, selectedModName };
             }
             
-            // Получаем список существующих модов из файла
             const existingModNames = new Set(modEntries.map(mod => mod.name));
             
-            // Сканируем папки в директории mods
             const result = await window.electronAPI.scanModsDirectory(modsDir);
             if (!result.success) {
-                // Используем локализацию, если доступен app
                 if (this.app && this.app.t) {
                     this.setStatus(this.app.t('status.scanWarning', { error: result.error }));
                 } else {
@@ -37,49 +31,39 @@ export class ModScanService {
                 return { added: 0, removed: 0, deleted: 0, restored: 0, selectedModName };
             }
             
-            // Получаем список модов из файловой системы
             const fileSystemMods = new Set(result.mods);
-            const symlinkMods = result.symlinks || new Map(); // Карта симлинков
+            const symlinkMods = result.symlinks || new Map();
             
-            // Удаляем моды с флагом isNew, которых больше нет в файловой системе
             const modsToRemove = [];
             let newSelectedModName = selectedModName;
-            let notFoundCount = 0; // Счетчик модов, помеченных как не найденные
-            let restoredCount = 0; // Счетчик модов, у которых снят флаг not found (папка появилась)
+            let notFoundCount = 0;
+            let restoredCount = 0;
             
-            // Проверяем все моды из файла на наличие папок
             for (const mod of modEntries) {
-                const wasNotFound = mod.isNotFound; // Сохраняем предыдущее состояние
+                const wasNotFound = mod.isNotFound;
                 
-                // Если мод не новый (есть в файле), но его папки нет в файловой системе
                 if (!mod.isNew && !fileSystemMods.has(mod.name)) {
                     if (!wasNotFound) {
-                        // Мод только что помечен как не найденный
                         notFoundCount++;
                     }
-                    mod.isNotFound = true; // Помечаем как не найденный
-                    mod.isSymlink = false; // Если папки нет, симлинк тоже не может быть
+                    mod.isNotFound = true;
+                    mod.isSymlink = false;
                 } else if (mod.isNotFound && fileSystemMods.has(mod.name)) {
-                    // Если папка появилась снова - снимаем флаг
                     mod.isNotFound = false;
                     if (wasNotFound) {
-                        // Флаг был снят (папка восстановлена)
                         restoredCount++;
                     }
                 }
                 
-                // Обновляем флаг isSymlink для существующих модов
                 if (fileSystemMods.has(mod.name)) {
                     mod.isSymlink = symlinkMods.get(mod.name) || false;
                 }
                 
-                // Если мод помечен как новый, но его нет в файловой системе - удаляем
                 if (mod.isNew && !fileSystemMods.has(mod.name)) {
                     modsToRemove.push(mod.name);
                 }
             }
             
-            // Удаляем моды с флагом isNew, которых нет в файловой системе
             for (let i = modEntries.length - 1; i >= 0; i--) {
                 const mod = modEntries[i];
                 if (modsToRemove.includes(mod.name)) {
@@ -87,27 +71,23 @@ export class ModScanService {
                 }
             }
             
-            // Если удалили выбранный мод, сбрасываем выбор
             if (newSelectedModName && modsToRemove.includes(newSelectedModName)) {
                 newSelectedModName = '';
             }
             
-            // Добавляем новые моды, которых нет в текущем списке
             const newMods = result.mods.filter(modName => !existingModNames.has(modName));
             
-            // Добавляем новые моды в конец списка (выключенными по умолчанию)
-            // Новые моды получают большой orderIndex, чтобы быть в конце при сортировке по умолчанию
-            const baseIndex = modEntries.length + 1000; // Большой индекс для новых модов
+            const baseIndex = modEntries.length + 1000;
             newMods.sort().forEach((modName, idx) => {
                 const isSymlink = symlinkMods.get(modName) || false;
                 modEntries.push(new ModEntry(
                     modName,
-                    false, // Новые моды по умолчанию выключены
-                    `--${modName}`, // По умолчанию закомментированы
-                    true, // Флаг нового мода
-                    baseIndex + idx, // Порядок для новых модов
-                    false, // isNotFound
-                    isSymlink // Флаг симлинка
+                    false,
+                    `--${modName}`,
+                    true,
+                    baseIndex + idx,
+                    false,
+                    isSymlink
                 ));
             });
             
@@ -120,8 +100,6 @@ export class ModScanService {
             };
             
         } catch (error) {
-            // Не показываем ошибку пользователю, просто логируем в статус
-            // Используем локализацию, если доступен app
             if (this.app && this.app.t) {
                 this.setStatus(this.app.t('status.scanWarning', { error: error.message }));
             } else {
