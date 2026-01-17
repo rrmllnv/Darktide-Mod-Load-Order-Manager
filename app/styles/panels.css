@@ -89,6 +89,7 @@
 }
 
 .section-label {
+    display: block;
     font-weight: bold;
     font-size: 9pt;
     margin-bottom: 5px;
