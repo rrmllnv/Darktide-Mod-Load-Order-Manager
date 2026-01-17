@@ -86,7 +86,7 @@
       "artifactName": "${productName} Setup.${ext}"
     },
     "portable": {
-      "artifactName": "${productName}.${ext}"
+      "artifactName": "${productName} Portable.${ext}"
     }
   }
 }
