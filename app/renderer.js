@@ -1,4 +1,3 @@
-// Импорты модулей
 import { ModEntry } from './models/ModEntry.js';
 import { FileService } from './services/FileService.js';
 import { ProfileService } from './services/ProfileService.js';
@@ -16,34 +15,27 @@ import { UIManager } from './managers/UIManager.js';
 import { BulkOperationsManager } from './managers/BulkOperationsManager.js';
 import { SettingsManager } from './managers/SettingsManager.js';
 
-// Главный класс приложения
 class ModLoadOrderManager {
     constructor() {
-        // Путь к файлу mod_load_order.txt
         this.defaultPath = '';
         this.filePath = '';
         
-        // Данные
         this.headerLines = [];
         this.modEntries = [];
-        this.selectedModName = ''; // Одиночный выбор (для совместимости)
-        this.selectedModNames = new Set(); // Множественный выбор
-        this.lastSelectedModIndex = -1; // Для Shift+Click
+        this.selectedModName = '';
+        this.selectedModNames = new Set();
+        this.lastSelectedModIndex = -1;
         this.hideNewMods = false;
         this.hideUnusedMods = false;
         this.hideNotFoundMods = false;
         
-        // Система профилей
         this.savedState = null;
         this.profilesDir = null;
         
-        // Настройки
         this.userConfig = null;
         
-        // Элементы интерфейса
         this.elements = {};
         
-        // Сервисы и менеджеры
         this.fileService = null;
         this.profileService = null;
         this.modScanService = null;
@@ -52,7 +44,6 @@ class ModLoadOrderManager {
         this.statusManager = null;
         this.eventBinder = null;
         
-        // Менеджеры функциональности
         this.localeManager = new LocaleManager();
         this.configManager = new ConfigManager(this);
         this.fileManager = new FileManager(this);
@@ -62,12 +53,10 @@ class ModLoadOrderManager {
         this.bulkOperationsManager = new BulkOperationsManager(this);
         this.settingsManager = new SettingsManager(this);
         
-        // Инициализация
         this.init();
     }
     
     async init() {
-        // Получаем элементы интерфейса
         this.elements = {
             pathInput: document.getElementById('path-input'),
             browseBtn: document.getElementById('browse-btn'),
@@ -122,39 +111,29 @@ class ModLoadOrderManager {
             dragDropOverlay: document.getElementById('drag-drop-overlay')
         };
         
-        // Загружаем настройки
         await this.configManager.loadUserConfig();
         
-        // Загружаем локализацию из настроек
         const locale = this.userConfig?.locale || 'en';
         await this.localeManager.loadLocale(locale);
         
-        // Применяем локализацию к интерфейсу
         this.applyLocalization();
         
-        // Обновляем элементы для выбора языка
         if (this.elements.settingsLocaleSelect) {
             this.elements.settingsLocaleSelect.value = locale;
         }
         
-        // Получаем путь по умолчанию
         this.defaultPath = await window.electronAPI.getDefaultPath();
         
-        // Применяем настройки (теперь с поиском файла)
         await this.configManager.applyUserConfig();
         
-        // Инициализация сервисов и менеджеров
         this.statusManager = new StatusManager(this.elements.statusText, this);
         this.fileService = new FileService((msg) => this.setStatus(msg));
         this.modalManager = new ModalManager(this.elements);
         
-        // Инициализация папки профилей
         await this.profileManager.initProfilesDirectory();
         
-        // Инициализация сервиса сканирования
         this.modScanService = new ModScanService(this.filePath, (msg) => this.setStatus(msg), this);
         
-        // Инициализация рендерера списка модов (создаем после инициализации сервисов)
         this.modListRenderer = new ModListRenderer(
             this.elements,
             this.modEntries,
@@ -172,29 +151,23 @@ class ModLoadOrderManager {
             this
         );
         
-        // Обработка клика вне списка для очистки выбора
         document.addEventListener('click', (e) => {
-            // ИСКЛЮЧАЕМ модальное окно - оно не должно мешать
-            // Проверяем и сам элемент, и его родителей
             if (e.target.closest('#profile-dialog') || 
                 e.target.closest('.modal') || 
                 e.target.closest('.modal-content') ||
                 e.target.closest('.modal-body') ||
                 e.target.closest('.modal-footer') ||
                 e.target.closest('.modal-header')) {
-                return; // Не обрабатываем клики по модальному окну
+                return;
             }
             
-            // Если клик не по элементу мода и не по чекбоксу
             if (!e.target.closest('.mod-item') && !e.target.closest('#mods-list')) {
-                // Очищаем выбор только если не кликнули по кнопкам массовых действий
                 if (!e.target.closest('#bulk-actions-panel') && !e.target.closest('.btn-icon')) {
                     this.modManager.clearSelection();
                 }
             }
         });
         
-        // Привязка событий
         this.eventBinder = new EventBinder(this.elements, {
             browseFile: () => this.fileManager.browseFile(),
             launchDtkitPatch: () => this.fileManager.launchDtkitPatch(),
@@ -240,19 +213,15 @@ class ModLoadOrderManager {
             addModFolder: () => this.fileManager.addModFolder()
         });
         
-        // Загрузка файла при старте
         await this.fileManager.loadFile();
         
-        // Инициализация drag and drop из файловой системы
         this.initFileSystemDragDrop();
     }
     
-    // Инициализация drag and drop из файловой системы
     initFileSystemDragDrop() {
         const overlay = this.elements.dragDropOverlay;
         if (!overlay) return;
         
-        // Предотвращаем стандартное поведение браузера при перетаскивании
         document.addEventListener('dragover', (e) => {
             e.preventDefault();
             e.stopPropagation();
@@ -262,7 +231,6 @@ class ModLoadOrderManager {
             e.preventDefault();
             e.stopPropagation();
             
-            // Проверяем, что перетаскиваются файлы/папки из файловой системы
             if (e.dataTransfer.types.includes('Files')) {
                 overlay.classList.add('show');
             }
@@ -272,7 +240,6 @@ class ModLoadOrderManager {
             e.preventDefault();
             e.stopPropagation();
             
-            // Скрываем overlay только если мы покинули документ
             if (!e.relatedTarget || !document.contains(e.relatedTarget)) {
                 overlay.classList.remove('show');
             }
@@ -284,15 +251,12 @@ class ModLoadOrderManager {
             
             overlay.classList.remove('show');
             
-            // Получаем перетащенные файлы/папки
             const files = Array.from(e.dataTransfer.files);
             
             if (files.length === 0) {
                 return;
             }
             
-            // В Electron файлы из dataTransfer.files имеют свойство path
-            // Проверяем, что это папка (берем первый элемент)
             const droppedItem = files[0];
             
             if (!droppedItem || !droppedItem.path) {
@@ -303,7 +267,6 @@ class ModLoadOrderManager {
                 return;
             }
             
-            // Проверяем, что это папка (через IPC, так как в renderer нет доступа к fs)
             const isDirectory = await window.electronAPI.checkIsDirectory(droppedItem.path);
             
             if (!isDirectory) {
@@ -314,7 +277,6 @@ class ModLoadOrderManager {
                 return;
             }
             
-            // Получаем директорию модов
             const modsDir = this.filePath ? this.filePath.substring(0, this.filePath.lastIndexOf('\\')) : '';
             if (!modsDir) {
                 await this.uiManager.showMessage(
@@ -324,7 +286,6 @@ class ModLoadOrderManager {
                 return;
             }
             
-            // Копируем папку
             try {
                 const result = await window.electronAPI.copyFolderToMods(droppedItem.path, modsDir);
                 
@@ -334,7 +295,6 @@ class ModLoadOrderManager {
                         (this.t('messages.folderCopied') || 'Папка скопирована: {folderName}').replace('{folderName}', result.folderName)
                     );
                     
-                    // Обновляем список модов
                     await this.modManager.scanAndUpdate();
                 } else {
                     await this.uiManager.showMessage(
@@ -351,7 +311,6 @@ class ModLoadOrderManager {
         });
     }
     
-    // Методы для обратной совместимости и делегирования
     onCheckboxChange(modName) {
         this.modManager.onCheckboxChange(modName);
     }
@@ -388,11 +347,9 @@ class ModLoadOrderManager {
         this.uiManager.updateBulkActionsPanel();
     }
     
-    // Применение локализации к интерфейсу
     applyLocalization() {
         const t = (key) => this.localeManager.t(key);
         
-        // Основные элементы
         if (this.elements.pathInput?.previousElementSibling) {
             this.elements.pathInput.previousElementSibling.textContent = t('ui.file');
         }
@@ -401,7 +358,6 @@ class ModLoadOrderManager {
         if (this.elements.cancelBtn) this.elements.cancelBtn.textContent = t('ui.cancelChanges');
         if (this.elements.statusText) this.elements.statusText.textContent = t('ui.ready');
         
-        // Кнопки действий
         if (this.elements.enableAllBtn) this.elements.enableAllBtn.title = t('ui.enableAll');
         if (this.elements.disableAllBtn) this.elements.disableAllBtn.title = t('ui.disableAll');
         if (this.elements.reloadFileBtn) this.elements.reloadFileBtn.title = t('ui.reloadFile');
@@ -410,11 +366,9 @@ class ModLoadOrderManager {
         if (this.elements.settingsBtn) this.elements.settingsBtn.title = t('ui.settings');
         if (this.elements.addModBtn) this.elements.addModBtn.title = t('ui.addMod');
         
-        // Обновляем текст в dropdown
         const createSymlinkSpan = document.querySelector('#create-symlink-btn span');
         if (createSymlinkSpan) createSymlinkSpan.textContent = t('ui.createSymlink');
         
-        // Сортировка
         if (this.elements.sortSelect) {
             this.elements.sortSelect.title = t('ui.sort');
             
@@ -425,7 +379,6 @@ class ModLoadOrderManager {
             if (options[3]) options[3].textContent = t('ui.sortNewFirst');
         }
         
-        // Поиск
         const searchLabel = document.querySelector('.search-label');
         if (searchLabel) searchLabel.textContent = t('ui.search');
         if (this.elements.searchInput) {
@@ -433,7 +386,6 @@ class ModLoadOrderManager {
         }
         if (this.elements.clearSearchBtn) this.elements.clearSearchBtn.title = t('ui.clear');
         
-        // Чекбоксы
         const hideNewModsSpan = document.querySelector('#hide-new-mods-checkbox')?.nextElementSibling;
         if (hideNewModsSpan) hideNewModsSpan.textContent = t('ui.hideNewMods');
         const hideNotFoundModsSpan = document.querySelector('#hide-not-found-mods-checkbox')?.nextElementSibling;
@@ -441,7 +393,6 @@ class ModLoadOrderManager {
         const hideUnusedModsSpan = document.querySelector('#hide-unused-mods-checkbox')?.nextElementSibling;
         if (hideUnusedModsSpan) hideUnusedModsSpan.textContent = t('ui.hideUnusedMods');
         
-        // Действия
         const addModLabel = document.querySelector('.symlink-frame .section-label');
         if (addModLabel) addModLabel.textContent = t('ui.addMod');
         if (this.elements.addModFolderBtn) {
@@ -463,7 +414,6 @@ class ModLoadOrderManager {
         if (this.elements.bulkSelectEnabledBtn) this.elements.bulkSelectEnabledBtn.title = t('ui.selectEnabled');
         if (this.elements.bulkSelectDisabledBtn) this.elements.bulkSelectDisabledBtn.title = t('ui.selectDisabled');
         
-        // Профили
         const profilesLabel = document.querySelector('.profiles-frame .section-label');
         if (profilesLabel) profilesLabel.textContent = t('ui.profiles');
         
@@ -473,7 +423,6 @@ class ModLoadOrderManager {
         if (this.elements.renameProfileBtn) this.elements.renameProfileBtn.title = t('ui.renameProfile');
         if (this.elements.deleteProfileBtn) this.elements.deleteProfileBtn.title = t('ui.deleteProfile');
         
-        // Модальные окна
         if (this.elements.modalTitle) this.elements.modalTitle.textContent = t('ui.enterProfileName');
         if (this.elements.profileNameInput) this.elements.profileNameInput.placeholder = t('ui.profileNamePlaceholder');
         if (this.elements.modalOkBtn) this.elements.modalOkBtn.textContent = t('ui.save');
@@ -500,7 +449,6 @@ class ModLoadOrderManager {
             const localeOptions = this.elements.settingsLocaleSelect.options;
             const langNames = this.localeManager.translations.ui?.languageNames || {};
             
-            // Названия языков на их родном языке
             const nativeNames = {
                 'en': 'English',
                 'ru': 'Русский',
@@ -513,7 +461,6 @@ class ModLoadOrderManager {
                 'ja': '日本語'
             };
             
-            // Формируем текст для каждого языка: родное название + (название на текущем языке)
             if (localeOptions[0]) {
                 const enName = langNames['en'] || 'English';
                 localeOptions[0].textContent = `English (${enName})`;
@@ -555,18 +502,15 @@ class ModLoadOrderManager {
         if (this.elements.settingsOkBtn) this.elements.settingsOkBtn.textContent = t('ui.save');
         if (this.elements.settingsCancelBtn) this.elements.settingsCancelBtn.textContent = t('ui.cancel');
         
-        // Обновляем текст overlay для drag and drop
         const dragDropText = document.getElementById('drag-drop-text');
         if (dragDropText) dragDropText.textContent = t('ui.dragDropText');
     }
     
-    // Получить локализованную строку
     t(key, params = {}) {
         return this.localeManager.t(key, params);
     }
 }
 
-// Инициализация приложения при загрузке страницы
 let app;
 document.addEventListener('DOMContentLoaded', () => {
     app = new ModLoadOrderManager();

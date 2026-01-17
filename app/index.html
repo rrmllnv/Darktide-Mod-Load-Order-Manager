@@ -16,18 +16,14 @@
     <link rel="stylesheet" href="styles/drag-drop.css">
 </head>
 <body>
-    <!-- Фрейм для пути к файлу -->
     <div class="path-frame">
         <label>Файл:</label>
         <input type="text" id="path-input" class="path-input" />
         <button id="browse-btn" class="btn">Обзор...</button>
     </div>
 
-    <!-- Основной контейнер -->
     <div class="main-container">
-        <!-- Левая панель: Список модов -->
         <div class="left-panel">
-            <!-- Заголовок списка -->
             <div class="header-frame">
                 <div class="button-frame">
                     <button id="enable-all-btn" class="btn-icon" title="Включить все">
@@ -82,17 +78,13 @@
                 </div>
             </div>
 
-            <!-- Скроллируемый список модов -->
             <div class="canvas-frame">
                 <div id="mods-list" class="mods-list"></div>
             </div>
         </div>
 
-        <!-- Правая панель: Поиск и информация -->
         <div class="right-container">
-            <!-- Блок поиска -->
             <div class="search-panel">
-                <!-- <div class="panel-title">Поиск</div> -->
                 <label class="search-label">Поиск мода:</label>
                 <div class="search-input-wrapper">
                     <input type="text" id="search-input" class="search-input" placeholder="Введите название мода..." />
@@ -120,14 +112,8 @@
                 </div>
             </div>
 
-            <!-- Блок информации -->
             <div class="info-panel">
-                <!-- <div class="panel-title">Информация</div> -->
-                
-
-                <!-- Информация о выбранном моде -->
                 <div class="info-frame">
-                    <!-- Массовые действия -->
                     <div id="bulk-actions-panel" class="bulk-actions-frame">
                         <label class="section-label">Действия:</label>
                         <div class="bulk-actions-buttons">
@@ -149,7 +135,6 @@
                         </div>
                     </div>
 
-                    <!-- Профили -->
                     <div class="profiles-frame">
                         <label class="section-label">Профили:</label>
                         <select id="profiles-list" class="profiles-list" size="6"></select>
@@ -176,7 +161,6 @@
         </div>
     </div>
 
-    <!-- Фрейм для кнопок сохранения -->
     <div class="save-frame">
         <button id="settings-btn" class="btn-icon" title="Настройки">
             <i class="fas fa-cog"></i>
@@ -185,12 +169,10 @@
         <button id="cancel-btn" class="btn">Отменить изменения</button>
     </div>
 
-    <!-- Статус бар -->
     <div class="status-bar">
         <span id="status-text">Готов</span>
     </div>
 
-    <!-- Модальное окно для ввода имени профиля -->
     <div id="profile-dialog" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -206,7 +188,6 @@
         </div>
     </div>
 
-    <!-- Модальное окно для сообщений -->
     <div id="message-dialog" class="modal">
         <div class="modal-content modal-content-message">
             <div class="modal-header">
@@ -221,7 +202,6 @@
         </div>
     </div>
 
-    <!-- Модальное окно для настроек -->
     <div id="settings-dialog" class="modal">
         <div class="modal-content modal-content-settings">
             <div class="modal-header">
@@ -257,7 +237,6 @@
         </div>
     </div>
 
-    <!-- Overlay для drag and drop из файловой системы -->
     <div id="drag-drop-overlay" class="drag-drop-overlay">
         <div class="drag-drop-content">
             <i class="fas fa-folder-open drag-drop-icon"></i>
