@@ -390,14 +390,6 @@ body.dark-theme .profile-buttons {
     color: var(--text-primary);
 }
 
-body.dark-theme .profile-buttons-grid {
-    color: var(--text-primary);
-}
-
-body.dark-theme .profile-column {
-    color: var(--text-primary);
-}
-
 body.dark-theme .save-frame {
     background-color: var(--bg-secondary);
     border-top-color: var(--border-primary);
