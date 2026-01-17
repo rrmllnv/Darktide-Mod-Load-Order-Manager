@@ -1,5 +1,3 @@
-/* Основные контейнеры и layout */
-/* Фрейм для пути к файлу */
 .path-frame {
     display: flex;
     align-items: center;
@@ -20,7 +18,6 @@
     border-radius: 3px;
 }
 
-/* Основной контейнер */
 .main-container {
     display: flex;
     flex: 1;
@@ -29,7 +26,6 @@
     overflow: hidden;
 }
 
-/* Левая панель */
 .left-panel {
     flex: 1;
     display: flex;
@@ -81,7 +77,6 @@
     position: relative;
 }
 
-/* Dropdown стили */
 .dropdown {
     position: relative;
     display: inline-block;
@@ -165,7 +160,6 @@
     margin-left: 2px;
 }
 
-/* Правая панель */
 .right-container {
     width: 300px;
     display: flex;
@@ -173,7 +167,6 @@
     gap: 5px;
 }
 
-/* Фрейм для кнопок сохранения */
 .save-frame {
     display: flex;
     justify-content: space-between;
@@ -191,7 +184,6 @@
     flex-shrink: 0;
 }
 
-/* Статус бар */
 .status-bar {
     padding: 5px 10px;
     background-color: #e0e0e0;

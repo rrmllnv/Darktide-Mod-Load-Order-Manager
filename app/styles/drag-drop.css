@@ -1,4 +1,3 @@
-/* Стили для drag and drop overlay */
 .drag-drop-overlay {
     display: none;
     position: fixed;
@@ -38,7 +37,6 @@
     font-weight: bold;
 }
 
-/* Темная тема */
 body.dark-theme .drag-drop-content {
     background-color: var(--bg-secondary);
     border-color: var(--border-selected);

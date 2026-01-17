@@ -1,5 +1,3 @@
-/* Стили для списка модов */
-/* Скроллируемый список модов */
 .canvas-frame {
     flex: 1;
     overflow-y: auto;
@@ -97,7 +95,6 @@
     color: red;
 }
 
-/* Скроллбар */
 .canvas-frame::-webkit-scrollbar {
     width: 4px;
 }
