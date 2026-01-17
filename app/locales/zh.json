@@ -10,7 +10,7 @@
         "enableAll": "全部启用",
         "disableAll": "全部禁用",
         "reloadFile": "重新加载文件",
-        "scan": "更新列表",
+        "scan": "扫描模组",
         "selectEnabled": "选择所有已启用",
         "selectDisabled": "选择所有已禁用",
         "sort": "排序",

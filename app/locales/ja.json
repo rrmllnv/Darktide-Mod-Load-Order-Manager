@@ -10,7 +10,7 @@
         "enableAll": "すべて有効化",
         "disableAll": "すべて無効化",
         "reloadFile": "ファイルを再読み込み",
-        "scan": "リストを更新",
+        "scan": "モッドをスキャン",
         "selectEnabled": "有効なものをすべて選択",
         "selectDisabled": "無効なものをすべて選択",
         "sort": "並び替え",

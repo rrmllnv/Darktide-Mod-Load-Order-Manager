@@ -10,7 +10,7 @@
         "enableAll": "모두 활성화",
         "disableAll": "모두 비활성화",
         "reloadFile": "파일 다시 로드",
-        "scan": "목록 업데이트",
+        "scan": "모드 스캔",
         "selectEnabled": "활성화된 항목 모두 선택",
         "selectDisabled": "비활성화된 항목 모두 선택",
         "sort": "정렬",
