@@ -36,16 +36,3 @@
     color: #333;
     font-weight: bold;
 }
-
-body.dark-theme .drag-drop-content {
-    background-color: var(--bg-secondary);
-    border-color: var(--border-selected);
-}
-
-body.dark-theme .drag-drop-icon {
-    color: var(--border-selected);
-}
-
-body.dark-theme .drag-drop-text {
-    color: var(--text-primary);
-}
