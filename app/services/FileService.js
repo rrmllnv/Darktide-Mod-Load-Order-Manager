@@ -86,6 +86,22 @@ export class FileService {
         const sortedMods = sortedModEntries || [...modEntries].sort((a, b) => a.orderIndex - b.orderIndex);
         
         let content = '';
+        
+        // Проверяем, есть ли уже приписка о менеджере
+        const managerComment = '-- File managed by Darktide Mod Load Order Manager\n';
+        let hasManagerComment = false;
+        for (const line of headerLines) {
+            if (line.includes('File managed by')) {
+                hasManagerComment = true;
+                break;
+            }
+        }
+        
+        // Добавляем приписку о менеджере, если её нет
+        if (!hasManagerComment) {
+            content += managerComment;
+        }
+        
         // Заголовок сохраняем как есть (с оригинальными символами новой строки)
         for (const line of headerLines) {
             content += line;
