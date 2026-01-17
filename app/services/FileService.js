@@ -87,25 +87,12 @@ export class FileService {
         
         let content = '';
         
-        // Проверяем, есть ли уже приписка о менеджере
-        const managerComment = '-- File managed by Darktide Mod Load Order Manager\n';
-        let hasManagerComment = false;
-        for (const line of headerLines) {
-            if (line.includes('File managed by')) {
-                hasManagerComment = true;
-                break;
-            }
-        }
+        // Добавляем нашу приписку о менеджере в начало файла
+        const managerComment = '-- File managed by Darktide Mod Load Order Manager\n\n';
+        content += managerComment;
         
-        // Добавляем приписку о менеджере, если её нет
-        if (!hasManagerComment) {
-            content += managerComment;
-        }
-        
-        // Заголовок сохраняем как есть (с оригинальными символами новой строки)
-        for (const line of headerLines) {
-            content += line;
-        }
+        // Не сохраняем старые строки заголовка - очищаем от всех левых записей
+        // Оставляем только нашу приписку и моды
         // Моды добавляем с \n
         for (const modEntry of sortedMods) {
             // Пропускаем новые моды, которые не включены (не выбраны галочкой)
