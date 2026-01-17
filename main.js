@@ -295,7 +295,9 @@ ipcMain.handle('rename-profile', async (event, profilesDir, oldName, newName) =>
       return { success: false, error: 'Файл не найден' };
     }
     
-    if (existsSync(newPath)) {
+    const isCaseOnlyChange = oldName.toLowerCase() === newName.toLowerCase();
+    
+    if (!isCaseOnlyChange && existsSync(newPath)) {
       return { success: false, error: 'Профиль с таким именем уже существует' };
     }
     
