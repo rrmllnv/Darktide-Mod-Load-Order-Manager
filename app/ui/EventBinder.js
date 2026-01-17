@@ -101,7 +101,6 @@ export class EventBinder {
         this.elements.deleteProfileBtn.addEventListener('click', () => this.callbacks.deleteSelectedProfile());
         
         this.elements.saveBtn.addEventListener('click', () => this.callbacks.saveFile());
-        this.elements.cancelBtn.addEventListener('click', () => this.callbacks.loadFile());
         
         if (this.elements.settingsBtn) {
             this.elements.settingsBtn.addEventListener('click', () => this.callbacks.openSettings());

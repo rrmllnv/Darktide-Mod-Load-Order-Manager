@@ -85,7 +85,6 @@ class ModLoadOrderManager {
             renameProfileBtn: document.getElementById('rename-profile-btn'),
             deleteProfileBtn: document.getElementById('delete-profile-btn'),
             saveBtn: document.getElementById('save-btn'),
-            cancelBtn: document.getElementById('cancel-btn'),
             settingsBtn: document.getElementById('settings-btn'),
             statusText: document.getElementById('status-text'),
             settingsDialog: document.getElementById('settings-dialog'),
@@ -362,7 +361,6 @@ class ModLoadOrderManager {
         if (this.elements.openFileBtn) this.elements.openFileBtn.title = t('ui.openFile');
         if (this.elements.openModsFolderBtn) this.elements.openModsFolderBtn.title = t('ui.openModsFolder');
         if (this.elements.saveBtn) this.elements.saveBtn.textContent = t('ui.save');
-        if (this.elements.cancelBtn) this.elements.cancelBtn.textContent = t('ui.cancelChanges');
         if (this.elements.statusText) this.elements.statusText.textContent = t('ui.ready');
         
         if (this.elements.enableAllBtn) this.elements.enableAllBtn.title = t('ui.enableAll');
