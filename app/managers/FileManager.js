@@ -68,7 +68,15 @@ export class FileManager {
         }
         
         try {
-            await this.app.fileService.saveFile(this.app.filePath, this.app.headerLines, this.app.modEntries);
+            // Получаем текущую сортировку и сортируем все моды в этом порядке
+            const currentSort = this.app.elements.sortSelect ? this.app.elements.sortSelect.value : null;
+            let sortedModEntries = null;
+            if (currentSort && this.app.modEntries.length > 0) {
+                // Используем Sorter для сортировки всех модов по текущей сортировке
+                const { Sorter } = await import('../utils/Sorter.js');
+                sortedModEntries = Sorter.sortMods([...this.app.modEntries], currentSort);
+            }
+            await this.app.fileService.saveFile(this.app.filePath, this.app.headerLines, this.app.modEntries, sortedModEntries);
             
             await this.app.uiManager.showMessage(this.app.t('messages.success'), this.app.t('messages.fileSaved'));
             this.app.setStatus(this.app.t('messages.fileSavedStatus'));

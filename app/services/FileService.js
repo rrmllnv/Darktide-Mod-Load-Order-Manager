@@ -81,9 +81,9 @@ export class FileService {
     }
     
     // Формирование содержимого файла для сохранения
-    formatFileContent(headerLines, modEntries) {
-        // Сортируем моды по orderIndex перед сохранением
-        const sortedMods = [...modEntries].sort((a, b) => a.orderIndex - b.orderIndex);
+    formatFileContent(headerLines, modEntries, sortedModEntries = null) {
+        // Используем отсортированный список, если передан, иначе сортируем по orderIndex
+        const sortedMods = sortedModEntries || [...modEntries].sort((a, b) => a.orderIndex - b.orderIndex);
         
         let content = '';
         // Заголовок сохраняем как есть (с оригинальными символами новой строки)
@@ -128,8 +128,8 @@ export class FileService {
     }
     
     // Сохранение файла
-    async saveFile(filePath, headerLines, modEntries) {
-        const content = this.formatFileContent(headerLines, modEntries);
+    async saveFile(filePath, headerLines, modEntries, sortedModEntries = null) {
+        const content = this.formatFileContent(headerLines, modEntries, sortedModEntries);
         const result = await window.electronAPI.saveFile(filePath, content);
         
         if (!result.success) {
