@@ -7,14 +7,25 @@ export class UIManager {
     // Показ сообщения в модальном окне вместо alert
     showMessage(title, message) {
         return new Promise((resolve) => {
-            // Определяем, является ли сообщение об успехе
+            // Определяем тип сообщения
+            const isError = title === this.app.t('messages.error') || 
+                           title === 'Ошибка' || 
+                           title === 'Error' ||
+                           title?.toLowerCase().includes('error');
+            
             const isSuccess = title === this.app.t('messages.success') || 
                              title === 'Успех' || 
                              title === 'Success' ||
                              title?.toLowerCase().includes('success');
             
-            // Выбираем текст кнопки в зависимости от типа сообщения
-            const buttonText = isSuccess ? this.app.t('ui.close') : this.app.t('ui.save');
+            const isInfo = title === this.app.t('messages.info') || 
+                          title === 'Информация' || 
+                          title === 'Info' ||
+                          title?.toLowerCase().includes('info');
+            
+            // Для всех типов сообщений (ошибка, успех, информация) используем "Закрыть"
+            // "Сохранить" не используется в showMessage, только в showConfirm
+            const buttonText = this.app.t('ui.close');
             
             // Восстанавливаем кнопку OK на случай, если она была заменена
             const footer = this.app.elements.messageDialog.querySelector('.modal-footer');
