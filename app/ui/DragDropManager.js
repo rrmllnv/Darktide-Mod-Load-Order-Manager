@@ -1,29 +1,22 @@
-// Менеджер для drag and drop функционала
 export class DragDropManager {
     constructor(modEntries, modsListElement, onDropCallback) {
-        this.modEntries = modEntries; // Ссылка на массив модов
+        this.modEntries = modEntries;
         this.modsListElement = modsListElement;
         this.onDropCallback = onDropCallback;
         
-        // Добавляем обработчики на родительские элементы, чтобы не показывался запрещающий курсор
         this.setupParentHandlers();
     }
     
-    // Настройка обработчиков на родительских элементах
     setupParentHandlers() {
-        // Получаем родительский контейнер (canvas-frame)
         const canvasFrame = this.modsListElement.closest('.canvas-frame');
         if (canvasFrame) {
-            // Обработчик dragover на контейнере - разрешаем перетаскивание
             canvasFrame.addEventListener('dragover', (e) => {
-                // Проверяем, что перетаскивается элемент мода
                 if (document.querySelector('.mod-item.dragging')) {
                     e.preventDefault();
                     e.dataTransfer.dropEffect = 'move';
                 }
             });
             
-            // Обработчик dragenter - предотвращаем стандартное поведение
             canvasFrame.addEventListener('dragenter', (e) => {
                 if (document.querySelector('.mod-item.dragging')) {
                     e.preventDefault();
@@ -31,7 +24,6 @@ export class DragDropManager {
             });
         }
         
-        // Обработчик dragover на самом списке модов
         this.modsListElement.addEventListener('dragover', (e) => {
             if (document.querySelector('.mod-item.dragging')) {
                 e.preventDefault();
@@ -40,14 +32,11 @@ export class DragDropManager {
         });
     }
     
-    // Обновление ссылки на массив модов
     updateModEntries(modEntries) {
         this.modEntries = modEntries;
     }
     
-    // Привязка drag and drop обработчиков к элементу мода
     attachDragDrop(modItem, modEntry, index, currentSort) {
-        // Включаем drag and drop только для сортировки "По порядку файла"
         if (currentSort === 'fileOrder' || currentSort === 'По порядку файла') {
             modItem.draggable = true;
             modItem.setAttribute('data-mod-name', modEntry.name);
@@ -61,7 +50,6 @@ export class DragDropManager {
             
             modItem.addEventListener('dragend', (e) => {
                 modItem.classList.remove('dragging');
-                // Убираем все классы drag-over
                 document.querySelectorAll('.mod-item.drag-over').forEach(item => {
                     item.classList.remove('drag-over');
                 });
@@ -72,16 +60,13 @@ export class DragDropManager {
                 e.dataTransfer.dropEffect = 'move';
                 
                 const draggingItem = document.querySelector('.mod-item.dragging');
-                // Разрешаем перетаскивание даже над самим элементом, чтобы не показывался запрещающий курсор
                 if (draggingItem && draggingItem !== modItem) {
                     const allItems = Array.from(this.modsListElement.querySelectorAll('.mod-item'));
                     const draggingIndex = allItems.indexOf(draggingItem);
                     const currentIndex = allItems.indexOf(modItem);
                     
-                    // Убираем класс drag-over со всех элементов
                     allItems.forEach(item => item.classList.remove('drag-over'));
                     
-                    // Добавляем класс drag-over на элемент, над которым перетаскиваем
                     if (draggingIndex < currentIndex) {
                         modItem.classList.add('drag-over');
                     } else if (draggingIndex > currentIndex) {
@@ -103,16 +88,13 @@ export class DragDropManager {
                     return;
                 }
                 
-                // Находим перетаскиваемый мод
                 const draggedMod = this.modEntries.find(m => m.name === draggedModName);
                 if (!draggedMod) {
                     return;
                 }
                 
-                // Находим целевой мод
                 const targetMod = modEntry;
                 
-                // Получаем все моды, отсортированные по orderIndex
                 const sortedMods = [...this.modEntries].sort((a, b) => a.orderIndex - b.orderIndex);
                 const draggedIndex = sortedMods.findIndex(m => m.name === draggedModName);
                 const targetIndex = sortedMods.findIndex(m => m.name === targetMod.name);
@@ -121,22 +103,18 @@ export class DragDropManager {
                     return;
                 }
                 
-                // Перемещаем мод в новую позицию
                 if (draggedIndex < targetIndex) {
-                    // Перемещаем вниз
                     for (let i = draggedIndex + 1; i <= targetIndex; i++) {
                         sortedMods[i].orderIndex = sortedMods[i].orderIndex - 1;
                     }
                     draggedMod.orderIndex = targetIndex;
                 } else {
-                    // Перемещаем вверх
                     for (let i = targetIndex; i < draggedIndex; i++) {
                         sortedMods[i].orderIndex = sortedMods[i].orderIndex + 1;
                     }
                     draggedMod.orderIndex = targetIndex;
                 }
                 
-                // Вызываем callback для обновления списка
                 if (this.onDropCallback) {
                     this.onDropCallback();
                 }

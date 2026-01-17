@@ -1,4 +1,3 @@
-// Менеджер модальных окон
 export class ModalManager {
     constructor(elements) {
         this.elements = elements;
@@ -7,11 +6,9 @@ export class ModalManager {
     }
     
     init() {
-        // Привязка событий модального окна
         this.elements.modalOkBtn.addEventListener('click', () => this.handleModalOk());
         this.elements.modalCancelBtn.addEventListener('click', () => this.handleModalCancel());
         
-        // Обработчик keydown для поля ввода
         this.elements.profileNameInput.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') {
                 e.preventDefault();
@@ -21,8 +18,6 @@ export class ModalManager {
                 this.handleModalCancel();
             }
         });
-        
-        // Убираем закрытие по клику на фон - только через кнопки
     }
     
     showModal(title, defaultValue = '', callback) {

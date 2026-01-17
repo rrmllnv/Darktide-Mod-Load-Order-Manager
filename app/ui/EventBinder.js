@@ -1,4 +1,3 @@
-// Менеджер для привязки событий UI
 export class EventBinder {
     constructor(elements, callbacks) {
         this.elements = elements;
@@ -7,23 +6,18 @@ export class EventBinder {
     }
     
     bindAll() {
-        // Кнопки управления файлом
         this.elements.browseBtn.addEventListener('click', () => this.callbacks.browseFile());
         
-        // Запуск dtkit-patch
         if (this.elements.launchDtkitBtn) {
             this.elements.launchDtkitBtn.addEventListener('click', () => this.callbacks.launchDtkitPatch());
         }
         
-        // Сортировка
         this.elements.sortSelect.addEventListener('change', () => this.callbacks.onSortChange());
         
-        // Массовые операции
         this.elements.enableAllBtn.addEventListener('click', () => this.callbacks.enableAll());
         this.elements.disableAllBtn.addEventListener('click', () => this.callbacks.disableAll());
         this.elements.scanBtn.addEventListener('click', () => this.callbacks.scanAndUpdate());
         
-        // Выделение модов
         if (this.elements.bulkSelectEnabledBtn) {
             this.elements.bulkSelectEnabledBtn.addEventListener('click', () => this.callbacks.bulkSelectEnabled());
         }
@@ -31,28 +25,23 @@ export class EventBinder {
             this.elements.bulkSelectDisabledBtn.addEventListener('click', () => this.callbacks.bulkSelectDisabled());
         }
         
-        // Поиск
         this.elements.searchInput.addEventListener('input', () => this.callbacks.onSearchChange());
         this.elements.clearSearchBtn.addEventListener('click', () => this.callbacks.clearSearch());
         
-        // Скрытие новых модов
         this.elements.hideNewModsCheckbox.addEventListener('change', () => {
             this.callbacks.onHideNewModsChange(this.elements.hideNewModsCheckbox.checked);
         });
         
-        // Скрытие не используемых модов
         this.elements.hideUnusedModsCheckbox.addEventListener('change', () => {
             this.callbacks.onHideUnusedModsChange(this.elements.hideUnusedModsCheckbox.checked);
         });
         
-        // Скрытие не найденных модов
         if (this.elements.hideNotFoundModsCheckbox) {
             this.elements.hideNotFoundModsCheckbox.addEventListener('change', () => {
                 this.callbacks.onHideNotFoundModsChange(this.elements.hideNotFoundModsCheckbox.checked);
             });
         }
         
-        // Кнопка добавления мода (dropdown)
         if (this.elements.addModBtn) {
             this.elements.addModBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
@@ -62,7 +51,6 @@ export class EventBinder {
             });
         }
         
-        // Закрытие dropdown при клике вне его
         document.addEventListener('click', (e) => {
             if (this.elements.addModDropdown && 
                 !this.elements.addModDropdown.contains(e.target) && 
@@ -71,7 +59,6 @@ export class EventBinder {
             }
         });
         
-        // Добавление папки мода
         if (this.elements.addModFolderBtn) {
             this.elements.addModFolderBtn.addEventListener('click', () => {
                 if (this.elements.addModDropdown) {
@@ -81,7 +68,6 @@ export class EventBinder {
             });
         }
         
-        // Создание симлинка
         if (this.elements.createSymlinkBtn) {
             this.elements.createSymlinkBtn.addEventListener('click', () => {
                 if (this.elements.addModDropdown) {
@@ -91,7 +77,6 @@ export class EventBinder {
             });
         }
         
-        // Профили
         this.elements.newProfileBtn.addEventListener('click', () => this.callbacks.saveCurrentProfile());
         this.elements.overwriteProfileBtn.addEventListener('click', () => this.callbacks.overwriteSelectedProfile());
         this.elements.loadProfileBtn.addEventListener('click', () => this.callbacks.loadSelectedProfile());
@@ -99,16 +84,13 @@ export class EventBinder {
         this.elements.renameProfileBtn.addEventListener('click', () => this.callbacks.renameSelectedProfile());
         this.elements.deleteProfileBtn.addEventListener('click', () => this.callbacks.deleteSelectedProfile());
         
-        // Сохранение
         this.elements.saveBtn.addEventListener('click', () => this.callbacks.saveFile());
         this.elements.cancelBtn.addEventListener('click', () => this.callbacks.loadFile());
         
-        // Настройки
         if (this.elements.settingsBtn) {
             this.elements.settingsBtn.addEventListener('click', () => this.callbacks.openSettings());
         }
         
-        // Массовые действия
         if (this.elements.bulkEnableBtn) {
             this.elements.bulkEnableBtn.addEventListener('click', () => this.callbacks.bulkEnable());
         }
