@@ -27,7 +27,6 @@ const DEFAULT_PATH = 'C:\\Program Files (x86)\\Steam\\steamapps\\common\\Warhamm
 function findModLoadOrderFile() {
   const standardPaths = [];
   
-  // Пути для всех дисков (A-Z) с вариантами Program Files, Program Files (x86), Steam и SteamLibrary
   const drives = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
   const gamePath = '\\steamapps\\common\\Warhammer 40,000 DARKTIDE\\mods\\mod_load_order.txt';
   
