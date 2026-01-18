@@ -6,6 +6,10 @@ export class FileManager {
     }
     
     async browseFile() {
+        if (this.app.tourComponent && this.app.tourComponent.isActive && this.app.tourComponent.isBrowseTour) {
+            this.app.tourComponent.endTour();
+        }
+        
         const result = await window.electronAPI.selectFile(this.app.filePath);
         if (result.success && !result.canceled) {
             this.app.filePath = result.filePath;
@@ -15,19 +19,15 @@ export class FileManager {
             await this.loadFile();
             await this.updateOpenFileButton();
             
-            // Убеждаемся, что tourComponent инициализирован и не активен
             if (this.app.tourComponent) {
                 if (!this.app.tourComponent.elements) {
                     await this.app.tourComponent.init();
                 }
                 
-                // Сбрасываем состояние, если тур был активен
                 if (this.app.tourComponent.isActive) {
                     this.app.tourComponent.isActive = false;
                 }
                 
-                // Проверяем, нужно ли показать полный тур
-                // Проверяется только tourCompleted (не browseTourCompleted)
                 if (this.app.tourComponent.shouldShowTour()) {
                     setTimeout(() => {
                         this.app.tourComponent.startTour();

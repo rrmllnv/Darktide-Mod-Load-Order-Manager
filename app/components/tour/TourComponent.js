@@ -46,67 +46,78 @@ export class TourComponent {
                 selector: '#browse-btn',
                 titleKey: 'tour.steps.selectFile.title',
                 descriptionKey: 'tour.steps.selectFile.description',
-                position: 'bottom'
+                position: 'bottom',
+                interactive: true
             },
             {
                 selector: '.button-frame.tour-step:first-of-type',
                 titleKey: 'tour.steps.enableDisable.title',
                 descriptionKey: 'tour.steps.enableDisable.description',
-                position: 'bottom'
+                position: 'bottom',
+                interactive: false
             },
             {
                 selector: '.selection-buttons-frame.tour-step',
                 titleKey: 'tour.steps.selectionButtons.title',
                 descriptionKey: 'tour.steps.selectionButtons.description',
-                position: 'bottom'
+                position: 'bottom',
+                interactive: false
             },
             {
                 selector: '.add-mod-frame.tour-step',
                 titleKey: 'tour.steps.addMod.title',
                 descriptionKey: 'tour.steps.addMod.description',
-                position: 'bottom'
+                position: 'bottom',
+                interactive: false
             },
             {
                 selector: '.launch-dtkit-frame.tour-step',
                 titleKey: 'tour.steps.launchDtkit.title',
                 descriptionKey: 'tour.steps.launchDtkit.description',
-                position: 'bottom'
+                position: 'bottom',
+                interactive: false
             },
             {
                 selector: '.sort-frame.tour-step',
                 titleKey: 'tour.steps.sort.title',
                 descriptionKey: 'tour.steps.sort.description',
-                position: 'bottom'
+                position: 'bottom',
+                interactive: false
             },
             {
                 selector: '.canvas-frame.tour-step',
                 titleKey: 'tour.steps.modsList.title',
                 descriptionKey: 'tour.steps.modsList.description',
-                position: 'right'
+                position: 'right',
+                interactive: false
             },
             {
                 selector: '.search-panel.tour-step',
                 titleKey: 'tour.steps.search.title',
                 descriptionKey: 'tour.steps.search.description',
-                position: 'bottom'
+                position: 'bottom',
+                interactive: false
             },
             {
                 selector: '#bulk-actions-panel.tour-step',
                 titleKey: 'tour.steps.bulkActions.title',
                 descriptionKey: 'tour.steps.bulkActions.description',
-                position: 'left'
+                position: 'left',
+                interactive: false
             },
             {
                 selector: '.profiles-frame.tour-step',
                 titleKey: 'tour.steps.profiles.title',
                 descriptionKey: 'tour.steps.profiles.description',
-                position: 'left'
+                position: 'left',
+                interactive: false
             },
             {
                 selector: '#save-btn.tour-step',
                 titleKey: 'tour.steps.save.title',
                 descriptionKey: 'tour.steps.save.description',
-                position: 'top'
+                position: 'top',
+                interactive: false
             }
         ];
     }
@@ -141,7 +152,7 @@ export class TourComponent {
         
         this.isActive = true;
         this.isBrowseTour = false;
-        // Полный тур начинается со второго шага (индекс 1), первый шаг (#browse-btn) только для краткого тура
+
         this.currentStep = 1;
         await this.showStep(1);
     }
@@ -194,10 +205,9 @@ export class TourComponent {
         this.elements.tourOverlay.classList.add('show');
         this.elements.tourTooltip.classList.add('show');
         
-        // Ждем, чтобы tooltip отобразился и можно было получить его реальные размеры
         await new Promise(resolve => setTimeout(resolve, 10));
         
-        this.highlightElement(element, rect);
+        this.highlightElement(element, rect, browseStep.interactive || false);
         this.positionTooltip(rect, step.position, 0);
         
         const handleFinish = () => {
@@ -227,13 +237,21 @@ export class TourComponent {
             return;
         }
         
+        if (!this.isActive) {
+            return;
+        }
+        
         this.currentStep = stepIndex;
         const stepConfig = this.steps[stepIndex];
         const step = this.getStepData(stepConfig);
         
         const element = document.querySelector(step.selector);
         if (!element) {
-            this.nextStep();
+            if (stepIndex < this.steps.length - 1) {
+                this.showStep(stepIndex + 1);
+            } else {
+                this.endTour();
+            }
             return;
         }
         
@@ -251,14 +269,13 @@ export class TourComponent {
         this.elements.tourOverlay.classList.add('show');
         this.elements.tourTooltip.classList.add('show');
         
-        // Ждем, чтобы tooltip отобразился и можно было получить его реальные размеры
         await new Promise(resolve => setTimeout(resolve, 10));
         
-        this.highlightElement(element, rect);
+        this.highlightElement(element, rect, stepConfig.interactive || false);
         this.positionTooltip(rect, step.position, stepIndex);
     }
     
-    highlightElement(element, rect) {
+    highlightElement(element, rect, isInteractive = false) {
         const highlight = document.getElementById('tour-highlight');
         if (highlight) {
             highlight.style.display = 'block';
@@ -268,21 +285,35 @@ export class TourComponent {
             highlight.style.height = `${rect.height}px`;
         }
         
-        // Удаляем класс active с предыдущего элемента
         if (this.currentHighlightedElement) {
             this.currentHighlightedElement.classList.remove('active');
+            const allElements = this.currentHighlightedElement.querySelectorAll('*');
+            allElements.forEach(el => {
+                el.style.pointerEvents = '';
+            });
+            if (this.currentHighlightedElement.style) {
+                this.currentHighlightedElement.style.pointerEvents = '';
+            }
         }
         
-        // Находим элемент с классом tour-step (сам элемент или его родитель)
         let tourStepElement = element;
         if (element && !element.classList.contains('tour-step')) {
             tourStepElement = element.closest('.tour-step') || element;
         }
         
-        // Добавляем класс active к элементу
         if (tourStepElement && tourStepElement.classList) {
             tourStepElement.classList.add('active');
             this.currentHighlightedElement = tourStepElement;
+            
+            if (!isInteractive) {
+                const allElements = tourStepElement.querySelectorAll('*');
+                allElements.forEach(el => {
+                    el.style.pointerEvents = 'none';
+                });
+                if (tourStepElement.style) {
+                    tourStepElement.style.pointerEvents = 'none';
+                }
+            }
         }
     }
     
@@ -319,7 +350,6 @@ export class TourComponent {
                 top = elementRect.bottom + padding;
         }
         
-        // Обеспечиваем минимальный отступ от краев viewport
         const minLeft = padding;
         const maxLeft = viewportWidth - tooltipWidth - padding;
         
@@ -363,6 +393,10 @@ export class TourComponent {
     }
     
     nextStep() {
+        if (!this.isActive) {
+            return;
+        }
+        
         if (this.currentStep < this.steps.length - 1) {
             this.showStep(this.currentStep + 1);
         } else {
@@ -385,25 +419,31 @@ export class TourComponent {
         this.elements.tourOverlay.classList.remove('show');
         this.elements.tourTooltip.classList.remove('show');
         
-        // Скрываем highlight
         const highlight = document.getElementById('tour-highlight');
         if (highlight) {
             highlight.style.display = 'none';
         }
         
-        // Удаляем класс active с подсвеченного элемента
         if (this.currentHighlightedElement) {
             this.currentHighlightedElement.classList.remove('active');
+            const allElements = this.currentHighlightedElement.querySelectorAll('*');
+            allElements.forEach(el => {
+                el.style.pointerEvents = '';
+            });
+            if (this.currentHighlightedElement.style) {
+                this.currentHighlightedElement.style.pointerEvents = '';
+            }
             this.currentHighlightedElement = null;
         }
         
-        // Сохраняем статус тура на основе типа тура
-        if (this.isBrowseTour) {
+        const wasBrowseTour = this.isBrowseTour;
+        this.isBrowseTour = false;
+        
+        if (wasBrowseTour) {
             this.saveBrowseTourCompleted();
         } else {
             this.saveTourCompleted();
         }
-        this.isBrowseTour = false;
     }
     
     async saveTourCompleted() {
@@ -413,6 +453,12 @@ export class TourComponent {
             }
             
             this.app.userConfig.tourCompleted = true;
+            
+            // Если полный тур завершен, то краткий тур тоже считается завершенным
+            if (!this.app.userConfig.browseTourCompleted) {
+                this.app.userConfig.browseTourCompleted = true;
+            }
+            
             await this.app.configManager.saveUserConfig();
         } catch (error) {
             console.error('Error saving tour status:', error);
