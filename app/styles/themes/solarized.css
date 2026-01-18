@@ -4,7 +4,7 @@ body.theme-solarized {
     --bg-tertiary: #586e75;
     --bg-hover: #657b83;
     --bg-active: #839496;
-    --bg-selected: #073642;
+    --bg-selected: #586e75;
     --bg-disabled: #073642;
     
     --border-primary: #586e75;
@@ -32,7 +32,7 @@ body.theme-solarized {
     --bulk-actions-border: #657b83;
     --bulk-actions-text: #839496;
     
-    --bg-selected-no-focus-dark: #073642;
+    --bg-selected-no-focus-dark: #586e75;
     --text-selected-no-focus-dark: #839496;
     
     --select-bg: #073642;
