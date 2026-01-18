@@ -162,6 +162,16 @@
     padding: 5px;
 }
 
+.profiles-list option:checked {
+    background-color: #0078d4;
+    color: white;
+}
+
+.profiles-list:not(:focus) option:checked {
+    background-color: #0078d4;
+    color: white;
+}
+
 .profile-buttons {
     display: flex;
     flex-direction: row;

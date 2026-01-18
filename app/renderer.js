@@ -31,6 +31,7 @@ class ModLoadOrderManager {
         
         this.savedState = null;
         this.profilesDir = null;
+        this.selectedProfileName = null;
         
         this.userConfig = null;
         
@@ -281,7 +282,24 @@ class ModLoadOrderManager {
             bulkDisable: () => this.bulkOperationsManager.bulkDisable(),
             bulkDelete: () => this.bulkOperationsManager.bulkDelete(),
             bulkClearSelection: () => this.modManager.clearSelection(),
-            addModFolder: () => this.fileManager.addModFolder()
+            addModFolder: () => this.fileManager.addModFolder(),
+            onProfileSelectionChange: () => {
+                const selectedIndex = this.elements.profilesList.selectedIndex;
+                if (selectedIndex !== -1) {
+                    this.selectedProfileName = this.elements.profilesList.options[selectedIndex].value;
+                } else {
+                    this.selectedProfileName = null;
+                }
+            },
+            onProfileListBlur: () => {
+                if (this.selectedProfileName) {
+                    const options = Array.from(this.elements.profilesList.options);
+                    const index = options.findIndex(opt => opt.value === this.selectedProfileName);
+                    if (index !== -1) {
+                        this.elements.profilesList.selectedIndex = index;
+                    }
+                }
+            }
         });
         
         await this.fileManager.loadFile();

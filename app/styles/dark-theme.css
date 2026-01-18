@@ -389,6 +389,16 @@ body.dark-theme .profiles-list option {
     color: var(--text-primary);
 }
 
+body.dark-theme .profiles-list option:checked {
+    background-color: var(--btn-primary-bg);
+    color: white;
+}
+
+body.dark-theme .profiles-list:not(:focus) option:checked {
+    background-color: var(--btn-primary-bg);
+    color: white;
+}
+
 body.dark-theme .profile-buttons {
     color: var(--text-primary);
 }

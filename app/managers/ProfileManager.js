@@ -97,6 +97,7 @@ export class ProfileManager {
             await this.initProfilesDirectory();
         }
         
+        const selectedProfileName = this.app.selectedProfileName;
         this.app.elements.profilesList.innerHTML = '';
         
         if (!this.app.profilesDir) {
@@ -112,6 +113,16 @@ export class ProfileManager {
                     option.textContent = profileName;
                     this.app.elements.profilesList.appendChild(option);
                 });
+                
+                if (selectedProfileName) {
+                    const options = Array.from(this.app.elements.profilesList.options);
+                    const index = options.findIndex(opt => opt.value === selectedProfileName);
+                    if (index !== -1) {
+                        this.app.elements.profilesList.selectedIndex = index;
+                    } else {
+                        this.app.selectedProfileName = null;
+                    }
+                }
             }
         } catch (error) {
             console.error('Error refreshing profiles list:', error);
