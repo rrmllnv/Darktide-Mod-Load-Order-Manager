@@ -105,17 +105,17 @@
 
 .tour-btn {
     padding: 8px 16px;
-    border: 1px solid var(--border-secondary, #ddd);
+    border: 1px solid var(--border-secondary);
     border-radius: 4px;
-    background-color: var(--btn-bg, #ffffff);
-    color: var(--text-primary, #000000);
+    background-color: var(--btn-bg);
+    color: var(--text-primary);
     cursor: pointer;
     font-size: 14px;
     transition: background-color 0.2s;
 }
 
 .tour-btn:hover:not(:disabled) {
-    background-color: var(--btn-hover-bg, #f0f0f0);
+    background-color: var(--btn-bg-hover);
 }
 
 .tour-btn:disabled {
@@ -124,13 +124,13 @@
 }
 
 .tour-btn-primary {
-    background-color: var(--btn-primary-bg, #007bff);
-    color: var(--btn-primary-text, #ffffff);
-    border-color: var(--btn-primary-bg, #007bff);
+    background-color: var(--btn-primary-bg);
+    color: white;
+    border-color: var(--btn-primary-bg);
 }
 
 .tour-btn-primary:hover:not(:disabled) {
-    background-color: var(--btn-primary-hover-bg, #0056b3);
+    background-color: var(--btn-primary-bg-hover);
 }
 
 .tour-step-indicator {
