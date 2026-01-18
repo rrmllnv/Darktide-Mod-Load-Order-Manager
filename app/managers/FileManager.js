@@ -165,7 +165,7 @@ export class FileManager {
                     (this.app.t('messages.folderCopied') || 'Folder copied: {folderName}').replace('{folderName}', copyResult.folderName)
                 );
                 
-                await this.app.modManager.scanAndUpdate();
+                await this.app.modListComponent.scanAndUpdate();
             } else {
                 await this.app.uiManager.showMessage(
                     this.app.t('messages.error'),

@@ -8,7 +8,6 @@ import { StatusManager } from './managers/StatusManager.js';
 import { LocaleManager } from './managers/LocaleManager.js';
 import { ConfigManager } from './managers/ConfigManager.js';
 import { FileManager } from './managers/FileManager.js';
-import { ModManager } from './managers/ModManager.js';
 import { UIManager } from './managers/UIManager.js';
 import { BulkOperationsManager } from './managers/BulkOperationsManager.js';
 import { SettingsManager } from './managers/SettingsManager.js';
@@ -48,7 +47,6 @@ class ModLoadOrderManager {
         this.localeManager = new LocaleManager();
         this.configManager = new ConfigManager(this);
         this.fileManager = new FileManager(this);
-        this.modManager = new ModManager(this);
         this.uiManager = new UIManager(this);
         this.bulkOperationsManager = new BulkOperationsManager(this);
         this.settingsManager = new SettingsManager(this);
@@ -201,7 +199,7 @@ class ModLoadOrderManager {
         if (this.elements.contextMenuEnable) {
             this.elements.contextMenuEnable.addEventListener('click', () => {
                 if (this.contextMenuModName) {
-                    this.modManager.enableMod(this.contextMenuModName);
+                    this.modListComponent.enableMod(this.contextMenuModName);
                     this.hideContextMenu();
                 }
             });
@@ -210,7 +208,7 @@ class ModLoadOrderManager {
         if (this.elements.contextMenuDisable) {
             this.elements.contextMenuDisable.addEventListener('click', () => {
                 if (this.contextMenuModName) {
-                    this.modManager.disableMod(this.contextMenuModName);
+                    this.modListComponent.disableMod(this.contextMenuModName);
                     this.hideContextMenu();
                 }
             });
@@ -219,7 +217,7 @@ class ModLoadOrderManager {
         if (this.elements.contextMenuCopy) {
             this.elements.contextMenuCopy.addEventListener('click', () => {
                 if (this.contextMenuModName) {
-                    this.modManager.copyModName(this.contextMenuModName);
+                    this.modListComponent.copyModName(this.contextMenuModName);
                     this.hideContextMenu();
                 }
             });
@@ -230,7 +228,7 @@ class ModLoadOrderManager {
                 if (this.contextMenuModName) {
                     const modName = this.contextMenuModName;
                     this.hideContextMenu();
-                    await this.modManager.deleteMod(modName);
+                    await this.modListComponent.deleteMod(modName);
                 }
             });
         }
@@ -243,7 +241,7 @@ class ModLoadOrderManager {
             onSortChange: () => this.modListComponent.onSortChange(),
             enableAll: () => this.modListComponent.enableAll(),
             disableAll: () => this.modListComponent.disableAll(),
-            scanAndUpdate: () => this.modManager.scanAndUpdate(),
+            scanAndUpdate: () => this.modListComponent.scanAndUpdate(),
             onSearchChange: () => this.modListComponent.onSearchChange(),
             clearSearch: () => this.modListComponent.clearSearch(),
             onHideNewModsChange: (checked) => {
@@ -261,7 +259,7 @@ class ModLoadOrderManager {
                 this.modListComponent.updateModList();
                 this.configManager.saveUserConfig();
             },
-            createSymlinkForMod: () => this.modManager.createSymlinkForMod(),
+            createSymlinkForMod: () => this.modListComponent.createSymlinkForMod(),
             reloadFile: () => this.fileManager.reloadFile(),
             saveFile: () => this.fileManager.saveFile(),
             openSettings: () => this.settingsManager.openSettings(),
@@ -357,7 +355,7 @@ class ModLoadOrderManager {
                         (this.t('messages.folderCopied') || 'Folder copied: {folderName}').replace('{folderName}', result.folderName)
                     );
                     
-                    await this.modManager.scanAndUpdate();
+                    await this.modListComponent.scanAndUpdate();
                 } else {
                     await this.uiManager.showMessage(
                         this.t('messages.error'),
