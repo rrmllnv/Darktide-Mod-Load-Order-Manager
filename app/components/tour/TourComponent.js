@@ -6,6 +6,7 @@ export class TourComponent {
         this.currentStep = 0;
         this.steps = [];
         this.isActive = false;
+        this.isBrowseTour = false;
     }
     
     t(key, params = {}) {
@@ -117,7 +118,80 @@ export class TourComponent {
         
         this.currentStep = 0;
         this.isActive = true;
+        this.isBrowseTour = false;
         await this.showStep(0);
+    }
+    
+    async startBrowseTour() {
+        if (this.isActive) {
+            return;
+        }
+        
+        if (!this.elements || !this.elements.tourOverlay) {
+            await this.init();
+        }
+        
+        this.isActive = true;
+        this.isBrowseTour = true;
+        const browseStep = this.steps.find(step => step.selector === '#browse-btn');
+        
+        if (!browseStep) {
+            return;
+        }
+        
+        const step = this.getStepData(browseStep);
+        const element = document.querySelector(step.selector);
+        
+        if (!element) {
+            return;
+        }
+        
+        this.scrollToElement(element);
+        
+        await new Promise(resolve => setTimeout(resolve, 100));
+        
+        const rect = element.getBoundingClientRect();
+        
+        this.highlightElement(element, rect);
+        this.positionTooltip(rect, step.position, 0);
+        
+        this.elements.tourTitle.textContent = step.title;
+        this.elements.tourDescription.textContent = step.description;
+        
+        if (this.elements.tourPrevBtn) {
+            this.elements.tourPrevBtn.style.display = 'none';
+        }
+        
+        if (this.elements.tourNextBtn) {
+            this.elements.tourNextBtn.textContent = this.t('tour.finish');
+        }
+        
+        if (this.elements.tourSkipBtn) {
+            this.elements.tourSkipBtn.textContent = this.t('tour.skip');
+        }
+        
+        this.elements.tourOverlay.classList.add('show');
+        this.elements.tourTooltip.classList.add('show');
+        
+        const handleFinish = () => {
+            this.endTour();
+        };
+        
+        if (this.elements.tourNextBtn) {
+            const newNextBtn = this.elements.tourNextBtn.cloneNode(true);
+            this.elements.tourNextBtn.parentNode.replaceChild(newNextBtn, this.elements.tourNextBtn);
+            this.elements.tourNextBtn = newNextBtn;
+            this.elements.tourNextBtn.addEventListener('click', handleFinish);
+        }
+        
+        if (this.elements.tourSkipBtn) {
+            const newSkipBtn = this.elements.tourSkipBtn.cloneNode(true);
+            this.elements.tourSkipBtn.parentNode.replaceChild(newSkipBtn, this.elements.tourSkipBtn);
+            this.elements.tourSkipBtn = newSkipBtn;
+            this.elements.tourSkipBtn.addEventListener('click', () => {
+                this.skipTour();
+            });
+        }
     }
     
     async showStep(stepIndex) {
@@ -251,14 +325,19 @@ export class TourComponent {
     }
     
     skipTour() {
-        this.endTour();
+        this.endTour(this.isBrowseTour);
     }
     
-    endTour() {
+    endTour(isBrowseTour = false) {
         this.isActive = false;
         this.elements.tourOverlay.classList.remove('show');
         this.elements.tourTooltip.classList.remove('show');
-        this.saveTourCompleted();
+        if (isBrowseTour) {
+            this.saveBrowseTourCompleted();
+        } else {
+            this.saveTourCompleted();
+        }
+        this.isBrowseTour = false;
     }
     
     async saveTourCompleted() {
@@ -274,10 +353,30 @@ export class TourComponent {
         }
     }
     
+    async saveBrowseTourCompleted() {
+        try {
+            if (!this.app.userConfig) {
+                this.app.userConfig = ConfigManager.getDefaultUserConfig();
+            }
+            
+            this.app.userConfig.browseTourCompleted = true;
+            await this.app.configManager.saveUserConfig();
+        } catch (error) {
+            console.error('Error saving browse tour status:', error);
+        }
+    }
+    
     shouldShowTour() {
         if (!this.app.userConfig) {
             return true;
         }
         return !this.app.userConfig.tourCompleted;
+    }
+    
+    shouldShowBrowseTour() {
+        if (!this.app.userConfig) {
+            return true;
+        }
+        return !this.app.userConfig.browseTourCompleted;
     }
 }

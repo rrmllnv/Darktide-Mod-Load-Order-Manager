@@ -11,7 +11,8 @@ export class ConfigManager {
             hideNewMods: false,
             hideNotFoundMods: false,
             hideUnusedMods: false,
-            tourCompleted: false
+            tourCompleted: false,
+            browseTourCompleted: false
         };
     }
     
@@ -79,6 +80,13 @@ export class ConfigManager {
                 this.app.fileManager.updateSaveButton();
             }
             this.app.settingsManager.applyAllSettings();
+            
+            if (this.app.tourComponent && this.app.tourComponent.shouldShowBrowseTour()) {
+                setTimeout(() => {
+                    this.app.tourComponent.startBrowseTour();
+                }, 300);
+            }
+            
             return;
         }
         

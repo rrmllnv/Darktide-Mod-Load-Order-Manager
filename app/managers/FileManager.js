@@ -14,6 +14,12 @@ export class FileManager {
             this.updateSaveButton();
             await this.loadFile();
             await this.updateOpenFileButton();
+            
+            if (this.app.tourComponent && this.app.tourComponent.shouldShowTour()) {
+                setTimeout(() => {
+                    this.app.tourComponent.startTour();
+                }, 500);
+            }
         }
     }
     
