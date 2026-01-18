@@ -529,8 +529,23 @@ class ModLoadOrderManager {
         
         if (this.elements.settingsThemeSelect) {
             const themeOptions = this.elements.settingsThemeSelect.options;
-            if (themeOptions[0]) themeOptions[0].textContent = t('ui.light');
-            if (themeOptions[1]) themeOptions[1].textContent = t('ui.dark');
+            const themeLabels = {
+                '': t('ui.light'),
+                'dark': t('ui.dark'),
+                'system': t('ui.system'),
+                'high-contrast': t('ui.highContrast'),
+                'oled-dark': t('ui.oledDark'),
+                'sepia': t('ui.sepia'),
+                'blue-light': t('ui.blueLight'),
+                'nord': t('ui.nord'),
+                'dracula': t('ui.dracula'),
+                'solarized': t('ui.solarized')
+            };
+            Array.from(themeOptions).forEach(option => {
+                if (themeLabels.hasOwnProperty(option.value)) {
+                    option.textContent = themeLabels[option.value];
+                }
+            });
         }
         
         const localeLabel = document.getElementById('settings-locale-label');

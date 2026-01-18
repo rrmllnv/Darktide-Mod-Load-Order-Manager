@@ -1,0 +1,671 @@
+@media (prefers-color-scheme: dark) {
+    body.theme-system {
+        --bg-primary: #1a1a1a;
+        --bg-secondary: #252525;
+        --bg-tertiary: #2d2d2d;
+        --bg-hover: #333333;
+        --bg-active: #3a3a3a;
+        --bg-selected: #1e3a5f;
+        --bg-disabled: #2a2a2a;
+        
+        --border-primary: #3a3a3a;
+        --border-secondary: #404040;
+        --border-selected: #4a9eff;
+        
+        --text-primary: #e8e8e8;
+        --text-secondary: #b8b8b8;
+        --text-disabled: #707070;
+        
+        --btn-bg: #2d2d2d;
+        --btn-bg-hover: #3a3a3a;
+        --btn-bg-active: #454545;
+        --btn-primary-bg: #0078d4;
+        --btn-primary-bg-hover: #0063b1;
+        
+        --modal-bg: #252525;
+        --modal-header-bg: #2d2d2d;
+        
+        --scrollbar-track: #1a1a1a;
+        --scrollbar-thumb: #4a4a4a;
+        --scrollbar-thumb-hover: #5a5a5a;
+        
+        --bulk-actions-bg: #3a2a0a;
+        --bulk-actions-border: #ffc107;
+        --bulk-actions-text: #ffd54f;
+    }
+}
+
+body.theme-system .path-frame {
+    background-color: var(--bg-secondary);
+    border-bottom-color: var(--border-primary);
+    color: var(--text-primary);
+}
+
+body.theme-system .path-frame label {
+    color: var(--text-primary);
+}
+
+body.theme-system .path-input {
+    background-color: var(--bg-secondary);
+    border-color: var(--border-secondary);
+    color: var(--text-primary);
+}
+
+body.theme-system .main-container {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+body.theme-system .left-panel {
+    color: var(--text-primary);
+}
+
+body.theme-system .right-container {
+    color: var(--text-primary);
+}
+
+body.theme-system .header-frame {
+    color: var(--text-primary);
+}
+
+body.theme-system .button-frame {
+    color: var(--text-primary);
+}
+
+body.theme-system .button-frame .btn-icon {
+    background-color: var(--btn-bg);
+    border-color: var(--border-secondary);
+    color: var(--text-primary);
+}
+
+body.theme-system .button-frame .btn-icon:hover {
+    background-color: var(--btn-bg-hover);
+}
+
+body.theme-system .button-frame .btn-icon:active {
+    background-color: var(--btn-bg-active);
+}
+
+body.theme-system .selection-buttons-frame {
+    color: var(--text-primary);
+}
+
+body.theme-system .sort-frame {
+    color: var(--text-primary);
+}
+
+body.theme-system .sort-label {
+    color: var(--text-primary);
+}
+
+body.theme-system .sort-combo {
+    background-color: var(--bg-tertiary);
+    border-color: var(--border-secondary);
+    color: var(--text-primary);
+}
+
+body.theme-system .sort-combo:hover {
+    background-color: var(--bg-hover);
+}
+
+body.theme-system .sort-combo:focus {
+    outline: 2px solid var(--btn-primary-bg);
+    outline-offset: -2px;
+    border-color: var(--btn-primary-bg);
+}
+
+body.theme-system .btn-small {
+    background-color: var(--btn-bg);
+    border-color: var(--border-secondary);
+    color: var(--text-primary);
+}
+
+body.theme-system .canvas-frame {
+    background-color: var(--bg-secondary);
+    border-color: var(--border-secondary);
+}
+
+body.theme-system .mods-list {
+    background-color: var(--bg-secondary);
+}
+
+body.theme-system .mod-item {
+    border-color: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+body.theme-system .mod-item:hover {
+    background-color: var(--bg-hover);
+}
+
+body.theme-system .mod-item.selected {
+    background-color: var(--bg-selected);
+    border-color: var(--border-selected);
+}
+
+body.theme-system .mod-item.dragging {
+    background-color: var(--bg-active);
+    border-color: var(--bg-secondary);
+}
+
+body.theme-system .mod-item.drag-over {
+    background-color: var(--bg-selected);
+    border-top-color: var(--border-selected);
+    border-left-color: var(--bg-secondary);
+    border-right-color: var(--bg-secondary);
+    border-bottom-color: var(--bg-secondary);
+}
+
+body.theme-system .mod-item input[type="checkbox"] {
+    accent-color: var(--btn-primary-bg);
+}
+
+body.theme-system .mod-name {
+    color: var(--text-primary);
+}
+
+body.theme-system .mod-new-label {
+    color: #6ba3ff;
+}
+
+body.theme-system .mod-not-found-label {
+    color: #ff6b6b;
+}
+
+body.theme-system .mod-symlink-label {
+    color: #b794f6;
+}
+
+body.theme-system .mod-status {
+    color: var(--text-primary);
+}
+
+body.theme-system .mod-status.enabled {
+    color: #4ade80;
+}
+
+body.theme-system .mod-status.disabled {
+    color: #ff6b6b;
+}
+
+body.theme-system .canvas-frame::-webkit-scrollbar {
+    width: 4px;
+}
+
+body.theme-system .canvas-frame::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+}
+
+body.theme-system .canvas-frame::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 2px;
+}
+
+body.theme-system .canvas-frame::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover);
+}
+
+body.theme-system .profiles-list::-webkit-scrollbar {
+    width: 4px;
+}
+
+body.theme-system .profiles-list::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+}
+
+body.theme-system .profiles-list::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 2px;
+}
+
+body.theme-system .profiles-list::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover);
+}
+
+body.theme-system .search-panel {
+    background-color: var(--bg-secondary);
+    border-color: var(--border-secondary);
+    color: var(--text-primary);
+}
+
+body.theme-system .info-panel {
+    background-color: var(--bg-secondary);
+    border-color: var(--border-secondary);
+    color: var(--text-primary);
+}
+
+body.theme-system .panel-title {
+    color: var(--text-primary);
+}
+
+body.theme-system .search-label {
+    color: var(--text-primary);
+}
+
+body.theme-system .search-input-wrapper {
+    color: var(--text-primary);
+}
+
+body.theme-system .search-input-wrapper .btn-icon {
+    background-color: var(--btn-bg);
+    border-color: var(--border-secondary);
+    color: var(--text-primary);
+}
+
+body.theme-system .search-input-wrapper .btn-icon:hover {
+    background-color: var(--btn-bg-hover);
+}
+
+body.theme-system .search-input-wrapper .btn-icon:active {
+    background-color: var(--btn-bg-active);
+}
+
+body.theme-system .search-input {
+    background-color: var(--bg-secondary);
+    border-color: var(--border-secondary);
+    color: var(--text-primary);
+}
+
+body.theme-system .hide-new-mods-frame,
+body.theme-system .hide-unused-mods-frame {
+    color: var(--text-primary);
+}
+
+body.theme-system .hide-new-mods-label {
+    color: var(--text-primary);
+}
+
+body.theme-system .hide-new-mods-label span {
+    color: var(--text-primary);
+}
+
+body.theme-system .hide-new-mods-label input[type="checkbox"] {
+    accent-color: var(--btn-primary-bg);
+}
+
+body.theme-system .stats-frame {
+    color: var(--text-primary);
+}
+
+body.theme-system .info-frame {
+    color: var(--text-primary);
+}
+
+body.theme-system .section-label {
+    color: var(--text-primary);
+}
+
+body.theme-system .stat-item {
+    color: var(--text-secondary);
+}
+
+body.theme-system .stat-enabled {
+    color: #4ade80;
+}
+
+body.theme-system .stat-disabled {
+    color: #ff6b6b;
+}
+
+body.theme-system .separator {
+    background-color: var(--border-secondary);
+}
+
+body.theme-system .mod-info {
+    color: var(--text-secondary);
+}
+
+body.theme-system .symlink-frame {
+    color: var(--text-primary);
+}
+
+body.theme-system .sort-buttons-frame {
+    color: var(--text-primary);
+}
+
+body.theme-system .profiles-frame {
+    color: var(--text-primary);
+}
+
+body.theme-system .buttons-row {
+    color: var(--text-primary);
+}
+
+body.theme-system .btn-half {
+    color: var(--text-primary);
+}
+
+body.theme-system .btn-third {
+    color: var(--text-primary);
+}
+
+body.theme-system .profiles-list {
+    background-color: var(--bg-secondary);
+    border-color: var(--border-secondary);
+    color: var(--text-primary);
+}
+
+body.theme-system .profiles-list:focus {
+    outline: 2px solid var(--btn-primary-bg);
+    outline-offset: -2px;
+    border-color: var(--btn-primary-bg);
+}
+
+body.theme-system .profiles-list option {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+body.theme-system .profiles-list option:checked {
+    background-color: var(--btn-primary-bg);
+    color: white;
+}
+
+body.theme-system .profiles-list:not(:focus) option:checked {
+    background-color: var(--btn-primary-bg);
+    color: white;
+}
+
+body.theme-system .profile-buttons {
+    color: var(--text-primary);
+}
+
+body.theme-system .save-frame {
+    background-color: var(--bg-secondary);
+    border-top-color: var(--border-primary);
+    color: var(--text-primary);
+}
+
+body.theme-system .save-frame .btn-icon {
+    background-color: var(--btn-bg);
+    border-color: var(--border-secondary);
+    color: var(--text-primary);
+}
+
+body.theme-system .save-frame .btn-icon:hover {
+    background-color: var(--btn-bg-hover);
+}
+
+body.theme-system .save-frame .btn-icon:active {
+    background-color: var(--btn-bg-active);
+}
+
+body.theme-system .status-bar {
+    background-color: var(--bg-tertiary);
+    border-top-color: var(--border-secondary);
+    color: var(--text-primary);
+}
+
+body.theme-system #status-text {
+    color: var(--text-primary);
+}
+
+body.theme-system .btn {
+    background-color: var(--btn-bg);
+    border-color: var(--border-secondary);
+    color: var(--text-primary);
+}
+
+body.theme-system .btn:hover {
+    background-color: var(--btn-bg-hover);
+}
+
+body.theme-system .btn:active {
+    background-color: var(--btn-bg-active);
+}
+
+body.theme-system .btn-primary {
+    background-color: var(--btn-primary-bg);
+    border-color: var(--btn-primary-bg);
+    color: white;
+}
+
+body.theme-system .btn-primary:hover {
+    background-color: var(--btn-primary-bg-hover);
+}
+
+body.theme-system .btn-icon {
+    background-color: var(--btn-bg);
+    border-color: var(--border-secondary);
+    color: var(--text-primary);
+}
+
+body.theme-system .btn-icon:hover {
+    background-color: var(--btn-bg-hover);
+}
+
+body.theme-system .btn-icon:active {
+    background-color: var(--btn-bg-active);
+}
+
+body.theme-system .btn-icon i {
+    color: var(--text-primary);
+}
+
+body.theme-system .btn-action {
+    background-color: var(--btn-bg);
+    border-color: var(--border-secondary);
+    color: var(--text-primary);
+}
+
+body.theme-system .btn-action:hover {
+    background-color: var(--btn-bg-hover);
+}
+
+body.theme-system .btn-action:active {
+    background-color: var(--btn-bg-active);
+}
+
+body.theme-system .btn-action i {
+    color: var(--text-primary);
+}
+
+body.theme-system .btn-full {
+    background-color: var(--btn-bg);
+    border-color: var(--border-secondary);
+    color: var(--text-primary);
+}
+
+body.theme-system .btn-full:hover {
+    background-color: var(--btn-bg-hover);
+}
+
+body.theme-system .btn-full:active {
+    background-color: var(--btn-bg-active);
+}
+
+body.theme-system .modal {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+body.theme-system .modal-content {
+    background-color: var(--modal-bg);
+    border-color: var(--border-secondary);
+    color: var(--text-primary);
+}
+
+body.theme-system .modal-content-message {
+    background-color: var(--modal-bg);
+    border-color: var(--border-secondary);
+    color: var(--text-primary);
+}
+
+body.theme-system .modal-content-settings {
+    background-color: var(--modal-bg);
+    border-color: var(--border-secondary);
+    color: var(--text-primary);
+}
+
+body.theme-system .settings-section {
+    color: var(--text-primary);
+}
+
+body.theme-system .settings-label {
+    color: var(--text-primary);
+}
+
+body.theme-system .settings-input {
+    background-color: var(--bg-secondary);
+    border-color: var(--border-secondary);
+    color: var(--text-primary);
+}
+
+body.theme-system .message-text {
+    color: var(--text-primary);
+}
+
+body.theme-system .modal-header {
+    background-color: var(--modal-header-bg);
+    border-bottom-color: var(--border-secondary);
+    color: var(--text-primary);
+}
+
+body.theme-system .modal-title {
+    color: var(--text-primary);
+}
+
+body.theme-system .modal-body {
+    color: var(--text-primary);
+}
+
+body.theme-system .modal-input {
+    background-color: var(--bg-secondary);
+    border-color: var(--border-secondary);
+    color: var(--text-primary);
+}
+
+body.theme-system .modal-input:focus {
+    border-color: var(--btn-primary-bg);
+    outline-color: var(--btn-primary-bg);
+}
+
+body.theme-system .modal-footer {
+    background-color: var(--modal-header-bg);
+    border-top-color: var(--border-secondary);
+    color: var(--text-primary);
+}
+
+body.theme-system .modal-footer button {
+    color: var(--text-primary);
+}
+
+body.theme-system .modal-footer .btn-primary {
+    color: white;
+}
+
+body.theme-system .bulk-actions-frame {
+    background-color: var(--bulk-actions-bg);
+    border-color: var(--bulk-actions-border);
+    color: var(--text-primary);
+}
+
+body.theme-system .bulk-actions-buttons {
+    color: var(--text-primary);
+}
+
+body.theme-system .bulk-actions-buttons .btn-icon {
+    background-color: var(--btn-bg);
+    border-color: var(--border-secondary);
+    color: var(--text-primary);
+}
+
+body.theme-system .bulk-actions-buttons .btn-icon:hover {
+    background-color: var(--btn-bg-hover);
+}
+
+body.theme-system .bulk-actions-buttons .btn-icon:active {
+    background-color: var(--btn-bg-active);
+}
+
+body.theme-system .bulk-actions-info {
+    color: var(--bulk-actions-text);
+}
+
+body.theme-system .bulk-selection-count {
+    color: var(--bulk-actions-text);
+}
+
+body.theme-system .bulk-actions-frame.disabled {
+    background-color: var(--bg-disabled);
+    border-color: var(--border-secondary);
+}
+
+body.theme-system .bulk-actions-frame.disabled .bulk-actions-buttons button {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+body.theme-system input::placeholder {
+    color: var(--text-disabled);
+    opacity: 0.7;
+}
+
+body.theme-system input[type="checkbox"] {
+    accent-color: var(--btn-primary-bg);
+}
+
+body.theme-system select option {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+body.theme-system label {
+    color: var(--text-primary);
+}
+
+body.theme-system span {
+    color: var(--text-primary);
+}
+
+body.theme-system .header-label {
+    color: var(--text-primary);
+}
+
+body.theme-system .dropdown-content {
+    background-color: var(--bg-secondary);
+    border-color: var(--border-secondary);
+}
+
+body.theme-system .dropdown-item {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+body.theme-system .dropdown-item:hover {
+    background-color: var(--bg-hover);
+}
+
+body.theme-system .dropdown-item i {
+    color: var(--text-primary);
+}
+
+body.theme-system .drag-drop-content {
+    background-color: var(--bg-secondary);
+    border-color: var(--border-selected);
+}
+
+body.theme-system .drag-drop-icon {
+    color: var(--border-selected);
+}
+
+body.theme-system .drag-drop-text {
+    color: var(--text-primary);
+}
+
+body.theme-system .context-menu {
+    background-color: var(--bg-secondary);
+    border-color: var(--border-primary);
+}
+
+body.theme-system .context-menu-item {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+body.theme-system .context-menu-item:hover {
+    background-color: var(--bg-hover);
+}
+
+body.theme-system .context-menu-separator {
+    background-color: var(--border-primary);
+}
