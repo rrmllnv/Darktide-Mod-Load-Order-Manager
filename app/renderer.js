@@ -14,6 +14,7 @@ import { ThemeComponent } from './components/theme/ThemeComponent.js';
 import { ProfileComponent } from './components/profile/ProfileComponent.js';
 import { SearchComponent } from './components/search/SearchComponent.js';
 import { BulkOperationsComponent } from './components/bulk-operations/BulkOperationsComponent.js';
+import { SettingsComponent } from './components/settings/SettingsComponent.js';
 
 class ModLoadOrderManager {
     constructor() {
@@ -56,6 +57,7 @@ class ModLoadOrderManager {
         this.modListComponent = new ModListComponent(this);
         this.searchComponent = new SearchComponent(this);
         this.bulkOperationsComponent = new BulkOperationsComponent(this);
+        this.settingsComponent = new SettingsComponent(this);
         
         this.init();
     }
@@ -165,6 +167,10 @@ class ModLoadOrderManager {
             await this.bulkOperationsComponent.init();
         }
         
+        if (this.settingsComponent) {
+            await this.settingsComponent.init();
+        }
+        
         document.addEventListener('click', (e) => {
             if (e.target.closest('#profile-dialog') || 
                 e.target.closest('.modal') || 
@@ -247,8 +253,7 @@ class ModLoadOrderManager {
             browseFile: () => this.fileManager.browseFile(),
             openFile: () => this.fileManager.openFile(),
             openModsFolder: () => this.fileManager.openModsFolder(),
-            saveFile: () => this.fileManager.saveFile(),
-            openSettings: () => this.settingsManager.openSettings()
+            saveFile: () => this.fileManager.saveFile()
         });
         
         await this.fileManager.loadFile();
@@ -403,7 +408,6 @@ class ModLoadOrderManager {
         if (this.elements.enableAllBtn) this.elements.enableAllBtn.title = t('ui.enableAll');
         if (this.elements.disableAllBtn) this.elements.disableAllBtn.title = t('ui.disableAll');
         if (this.elements.scanBtn) this.elements.scanBtn.title = t('ui.scan');
-        if (this.elements.settingsBtn) this.elements.settingsBtn.title = t('ui.settings');
         
         if (this.elements.sortSelect) {
             this.elements.sortSelect.title = t('ui.sort');
@@ -425,6 +429,10 @@ class ModLoadOrderManager {
         
         if (this.bulkOperationsComponent && this.bulkOperationsComponent.updateLocalization) {
             this.bulkOperationsComponent.updateLocalization();
+        }
+        
+        if (this.settingsComponent && this.settingsComponent.updateLocalization) {
+            this.settingsComponent.updateLocalization();
         }
         
         if (this.elements.modalOkBtn) this.elements.modalOkBtn.textContent = t('ui.save');

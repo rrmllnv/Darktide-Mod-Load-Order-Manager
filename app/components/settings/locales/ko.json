@@ -1,0 +1,9 @@
+{
+    "ui": {
+        "settings": "설정",
+        "theme": "테마:",
+        "locale": "언어:",
+        "save": "저장",
+        "cancel": "취소"
+    }
+}

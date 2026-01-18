@@ -26,9 +26,5 @@ export class EventBinder {
         
         
         this.elements.saveBtn.addEventListener('click', () => this.callbacks.saveFile());
-        
-        if (this.elements.settingsBtn) {
-            this.elements.settingsBtn.addEventListener('click', () => this.callbacks.openSettings());
-        }
     }
 }

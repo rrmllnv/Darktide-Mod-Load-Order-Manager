@@ -8,7 +8,6 @@
         "save": "저장",
         "cancelChanges": "변경 사항 취소",
         "ready": "준비됨",
-        "settings": "설정",
         "enableAll": "모두 활성화",
         "disableAll": "모두 비활성화",
         "scan": "모드 스캔",
@@ -28,8 +27,6 @@
         "contextMenuDisable": "비활성화",
         "contextMenuCopyName": "이름 복사",
         "contextMenuDelete": "삭제",
-        "theme": "테마:",
-        "locale": "언어:",
         "languageNames": {
             "en": "영어",
             "ru": "러시아어",

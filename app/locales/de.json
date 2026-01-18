@@ -8,7 +8,6 @@
         "save": "Speichern",
         "cancelChanges": "Änderungen abbrechen",
         "ready": "Bereit",
-        "settings": "Einstellungen",
         "enableAll": "Alle aktivieren",
         "disableAll": "Alle deaktivieren",
         "scan": "Mods scannen",
@@ -28,8 +27,6 @@
         "contextMenuDisable": "Deaktivieren",
         "contextMenuCopyName": "Namen kopieren",
         "contextMenuDelete": "Löschen",
-        "theme": "Design:",
-        "locale": "Sprache:",
         "languageNames": {
             "en": "Englisch",
             "ru": "Russisch",

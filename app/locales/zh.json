@@ -8,7 +8,6 @@
         "save": "保存",
         "cancelChanges": "取消更改",
         "ready": "就绪",
-        "settings": "设置",
         "enableAll": "全部启用",
         "disableAll": "全部禁用",
         "scan": "扫描模组",
@@ -28,8 +27,6 @@
         "contextMenuDisable": "禁用",
         "contextMenuCopyName": "复制名称",
         "contextMenuDelete": "删除",
-        "theme": "主题:",
-        "locale": "语言:",
         "languageNames": {
             "en": "英语",
             "ru": "俄语",

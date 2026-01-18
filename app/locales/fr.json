@@ -8,7 +8,6 @@
         "save": "Enregistrer",
         "cancelChanges": "Annuler les modifications",
         "ready": "Prêt",
-        "settings": "Paramètres",
         "enableAll": "Tout activer",
         "disableAll": "Tout désactiver",
         "scan": "Scanner les mods",
@@ -28,8 +27,6 @@
         "contextMenuDisable": "Désactiver",
         "contextMenuCopyName": "Copier le nom",
         "contextMenuDelete": "Supprimer",
-        "theme": "Thème:",
-        "locale": "Langue:",
         "languageNames": {
             "en": "Anglais",
             "ru": "Russe",

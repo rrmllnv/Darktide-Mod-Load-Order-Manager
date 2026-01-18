@@ -8,7 +8,6 @@
         "save": "保存",
         "cancelChanges": "変更をキャンセル",
         "ready": "準備完了",
-        "settings": "設定",
         "enableAll": "すべて有効化",
         "disableAll": "すべて無効化",
         "scan": "モッドをスキャン",
@@ -28,8 +27,6 @@
         "contextMenuDisable": "無効化",
         "contextMenuCopyName": "名前をコピー",
         "contextMenuDelete": "削除",
-        "theme": "テーマ:",
-        "locale": "言語:",
         "languageNames": {
             "en": "英語",
             "ru": "ロシア語",

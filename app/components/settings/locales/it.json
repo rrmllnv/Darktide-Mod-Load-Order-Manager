@@ -1,0 +1,9 @@
+{
+    "ui": {
+        "settings": "Impostazioni",
+        "theme": "Tema:",
+        "locale": "Lingua:",
+        "save": "Salva",
+        "cancel": "Annulla"
+    }
+}

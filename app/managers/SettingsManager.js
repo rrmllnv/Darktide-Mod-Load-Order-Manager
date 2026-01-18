@@ -5,89 +5,6 @@ export class SettingsManager {
         this.app = app;
     }
     
-    openSettings() {
-        this.loadSettingsToForm();
-        
-        this.app.elements.settingsDialog.classList.add('show');
-        
-        const handleEscape = (e) => {
-            if (e.key === 'Escape' && this.app.elements.settingsDialog.classList.contains('show')) {
-                handleCancel();
-                document.removeEventListener('keydown', handleEscape);
-            }
-        };
-        document.addEventListener('keydown', handleEscape);
-        
-        const handleOutsideClick = (e) => {
-            if (e.target === this.app.elements.settingsDialog) {
-                handleCancel();
-                this.app.elements.settingsDialog.removeEventListener('click', handleOutsideClick);
-            }
-        };
-        this.app.elements.settingsDialog.addEventListener('click', handleOutsideClick);
-        
-        const handleOk = () => {
-            this.saveSettingsFromForm();
-            
-            this.applySettings();
-            
-            this.closeSettings();
-            
-            this.app.elements.settingsOkBtn.removeEventListener('click', handleOk);
-            this.app.elements.settingsCancelBtn.removeEventListener('click', handleCancel);
-            document.removeEventListener('keydown', handleEscape);
-            this.app.elements.settingsDialog.removeEventListener('click', handleOutsideClick);
-        };
-        
-        const handleCancel = () => {
-            this.closeSettings();
-            
-            this.app.elements.settingsOkBtn.removeEventListener('click', handleOk);
-            this.app.elements.settingsCancelBtn.removeEventListener('click', handleCancel);
-            document.removeEventListener('keydown', handleEscape);
-            this.app.elements.settingsDialog.removeEventListener('click', handleOutsideClick);
-        };
-        
-        const newOkBtn = this.app.elements.settingsOkBtn.cloneNode(true);
-        const newCancelBtn = this.app.elements.settingsCancelBtn.cloneNode(true);
-        this.app.elements.settingsOkBtn.parentNode.replaceChild(newOkBtn, this.app.elements.settingsOkBtn);
-        this.app.elements.settingsCancelBtn.parentNode.replaceChild(newCancelBtn, this.app.elements.settingsCancelBtn);
-        this.app.elements.settingsOkBtn = newOkBtn;
-        this.app.elements.settingsCancelBtn = newCancelBtn;
-        
-        this.app.elements.settingsOkBtn.addEventListener('click', handleOk);
-        this.app.elements.settingsCancelBtn.addEventListener('click', handleCancel);
-    }
-    
-    loadSettingsToForm() {
-        if (!this.app.userConfig) {
-            return;
-        }
-        
-        if (this.app.elements.settingsThemeSelect) {
-            this.app.elements.settingsThemeSelect.value = this.app.userConfig.theme || '';
-        }
-        
-        if (this.app.elements.settingsLocaleSelect) {
-            this.app.elements.settingsLocaleSelect.value = this.app.userConfig.locale || 'en';
-        }
-    }
-    
-    saveSettingsFromForm() {
-        if (!this.app.userConfig) {
-            this.app.userConfig = ConfigManager.getDefaultUserConfig();
-        }
-        
-        if (this.app.elements.settingsThemeSelect) {
-            this.app.userConfig.theme = this.app.elements.settingsThemeSelect.value || '';
-        }
-        
-        if (this.app.elements.settingsLocaleSelect) {
-            this.app.userConfig.locale = this.app.elements.settingsLocaleSelect.value || 'ru';
-        }
-        
-        this.app.configManager.saveUserConfig();
-    }
     
     async applySettings() {
         if (!this.app.userConfig) {
@@ -123,8 +40,8 @@ export class SettingsManager {
             if (this.app.modListComponent.updateLocalization) {
                 this.app.modListComponent.updateLocalization();
             }
-            if (this.app.elements.searchInput) {
-                const searchText = this.app.elements.searchInput.value;
+            if (this.app.searchComponent) {
+                const searchText = this.app.searchComponent.getSearchText();
                 this.app.modListComponent.updateModList();
             }
         }
@@ -142,6 +59,13 @@ export class SettingsManager {
                 this.app.bulkOperationsComponent.updateLocalization();
             }
         }
+        
+        if (this.app.settingsComponent) {
+            await this.app.settingsComponent.loadLocale(locale);
+            if (this.app.settingsComponent.updateLocalization) {
+                this.app.settingsComponent.updateLocalization();
+            }
+        }
     }
     
     applyTheme(theme) {
@@ -155,25 +79,8 @@ export class SettingsManager {
             return;
         }
         
-        if (this.app.userConfig.hideNewMods !== undefined) {
-            this.app.hideNewMods = this.app.userConfig.hideNewMods;
-            if (this.app.elements.hideNewModsCheckbox) {
-                this.app.elements.hideNewModsCheckbox.checked = this.app.hideNewMods;
-            }
-        }
-        
-        if (this.app.userConfig.hideNotFoundMods !== undefined) {
-            this.app.hideNotFoundMods = this.app.userConfig.hideNotFoundMods;
-            if (this.app.elements.hideNotFoundModsCheckbox) {
-                this.app.elements.hideNotFoundModsCheckbox.checked = this.app.hideNotFoundMods;
-            }
-        }
-        
-        if (this.app.userConfig.hideUnusedMods !== undefined) {
-            this.app.hideUnusedMods = this.app.userConfig.hideUnusedMods;
-            if (this.app.elements.hideUnusedModsCheckbox) {
-                this.app.elements.hideUnusedModsCheckbox.checked = this.app.hideUnusedMods;
-            }
+        if (this.app.searchComponent && this.app.searchComponent.applySettings) {
+            this.app.searchComponent.applySettings();
         }
         
         if (this.app.userConfig.theme !== undefined) {
@@ -181,7 +88,4 @@ export class SettingsManager {
         }
     }
     
-    closeSettings() {
-        this.app.elements.settingsDialog.classList.remove('show');
-    }
 }

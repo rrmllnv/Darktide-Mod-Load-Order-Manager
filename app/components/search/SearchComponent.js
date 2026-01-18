@@ -158,6 +158,33 @@ export class SearchComponent {
         return this.app.elements.searchInput ? this.app.elements.searchInput.value : '';
     }
     
+    applySettings() {
+        if (!this.app.userConfig) {
+            return;
+        }
+        
+        if (this.app.userConfig.hideNewMods !== undefined) {
+            this.app.hideNewMods = this.app.userConfig.hideNewMods;
+            if (this.app.elements.hideNewModsCheckbox) {
+                this.app.elements.hideNewModsCheckbox.checked = this.app.hideNewMods;
+            }
+        }
+        
+        if (this.app.userConfig.hideNotFoundMods !== undefined) {
+            this.app.hideNotFoundMods = this.app.userConfig.hideNotFoundMods;
+            if (this.app.elements.hideNotFoundModsCheckbox) {
+                this.app.elements.hideNotFoundModsCheckbox.checked = this.app.hideNotFoundMods;
+            }
+        }
+        
+        if (this.app.userConfig.hideUnusedMods !== undefined) {
+            this.app.hideUnusedMods = this.app.userConfig.hideUnusedMods;
+            if (this.app.elements.hideUnusedModsCheckbox) {
+                this.app.elements.hideUnusedModsCheckbox.checked = this.app.hideUnusedMods;
+            }
+        }
+    }
+    
     updateLocalization() {
         const searchLabel = document.querySelector('.search-label');
         if (searchLabel) {

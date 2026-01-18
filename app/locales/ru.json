@@ -8,7 +8,6 @@
         "save": "Сохранить",
         "cancelChanges": "Отменить изменения",
         "ready": "Готов",
-        "settings": "Настройки",
         "enableAll": "Включить все",
         "disableAll": "Выключить все",
         "scan": "Сканировать моды",
@@ -28,8 +27,6 @@
         "contextMenuDisable": "Выключить",
         "contextMenuCopyName": "Скопировать название",
         "contextMenuDelete": "Удалить",
-        "theme": "Тема:",
-        "locale": "Язык:",
         "languageNames": {
             "en": "Английский",
             "ru": "Русский",

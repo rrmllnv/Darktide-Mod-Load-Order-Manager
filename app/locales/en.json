@@ -8,7 +8,6 @@
         "save": "Save",
         "cancelChanges": "Cancel changes",
         "ready": "Ready",
-        "settings": "Settings",
         "enableAll": "Enable all",
         "disableAll": "Disable all",
         "scan": "Scan mods",
@@ -28,8 +27,6 @@
         "contextMenuDisable": "Disable",
         "contextMenuCopyName": "Copy name",
         "contextMenuDelete": "Delete",
-        "theme": "Theme:",
-        "locale": "Language:",
         "languageNames": {
             "en": "English",
             "ru": "Russian",
