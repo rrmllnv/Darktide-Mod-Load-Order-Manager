@@ -79,7 +79,7 @@ export class TourComponent {
                 position: 'bottom'
             },
             {
-                selector: '.canvas-frame.tour-step .mods-list',
+                selector: '.canvas-frame.tour-step',
                 titleKey: 'tour.steps.modsList.title',
                 descriptionKey: 'tour.steps.modsList.description',
                 position: 'right'
