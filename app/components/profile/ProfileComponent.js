@@ -1,32 +1,111 @@
-import { ProfileService } from '../services/ProfileService.js';
+import { ModEntry } from '../../models/ModEntry.js';
 
-export class ProfileManager {
+export class ProfileComponent {
     constructor(app) {
         this.app = app;
+        this.profilesDir = null;
+        this.selectedProfileName = null;
+    }
+    
+    async init() {
+        await this.initProfilesDirectory();
+        this.bindEvents();
     }
     
     async initProfilesDirectory() {
         try {
             const modsDir = this.app.filePath ? this.app.filePath.substring(0, this.app.filePath.lastIndexOf('\\')) : '';
             if (!modsDir) {
+                if (!this.app.defaultPath) {
+                    console.warn('defaultPath not available yet, skipping profiles initialization');
+                    return;
+                }
                 const defaultModsDir = this.app.defaultPath.substring(0, this.app.defaultPath.lastIndexOf('\\'));
                 const result = await window.electronAPI.getProfilesDirectory(defaultModsDir);
                 if (result.success) {
+                    this.profilesDir = result.path;
                     this.app.profilesDir = result.path;
                 }
             } else {
                 const result = await window.electronAPI.getProfilesDirectory(modsDir);
                 if (result.success) {
+                    this.profilesDir = result.path;
                     this.app.profilesDir = result.path;
                 }
             }
-            
-            this.app.profileService = new ProfileService(this.app.profilesDir);
             
             await this.refreshProfilesList();
         } catch (error) {
             console.error('Error initializing profiles directory:', error);
         }
+    }
+    
+    bindEvents() {
+        if (this.app.elements.profilesList) {
+            this.app.elements.profilesList.addEventListener('change', () => {
+                this.onProfileSelectionChange();
+            });
+            
+            this.app.elements.profilesList.addEventListener('blur', () => {
+                this.onProfileListBlur();
+            });
+        }
+        
+        if (this.app.elements.newProfileBtn) {
+            this.app.elements.newProfileBtn.addEventListener('click', () => {
+                this.saveCurrentProfile();
+            });
+        }
+        
+        if (this.app.elements.loadProfileBtn) {
+            this.app.elements.loadProfileBtn.addEventListener('click', () => {
+                this.loadSelectedProfile();
+            });
+        }
+        
+        if (this.app.elements.overwriteProfileBtn) {
+            this.app.elements.overwriteProfileBtn.addEventListener('click', () => {
+                this.overwriteSelectedProfile();
+            });
+        }
+        
+        if (this.app.elements.renameProfileBtn) {
+            this.app.elements.renameProfileBtn.addEventListener('click', () => {
+                this.renameSelectedProfile();
+            });
+        }
+        
+        if (this.app.elements.deleteProfileBtn) {
+            this.app.elements.deleteProfileBtn.addEventListener('click', () => {
+                this.deleteSelectedProfile();
+            });
+        }
+    }
+    
+    onProfileSelectionChange() {
+        const selectedOption = this.app.elements.profilesList.options[this.app.elements.profilesList.selectedIndex];
+        if (selectedOption) {
+            this.selectedProfileName = selectedOption.value;
+            this.app.selectedProfileName = selectedOption.value;
+        } else {
+            this.selectedProfileName = null;
+            this.app.selectedProfileName = null;
+        }
+        this.updateProfileListStyles();
+    }
+    
+    onProfileListBlur() {
+        this.updateProfileListStyles();
+    }
+    
+    updateProfileListStyles() {
+        Array.from(this.app.elements.profilesList.options).forEach(option => {
+            if (option.value === this.selectedProfileName) {
+                option.classList.add('selected-no-focus');
+            } else {
+                option.classList.remove('selected-no-focus');
+            }
+        });
     }
     
     saveCurrentState() {
@@ -36,17 +115,98 @@ export class ProfileManager {
             hideUnusedMods: this.app.hideUnusedMods || false,
             sort: this.app.elements.sortSelect ? this.app.elements.sortSelect.value : null
         };
-        return this.app.profileService.saveState(this.app.modEntries, settings);
+        
+        const modsToSave = this.app.modEntries.filter(modEntry => {
+            if (modEntry.isNew && !modEntry.enabled) {
+                return false;
+            }
+            return true;
+        });
+        
+        const sortedMods = [...modsToSave].sort((a, b) => a.orderIndex - b.orderIndex);
+        
+        const state = {
+            _order: [],
+            _mods: {},
+            _settings: {
+                hideNewMods: settings.hideNewMods || false,
+                hideNotFoundMods: settings.hideNotFoundMods || false,
+                hideUnusedMods: settings.hideUnusedMods || false,
+                sort: settings.sort || null
+            }
+        };
+        
+        for (const modEntry of sortedMods) {
+            state._order.push(modEntry.name);
+            state._mods[modEntry.name] = modEntry.enabled;
+        }
+        
+        return state;
     }
     
     restoreState(state) {
-        const result = this.app.profileService.restoreState(state, this.app.modEntries);
-        this.app.modEntries = result.modEntries;
+        if (!state) {
+            this.app.modEntries = [];
+            return;
+        }
         
-        if (result.settings) {
-            this.app.hideNewMods = result.settings.hideNewMods || false;
-            this.app.hideNotFoundMods = result.settings.hideNotFoundMods || false;
-            this.app.hideUnusedMods = result.settings.hideUnusedMods || false;
+        if (!state._order || !state._mods) {
+            this.app.modEntries = [];
+            return;
+        }
+        
+        const profileOrder = state._order;
+        const profileMods = state._mods;
+        const profileSettings = state._settings || null;
+        
+        const profileModNames = new Set(profileOrder);
+        
+        const existingModsMap = new Map();
+        for (const modEntry of this.app.modEntries) {
+            existingModsMap.set(modEntry.name, modEntry);
+        }
+        
+        const restoredMods = [];
+        const maxOrderIndex = Math.max(...this.app.modEntries.map(m => m.orderIndex), 0);
+        
+        profileOrder.forEach((modName, index) => {
+            const enabled = profileMods[modName];
+            const existingMod = existingModsMap.get(modName);
+            
+            if (existingMod) {
+                existingMod.enabled = enabled;
+                existingMod.orderIndex = index;
+                existingMod.isNew = false;
+                restoredMods.push(existingMod);
+                existingModsMap.delete(modName);
+            } else {
+                restoredMods.push(new ModEntry(
+                    modName,
+                    enabled,
+                    enabled ? modName : `--${modName}`,
+                    false,
+                    index,
+                    false,
+                    false
+                ));
+            }
+        });
+        
+        for (const [modName, modEntry] of existingModsMap) {
+            if (!modEntry.isNew) {
+                modEntry.isNew = true;
+            }
+            modEntry.enabled = false;
+            modEntry.orderIndex = maxOrderIndex + 1000 + restoredMods.length;
+            restoredMods.push(modEntry);
+        }
+        
+        this.app.modEntries = restoredMods;
+        
+        if (profileSettings) {
+            this.app.hideNewMods = profileSettings.hideNewMods || false;
+            this.app.hideNotFoundMods = profileSettings.hideNotFoundMods || false;
+            this.app.hideUnusedMods = profileSettings.hideUnusedMods || false;
             
             if (this.app.elements.hideNewModsCheckbox) {
                 this.app.elements.hideNewModsCheckbox.checked = this.app.hideNewMods;
@@ -58,8 +218,8 @@ export class ProfileManager {
                 this.app.elements.hideUnusedModsCheckbox.checked = this.app.hideUnusedMods;
             }
             
-            if (result.settings.sort && this.app.elements.sortSelect) {
-                const sortValue = result.settings.sort;
+            if (profileSettings.sort && this.app.elements.sortSelect) {
+                const sortValue = profileSettings.sort;
                 const validSortKeys = ['fileOrder', 'name', 'status', 'newFirst'];
                 
                 if (validSortKeys.includes(sortValue)) {
@@ -85,27 +245,33 @@ export class ProfileManager {
             this.app.modListRenderer.modEntries = this.app.modEntries;
         }
         
-        this.app.modManager.clearSelection();
+        if (this.app.modManager) {
+            this.app.modManager.clearSelection();
+        }
         
         const searchText = this.app.elements.searchInput.value;
-        this.app.modManager.updateModList(searchText);
-        this.app.updateStatistics();
+        if (this.app.modManager) {
+            this.app.modManager.updateModList(searchText);
+        }
+        if (this.app.updateStatistics) {
+            this.app.updateStatistics();
+        }
     }
     
     async refreshProfilesList() {
-        if (!this.app.profilesDir) {
+        if (!this.profilesDir) {
             await this.initProfilesDirectory();
         }
         
-        const selectedProfileName = this.app.selectedProfileName;
+        const previouslySelectedProfile = this.selectedProfileName;
         this.app.elements.profilesList.innerHTML = '';
         
-        if (!this.app.profilesDir) {
+        if (!this.profilesDir) {
             return;
         }
         
         try {
-            const result = await this.app.profileService.listProfiles();
+            const result = await window.electronAPI.listProfiles(this.profilesDir);
             if (result.success) {
                 result.profiles.forEach(profileName => {
                     const option = document.createElement('option');
@@ -114,14 +280,17 @@ export class ProfileManager {
                     this.app.elements.profilesList.appendChild(option);
                 });
                 
-                if (selectedProfileName) {
-                    const options = Array.from(this.app.elements.profilesList.options);
-                    const index = options.findIndex(opt => opt.value === selectedProfileName);
-                    if (index !== -1) {
-                        this.app.elements.profilesList.selectedIndex = index;
-                    } else {
-                        this.app.selectedProfileName = null;
-                    }
+                if (previouslySelectedProfile && result.profiles.includes(previouslySelectedProfile)) {
+                    this.app.elements.profilesList.value = previouslySelectedProfile;
+                    this.selectedProfileName = previouslySelectedProfile;
+                    this.app.selectedProfileName = previouslySelectedProfile;
+                } else if (result.profiles.length > 0) {
+                    this.app.elements.profilesList.selectedIndex = 0;
+                    this.selectedProfileName = this.app.elements.profilesList.options[0].value;
+                    this.app.selectedProfileName = this.selectedProfileName;
+                } else {
+                    this.selectedProfileName = null;
+                    this.app.selectedProfileName = null;
                 }
             }
         } catch (error) {
@@ -130,12 +299,17 @@ export class ProfileManager {
     }
     
     async saveCurrentProfile() {
-        if (!this.app.profilesDir) {
+        if (!this.profilesDir) {
             await this.initProfilesDirectory();
         }
         
-        if (!this.app.profilesDir) {
+        if (!this.profilesDir) {
             await this.app.uiManager.showMessage(this.app.t('messages.error'), this.app.t('messages.failedToDetermineProfilesDir'));
+            return;
+        }
+        
+        if (!this.app.modalManager) {
+            console.error('ModalManager not initialized');
             return;
         }
         
@@ -152,7 +326,7 @@ export class ProfileManager {
             
             try {
                 const state = this.saveCurrentState();
-                const result = await this.app.profileService.saveProfile(cleanName, state);
+                const result = await window.electronAPI.saveProfile(this.profilesDir, cleanName, state);
                 
                 if (!result.success) {
                     await this.app.uiManager.showMessage(this.app.t('messages.error'), `${this.app.t('messages.failedToSaveProfile')}\n${result.error}`);
@@ -168,11 +342,11 @@ export class ProfileManager {
     }
     
     async loadSelectedProfile() {
-        if (!this.app.profilesDir) {
+        if (!this.profilesDir) {
             await this.initProfilesDirectory();
         }
         
-        if (!this.app.profilesDir) {
+        if (!this.profilesDir) {
             await this.app.uiManager.showMessage(this.app.t('messages.error'), this.app.t('messages.failedToDetermineProfilesDir'));
             return;
         }
@@ -186,7 +360,7 @@ export class ProfileManager {
         const profileName = this.app.elements.profilesList.options[selectedIndex].value;
         
         try {
-            const result = await this.app.profileService.loadProfile(profileName);
+            const result = await window.electronAPI.loadProfile(this.profilesDir, profileName);
             if (!result.success) {
                 await this.app.uiManager.showMessage(this.app.t('messages.error'), `${this.app.t('messages.failedToLoadProfile')}\n${result.error}`);
                 return;
@@ -198,38 +372,44 @@ export class ProfileManager {
                 this.app.modListRenderer.modEntries = this.app.modEntries;
             }
             
-            const scanResult = await this.app.modScanService.scanModsDirectory(this.app.modEntries, this.app.selectedModName);
-            this.app.selectedModName = scanResult.selectedModName;
-            
-            if (this.app.modListRenderer) {
-                this.app.modListRenderer.modEntries = this.app.modEntries;
+            if (this.app.modScanService) {
+                const scanResult = await this.app.modScanService.scanModsDirectory(this.app.modEntries, this.app.selectedModName);
+                this.app.selectedModName = scanResult.selectedModName;
+                
+                if (this.app.modListRenderer) {
+                    this.app.modListRenderer.modEntries = this.app.modEntries;
+                }
+                
+                if (scanResult.removed > 0) {
+                    const currentSelected = Array.from(this.app.selectedModNames);
+                    currentSelected.forEach(modName => {
+                        if (!this.app.modEntries.find(m => m.name === modName)) {
+                            this.app.selectedModNames.delete(modName);
+                        }
+                    });
+                }
+                
+                const searchText = this.app.elements.searchInput.value;
+                if (this.app.modManager) {
+                    this.app.modManager.updateModList(searchText);
+                }
+                if (this.app.updateStatistics) {
+                    this.app.updateStatistics();
+                }
             }
-            
-            if (scanResult.removed > 0) {
-                const currentSelected = Array.from(this.app.selectedModNames);
-                currentSelected.forEach(modName => {
-                    if (!this.app.modEntries.find(m => m.name === modName)) {
-                        this.app.selectedModNames.delete(modName);
-                    }
-                });
-            }
-            
-            const searchText = this.app.elements.searchInput.value;
-            this.app.modManager.updateModList(searchText);
-            this.app.updateStatistics();
             
             await this.app.uiManager.showMessage(this.app.t('messages.success'), this.app.t('messages.profileLoaded', { profileName }));
         } catch (error) {
-                await this.app.uiManager.showMessage(this.app.t('messages.error'), `${this.app.t('messages.failedToLoadProfile')}\n${error.message}`);
+            await this.app.uiManager.showMessage(this.app.t('messages.error'), `${this.app.t('messages.failedToLoadProfile')}\n${error.message}`);
         }
     }
     
     async renameSelectedProfile() {
-        if (!this.app.profilesDir) {
+        if (!this.profilesDir) {
             await this.initProfilesDirectory();
         }
         
-        if (!this.app.profilesDir) {
+        if (!this.profilesDir) {
             await this.app.uiManager.showMessage(this.app.t('messages.error'), this.app.t('messages.failedToDetermineProfilesDir'));
             return;
         }
@@ -241,6 +421,11 @@ export class ProfileManager {
         }
         
         const oldProfileName = this.app.elements.profilesList.options[selectedIndex].value;
+        
+        if (!this.app.modalManager) {
+            console.error('ModalManager not initialized');
+            return;
+        }
         
         this.app.modalManager.showModal(this.app.t('messages.enterNewProfileName', { oldProfileName }), oldProfileName, async (newProfileName) => {
             if (!newProfileName) {
@@ -258,7 +443,7 @@ export class ProfileManager {
             }
             
             try {
-                const result = await this.app.profileService.renameProfile(oldProfileName, cleanName);
+                const result = await window.electronAPI.renameProfile(this.profilesDir, oldProfileName, cleanName);
                 if (!result.success) {
                     await this.app.uiManager.showMessage(this.app.t('messages.error'), `${this.app.t('messages.failedToRenameProfile')}\n${result.error}`);
                     return;
@@ -273,11 +458,11 @@ export class ProfileManager {
     }
     
     async overwriteSelectedProfile() {
-        if (!this.app.profilesDir) {
+        if (!this.profilesDir) {
             await this.initProfilesDirectory();
         }
         
-        if (!this.app.profilesDir) {
+        if (!this.profilesDir) {
             await this.app.uiManager.showMessage(this.app.t('messages.error'), this.app.t('messages.failedToDetermineProfilesDir'));
             return;
         }
@@ -297,7 +482,7 @@ export class ProfileManager {
         
         try {
             const state = this.saveCurrentState();
-            const result = await this.app.profileService.saveProfile(profileName, state);
+            const result = await window.electronAPI.saveProfile(this.profilesDir, profileName, state);
             
             if (!result.success) {
                 await this.app.uiManager.showMessage(this.app.t('messages.error'), `${this.app.t('messages.failedToOverwriteProfile')}\n${result.error}`);
@@ -311,11 +496,11 @@ export class ProfileManager {
     }
     
     async deleteSelectedProfile() {
-        if (!this.app.profilesDir) {
+        if (!this.profilesDir) {
             await this.initProfilesDirectory();
         }
         
-        if (!this.app.profilesDir) {
+        if (!this.profilesDir) {
             await this.app.uiManager.showMessage(this.app.t('messages.error'), this.app.t('messages.failedToDetermineProfilesDir'));
             return;
         }
@@ -334,7 +519,7 @@ export class ProfileManager {
         }
         
         try {
-            const result = await this.app.profileService.deleteProfile(profileName);
+            const result = await window.electronAPI.deleteProfile(this.profilesDir, profileName);
             if (!result.success) {
                 await this.app.uiManager.showMessage(this.app.t('messages.error'), `${this.app.t('messages.failedToDeleteProfile')}\n${result.error}`);
                 return;

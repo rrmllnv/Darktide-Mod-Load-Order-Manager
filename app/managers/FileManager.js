@@ -85,7 +85,9 @@ export class FileManager {
             this.app.modManager.updateModList();
             this.app.updateStatistics();
             
-            await this.app.profileManager.initProfilesDirectory();
+            if (this.app.profileComponent) {
+                await this.app.profileComponent.initProfilesDirectory();
+            }
             
         } catch (error) {
             await this.app.uiManager.showMessage(this.app.t('messages.error'), `${this.app.t('messages.fileLoadError')}\n${error.message}`);

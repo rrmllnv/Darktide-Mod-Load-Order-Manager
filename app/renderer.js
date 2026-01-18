@@ -1,6 +1,5 @@
 import { ModEntry } from './models/ModEntry.js';
 import { FileService } from './services/FileService.js';
-import { ProfileService } from './services/ProfileService.js';
 import { ModScanService } from './services/ModScanService.js';
 import { ModalManager } from './ui/ModalManager.js';
 import { ModListRenderer } from './ui/ModListRenderer.js';
@@ -9,12 +8,12 @@ import { StatusManager } from './managers/StatusManager.js';
 import { LocaleManager } from './managers/LocaleManager.js';
 import { ConfigManager } from './managers/ConfigManager.js';
 import { FileManager } from './managers/FileManager.js';
-import { ProfileManager } from './managers/ProfileManager.js';
 import { ModManager } from './managers/ModManager.js';
 import { UIManager } from './managers/UIManager.js';
 import { BulkOperationsManager } from './managers/BulkOperationsManager.js';
 import { SettingsManager } from './managers/SettingsManager.js';
 import { ThemeComponent } from './components/theme/ThemeComponent.js';
+import { ProfileComponent } from './components/profile/ProfileComponent.js';
 
 class ModLoadOrderManager {
     constructor() {
@@ -40,7 +39,6 @@ class ModLoadOrderManager {
         this.contextMenuModName = null;
         
         this.fileService = null;
-        this.profileService = null;
         this.modScanService = null;
         this.modalManager = null;
         this.modListRenderer = null;
@@ -50,13 +48,13 @@ class ModLoadOrderManager {
         this.localeManager = new LocaleManager();
         this.configManager = new ConfigManager(this);
         this.fileManager = new FileManager(this);
-        this.profileManager = new ProfileManager(this);
         this.modManager = new ModManager(this);
         this.uiManager = new UIManager(this);
         this.bulkOperationsManager = new BulkOperationsManager(this);
         this.settingsManager = new SettingsManager(this);
         
         this.themeComponent = new ThemeComponent(this);
+        this.profileComponent = new ProfileComponent(this);
         
         this.init();
     }
@@ -143,7 +141,9 @@ class ModLoadOrderManager {
         this.fileService = new FileService((msg) => this.setStatus(msg));
         this.modalManager = new ModalManager(this.elements);
         
-        await this.profileManager.initProfilesDirectory();
+        if (this.profileComponent) {
+            await this.profileComponent.init();
+        }
         
         this.modScanService = new ModScanService(this.filePath, (msg) => this.setStatus(msg), this);
         
@@ -273,12 +273,7 @@ class ModLoadOrderManager {
                 this.configManager.saveUserConfig();
             },
             createSymlinkForMod: () => this.modManager.createSymlinkForMod(),
-            saveCurrentProfile: () => this.profileManager.saveCurrentProfile(),
-            overwriteSelectedProfile: () => this.profileManager.overwriteSelectedProfile(),
-            loadSelectedProfile: () => this.profileManager.loadSelectedProfile(),
             reloadFile: () => this.fileManager.reloadFile(),
-            renameSelectedProfile: () => this.profileManager.renameSelectedProfile(),
-            deleteSelectedProfile: () => this.profileManager.deleteSelectedProfile(),
             saveFile: () => this.fileManager.saveFile(),
             openSettings: () => this.settingsManager.openSettings(),
             bulkSelectEnabled: () => this.bulkOperationsManager.bulkSelectEnabled(),
@@ -287,24 +282,7 @@ class ModLoadOrderManager {
             bulkDisable: () => this.bulkOperationsManager.bulkDisable(),
             bulkDelete: () => this.bulkOperationsManager.bulkDelete(),
             bulkClearSelection: () => this.modManager.clearSelection(),
-            addModFolder: () => this.fileManager.addModFolder(),
-            onProfileSelectionChange: () => {
-                const selectedIndex = this.elements.profilesList.selectedIndex;
-                if (selectedIndex !== -1) {
-                    this.selectedProfileName = this.elements.profilesList.options[selectedIndex].value;
-                } else {
-                    this.selectedProfileName = null;
-                }
-            },
-            onProfileListBlur: () => {
-                if (this.selectedProfileName) {
-                    const options = Array.from(this.elements.profilesList.options);
-                    const index = options.findIndex(opt => opt.value === this.selectedProfileName);
-                    if (index !== -1) {
-                        this.elements.profilesList.selectedIndex = index;
-                    }
-                }
-            }
+            addModFolder: () => this.fileManager.addModFolder()
         });
         
         await this.fileManager.loadFile();

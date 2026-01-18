@@ -93,26 +93,7 @@ export class EventBinder {
             });
         }
         
-        if (this.elements.profilesList) {
-            this.elements.profilesList.addEventListener('change', () => {
-                if (this.callbacks.onProfileSelectionChange) {
-                    this.callbacks.onProfileSelectionChange();
-                }
-            });
-            
-            this.elements.profilesList.addEventListener('blur', () => {
-                if (this.callbacks.onProfileListBlur) {
-                    this.callbacks.onProfileListBlur();
-                }
-            });
-        }
-        
-        this.elements.newProfileBtn.addEventListener('click', () => this.callbacks.saveCurrentProfile());
-        this.elements.overwriteProfileBtn.addEventListener('click', () => this.callbacks.overwriteSelectedProfile());
-        this.elements.loadProfileBtn.addEventListener('click', () => this.callbacks.loadSelectedProfile());
         this.elements.reloadFileBtn.addEventListener('click', () => this.callbacks.reloadFile());
-        this.elements.renameProfileBtn.addEventListener('click', () => this.callbacks.renameSelectedProfile());
-        this.elements.deleteProfileBtn.addEventListener('click', () => this.callbacks.deleteSelectedProfile());
         
         this.elements.saveBtn.addEventListener('click', () => this.callbacks.saveFile());
         
