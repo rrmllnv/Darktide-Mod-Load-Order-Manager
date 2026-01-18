@@ -175,9 +175,6 @@ export class TourComponent {
         
         const rect = element.getBoundingClientRect();
         
-        this.highlightElement(element, rect);
-        this.positionTooltip(rect, step.position, 0);
-        
         this.elements.tourTitle.textContent = step.title;
         this.elements.tourDescription.textContent = step.description;
         
@@ -195,6 +192,12 @@ export class TourComponent {
         
         this.elements.tourOverlay.classList.add('show');
         this.elements.tourTooltip.classList.add('show');
+        
+        // Ждем, чтобы tooltip отобразился и можно было получить его реальные размеры
+        await new Promise(resolve => setTimeout(resolve, 10));
+        
+        this.highlightElement(element, rect);
+        this.positionTooltip(rect, step.position, 0);
         
         const handleFinish = () => {
             this.endTour();
@@ -239,9 +242,6 @@ export class TourComponent {
         
         const rect = element.getBoundingClientRect();
         
-        this.highlightElement(element, rect);
-        this.positionTooltip(rect, step.position, stepIndex);
-        
         this.elements.tourTitle.textContent = step.title;
         this.elements.tourDescription.textContent = step.description;
         
@@ -249,6 +249,12 @@ export class TourComponent {
         
         this.elements.tourOverlay.classList.add('show');
         this.elements.tourTooltip.classList.add('show');
+        
+        // Ждем, чтобы tooltip отобразился и можно было получить его реальные размеры
+        await new Promise(resolve => setTimeout(resolve, 10));
+        
+        this.highlightElement(element, rect);
+        this.positionTooltip(rect, step.position, stepIndex);
     }
     
     highlightElement(element, rect) {
@@ -281,7 +287,7 @@ export class TourComponent {
     
     positionTooltip(elementRect, position, stepIndex) {
         const tooltip = this.elements.tourTooltip;
-        const padding = 20;
+        const padding = 30;
         const viewportWidth = window.innerWidth;
         const viewportHeight = window.innerHeight;
         
@@ -312,10 +318,14 @@ export class TourComponent {
                 top = elementRect.bottom + padding;
         }
         
-        if (left < padding) {
-            left = padding;
-        } else if (left + tooltipWidth > viewportWidth - padding) {
-            left = viewportWidth - tooltipWidth - padding;
+        // Обеспечиваем минимальный отступ от краев viewport
+        const minLeft = padding;
+        const maxLeft = viewportWidth - tooltipWidth - padding;
+        
+        if (left < minLeft) {
+            left = minLeft;
+        } else if (left > maxLeft) {
+            left = maxLeft;
         }
         
         if (top < padding) {
