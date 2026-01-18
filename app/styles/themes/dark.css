@@ -28,9 +28,9 @@ body.theme-dark {
     --scrollbar-thumb: #4a4a4a;
     --scrollbar-thumb-hover: #5a5a5a;
     
-    --bulk-actions-bg: #3a2a0a;
-    --bulk-actions-border: #ffc107;
-    --bulk-actions-text: #ffd54f;
+    --bulk-actions-bg: #252525;
+    --bulk-actions-border: #404040;
+    --bulk-actions-text: #e8e8e8;
     
     --bg-selected-no-focus-dark: #1e3a5f;
     --text-selected-no-focus-dark: #e8e8e8;

@@ -28,9 +28,9 @@ body.theme-high-contrast {
     --scrollbar-thumb: #ffffff;
     --scrollbar-thumb-hover: #ffffff;
     
-    --bulk-actions-bg: #0000ff;
+    --bulk-actions-bg: #000000;
     --bulk-actions-border: #ffffff;
-    --bulk-actions-text: #000000;
+    --bulk-actions-text: #ffffff;
     
     --bg-selected-no-focus-dark: #0000ff;
     --text-selected-no-focus-dark: #ffffff;

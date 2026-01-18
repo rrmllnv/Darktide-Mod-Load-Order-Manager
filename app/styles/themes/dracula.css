@@ -28,9 +28,9 @@ body.theme-dracula {
     --scrollbar-thumb: #6272a4;
     --scrollbar-thumb-hover: #8be9fd;
     
-    --bulk-actions-bg: #3a2a0a;
-    --bulk-actions-border: #ffc107;
-    --bulk-actions-text: #ffd54f;
+    --bulk-actions-bg: #44475a;
+    --bulk-actions-border: #8be9fd;
+    --bulk-actions-text: #f8f8f2;
     
     --bg-selected-no-focus-dark: #44475a;
     --text-selected-no-focus-dark: #f8f8f2;

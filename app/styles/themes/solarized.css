@@ -28,9 +28,9 @@ body.theme-solarized {
     --scrollbar-thumb: #586e75;
     --scrollbar-thumb-hover: #657b83;
     
-    --bulk-actions-bg: #3a2a0a;
-    --bulk-actions-border: #ffc107;
-    --bulk-actions-text: #ffd54f;
+    --bulk-actions-bg: #073642;
+    --bulk-actions-border: #657b83;
+    --bulk-actions-text: #839496;
     
     --bg-selected-no-focus-dark: #073642;
     --text-selected-no-focus-dark: #839496;

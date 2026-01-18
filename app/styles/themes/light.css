@@ -28,9 +28,9 @@
     --scrollbar-thumb: #888;
     --scrollbar-thumb-hover: #555;
     
-    --bulk-actions-bg: #fff3cd;
-    --bulk-actions-border: #ffc107;
-    --bulk-actions-text: #856404;
+    --bulk-actions-bg: #ffffff;
+    --bulk-actions-border: #ccc;
+    --bulk-actions-text: #333;
     
     --bg-selected-no-focus-light: #E3F2FD;
     --text-selected-no-focus-light: #333;

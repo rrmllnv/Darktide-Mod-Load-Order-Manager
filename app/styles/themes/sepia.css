@@ -28,9 +28,9 @@ body.theme-sepia {
     --scrollbar-thumb: #c9b99d;
     --scrollbar-thumb-hover: #a68b6b;
     
-    --bulk-actions-bg: #fff3cd;
-    --bulk-actions-border: #ffc107;
-    --bulk-actions-text: #856404;
+    --bulk-actions-bg: #faf8f3;
+    --bulk-actions-border: #c9b99d;
+    --bulk-actions-text: #3e2723;
     
     --bg-selected-no-focus-light: #d4c5a9;
     --text-selected-no-focus-light: #3e2723;

@@ -28,9 +28,9 @@ body.theme-nord {
     --scrollbar-thumb: #5e81ac;
     --scrollbar-thumb-hover: #81a1c1;
     
-    --bulk-actions-bg: #3a2a0a;
-    --bulk-actions-border: #ffc107;
-    --bulk-actions-text: #ffd54f;
+    --bulk-actions-bg: #3b4252;
+    --bulk-actions-border: #5e81ac;
+    --bulk-actions-text: #eceff4;
     
     --bg-selected-no-focus-dark: #5e81ac;
     --text-selected-no-focus-dark: #eceff4;
