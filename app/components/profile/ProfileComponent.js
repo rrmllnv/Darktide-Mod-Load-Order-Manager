@@ -138,24 +138,6 @@ export class ProfileComponent {
         const saveProfileHideUnusedMods = this.app.userConfig && this.app.userConfig.saveProfileHideUnusedMods !== undefined ? this.app.userConfig.saveProfileHideUnusedMods : true;
         const saveProfileSort = this.app.userConfig && this.app.userConfig.saveProfileSort !== undefined ? this.app.userConfig.saveProfileSort : true;
         
-        const settings = {};
-        
-        if (saveProfileHideNewMods) {
-            settings.hideNewMods = this.app.hideNewMods || false;
-        }
-        
-        if (saveProfileHideNotFoundMods) {
-            settings.hideNotFoundMods = this.app.hideNotFoundMods || false;
-        }
-        
-        if (saveProfileHideUnusedMods) {
-            settings.hideUnusedMods = this.app.hideUnusedMods || false;
-        }
-        
-        if (saveProfileSort) {
-            settings.sort = this.app.elements.sortSelect ? this.app.elements.sortSelect.value : null;
-        }
-        
         const modsToSave = this.app.modEntries.filter(modEntry => {
             if (modEntry.isNew && !modEntry.enabled) {
                 return false;
@@ -172,19 +154,19 @@ export class ProfileComponent {
         };
         
         if (saveProfileHideNewMods) {
-            state._settings.hideNewMods = settings.hideNewMods || false;
+            state._settings.hideNewMods = this.app.hideNewMods;
         }
         
         if (saveProfileHideNotFoundMods) {
-            state._settings.hideNotFoundMods = settings.hideNotFoundMods || false;
+            state._settings.hideNotFoundMods = this.app.hideNotFoundMods;
         }
         
         if (saveProfileHideUnusedMods) {
-            state._settings.hideUnusedMods = settings.hideUnusedMods || false;
+            state._settings.hideUnusedMods = this.app.hideUnusedMods;
         }
         
         if (saveProfileSort) {
-            state._settings.sort = settings.sort || null;
+            state._settings.sort = this.app.elements.sortSelect ? this.app.elements.sortSelect.value : null;
         }
         
         for (const modEntry of sortedMods) {
