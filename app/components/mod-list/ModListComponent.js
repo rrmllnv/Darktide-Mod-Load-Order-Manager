@@ -450,6 +450,7 @@ export class ModListComponent {
         
         modItem.addEventListener('contextmenu', (e) => {
             e.preventDefault();
+            this.selectMod(modEntry.name);
             if (this.app.showContextMenu) {
                 this.app.showContextMenu(modEntry.name, e.clientX, e.clientY);
             }
