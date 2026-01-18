@@ -88,48 +88,4 @@ export class UIManager {
             noBtn.addEventListener('click', handleNo);
         });
     }
-    
-    updateBulkActionsPanel() {
-        if (!this.app.elements.bulkActionsPanel) {
-            return;
-        }
-        
-        const count = this.app.selectedModNames.size;
-        const hasSelection = count >= 1;
-        
-        if (this.app.elements.bulkSelectionCount) {
-            if (count === 0) {
-                this.app.elements.bulkSelectionCount.textContent = this.app.t('ui.noModsSelected');
-            } else {
-                let modText;
-                if (count === 1) {
-                    modText = this.app.t('ui.modSelected');
-                } else if (count < 5) {
-                    modText = this.app.t('ui.modsSelected');
-                } else {
-                    modText = this.app.t('ui.modsSelectedMany');
-                }
-                this.app.elements.bulkSelectionCount.textContent = `${count} ${modText}`;
-            }
-        }
-        
-        if (this.app.elements.bulkEnableBtn) {
-            this.app.elements.bulkEnableBtn.disabled = !hasSelection;
-        }
-        if (this.app.elements.bulkDisableBtn) {
-            this.app.elements.bulkDisableBtn.disabled = !hasSelection;
-        }
-        if (this.app.elements.bulkDeleteBtn) {
-            this.app.elements.bulkDeleteBtn.disabled = !hasSelection;
-        }
-        if (this.app.elements.bulkClearSelectionBtn) {
-            this.app.elements.bulkClearSelectionBtn.disabled = !hasSelection;
-        }
-        
-        if (hasSelection) {
-            this.app.elements.bulkActionsPanel.classList.remove('disabled');
-        } else {
-            this.app.elements.bulkActionsPanel.classList.add('disabled');
-        }
-    }
 }
