@@ -24,45 +24,6 @@ export class EventBinder {
             });
         }
         
-        if (this.elements.launchDtkitBtn) {
-            this.elements.launchDtkitBtn.addEventListener('click', () => this.callbacks.launchDtkitPatch());
-        }
-        
-        if (this.elements.bulkSelectEnabledBtn) {
-            this.elements.bulkSelectEnabledBtn.addEventListener('click', () => this.callbacks.bulkSelectEnabled());
-        }
-        if (this.elements.bulkSelectDisabledBtn) {
-            this.elements.bulkSelectDisabledBtn.addEventListener('click', () => this.callbacks.bulkSelectDisabled());
-        }
-        
-        if (this.elements.addModBtn) {
-            this.elements.addModBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                if (this.elements.addModDropdown) {
-                    this.elements.addModDropdown.classList.toggle('show');
-                }
-            });
-        }
-        
-        document.addEventListener('click', (e) => {
-            if (this.elements.addModDropdown && 
-                !this.elements.addModDropdown.contains(e.target) && 
-                !this.elements.addModBtn?.contains(e.target)) {
-                this.elements.addModDropdown.classList.remove('show');
-            }
-        });
-        
-        if (this.elements.addModFolderBtn) {
-            this.elements.addModFolderBtn.addEventListener('click', () => {
-                if (this.elements.addModDropdown) {
-                    this.elements.addModDropdown.classList.remove('show');
-                }
-                this.callbacks.addModFolder();
-            });
-        }
-        
-        
-        this.elements.reloadFileBtn.addEventListener('click', () => this.callbacks.reloadFile());
         
         this.elements.saveBtn.addEventListener('click', () => this.callbacks.saveFile());
         

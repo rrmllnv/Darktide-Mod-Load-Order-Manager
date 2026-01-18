@@ -151,6 +151,7 @@ export class ModListComponent {
         }
         
         this.bindEvents();
+        this.updateLocalization();
     }
     
     bindEvents() {
@@ -232,6 +233,62 @@ export class ModListComponent {
         if (this.app.elements.bulkClearSelectionBtn) {
             this.app.elements.bulkClearSelectionBtn.addEventListener('click', () => {
                 this.clearSelection();
+            });
+        }
+        
+        if (this.app.elements.bulkSelectEnabledBtn) {
+            this.app.elements.bulkSelectEnabledBtn.addEventListener('click', () => {
+                this.bulkSelectEnabled();
+            });
+        }
+        
+        if (this.app.elements.bulkSelectDisabledBtn) {
+            this.app.elements.bulkSelectDisabledBtn.addEventListener('click', () => {
+                this.bulkSelectDisabled();
+            });
+        }
+        
+        if (this.app.elements.addModBtn) {
+            this.app.elements.addModBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (this.app.elements.addModDropdown) {
+                    this.app.elements.addModDropdown.classList.toggle('show');
+                }
+            });
+        }
+        
+        document.addEventListener('click', (e) => {
+            if (this.app.elements.addModDropdown && 
+                !this.app.elements.addModDropdown.contains(e.target) && 
+                !this.app.elements.addModBtn?.contains(e.target)) {
+                this.app.elements.addModDropdown.classList.remove('show');
+            }
+        });
+        
+        if (this.app.elements.addModFolderBtn) {
+            this.app.elements.addModFolderBtn.addEventListener('click', () => {
+                if (this.app.elements.addModDropdown) {
+                    this.app.elements.addModDropdown.classList.remove('show');
+                }
+                if (this.app.fileManager && this.app.fileManager.addModFolder) {
+                    this.app.fileManager.addModFolder();
+                }
+            });
+        }
+        
+        if (this.app.elements.reloadFileBtn) {
+            this.app.elements.reloadFileBtn.addEventListener('click', () => {
+                if (this.app.fileManager && this.app.fileManager.reloadFile) {
+                    this.app.fileManager.reloadFile();
+                }
+            });
+        }
+        
+        if (this.app.elements.launchDtkitBtn) {
+            this.app.elements.launchDtkitBtn.addEventListener('click', () => {
+                if (this.app.fileManager && this.app.fileManager.launchDtkitPatch) {
+                    this.app.fileManager.launchDtkitPatch();
+                }
             });
         }
     }
@@ -709,7 +766,7 @@ export class ModListComponent {
                     }
                     
                     if (this.app.uiManager && this.app.uiManager.showMessage) {
-                        await this.app.uiManager.showMessage('Success', `Symbolic link created successfully!\n\n${linkPath} -> ${targetPath}`);
+                        await this.app.uiManager.showMessage(this.t('messages.success'), this.t('messages.symlinkCreatedSuccess', { linkPath, targetPath }));
                     }
                     if (this.app.setStatus) {
                         this.app.setStatus(this.t('status.symlinkCreated', { modName: cleanModName }));
@@ -836,6 +893,91 @@ export class ModListComponent {
         
         if (this.app.setStatus) {
             this.app.setStatus(this.t('status.modDeleted', { modName }));
+        }
+    }
+    
+    bulkSelectEnabled() {
+        this.app.selectedModNames.clear();
+        this.app.selectedModName = '';
+        this.app.lastSelectedModIndex = -1;
+        
+        this.app.modEntries.forEach(modEntry => {
+            if (modEntry.enabled) {
+                this.app.selectedModNames.add(modEntry.name);
+            }
+        });
+        
+        this.updateModListSelection();
+        
+        if (this.app.uiManager && this.app.uiManager.updateBulkActionsPanel) {
+            this.app.uiManager.updateBulkActionsPanel();
+        }
+        
+        if (this.app.updateStatistics) {
+            this.app.updateStatistics();
+        }
+    }
+    
+    bulkSelectDisabled() {
+        this.app.selectedModNames.clear();
+        this.app.selectedModName = '';
+        this.app.lastSelectedModIndex = -1;
+        
+        this.app.modEntries.forEach(modEntry => {
+            if (!modEntry.enabled) {
+                this.app.selectedModNames.add(modEntry.name);
+            }
+        });
+        
+        this.updateModListSelection();
+        
+        if (this.app.uiManager && this.app.uiManager.updateBulkActionsPanel) {
+            this.app.uiManager.updateBulkActionsPanel();
+        }
+        
+        if (this.app.updateStatistics) {
+            this.app.updateStatistics();
+        }
+    }
+    
+    updateLocalization() {
+        if (this.app.elements.bulkSelectEnabledBtn) {
+            this.app.elements.bulkSelectEnabledBtn.title = this.t('ui.selectEnabled');
+        }
+        
+        if (this.app.elements.bulkSelectDisabledBtn) {
+            this.app.elements.bulkSelectDisabledBtn.title = this.t('ui.selectDisabled');
+        }
+        
+        if (this.app.elements.addModBtn) {
+            this.app.elements.addModBtn.title = this.t('ui.addMod');
+        }
+        
+        if (this.app.elements.addModFolderBtn) {
+            const span = this.app.elements.addModFolderBtn.querySelector('span');
+            if (span) {
+                span.textContent = this.t('ui.addModFolder');
+            }
+        }
+        
+        if (this.app.elements.createSymlinkBtn) {
+            const span = this.app.elements.createSymlinkBtn.querySelector('span');
+            if (span) {
+                span.textContent = this.t('ui.createSymlink');
+            }
+        }
+        
+        if (this.app.elements.reloadFileBtn) {
+            this.app.elements.reloadFileBtn.title = this.t('ui.reloadFile');
+        }
+        
+        if (this.app.elements.launchDtkitBtn) {
+            this.app.elements.launchDtkitBtn.title = this.t('ui.launchDtkitPatch');
+        }
+        
+        const addModLabel = document.querySelector('.add-mod-dropdown-container .section-label');
+        if (addModLabel) {
+            addModLabel.textContent = this.t('ui.addMod');
         }
     }
 }

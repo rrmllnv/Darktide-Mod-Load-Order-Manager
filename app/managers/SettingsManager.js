@@ -120,6 +120,9 @@ export class SettingsManager {
         
         if (this.app.modListComponent) {
             await this.app.modListComponent.loadLocale(locale);
+            if (this.app.modListComponent.updateLocalization) {
+                this.app.modListComponent.updateLocalization();
+            }
             if (this.app.elements.searchInput) {
                 const searchText = this.app.elements.searchInput.value;
                 this.app.modListComponent.updateModList();

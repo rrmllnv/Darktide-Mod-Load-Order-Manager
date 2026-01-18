@@ -3,7 +3,14 @@
         "flagNew": "[NEW]",
         "flagNotFound": "[NOT FOUND]",
         "flagSymlink": "[SYMLINK]",
-        "enterModName": "Enter mod name for symlink:"
+        "enterModName": "Enter mod name for symlink:",
+        "selectEnabled": "Select all enabled",
+        "selectDisabled": "Select all disabled",
+        "addMod": "Add mod",
+        "addModFolder": "Add mod folder",
+        "createSymlink": "Create symlink",
+        "reloadFile": "Reload file",
+        "launchDtkitPatch": "Launch Darktide Mod Patcher"
     },
     "messages": {
         "scanNewMods": "New mods found:",
@@ -13,11 +20,13 @@
         "scanNoChanges": "No changes detected",
         "info": "Information",
         "error": "Error",
+        "success": "Success",
         "failedToDetermineModsDir": "Failed to determine mods directory",
         "selectedFolderNotExists": "Selected folder does not exist",
         "createSymlinkConfirm": "Create symbolic link?\n\nFrom: {targetPath}\nTo: {linkPath}\n\nName: {modName}",
         "failedToCreateSymlink": "Failed to create symbolic link:",
         "symlinkCreationError": "Error creating symbolic link:",
+        "symlinkCreatedSuccess": "Symbolic link created successfully!\n\n{linkPath} -> {targetPath}",
         "deleteModConfirm": "Delete mod '{modName}' from list?\n\nMod will be removed from file on save."
     },
     "status": {

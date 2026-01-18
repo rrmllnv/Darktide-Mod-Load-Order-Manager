@@ -3,7 +3,14 @@
         "flagNew": "[NOUVEAU]",
         "flagNotFound": "[INTROUVABLE]",
         "flagSymlink": "[SYMLINK]",
-        "enterModName": "Entrez le nom du mod pour le lien symbolique:"
+        "enterModName": "Entrez le nom du mod pour le lien symbolique:",
+        "selectEnabled": "Sélectionner tous les activés",
+        "selectDisabled": "Sélectionner tous les désactivés",
+        "addMod": "Ajouter un mod",
+        "addModFolder": "Ajouter un dossier de mod",
+        "createSymlink": "Créer un lien symbolique",
+        "reloadFile": "Recharger le fichier",
+        "launchDtkitPatch": "Lancer Darktide Mod Patcher"
     },
     "messages": {
         "scanNewMods": "Nouveaux mods trouvés:",
@@ -13,11 +20,13 @@
         "scanNoChanges": "Aucun changement détecté",
         "info": "Information",
         "error": "Erreur",
+        "success": "Succès",
         "failedToDetermineModsDir": "Impossible de déterminer le dossier des mods",
         "selectedFolderNotExists": "Le dossier sélectionné n'existe pas",
         "createSymlinkConfirm": "Créer un lien symbolique?\n\nDe: {targetPath}\nVers: {linkPath}\n\nNom: {modName}",
         "failedToCreateSymlink": "Impossible de créer le lien symbolique:",
         "symlinkCreationError": "Erreur lors de la création du lien symbolique:",
+        "symlinkCreatedSuccess": "Lien symbolique créé avec succès!\n\n{linkPath} -> {targetPath}",
         "deleteModConfirm": "Supprimer le mod '{modName}' de la liste?\n\nLe mod sera supprimé du fichier lors de l'enregistrement."
     },
     "status": {

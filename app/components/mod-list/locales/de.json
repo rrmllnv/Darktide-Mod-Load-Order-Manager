@@ -3,7 +3,14 @@
         "flagNew": "[NEU]",
         "flagNotFound": "[NICHT GEFUNDEN]",
         "flagSymlink": "[SYMLINK]",
-        "enterModName": "Mod-Name für Symlink eingeben:"
+        "enterModName": "Mod-Name für Symlink eingeben:",
+        "selectEnabled": "Alle aktivierten auswählen",
+        "selectDisabled": "Alle deaktivierten auswählen",
+        "addMod": "Mod hinzufügen",
+        "addModFolder": "Mod-Ordner hinzufügen",
+        "createSymlink": "Symlink erstellen",
+        "reloadFile": "Datei neu laden",
+        "launchDtkitPatch": "Darktide Mod Patcher starten"
     },
     "messages": {
         "scanNewMods": "Neue Mods gefunden:",
@@ -13,11 +20,13 @@
         "scanNoChanges": "Keine Änderungen erkannt",
         "info": "Information",
         "error": "Fehler",
+        "success": "Erfolg",
         "failedToDetermineModsDir": "Mod-Ordner konnte nicht bestimmt werden",
         "selectedFolderNotExists": "Ausgewählter Ordner existiert nicht",
         "createSymlinkConfirm": "Symbolischen Link erstellen?\n\nVon: {targetPath}\nNach: {linkPath}\n\nName: {modName}",
         "failedToCreateSymlink": "Symbolischer Link konnte nicht erstellt werden:",
         "symlinkCreationError": "Fehler beim Erstellen des symbolischen Links:",
+        "symlinkCreatedSuccess": "Symbolischer Link erfolgreich erstellt!\n\n{linkPath} -> {targetPath}",
         "deleteModConfirm": "Mod '{modName}' aus Liste löschen?\n\nMod wird beim Speichern aus der Datei entfernt."
     },
     "status": {

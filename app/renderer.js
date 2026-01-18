@@ -237,16 +237,11 @@ class ModLoadOrderManager {
             browseFile: () => this.fileManager.browseFile(),
             openFile: () => this.fileManager.openFile(),
             openModsFolder: () => this.fileManager.openModsFolder(),
-            launchDtkitPatch: () => this.fileManager.launchDtkitPatch(),
-            reloadFile: () => this.fileManager.reloadFile(),
             saveFile: () => this.fileManager.saveFile(),
             openSettings: () => this.settingsManager.openSettings(),
-            bulkSelectEnabled: () => this.bulkOperationsManager.bulkSelectEnabled(),
-            bulkSelectDisabled: () => this.bulkOperationsManager.bulkSelectDisabled(),
             bulkEnable: () => this.bulkOperationsManager.bulkEnable(),
             bulkDisable: () => this.bulkOperationsManager.bulkDisable(),
-            bulkDelete: () => this.bulkOperationsManager.bulkDelete(),
-            addModFolder: () => this.fileManager.addModFolder()
+            bulkDelete: () => this.bulkOperationsManager.bulkDelete()
         });
         
         await this.fileManager.loadFile();
@@ -398,14 +393,8 @@ class ModLoadOrderManager {
         
         if (this.elements.enableAllBtn) this.elements.enableAllBtn.title = t('ui.enableAll');
         if (this.elements.disableAllBtn) this.elements.disableAllBtn.title = t('ui.disableAll');
-        if (this.elements.reloadFileBtn) this.elements.reloadFileBtn.title = t('ui.reloadFile');
         if (this.elements.scanBtn) this.elements.scanBtn.title = t('ui.scan');
-        if (this.elements.launchDtkitBtn) this.elements.launchDtkitBtn.title = t('ui.launchDtkitPatch');
         if (this.elements.settingsBtn) this.elements.settingsBtn.title = t('ui.settings');
-        if (this.elements.addModBtn) this.elements.addModBtn.title = t('ui.addMod');
-        
-        const createSymlinkSpan = document.querySelector('#create-symlink-btn span');
-        if (createSymlinkSpan) createSymlinkSpan.textContent = t('ui.createSymlink');
         
         if (this.elements.sortSelect) {
             this.elements.sortSelect.title = t('ui.sort');
@@ -431,17 +420,6 @@ class ModLoadOrderManager {
         const hideUnusedModsSpan = document.querySelector('#hide-unused-mods-checkbox')?.nextElementSibling;
         if (hideUnusedModsSpan) hideUnusedModsSpan.textContent = t('ui.hideUnusedMods');
         
-        const addModLabel = document.querySelector('.symlink-frame .section-label');
-        if (addModLabel) addModLabel.textContent = t('ui.addMod');
-        if (this.elements.addModFolderBtn) {
-            const span = this.elements.addModFolderBtn.querySelector('span');
-            if (span) span.textContent = t('ui.addModFolder');
-        }
-        if (this.elements.createSymlinkBtn) {
-            const span = this.elements.createSymlinkBtn.querySelector('span');
-            if (span) span.textContent = t('ui.createSymlink');
-        }
-        
         const actionsLabel = document.querySelector('#bulk-actions-panel .section-label');
         if (actionsLabel) actionsLabel.textContent = t('ui.actions');
         
@@ -449,8 +427,10 @@ class ModLoadOrderManager {
         if (this.elements.bulkDisableBtn) this.elements.bulkDisableBtn.title = t('ui.disableSelected');
         if (this.elements.bulkDeleteBtn) this.elements.bulkDeleteBtn.title = t('ui.deleteSelected');
         if (this.elements.bulkClearSelectionBtn) this.elements.bulkClearSelectionBtn.title = t('ui.clearSelection');
-        if (this.elements.bulkSelectEnabledBtn) this.elements.bulkSelectEnabledBtn.title = t('ui.selectEnabled');
-        if (this.elements.bulkSelectDisabledBtn) this.elements.bulkSelectDisabledBtn.title = t('ui.selectDisabled');
+        
+        if (this.modListComponent && this.modListComponent.updateLocalization) {
+            this.modListComponent.updateLocalization();
+        }
         
         if (this.elements.modalOkBtn) this.elements.modalOkBtn.textContent = t('ui.save');
         if (this.elements.modalCancelBtn) this.elements.modalCancelBtn.textContent = t('ui.cancel');

@@ -3,7 +3,14 @@
         "flagNew": "[НОВЫЙ]",
         "flagNotFound": "[НЕ НАЙДЕН]",
         "flagSymlink": "[СИМЛИНК]",
-        "enterModName": "Введите имя мода для симлинка:"
+        "enterModName": "Введите имя мода для симлинка:",
+        "selectEnabled": "Выделить все включенные",
+        "selectDisabled": "Выделить все выключенные",
+        "addMod": "Добавить мод",
+        "addModFolder": "Добавить папку мода",
+        "createSymlink": "Создать симлинк",
+        "reloadFile": "Перезагрузить файл",
+        "launchDtkitPatch": "Запустить Darktide Mod Patcher"
     },
     "messages": {
         "scanNewMods": "Найдено новых модов:",
@@ -13,11 +20,13 @@
         "scanNoChanges": "Изменений не обнаружено",
         "info": "Информация",
         "error": "Ошибка",
+        "success": "Успех",
         "failedToDetermineModsDir": "Не удалось определить папку модов",
         "selectedFolderNotExists": "Выбранная папка не существует",
         "createSymlinkConfirm": "Создать символическую ссылку?\n\nИз: {targetPath}\nВ: {linkPath}\n\nИмя: {modName}",
         "failedToCreateSymlink": "Не удалось создать символическую ссылку:",
         "symlinkCreationError": "Ошибка при создании символической ссылки:",
+        "symlinkCreatedSuccess": "Символическая ссылка успешно создана!\n\n{linkPath} -> {targetPath}",
         "deleteModConfirm": "Удалить мод '{modName}' из списка?\n\nМод будет удален из файла при сохранении."
     },
     "status": {
