@@ -308,8 +308,8 @@ class ModLoadOrderManager {
             
             if (!droppedItem || !droppedItem.path) {
                 await this.uiManager.showMessage(
-                    this.t('messages.error'),
-                    this.t('messages.dragDropNotFolder') || 'Drag a folder, not a file'
+                    this.t('messages.common.error'),
+                    this.t('messages.common.dragDropNotFolder') || 'Drag a folder, not a file'
                 );
                 return;
             }
@@ -318,8 +318,8 @@ class ModLoadOrderManager {
             
             if (!isDirectory) {
                 await this.uiManager.showMessage(
-                    this.t('messages.error'),
-                    this.t('messages.dragDropNotFolder') || 'Drag a folder, not a file'
+                    this.t('messages.common.error'),
+                    this.t('messages.common.dragDropNotFolder') || 'Drag a folder, not a file'
                 );
                 return;
             }
@@ -327,8 +327,8 @@ class ModLoadOrderManager {
             const modsDir = this.filePath ? this.filePath.substring(0, this.filePath.lastIndexOf('\\')) : '';
             if (!modsDir) {
                 await this.uiManager.showMessage(
-                    this.t('messages.error'),
-                    this.t('messages.failedToDetermineModsDir')
+                    this.t('messages.common.error'),
+                    this.t('messages.common.failedToDetermineModsDir')
                 );
                 return;
             }
@@ -338,21 +338,21 @@ class ModLoadOrderManager {
                 
                 if (result.success) {
                     await this.uiManager.showMessage(
-                        this.t('messages.success'),
-                        (this.t('messages.folderCopied') || 'Folder copied: {folderName}').replace('{folderName}', result.folderName)
+                        this.t('messages.common.success'),
+                        (this.t('messages.common.folderCopied') || 'Folder copied: {folderName}').replace('{folderName}', result.folderName)
                     );
                     
                     await this.modListComponent.scanAndUpdate();
                 } else {
                     await this.uiManager.showMessage(
-                        this.t('messages.error'),
-                        result.error || (this.t('messages.folderCopyError') || 'Error copying folder')
+                        this.t('messages.common.error'),
+                        result.error || (this.t('messages.common.folderCopyError') || 'Error copying folder')
                     );
                 }
             } catch (error) {
                 await this.uiManager.showMessage(
-                    this.t('messages.error'),
-                    error.message || (this.t('messages.folderCopyError') || 'Error copying folder')
+                    this.t('messages.common.error'),
+                    error.message || (this.t('messages.common.folderCopyError') || 'Error copying folder')
                 );
             }
         });
@@ -400,23 +400,23 @@ class ModLoadOrderManager {
         const t = (key) => this.localeManager.t(key);
         
         if (this.elements.pathInput?.previousElementSibling) {
-            this.elements.pathInput.previousElementSibling.textContent = t('ui.file');
+            this.elements.pathInput.previousElementSibling.textContent = t('ui.common.file');
         }
-        if (this.elements.saveBtn) this.elements.saveBtn.textContent = t('ui.save');
-        if (this.elements.statusText) this.elements.statusText.textContent = t('ui.ready');
+        if (this.elements.saveBtn) this.elements.saveBtn.textContent = t('ui.common.save');
+        if (this.elements.statusText) this.elements.statusText.textContent = t('ui.common.ready');
         
-        if (this.elements.enableAllBtn) this.elements.enableAllBtn.title = t('ui.enableAll');
-        if (this.elements.disableAllBtn) this.elements.disableAllBtn.title = t('ui.disableAll');
-        if (this.elements.scanBtn) this.elements.scanBtn.title = t('ui.scan');
+        if (this.elements.enableAllBtn) this.elements.enableAllBtn.title = t('ui.common.enableAll');
+        if (this.elements.disableAllBtn) this.elements.disableAllBtn.title = t('ui.common.disableAll');
+        if (this.elements.scanBtn) this.elements.scanBtn.title = t('ui.common.scan');
         
         if (this.elements.sortSelect) {
-            this.elements.sortSelect.title = t('ui.sort');
+            this.elements.sortSelect.title = t('ui.common.sort');
             
             const options = this.elements.sortSelect.options;
-            if (options[0]) options[0].textContent = t('ui.sortByFileOrder');
-            if (options[1]) options[1].textContent = t('ui.sortByName');
-            if (options[2]) options[2].textContent = t('ui.sortByStatus');
-            if (options[3]) options[3].textContent = t('ui.sortNewFirst');
+            if (options[0]) options[0].textContent = t('ui.common.sortByFileOrder');
+            if (options[1]) options[1].textContent = t('ui.common.sortByName');
+            if (options[2]) options[2].textContent = t('ui.common.sortByStatus');
+            if (options[3]) options[3].textContent = t('ui.common.sortNewFirst');
         }
         
         if (this.searchComponent && this.searchComponent.updateLocalization) {
@@ -439,19 +439,19 @@ class ModLoadOrderManager {
             this.fileOperationsComponent.updateLocalization();
         }
         
-        if (this.elements.modalOkBtn) this.elements.modalOkBtn.textContent = t('ui.save');
-        if (this.elements.modalCancelBtn) this.elements.modalCancelBtn.textContent = t('ui.cancel');
+        if (this.elements.modalOkBtn) this.elements.modalOkBtn.textContent = t('ui.common.save');
+        if (this.elements.modalCancelBtn) this.elements.modalCancelBtn.textContent = t('ui.common.cancel');
         
-        if (this.elements.messageTitle) this.elements.messageTitle.textContent = t('ui.message');
-        if (this.elements.messageOkBtn) this.elements.messageOkBtn.textContent = t('ui.save');
+        if (this.elements.messageTitle) this.elements.messageTitle.textContent = t('ui.common.message');
+        if (this.elements.messageOkBtn) this.elements.messageOkBtn.textContent = t('ui.common.save');
         
         const settingsTitle = document.querySelector('#settings-dialog .modal-title');
-        if (settingsTitle) settingsTitle.textContent = t('ui.settings');
+        if (settingsTitle) settingsTitle.textContent = t('ui.settings.settings');
         const themeLabel = document.getElementById('settings-theme-label');
-        if (themeLabel) themeLabel.textContent = t('ui.theme');
+        if (themeLabel) themeLabel.textContent = t('ui.settings.theme');
         
         const localeLabel = document.getElementById('settings-locale-label');
-        if (localeLabel) localeLabel.textContent = t('ui.locale');
+        if (localeLabel) localeLabel.textContent = t('ui.settings.locale');
         
         if (this.elements.settingsLocaleSelect) {
             const localeOptions = this.elements.settingsLocaleSelect.options;
@@ -507,11 +507,11 @@ class ModLoadOrderManager {
             }
         }
         
-        if (this.elements.settingsOkBtn) this.elements.settingsOkBtn.textContent = t('ui.save');
-        if (this.elements.settingsCancelBtn) this.elements.settingsCancelBtn.textContent = t('ui.cancel');
+        if (this.elements.settingsOkBtn) this.elements.settingsOkBtn.textContent = t('ui.settings.save');
+        if (this.elements.settingsCancelBtn) this.elements.settingsCancelBtn.textContent = t('ui.settings.cancel');
         
         const dragDropText = document.getElementById('drag-drop-text');
-        if (dragDropText) dragDropText.textContent = t('ui.dragDropText');
+        if (dragDropText) dragDropText.textContent = t('ui.common.dragDropText');
     }
     
     t(key, params = {}) {
@@ -539,16 +539,16 @@ class ModLoadOrderManager {
         }
         
         if (this.elements.contextMenuEnable && this.elements.contextMenuEnable.querySelector('span')) {
-            this.elements.contextMenuEnable.querySelector('span').textContent = this.t('ui.contextMenuEnable');
+            this.elements.contextMenuEnable.querySelector('span').textContent = this.t('ui.common.contextMenuEnable');
         }
         if (this.elements.contextMenuDisable && this.elements.contextMenuDisable.querySelector('span')) {
-            this.elements.contextMenuDisable.querySelector('span').textContent = this.t('ui.contextMenuDisable');
+            this.elements.contextMenuDisable.querySelector('span').textContent = this.t('ui.common.contextMenuDisable');
         }
         if (this.elements.contextMenuCopy && this.elements.contextMenuCopy.querySelector('span')) {
-            this.elements.contextMenuCopy.querySelector('span').textContent = this.t('ui.contextMenuCopyName');
+            this.elements.contextMenuCopy.querySelector('span').textContent = this.t('ui.common.contextMenuCopyName');
         }
         if (this.elements.contextMenuDelete && this.elements.contextMenuDelete.querySelector('span')) {
-            this.elements.contextMenuDelete.querySelector('span').textContent = this.t('ui.contextMenuDelete');
+            this.elements.contextMenuDelete.querySelector('span').textContent = this.t('ui.common.contextMenuDelete');
         }
         
         this.elements.contextMenu.style.left = `${x}px`;
