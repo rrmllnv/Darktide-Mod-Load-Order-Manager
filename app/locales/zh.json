@@ -217,11 +217,31 @@
             },
             "enableDisable": {
                 "title": "启用/禁用模组",
-                "description": "使用这些按钮可以快速启用或禁用所有模组。您也可以使用每个模组旁边的复选框。"
+                "description": "使用这些按钮可以快速启用或禁用所有模组。重新加载按钮从文件恢复状态，扫描会检测文件夹中的新模组。"
+            },
+            "selectionButtons": {
+                "title": "选择模组",
+                "description": "使用这些按钮可以快速选择所有已启用或已禁用的模组。这对于批量操作很有用。"
+            },
+            "addMod": {
+                "title": "添加模组",
+                "description": "点击此按钮将新模组添加到列表中。您可以添加模组文件夹或创建符号链接。"
+            },
+            "launchDtkit": {
+                "title": "启动补丁程序",
+                "description": "此按钮启动 Darktide Mod Patcher 以将更改应用到游戏。"
+            },
+            "sort": {
+                "title": "排序模组",
+                "description": "选择如何排序模组列表：按文件顺序、按名称、按状态或新模组优先。"
             },
             "search": {
-                "title": "搜索模组",
+                "title": "搜索和过滤模组",
                 "description": "在此输入以按名称搜索模组。使用下面的复选框按状态过滤模组（新建、未找到、未使用）。"
+            },
+            "bulkActions": {
+                "title": "批量操作",
+                "description": "选择多个模组后，此处将出现批量操作按钮：启用、禁用、删除所选模组或清除选择。"
             },
             "profiles": {
                 "title": "配置文件",

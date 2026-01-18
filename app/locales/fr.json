@@ -217,11 +217,31 @@
             },
             "enableDisable": {
                 "title": "Activer/Désactiver les mods",
-                "description": "Utilisez ces boutons pour activer ou désactiver rapidement tous les mods à la fois. Vous pouvez également utiliser les cases à cocher à côté de chaque mod."
+                "description": "Utilisez ces boutons pour activer ou désactiver rapidement tous les mods à la fois. Le bouton de rechargement restaure l'état du fichier, et le balayage détecte les nouveaux mods dans le dossier."
+            },
+            "selectionButtons": {
+                "title": "Sélectionner les mods",
+                "description": "Utilisez ces boutons pour sélectionner rapidement tous les mods activés ou désactivés. C'est utile pour les opérations en masse."
+            },
+            "addMod": {
+                "title": "Ajouter des mods",
+                "description": "Cliquez sur ce bouton pour ajouter un nouveau mod à la liste. Vous pouvez ajouter un dossier de mod ou créer un lien symbolique."
+            },
+            "launchDtkit": {
+                "title": "Lancer le patcher",
+                "description": "Ce bouton lance le Darktide Mod Patcher pour appliquer les modifications au jeu."
+            },
+            "sort": {
+                "title": "Trier les mods",
+                "description": "Choisissez comment trier la liste des mods : par ordre de fichier, par nom, par statut, ou nouveaux mods en premier."
             },
             "search": {
-                "title": "Rechercher des mods",
+                "title": "Rechercher et filtrer les mods",
                 "description": "Tapez ici pour rechercher des mods par nom. Utilisez les cases à cocher ci-dessous pour filtrer les mods par statut (nouveaux, introuvables, inutilisés)."
+            },
+            "bulkActions": {
+                "title": "Opérations en masse",
+                "description": "Après avoir sélectionné plusieurs mods, des boutons apparaîtront ici pour les opérations en masse : activer, désactiver, supprimer les mods sélectionnés ou effacer la sélection."
             },
             "profiles": {
                 "title": "Profils",

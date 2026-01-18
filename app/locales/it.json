@@ -217,11 +217,31 @@
             },
             "enableDisable": {
                 "title": "Abilita/Disabilita mod",
-                "description": "Usa questi pulsanti per abilitare o disabilitare rapidamente tutti i mod contemporaneamente. Puoi anche usare le caselle di controllo accanto a ogni mod."
+                "description": "Usa questi pulsanti per abilitare o disabilitare rapidamente tutti i mod contemporaneamente. Il pulsante di ricaricamento ripristina lo stato dal file e la scansione rileva nuovi mod nella cartella."
+            },
+            "selectionButtons": {
+                "title": "Seleziona mod",
+                "description": "Usa questi pulsanti per selezionare rapidamente tutti i mod abilitati o disabilitati. Questo è utile per le operazioni in blocco."
+            },
+            "addMod": {
+                "title": "Aggiungi mod",
+                "description": "Fai clic su questo pulsante per aggiungere un nuovo mod all'elenco. Puoi aggiungere una cartella mod o creare un collegamento simbolico."
+            },
+            "launchDtkit": {
+                "title": "Avvia patcher",
+                "description": "Questo pulsante avvia il Darktide Mod Patcher per applicare le modifiche al gioco."
+            },
+            "sort": {
+                "title": "Ordina mod",
+                "description": "Scegli come ordinare l'elenco dei mod: per ordine di file, per nome, per stato o nuovi mod per primi."
             },
             "search": {
-                "title": "Cerca mod",
+                "title": "Cerca e filtra mod",
                 "description": "Digita qui per cercare mod per nome. Usa le caselle di controllo sotto per filtrare i mod per stato (nuovi, non trovati, inutilizzati)."
+            },
+            "bulkActions": {
+                "title": "Operazioni in blocco",
+                "description": "Dopo aver selezionato più mod, qui appariranno pulsanti per operazioni in blocco: abilita, disabilita, elimina mod selezionati o cancella selezione."
             },
             "profiles": {
                 "title": "Profili",

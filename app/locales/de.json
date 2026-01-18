@@ -217,11 +217,31 @@
             },
             "enableDisable": {
                 "title": "Mods aktivieren/deaktivieren",
-                "description": "Verwenden Sie diese Schaltflächen, um alle Mods schnell zu aktivieren oder zu deaktivieren. Sie können auch die Kontrollkästchen neben jedem Mod verwenden."
+                "description": "Verwenden Sie diese Schaltflächen, um alle Mods schnell zu aktivieren oder zu deaktivieren. Die Schaltfläche Neu laden stellt den Zustand aus der Datei wieder her, und das Scannen erkennt neue Mods im Ordner."
+            },
+            "selectionButtons": {
+                "title": "Mods auswählen",
+                "description": "Verwenden Sie diese Schaltflächen, um schnell alle aktivierten oder deaktivierten Mods auszuwählen. Dies ist nützlich für Massenoperationen."
+            },
+            "addMod": {
+                "title": "Mods hinzufügen",
+                "description": "Klicken Sie auf diese Schaltfläche, um einen neuen Mod zur Liste hinzuzufügen. Sie können einen Mod-Ordner hinzufügen oder einen symbolischen Link erstellen."
+            },
+            "launchDtkit": {
+                "title": "Patcher starten",
+                "description": "Diese Schaltfläche startet den Darktide Mod Patcher, um Änderungen am Spiel anzuwenden."
+            },
+            "sort": {
+                "title": "Mods sortieren",
+                "description": "Wählen Sie, wie die Mod-Liste sortiert werden soll: nach Dateireihenfolge, nach Name, nach Status oder neue Mods zuerst."
             },
             "search": {
-                "title": "Mods suchen",
+                "title": "Mods suchen und filtern",
                 "description": "Geben Sie hier ein, um nach Mods nach Namen zu suchen. Verwenden Sie die Kontrollkästchen unten, um Mods nach Status zu filtern (neu, nicht gefunden, ungenutzt)."
+            },
+            "bulkActions": {
+                "title": "Massenoperationen",
+                "description": "Nach der Auswahl mehrerer Mods erscheinen hier Schaltflächen für Massenoperationen: aktivieren, deaktivieren, ausgewählte Mods löschen oder Auswahl aufheben."
             },
             "profiles": {
                 "title": "Profile",

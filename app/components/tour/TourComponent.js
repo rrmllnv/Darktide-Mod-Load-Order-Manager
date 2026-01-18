@@ -48,31 +48,61 @@ export class TourComponent {
                 position: 'bottom'
             },
             {
-                selector: '#mods-list',
-                titleKey: 'tour.steps.modsList.title',
-                descriptionKey: 'tour.steps.modsList.description',
-                position: 'right'
-            },
-            {
-                selector: '#enable-all-btn',
+                selector: '.button-frame.tour-step:first-of-type',
                 titleKey: 'tour.steps.enableDisable.title',
                 descriptionKey: 'tour.steps.enableDisable.description',
                 position: 'bottom'
             },
             {
-                selector: '#search-input',
+                selector: '.selection-buttons-frame.tour-step',
+                titleKey: 'tour.steps.selectionButtons.title',
+                descriptionKey: 'tour.steps.selectionButtons.description',
+                position: 'bottom'
+            },
+            {
+                selector: '.add-mod-frame.tour-step',
+                titleKey: 'tour.steps.addMod.title',
+                descriptionKey: 'tour.steps.addMod.description',
+                position: 'bottom'
+            },
+            {
+                selector: '.launch-dtkit-frame.tour-step',
+                titleKey: 'tour.steps.launchDtkit.title',
+                descriptionKey: 'tour.steps.launchDtkit.description',
+                position: 'bottom'
+            },
+            {
+                selector: '.sort-frame.tour-step',
+                titleKey: 'tour.steps.sort.title',
+                descriptionKey: 'tour.steps.sort.description',
+                position: 'bottom'
+            },
+            {
+                selector: '.canvas-frame.tour-step .mods-list',
+                titleKey: 'tour.steps.modsList.title',
+                descriptionKey: 'tour.steps.modsList.description',
+                position: 'right'
+            },
+            {
+                selector: '.search-panel.tour-step',
                 titleKey: 'tour.steps.search.title',
                 descriptionKey: 'tour.steps.search.description',
                 position: 'bottom'
             },
             {
-                selector: '#profiles-list',
+                selector: '#bulk-actions-panel.tour-step',
+                titleKey: 'tour.steps.bulkActions.title',
+                descriptionKey: 'tour.steps.bulkActions.description',
+                position: 'left'
+            },
+            {
+                selector: '.profiles-frame.tour-step',
                 titleKey: 'tour.steps.profiles.title',
                 descriptionKey: 'tour.steps.profiles.description',
                 position: 'left'
             },
             {
-                selector: '#save-btn',
+                selector: '#save-btn.tour-step',
                 titleKey: 'tour.steps.save.title',
                 descriptionKey: 'tour.steps.save.description',
                 position: 'top'

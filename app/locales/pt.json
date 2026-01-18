@@ -217,11 +217,31 @@
             },
             "enableDisable": {
                 "title": "Ativar/Desativar mods",
-                "description": "Use estes botões para ativar ou desativar rapidamente todos os mods de uma vez. Você também pode usar as caixas de seleção ao lado de cada mod."
+                "description": "Use estes botões para ativar ou desativar rapidamente todos os mods de uma vez. O botão de recarregar restaura o estado do arquivo e a varredura detecta novos mods na pasta."
+            },
+            "selectionButtons": {
+                "title": "Selecionar mods",
+                "description": "Use estes botões para selecionar rapidamente todos os mods ativados ou desativados. Isso é útil para operações em massa."
+            },
+            "addMod": {
+                "title": "Adicionar mods",
+                "description": "Clique neste botão para adicionar um novo mod à lista. Você pode adicionar uma pasta de mod ou criar um link simbólico."
+            },
+            "launchDtkit": {
+                "title": "Iniciar patcher",
+                "description": "Este botão inicia o Darktide Mod Patcher para aplicar alterações ao jogo."
+            },
+            "sort": {
+                "title": "Ordenar mods",
+                "description": "Escolha como ordenar a lista de mods: por ordem de arquivo, por nome, por status ou novos mods primeiro."
             },
             "search": {
-                "title": "Pesquisar mods",
+                "title": "Pesquisar e filtrar mods",
                 "description": "Digite aqui para pesquisar mods por nome. Use as caixas de seleção abaixo para filtrar mods por status (novos, não encontrados, não utilizados)."
+            },
+            "bulkActions": {
+                "title": "Operações em massa",
+                "description": "Após selecionar vários mods, os botões aparecerão aqui para operações em massa: ativar, desativar, excluir mods selecionados ou limpar seleção."
             },
             "profiles": {
                 "title": "Perfis",

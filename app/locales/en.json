@@ -217,11 +217,31 @@
             },
             "enableDisable": {
                 "title": "Enable/Disable Mods",
-                "description": "Use these buttons to quickly enable or disable all mods at once. You can also use the checkboxes next to each mod."
+                "description": "Use these buttons to quickly enable or disable all mods at once. The reload button restores the state from the file, and scanning detects new mods in the folder."
+            },
+            "selectionButtons": {
+                "title": "Select Mods",
+                "description": "Use these buttons to quickly select all enabled or disabled mods. This is useful for bulk operations."
+            },
+            "addMod": {
+                "title": "Add Mods",
+                "description": "Click this button to add a new mod to the list. You can add a mod folder or create a symbolic link."
+            },
+            "launchDtkit": {
+                "title": "Launch Patcher",
+                "description": "This button launches the Darktide Mod Patcher to apply changes to the game."
+            },
+            "sort": {
+                "title": "Sort Mods",
+                "description": "Choose how to sort the mod list: by file order, by name, by status, or new mods first."
             },
             "search": {
-                "title": "Search Mods",
+                "title": "Search and Filter Mods",
                 "description": "Type here to search for mods by name. Use the checkboxes below to filter mods by status (new, not found, unused)."
+            },
+            "bulkActions": {
+                "title": "Bulk Operations",
+                "description": "After selecting multiple mods, buttons will appear here for bulk operations: enable, disable, delete selected mods, or clear selection."
             },
             "profiles": {
                 "title": "Profiles",
