@@ -115,17 +115,8 @@ export class SettingsManager {
     }
     
     applyTheme(theme) {
-        const body = document.body;
-        
-        const themeClasses = ['theme-dark', 'theme-high-contrast', 'theme-oled-dark', 
-                             'theme-sepia', 'theme-blue-light', 'theme-nord', 'theme-dracula', 'theme-solarized'];
-        themeClasses.forEach(cls => body.classList.remove(cls));
-        
-        if (theme && theme !== '') {
-            const themeClass = `theme-${theme}`;
-            if (themeClasses.includes(themeClass)) {
-                body.classList.add(themeClass);
-            }
+        if (this.app.themeComponent) {
+            this.app.themeComponent.applyTheme(theme);
         }
     }
     

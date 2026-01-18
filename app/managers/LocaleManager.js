@@ -56,4 +56,8 @@ export class LocaleManager {
     setLocale(locale) {
         this.currentLocale = locale;
     }
+    
+    getCurrentLocale() {
+        return this.currentLocale;
+    }
 }

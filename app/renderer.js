@@ -14,6 +14,7 @@ import { ModManager } from './managers/ModManager.js';
 import { UIManager } from './managers/UIManager.js';
 import { BulkOperationsManager } from './managers/BulkOperationsManager.js';
 import { SettingsManager } from './managers/SettingsManager.js';
+import { ThemeComponent } from './components/theme/ThemeComponent.js';
 
 class ModLoadOrderManager {
     constructor() {
@@ -54,6 +55,8 @@ class ModLoadOrderManager {
         this.uiManager = new UIManager(this);
         this.bulkOperationsManager = new BulkOperationsManager(this);
         this.settingsManager = new SettingsManager(this);
+        
+        this.themeComponent = new ThemeComponent(this);
         
         this.init();
     }
@@ -120,6 +123,8 @@ class ModLoadOrderManager {
         };
         
         await this.configManager.loadUserConfig();
+        
+        this.themeComponent.init();
         
         const locale = this.userConfig?.locale || 'en';
         await this.localeManager.loadLocale(locale);
@@ -527,24 +532,8 @@ class ModLoadOrderManager {
         const themeLabel = document.getElementById('settings-theme-label');
         if (themeLabel) themeLabel.textContent = t('ui.theme');
         
-        if (this.elements.settingsThemeSelect) {
-            const themeOptions = this.elements.settingsThemeSelect.options;
-            const themeLabels = {
-                '': t('ui.light'),
-                'dark': t('ui.dark'),
-                'high-contrast': t('ui.highContrast'),
-                'oled-dark': t('ui.oledDark'),
-                'sepia': t('ui.sepia'),
-                'blue-light': t('ui.blueLight'),
-                'nord': t('ui.nord'),
-                'dracula': t('ui.dracula'),
-                'solarized': t('ui.solarized')
-            };
-            Array.from(themeOptions).forEach(option => {
-                if (themeLabels.hasOwnProperty(option.value)) {
-                    option.textContent = themeLabels[option.value];
-                }
-            });
+        if (this.themeComponent) {
+            this.themeComponent.updateThemeSelectLabels();
         }
         
         const localeLabel = document.getElementById('settings-locale-label');
