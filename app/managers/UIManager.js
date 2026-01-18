@@ -6,17 +6,14 @@ export class UIManager {
     showMessage(title, message) {
         return new Promise((resolve) => {
             const isError = title === this.app.t('messages.error') || 
-                           title === 'Ошибка' || 
                            title === 'Error' ||
                            title?.toLowerCase().includes('error');
             
             const isSuccess = title === this.app.t('messages.success') || 
-                             title === 'Успех' || 
                              title === 'Success' ||
                              title?.toLowerCase().includes('success');
             
             const isInfo = title === this.app.t('messages.info') || 
-                          title === 'Информация' || 
                           title === 'Info' ||
                           title?.toLowerCase().includes('info');
             

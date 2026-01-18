@@ -190,7 +190,7 @@ export class ModManager {
                     return;
                 }
                 
-                await this.app.uiManager.showMessage('Успех', `Символическая ссылка успешно создана!\n\n${linkPath} -> ${targetPath}`);
+                await this.app.uiManager.showMessage('Success', `Symbolic link created successfully!\n\n${linkPath} -> ${targetPath}`);
                 this.app.setStatus(this.app.t('status.symlinkCreated', { modName: cleanModName }));
                 
                 await this.scanAndUpdate();

@@ -23,7 +23,7 @@ export class ConfigManager {
                 this.app.userConfig = ConfigManager.getDefaultUserConfig();
             }
         } catch (error) {
-            console.error('Ошибка загрузки настроек:', error);
+            console.error('Error loading settings:', error);
             this.app.userConfig = ConfigManager.getDefaultUserConfig();
         }
     }
@@ -41,10 +41,10 @@ export class ConfigManager {
             
             const result = await window.electronAPI.saveUserConfig(this.app.userConfig);
             if (!result.success) {
-                console.error('Ошибка сохранения настроек:', result.error);
+                console.error('Error saving settings:', result.error);
             }
         } catch (error) {
-            console.error('Ошибка сохранения настроек:', error);
+            console.error('Error saving settings:', error);
         }
     }
     

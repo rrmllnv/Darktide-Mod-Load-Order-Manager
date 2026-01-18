@@ -89,7 +89,7 @@ export class FileManager {
             
         } catch (error) {
             await this.app.uiManager.showMessage(this.app.t('messages.error'), `${this.app.t('messages.fileLoadError')}\n${error.message}`);
-            this.app.setStatus(`Ошибка: ${error.message}`);
+            this.app.setStatus(`Error: ${error.message}`);
         }
     }
     
@@ -154,7 +154,7 @@ export class FileManager {
         if (!isDirectory) {
             await this.app.uiManager.showMessage(
                 this.app.t('messages.error'),
-                this.app.t('messages.dragDropNotFolder') || 'Выберите папку, а не файл'
+                this.app.t('messages.dragDropNotFolder') || 'Select a folder, not a file'
             );
             return;
         }
@@ -165,27 +165,27 @@ export class FileManager {
             if (copyResult.success) {
                 await this.app.uiManager.showMessage(
                     this.app.t('messages.success'),
-                    (this.app.t('messages.folderCopied') || 'Папка скопирована: {folderName}').replace('{folderName}', copyResult.folderName)
+                    (this.app.t('messages.folderCopied') || 'Folder copied: {folderName}').replace('{folderName}', copyResult.folderName)
                 );
                 
                 await this.app.modManager.scanAndUpdate();
             } else {
                 await this.app.uiManager.showMessage(
                     this.app.t('messages.error'),
-                    copyResult.error || (this.app.t('messages.folderCopyError') || 'Ошибка при копировании папки')
+                    copyResult.error || (this.app.t('messages.folderCopyError') || 'Error copying folder')
                 );
             }
         } catch (error) {
             await this.app.uiManager.showMessage(
                 this.app.t('messages.error'),
-                error.message || (this.app.t('messages.folderCopyError') || 'Ошибка при копировании папки')
+                error.message || (this.app.t('messages.folderCopyError') || 'Error copying folder')
             );
         }
     }
     
     async launchDtkitPatch() {
         if (!this.app.filePath) {
-            await this.app.uiManager.showMessage(this.app.t('messages.error'), this.app.t('messages.filePathNotSet') || 'Путь к файлу не установлен');
+            await this.app.uiManager.showMessage(this.app.t('messages.error'), this.app.t('messages.filePathNotSet') || 'File path not set');
             return;
         }
         
@@ -197,17 +197,17 @@ export class FileManager {
         
         const gameDir = modsDir.substring(0, modsDir.lastIndexOf('\\'));
         if (!gameDir) {
-            await this.app.uiManager.showMessage(this.app.t('messages.error'), this.app.t('messages.failedToDetermineGameDir') || 'Не удалось определить директорию игры');
+            await this.app.uiManager.showMessage(this.app.t('messages.error'), this.app.t('messages.failedToDetermineGameDir') || 'Failed to determine game directory');
             return;
         }
         
         try {
             const result = await window.electronAPI.launchDtkitPatch(gameDir);
             if (!result.success) {
-                await this.app.uiManager.showMessage(this.app.t('messages.error'), result.error || this.app.t('messages.launchDtkitPatchError') || 'Ошибка при запуске приложения');
+                await this.app.uiManager.showMessage(this.app.t('messages.error'), result.error || this.app.t('messages.launchDtkitPatchError') || 'Error launching application');
             }
         } catch (error) {
-            await this.app.uiManager.showMessage(this.app.t('messages.error'), error.message || this.app.t('messages.launchDtkitPatchError') || 'Ошибка при запуске приложения');
+            await this.app.uiManager.showMessage(this.app.t('messages.error'), error.message || this.app.t('messages.launchDtkitPatchError') || 'Error launching application');
         }
     }
 }

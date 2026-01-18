@@ -25,7 +25,7 @@ export class ProfileManager {
             
             await this.refreshProfilesList();
         } catch (error) {
-            console.error('Ошибка инициализации папки профилей:', error);
+            console.error('Error initializing profiles directory:', error);
         }
     }
     
@@ -60,10 +60,10 @@ export class ProfileManager {
             
             if (result.settings.sort && this.app.elements.sortSelect) {
                 let sortValue = result.settings.sort;
-                if (sortValue === 'По порядку файла') sortValue = 'fileOrder';
-                else if (sortValue === 'По имени') sortValue = 'name';
-                else if (sortValue === 'По статусу') sortValue = 'status';
-                else if (sortValue === 'Новые сначала') sortValue = 'newFirst';
+                if (sortValue === 'By file order' || sortValue === 'По порядку файла') sortValue = 'fileOrder';
+                else if (sortValue === 'By name' || sortValue === 'По имени') sortValue = 'name';
+                else if (sortValue === 'By status' || sortValue === 'По статусу') sortValue = 'status';
+                else if (sortValue === 'New first' || sortValue === 'Новые сначала') sortValue = 'newFirst';
                 
                 const option = Array.from(this.app.elements.sortSelect.options).find(opt => opt.value === sortValue);
                 if (option) {
@@ -113,7 +113,7 @@ export class ProfileManager {
                 });
             }
         } catch (error) {
-            console.error('Ошибка обновления списка профилей:', error);
+            console.error('Error refreshing profiles list:', error);
         }
     }
     
