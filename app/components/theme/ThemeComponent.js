@@ -15,40 +15,11 @@ export class ThemeComponent {
     }
     
     async init() {
-        this.loadStyles();
         await this.populateThemeSelect();
         
         if (this.app.userConfig && this.app.userConfig.theme !== undefined) {
             this.applyTheme(this.app.userConfig.theme);
         }
-    }
-    
-    loadStyles() {
-        const styles = [
-            'styles/themes/light.css',
-            'styles/themes/dark.css',
-            'styles/themes/high-contrast.css',
-            'styles/themes/oled-dark.css',
-            'styles/themes/sepia.css',
-            'styles/themes/blue-light.css',
-            'styles/themes/nord.css',
-            'styles/themes/dracula.css',
-            'styles/themes/solarized.css'
-        ];
-        
-        styles.forEach(styleFile => {
-            const link = document.createElement('link');
-            link.rel = 'stylesheet';
-            link.href = styleFile;
-            link.setAttribute('data-theme-style', styleFile);
-            
-            const baseLink = document.querySelector('link[href="styles/base.css"]');
-            if (baseLink && baseLink.nextSibling) {
-                baseLink.parentNode.insertBefore(link, baseLink.nextSibling);
-            } else {
-                document.head.appendChild(link);
-            }
-        });
     }
     
     async populateThemeSelect() {
