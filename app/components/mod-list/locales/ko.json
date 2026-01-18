@@ -2,6 +2,28 @@
     "ui": {
         "flagNew": "[신규]",
         "flagNotFound": "[찾을 수 없음]",
-        "flagSymlink": "[심볼릭링크]"
+        "flagSymlink": "[심볼릭링크]",
+        "enterModName": "심볼릭 링크용 모드 이름 입력:"
+    },
+    "messages": {
+        "scanNewMods": "새 모드 발견:",
+        "scanRemovedMods": "찾을 수 없는 모드 제거됨:",
+        "scanDeletedMods": "찾을 수 없음으로 표시됨:",
+        "scanRestoredMods": "모드 복원됨:",
+        "scanNoChanges": "변경 사항 없음",
+        "info": "정보",
+        "error": "오류",
+        "failedToDetermineModsDir": "모드 폴더를 확인할 수 없습니다",
+        "selectedFolderNotExists": "선택한 폴더가 존재하지 않습니다",
+        "createSymlinkConfirm": "심볼릭 링크를 만들겠습니까?\n\n출처: {targetPath}\n대상: {linkPath}\n\n이름: {modName}",
+        "failedToCreateSymlink": "심볼릭 링크를 만들 수 없습니다:",
+        "symlinkCreationError": "심볼릭 링크 생성 중 오류:",
+        "deleteModConfirm": "목록에서 모드 '{modName}'을(를) 삭제하시겠습니까?\n\n저장 시 모드가 파일에서 제거됩니다."
+    },
+    "status": {
+        "symlinkCreated": "심볼릭 링크 생성: {modName}",
+        "modNameCopied": "모드 이름 복사됨: {modName}",
+        "copyError": "복사 오류",
+        "modDeleted": "모드 '{modName}' 삭제됨. 파일을 저장하는 것을 잊지 마세요."
     }
 }

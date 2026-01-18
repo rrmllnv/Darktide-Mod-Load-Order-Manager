@@ -2,6 +2,28 @@
     "ui": {
         "flagNew": "[新增]",
         "flagNotFound": "[未找到]",
-        "flagSymlink": "[符号链接]"
+        "flagSymlink": "[符号链接]",
+        "enterModName": "输入符号链接的模组名称:"
+    },
+    "messages": {
+        "scanNewMods": "发现新模组:",
+        "scanRemovedMods": "未找到的模组已移除:",
+        "scanDeletedMods": "标记为未找到:",
+        "scanRestoredMods": "模组已恢复:",
+        "scanNoChanges": "未检测到更改",
+        "info": "信息",
+        "error": "错误",
+        "failedToDetermineModsDir": "无法确定模组文件夹",
+        "selectedFolderNotExists": "所选文件夹不存在",
+        "createSymlinkConfirm": "创建符号链接？\n\n从: {targetPath}\n到: {linkPath}\n\n名称: {modName}",
+        "failedToCreateSymlink": "无法创建符号链接:",
+        "symlinkCreationError": "创建符号链接时出错:",
+        "deleteModConfirm": "从列表中删除模组 '{modName}'？\n\n保存时模组将从文件中移除。"
+    },
+    "status": {
+        "symlinkCreated": "符号链接已创建: {modName}",
+        "modNameCopied": "模组名称已复制: {modName}",
+        "copyError": "复制错误",
+        "modDeleted": "模组 '{modName}' 已删除. 不要忘记保存文件。"
     }
 }

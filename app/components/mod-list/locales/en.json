@@ -2,6 +2,28 @@
     "ui": {
         "flagNew": "[NEW]",
         "flagNotFound": "[NOT FOUND]",
-        "flagSymlink": "[SYMLINK]"
+        "flagSymlink": "[SYMLINK]",
+        "enterModName": "Enter mod name for symlink:"
+    },
+    "messages": {
+        "scanNewMods": "New mods found:",
+        "scanRemovedMods": "Mods not found removed:",
+        "scanDeletedMods": "Marked as not found:",
+        "scanRestoredMods": "Mods restored:",
+        "scanNoChanges": "No changes detected",
+        "info": "Information",
+        "error": "Error",
+        "failedToDetermineModsDir": "Failed to determine mods directory",
+        "selectedFolderNotExists": "Selected folder does not exist",
+        "createSymlinkConfirm": "Create symbolic link?\n\nFrom: {targetPath}\nTo: {linkPath}\n\nName: {modName}",
+        "failedToCreateSymlink": "Failed to create symbolic link:",
+        "symlinkCreationError": "Error creating symbolic link:",
+        "deleteModConfirm": "Delete mod '{modName}' from list?\n\nMod will be removed from file on save."
+    },
+    "status": {
+        "symlinkCreated": "Symbolic link created: {modName}",
+        "modNameCopied": "Mod name copied: {modName}",
+        "copyError": "Copy error",
+        "modDeleted": "Mod '{modName}' deleted. Don't forget to save the file."
     }
 }

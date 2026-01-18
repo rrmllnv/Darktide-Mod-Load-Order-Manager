@@ -2,6 +2,28 @@
     "ui": {
         "flagNew": "[新規]",
         "flagNotFound": "[見つかりません]",
-        "flagSymlink": "[シンボリックリンク]"
+        "flagSymlink": "[シンボリックリンク]",
+        "enterModName": "シンボリックリンクのMOD名を入力:"
+    },
+    "messages": {
+        "scanNewMods": "新しいMODが見つかりました:",
+        "scanRemovedMods": "見つからないMODが削除されました:",
+        "scanDeletedMods": "見つからないとしてマークされました:",
+        "scanRestoredMods": "MODが復元されました:",
+        "scanNoChanges": "変更は検出されませんでした",
+        "info": "情報",
+        "error": "エラー",
+        "failedToDetermineModsDir": "MODフォルダを特定できませんでした",
+        "selectedFolderNotExists": "選択したフォルダが存在しません",
+        "createSymlinkConfirm": "シンボリックリンクを作成しますか？\n\n元: {targetPath}\n先: {linkPath}\n\n名前: {modName}",
+        "failedToCreateSymlink": "シンボリックリンクを作成できませんでした:",
+        "symlinkCreationError": "シンボリックリンクの作成中にエラーが発生しました:",
+        "deleteModConfirm": "リストからMOD '{modName}'を削除しますか？\n\n保存時にMODがファイルから削除されます。"
+    },
+    "status": {
+        "symlinkCreated": "シンボリックリンク作成: {modName}",
+        "modNameCopied": "MOD名をコピーしました: {modName}",
+        "copyError": "コピーエラー",
+        "modDeleted": "MOD '{modName}'削除. ファイルを保存することを忘れないでください。"
     }
 }

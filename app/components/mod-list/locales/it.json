@@ -2,6 +2,28 @@
     "ui": {
         "flagNew": "[NUOVO]",
         "flagNotFound": "[NON TROVATO]",
-        "flagSymlink": "[SYMLINK]"
+        "flagSymlink": "[SYMLINK]",
+        "enterModName": "Inserisci nome mod per collegamento simbolico:"
+    },
+    "messages": {
+        "scanNewMods": "Nuovi mod trovati:",
+        "scanRemovedMods": "Mod non trovati rimossi:",
+        "scanDeletedMods": "Contrassegnati come non trovati:",
+        "scanRestoredMods": "Mod ripristinati:",
+        "scanNoChanges": "Nessuna modifica rilevata",
+        "info": "Informazione",
+        "error": "Errore",
+        "failedToDetermineModsDir": "Impossibile determinare la cartella dei mod",
+        "selectedFolderNotExists": "La cartella selezionata non esiste",
+        "createSymlinkConfirm": "Creare collegamento simbolico?\n\nDa: {targetPath}\nA: {linkPath}\n\nNome: {modName}",
+        "failedToCreateSymlink": "Impossibile creare il collegamento simbolico:",
+        "symlinkCreationError": "Errore durante la creazione del collegamento simbolico:",
+        "deleteModConfirm": "Eliminare il mod '{modName}' dalla lista?\n\nIl mod verrà rimosso dal file al salvataggio."
+    },
+    "status": {
+        "symlinkCreated": "Collegamento simbolico creato: {modName}",
+        "modNameCopied": "Nome mod copiato: {modName}",
+        "copyError": "Errore di copia",
+        "modDeleted": "Mod '{modName}' eliminato. Non dimenticare di salvare il file."
     }
 }

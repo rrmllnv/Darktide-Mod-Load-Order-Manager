@@ -633,26 +633,26 @@ export class ModListComponent {
         const parts = [];
         
         if (scanResult.added > 0) {
-            parts.push(`${this.app.t('messages.scanNewMods')} ${scanResult.added}`);
+            parts.push(`${this.t('messages.scanNewMods')} ${scanResult.added}`);
         }
         if (scanResult.removed > 0) {
-            parts.push(`${this.app.t('messages.scanRemovedMods')} ${scanResult.removed}`);
+            parts.push(`${this.t('messages.scanRemovedMods')} ${scanResult.removed}`);
         }
         if (scanResult.deleted > 0) {
-            parts.push(`${this.app.t('messages.scanDeletedMods')} ${scanResult.deleted}`);
+            parts.push(`${this.t('messages.scanDeletedMods')} ${scanResult.deleted}`);
         }
         if (scanResult.restored > 0) {
-            parts.push(`${this.app.t('messages.scanRestoredMods')} ${scanResult.restored}`);
+            parts.push(`${this.t('messages.scanRestoredMods')} ${scanResult.restored}`);
         }
         
         if (parts.length > 0) {
             message = parts.join('\n');
         } else {
-            message = this.app.t('messages.scanNoChanges');
+            message = this.t('messages.scanNoChanges');
         }
         
         if (this.app.uiManager && this.app.uiManager.showMessage) {
-            this.app.uiManager.showMessage(this.app.t('messages.info'), message);
+            this.app.uiManager.showMessage(this.t('messages.info'), message);
         }
     }
     
@@ -660,7 +660,7 @@ export class ModListComponent {
         const modsDir = this.app.filePath.substring(0, this.app.filePath.lastIndexOf('\\'));
         if (!modsDir) {
             if (this.app.uiManager && this.app.uiManager.showMessage) {
-                await this.app.uiManager.showMessage(this.app.t('messages.error'), this.app.t('messages.failedToDetermineModsDir'));
+                await this.app.uiManager.showMessage(this.t('messages.error'), this.t('messages.failedToDetermineModsDir'));
             }
             return;
         }
@@ -675,7 +675,7 @@ export class ModListComponent {
         const targetExists = await window.electronAPI.fileExists(targetPath);
         if (!targetExists) {
             if (this.app.uiManager && this.app.uiManager.showMessage) {
-                await this.app.uiManager.showMessage(this.app.t('messages.error'), this.app.t('messages.selectedFolderNotExists'));
+                await this.app.uiManager.showMessage(this.t('messages.error'), this.t('messages.selectedFolderNotExists'));
             }
             return;
         }
@@ -684,7 +684,7 @@ export class ModListComponent {
         const defaultModName = pathParts[pathParts.length - 1];
         
         if (this.app.modalManager && this.app.modalManager.showModal) {
-            this.app.modalManager.showModal(this.app.t('ui.enterModName'), defaultModName, async (modName) => {
+            this.app.modalManager.showModal(this.t('ui.enterModName'), defaultModName, async (modName) => {
                 if (!modName || !modName.trim()) {
                     return;
                 }
@@ -693,7 +693,7 @@ export class ModListComponent {
                 const linkPath = modsDir + '\\' + cleanModName;
                 
                 if (this.app.uiManager && this.app.uiManager.showConfirm) {
-                    const confirmed = await this.app.uiManager.showConfirm(this.app.t('messages.createSymlinkConfirm', { targetPath, linkPath, modName: cleanModName }));
+                    const confirmed = await this.app.uiManager.showConfirm(this.t('messages.createSymlinkConfirm', { targetPath, linkPath, modName: cleanModName }));
                     if (!confirmed) {
                         return;
                     }
@@ -703,7 +703,7 @@ export class ModListComponent {
                     const symlinkResult = await window.electronAPI.createSymlink(linkPath, targetPath);
                     if (!symlinkResult.success) {
                         if (this.app.uiManager && this.app.uiManager.showMessage) {
-                            await this.app.uiManager.showMessage(this.app.t('messages.error'), `${this.app.t('messages.failedToCreateSymlink')}\n${symlinkResult.error}`);
+                            await this.app.uiManager.showMessage(this.t('messages.error'), `${this.t('messages.failedToCreateSymlink')}\n${symlinkResult.error}`);
                         }
                         return;
                     }
@@ -712,13 +712,13 @@ export class ModListComponent {
                         await this.app.uiManager.showMessage('Success', `Symbolic link created successfully!\n\n${linkPath} -> ${targetPath}`);
                     }
                     if (this.app.setStatus) {
-                        this.app.setStatus(this.app.t('status.symlinkCreated', { modName: cleanModName }));
+                        this.app.setStatus(this.t('status.symlinkCreated', { modName: cleanModName }));
                     }
                     
                     await this.scanAndUpdate();
                 } catch (error) {
                     if (this.app.uiManager && this.app.uiManager.showMessage) {
-                        await this.app.uiManager.showMessage(this.app.t('messages.error'), `${this.app.t('messages.symlinkCreationError')}\n${error.message}`);
+                        await this.app.uiManager.showMessage(this.t('messages.error'), `${this.t('messages.symlinkCreationError')}\n${error.message}`);
                     }
                 }
             });
@@ -763,7 +763,7 @@ export class ModListComponent {
         if (navigator.clipboard && navigator.clipboard.writeText) {
             navigator.clipboard.writeText(modName).then(() => {
                 if (this.app.setStatus) {
-                    this.app.setStatus(this.app.t('status.modNameCopied', { modName }));
+                    this.app.setStatus(this.t('status.modNameCopied', { modName }));
                 }
             }).catch(() => {
                 const textArea = document.createElement('textarea');
@@ -775,11 +775,11 @@ export class ModListComponent {
                 try {
                     document.execCommand('copy');
                     if (this.app.setStatus) {
-                        this.app.setStatus(this.app.t('status.modNameCopied', { modName }));
+                        this.app.setStatus(this.t('status.modNameCopied', { modName }));
                     }
                 } catch (err) {
                     if (this.app.setStatus) {
-                        this.app.setStatus(this.app.t('status.copyError'));
+                        this.app.setStatus(this.t('status.copyError'));
                     }
                 }
                 document.body.removeChild(textArea);
@@ -794,11 +794,11 @@ export class ModListComponent {
             try {
                 document.execCommand('copy');
                 if (this.app.setStatus) {
-                    this.app.setStatus(this.app.t('status.modNameCopied', { modName }));
+                    this.app.setStatus(this.t('status.modNameCopied', { modName }));
                 }
             } catch (err) {
                 if (this.app.setStatus) {
-                    this.app.setStatus(this.app.t('status.copyError'));
+                    this.app.setStatus(this.t('status.copyError'));
                 }
             }
             document.body.removeChild(textArea);
@@ -807,7 +807,7 @@ export class ModListComponent {
     
     async deleteMod(modName) {
         if (this.app.uiManager && this.app.uiManager.showConfirm) {
-            const confirmed = await this.app.uiManager.showConfirm(this.app.t('messages.deleteModConfirm', { modName }));
+            const confirmed = await this.app.uiManager.showConfirm(this.t('messages.deleteModConfirm', { modName }));
             if (!confirmed) {
                 return;
             }
@@ -835,7 +835,7 @@ export class ModListComponent {
         }
         
         if (this.app.setStatus) {
-            this.app.setStatus(this.app.t('status.modDeleted', { modName }));
+            this.app.setStatus(this.t('status.modDeleted', { modName }));
         }
     }
 }

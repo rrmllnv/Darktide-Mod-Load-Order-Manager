@@ -2,6 +2,28 @@
     "ui": {
         "flagNew": "[НОВЫЙ]",
         "flagNotFound": "[НЕ НАЙДЕН]",
-        "flagSymlink": "[СИМЛИНК]"
+        "flagSymlink": "[СИМЛИНК]",
+        "enterModName": "Введите имя мода для симлинка:"
+    },
+    "messages": {
+        "scanNewMods": "Найдено новых модов:",
+        "scanRemovedMods": "Удалено не найденных модов:",
+        "scanDeletedMods": "Помечено как не найденные:",
+        "scanRestoredMods": "Восстановлено модов:",
+        "scanNoChanges": "Изменений не обнаружено",
+        "info": "Информация",
+        "error": "Ошибка",
+        "failedToDetermineModsDir": "Не удалось определить папку модов",
+        "selectedFolderNotExists": "Выбранная папка не существует",
+        "createSymlinkConfirm": "Создать символическую ссылку?\n\nИз: {targetPath}\nВ: {linkPath}\n\nИмя: {modName}",
+        "failedToCreateSymlink": "Не удалось создать символическую ссылку:",
+        "symlinkCreationError": "Ошибка при создании символической ссылки:",
+        "deleteModConfirm": "Удалить мод '{modName}' из списка?\n\nМод будет удален из файла при сохранении."
+    },
+    "status": {
+        "symlinkCreated": "Символическая ссылка создана: {modName}",
+        "modNameCopied": "Название мода скопировано: {modName}",
+        "copyError": "Ошибка при копировании",
+        "modDeleted": "Мод '{modName}' удален. Не забудьте сохранить файл."
     }
 }
