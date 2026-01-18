@@ -38,4 +38,10 @@ body.theme-solarized {
     --select-bg: #073642;
     --select-option-bg: #073642;
     --input-bg: #073642;
+    
+    --flag-new-color: #268bd2;
+    --flag-not-found-color: #dc322f;
+    --flag-symlink-color: #6c71c4;
+    --status-enabled-color: #859900;
+    --status-disabled-color: #dc322f;
 }

@@ -38,4 +38,10 @@ body.theme-sepia {
     --select-bg: #faf8f3;
     --select-option-bg: #faf8f3;
     --input-bg: #faf8f3;
+    
+    --flag-new-color: #4a7cff;
+    --flag-not-found-color: #d32f2f;
+    --flag-symlink-color: #9c6bff;
+    --status-enabled-color: #388e3c;
+    --status-disabled-color: #d32f2f;
 }

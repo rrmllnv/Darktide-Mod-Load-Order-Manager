@@ -38,4 +38,10 @@ body.theme-high-contrast {
     --select-bg: #000000;
     --select-option-bg: #000000;
     --input-bg: #000000;
+    
+    --flag-new-color: #00ffff;
+    --flag-not-found-color: #ff0000;
+    --flag-symlink-color: #ff00ff;
+    --status-enabled-color: #00ff00;
+    --status-disabled-color: #ff0000;
 }

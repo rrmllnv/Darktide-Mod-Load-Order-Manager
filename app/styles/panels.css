@@ -27,11 +27,11 @@
 }
 
 .stat-enabled {
-    color: #4ade80;
+    color: var(--status-enabled-color);
 }
 
 .stat-disabled {
-    color: #ff6b6b;
+    color: var(--status-disabled-color);
 }
 
 .separator {

@@ -66,21 +66,21 @@
 }
 
 .mod-new-label {
-    color: #6ba3ff;
+    color: var(--flag-new-color);
     font-weight: bold;
     font-size: 7pt;
     margin-right: 5px;
 }
 
 .mod-not-found-label {
-    color: #ff6b6b;
+    color: var(--flag-not-found-color);
     font-weight: bold;
     font-size: 7pt;
     margin-right: 5px;
 }
 
 .mod-symlink-label {
-    color: #b794f6;
+    color: var(--flag-symlink-color);
     font-weight: bold;
     font-size: 7pt;
     margin-right: 5px;
@@ -93,11 +93,11 @@
 }
 
 .mod-status.enabled {
-    color: #4ade80;
+    color: var(--status-enabled-color);
 }
 
 .mod-status.disabled {
-    color: #ff6b6b;
+    color: var(--status-disabled-color);
 }
 
 .canvas-frame::-webkit-scrollbar {

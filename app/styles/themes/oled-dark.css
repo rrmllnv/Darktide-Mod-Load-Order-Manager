@@ -38,4 +38,10 @@ body.theme-oled-dark {
     --select-bg: #000000;
     --select-option-bg: #000000;
     --input-bg: #000000;
+    
+    --flag-new-color: #6ba3ff;
+    --flag-not-found-color: #ff6b6b;
+    --flag-symlink-color: #b794f6;
+    --status-enabled-color: #4ade80;
+    --status-disabled-color: #ff6b6b;
 }
