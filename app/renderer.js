@@ -334,7 +334,7 @@ class ModLoadOrderManager {
             if (!droppedItem || !droppedItem.path) {
                 await this.uiManager.showMessage(
                     this.t('messages.error'),
-                    this.t('messages.dragDropNotFolder') || 'Перетащите папку, а не файл'
+                    this.t('messages.dragDropNotFolder') || 'Drag a folder, not a file'
                 );
                 return;
             }
@@ -344,7 +344,7 @@ class ModLoadOrderManager {
             if (!isDirectory) {
                 await this.uiManager.showMessage(
                     this.t('messages.error'),
-                    this.t('messages.dragDropNotFolder') || 'Перетащите папку, а не файл'
+                    this.t('messages.dragDropNotFolder') || 'Drag a folder, not a file'
                 );
                 return;
             }
@@ -364,20 +364,20 @@ class ModLoadOrderManager {
                 if (result.success) {
                     await this.uiManager.showMessage(
                         this.t('messages.success'),
-                        (this.t('messages.folderCopied') || 'Папка скопирована: {folderName}').replace('{folderName}', result.folderName)
+                        (this.t('messages.folderCopied') || 'Folder copied: {folderName}').replace('{folderName}', result.folderName)
                     );
                     
                     await this.modManager.scanAndUpdate();
                 } else {
                     await this.uiManager.showMessage(
                         this.t('messages.error'),
-                        result.error || (this.t('messages.folderCopyError') || 'Ошибка при копировании папки')
+                        result.error || (this.t('messages.folderCopyError') || 'Error copying folder')
                     );
                 }
             } catch (error) {
                 await this.uiManager.showMessage(
                     this.t('messages.error'),
-                    error.message || (this.t('messages.folderCopyError') || 'Ошибка при копировании папки')
+                    error.message || (this.t('messages.folderCopyError') || 'Error copying folder')
                 );
             }
         });
