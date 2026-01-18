@@ -24,7 +24,7 @@ export class ModScanService {
             const result = await window.electronAPI.scanModsDirectory(modsDir);
             if (!result.success) {
                 if (this.app && this.app.t) {
-                    this.setStatus(this.app.t('status.scanWarning', { error: result.error }));
+                    this.setStatus(this.app.t('status.common.scanWarning', { error: result.error }));
                 } else {
                     this.setStatus(`Warning: failed to scan mods folder: ${result.error}`);
                 }
@@ -101,7 +101,7 @@ export class ModScanService {
             
         } catch (error) {
             if (this.app && this.app.t) {
-                this.setStatus(this.app.t('status.scanWarning', { error: error.message }));
+                this.setStatus(this.app.t('status.common.scanWarning', { error: error.message }));
             } else {
                 this.setStatus(`Warning: failed to scan mods folder: ${error.message}`);
             }
