@@ -117,13 +117,11 @@ export class SettingsManager {
     applyTheme(theme) {
         const body = document.body;
         
-        const themeClasses = ['theme-dark', 'theme-system', 'theme-high-contrast', 'theme-oled-dark', 
+        const themeClasses = ['theme-dark', 'theme-high-contrast', 'theme-oled-dark', 
                              'theme-sepia', 'theme-blue-light', 'theme-nord', 'theme-dracula', 'theme-solarized'];
         themeClasses.forEach(cls => body.classList.remove(cls));
         
-        if (theme === 'system') {
-            body.classList.add('theme-system');
-        } else if (theme && theme !== '') {
+        if (theme && theme !== '') {
             const themeClass = `theme-${theme}`;
             if (themeClasses.includes(themeClass)) {
                 body.classList.add(themeClass);

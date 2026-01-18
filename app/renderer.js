@@ -532,7 +532,6 @@ class ModLoadOrderManager {
             const themeLabels = {
                 '': t('ui.light'),
                 'dark': t('ui.dark'),
-                'system': t('ui.system'),
                 'high-contrast': t('ui.highContrast'),
                 'oled-dark': t('ui.oledDark'),
                 'sepia': t('ui.sepia'),
