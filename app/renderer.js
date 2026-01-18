@@ -127,7 +127,7 @@ class ModLoadOrderManager {
         const locale = this.userConfig?.locale || 'en';
         await this.localeManager.loadLocale(locale);
         
-        this.applyLocalization();
+        await this.applyLocalization();
         
         if (this.elements.settingsLocaleSelect) {
             this.elements.settingsLocaleSelect.value = locale;
@@ -420,7 +420,7 @@ class ModLoadOrderManager {
         this.uiManager.updateBulkActionsPanel();
     }
     
-    applyLocalization() {
+    async applyLocalization() {
         const t = (key) => this.localeManager.t(key);
         
         if (this.elements.pathInput?.previousElementSibling) {
@@ -511,7 +511,7 @@ class ModLoadOrderManager {
         if (themeLabel) themeLabel.textContent = t('ui.theme');
         
         if (this.themeComponent) {
-            this.themeComponent.updateThemeSelectLabels();
+            await this.themeComponent.updateThemeSelectLabels();
         }
         
         const localeLabel = document.getElementById('settings-locale-label');

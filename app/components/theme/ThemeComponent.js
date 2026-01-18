@@ -18,7 +18,7 @@ export class ThemeComponent {
     async init() {
         await this.loadLocales();
         this.loadStyles();
-        this.populateThemeSelect();
+        await this.populateThemeSelect();
         
         if (this.app.userConfig && this.app.userConfig.theme !== undefined) {
             this.applyTheme(this.app.userConfig.theme);
@@ -26,18 +26,33 @@ export class ThemeComponent {
     }
     
     async loadLocales() {
-        const localeFiles = ['en', 'ru', 'de', 'fr', 'it', 'ja', 'ko', 'pt', 'zh'];
+        const currentLocale = this.app.localeManager ? this.app.localeManager.getCurrentLocale() || 'en' : 'en';
+        await this.loadLocale(currentLocale);
+    }
+    
+    async loadLocale(locale) {
+        if (this.locales[locale]) {
+            return this.locales[locale];
+        }
         
-        for (const locale of localeFiles) {
-            try {
-                const response = await fetch(`components/theme/locales/${locale}.json`);
-                if (response.ok) {
-                    this.locales[locale] = await response.json();
+        try {
+            const response = await fetch(`components/theme/locales/${locale}.json`);
+            if (response.ok) {
+                this.locales[locale] = await response.json();
+                return this.locales[locale];
+            } else {
+                if (locale !== 'en') {
+                    return await this.loadLocale('en');
                 }
-            } catch (error) {
-                console.warn(`Failed to load theme locale ${locale}:`, error);
+            }
+        } catch (error) {
+            console.warn(`Failed to load theme locale ${locale}:`, error);
+            if (locale !== 'en') {
+                return await this.loadLocale('en');
             }
         }
+        
+        return null;
     }
     
     loadStyles() {
@@ -68,7 +83,7 @@ export class ThemeComponent {
         });
     }
     
-    populateThemeSelect() {
+    async populateThemeSelect() {
         if (!this.app.elements || !this.app.elements.settingsThemeSelect) {
             return;
         }
@@ -82,15 +97,20 @@ export class ThemeComponent {
             this.app.elements.settingsThemeSelect.appendChild(option);
         });
         
-        this.updateThemeSelectLabels();
+        await this.updateThemeSelectLabels();
     }
     
-    updateThemeSelectLabels() {
+    async updateThemeSelectLabels() {
         if (!this.app.elements || !this.app.elements.settingsThemeSelect) {
             return;
         }
         
         const currentLocale = this.app.localeManager ? this.app.localeManager.getCurrentLocale() || 'en' : 'en';
+        
+        if (!this.locales[currentLocale]) {
+            await this.loadLocale(currentLocale);
+        }
+        
         const localeData = this.locales[currentLocale] || this.locales['en'] || {};
         
         const themeOptions = this.app.elements.settingsThemeSelect.options;

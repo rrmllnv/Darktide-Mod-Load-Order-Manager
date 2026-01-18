@@ -106,7 +106,12 @@ export class SettingsManager {
     async applyLocale(locale) {
         await this.app.localeManager.loadLocale(locale);
         this.app.localeManager.setLocale(locale);
-        this.app.applyLocalization();
+        await this.app.applyLocalization();
+        
+        if (this.app.themeComponent) {
+            await this.app.themeComponent.loadLocale(locale);
+            await this.app.themeComponent.updateThemeSelectLabels();
+        }
         
         if (this.app.modListRenderer && this.app.elements.searchInput) {
             const searchText = this.app.elements.searchInput.value;
