@@ -57,15 +57,15 @@ export class ThemeComponent {
     
     loadStyles() {
         const styles = [
-            'components/theme/styles/theme-light.css',
-            'components/theme/styles/theme-dark.css',
-            'components/theme/styles/theme-high-contrast.css',
-            'components/theme/styles/theme-oled-dark.css',
-            'components/theme/styles/theme-sepia.css',
-            'components/theme/styles/theme-blue-light.css',
-            'components/theme/styles/theme-nord.css',
-            'components/theme/styles/theme-dracula.css',
-            'components/theme/styles/theme-solarized.css'
+            'components/theme/styles/light.css',
+            'components/theme/styles/dark.css',
+            'components/theme/styles/high-contrast.css',
+            'components/theme/styles/oled-dark.css',
+            'components/theme/styles/sepia.css',
+            'components/theme/styles/blue-light.css',
+            'components/theme/styles/nord.css',
+            'components/theme/styles/dracula.css',
+            'components/theme/styles/solarized.css'
         ];
         
         styles.forEach(styleFile => {
