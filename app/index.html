@@ -17,13 +17,13 @@
 </head>
 <body>
     <div class="path-frame">
-        <label>Файл:</label>
+        <label>File:</label>
         <input type="text" id="path-input" class="path-input" />
-        <button id="browse-btn" class="btn">Обзор...</button>
-        <button id="open-file-btn" class="btn-icon" title="Открыть файл" style="display: none;">
+        <button id="browse-btn" class="btn">Browse...</button>
+        <button id="open-file-btn" class="btn-icon" title="Open file" style="display: none;">
             <i class="fas fa-file"></i>
         </button>
-        <button id="open-mods-folder-btn" class="btn-icon" title="Открыть папку с модами">
+        <button id="open-mods-folder-btn" class="btn-icon" title="Open mods folder">
             <i class="fas fa-folder-open"></i>
         </button>
     </div>
@@ -32,54 +32,54 @@
         <div class="left-panel">
             <div class="header-frame">
                 <div class="button-frame">
-                    <button id="enable-all-btn" class="btn-icon" title="Включить все">
+                    <button id="enable-all-btn" class="btn-icon" title="Enable all">
                         <i class="fas fa-check-double"></i>
                     </button>
-                    <button id="disable-all-btn" class="btn-icon" title="Выключить все">
+                    <button id="disable-all-btn" class="btn-icon" title="Disable all">
                         <i class="fas fa-times"></i>
                     </button>
-                    <button id="reload-file-btn" class="btn-icon" title="Перезагрузить файл">
+                    <button id="reload-file-btn" class="btn-icon" title="Reload file">
                         <i class="fas fa-undo"></i>
                     </button>
-                    <button id="scan-btn" class="btn-icon" title="Сканировать моды">
+                    <button id="scan-btn" class="btn-icon" title="Scan mods">
                         <i class="fas fa-sync"></i>
                     </button>
                 </div>
                 <div class="button-frame selection-buttons-frame">
-                    <button id="bulk-select-enabled-btn" class="btn-icon" title="Выделить все включенные">
+                    <button id="bulk-select-enabled-btn" class="btn-icon" title="Select all enabled">
                         <i class="fas fa-check-square"></i>
                     </button>
-                    <button id="bulk-select-disabled-btn" class="btn-icon" title="Выделить все выключенные">
+                    <button id="bulk-select-disabled-btn" class="btn-icon" title="Select all disabled">
                         <i class="fas fa-square"></i>
                     </button>
                 </div>
                 <div class="button-frame add-mod-frame">
                     <div class="dropdown">
-                        <button id="add-mod-btn" class="btn-icon" title="Добавить мод">
+                        <button id="add-mod-btn" class="btn-icon" title="Add mod">
                             <i class="fas fa-plus"></i>
                         </button>
                         <div id="add-mod-dropdown" class="dropdown-content">
                             <button id="add-mod-folder-btn" class="dropdown-item">
-                                <span>Добавить папку мода</span>
+                                <span>Add mod folder</span>
                             </button>
                             <button id="create-symlink-btn" class="dropdown-item">
-                                <span>Создать симлинк</span>
+                                <span>Create symlink</span>
                             </button>
                         </div>
                     </div>
                 </div>
                 <div class="button-frame launch-dtkit-frame">
-                    <button id="launch-dtkit-btn" class="btn-icon" title="Запустить dtkit-patch">
+                    <button id="launch-dtkit-btn" class="btn-icon" title="Launch dtkit-patch">
                         <i class="fas fa-play"></i>
                     </button>
                 </div>
                 <div class="button-frame sort-frame">
                     
-                    <select id="sort-select" class="sort-combo" title="Сортировка:">
-                        <option value="fileOrder">По порядку файла</option>
-                        <option value="name">По имени</option>
-                        <option value="status">По статусу</option>
-                        <option value="newFirst">Новые сначала</option>
+                    <select id="sort-select" class="sort-combo" title="Sort:">
+                        <option value="fileOrder">By file order</option>
+                        <option value="name">By name</option>
+                        <option value="status">By status</option>
+                        <option value="newFirst">New first</option>
                     </select>
                 </div>
             </div>
@@ -91,29 +91,29 @@
 
         <div class="right-container">
             <div class="search-panel">
-                <label class="search-label">Поиск мода:</label>
+                <label class="search-label">Search mod:</label>
                 <div class="search-input-wrapper">
-                    <input type="text" id="search-input" class="search-input" placeholder="Введите название мода..." />
-                    <button id="clear-search-btn" class="btn-icon" title="Очистить">
+                    <input type="text" id="search-input" class="search-input" placeholder="Enter mod name..." />
+                    <button id="clear-search-btn" class="btn-icon" title="Clear">
                         <i class="fas fa-backspace"></i>
                     </button>
                 </div>
                 <div class="hide-new-mods-frame">
                     <label class="hide-new-mods-label">
                         <input type="checkbox" id="hide-new-mods-checkbox" />
-                        <span>Скрыть новые моды</span>
+                        <span>Hide new mods</span>
                     </label>
                 </div>
                 <div class="hide-unused-mods-frame">
                     <label class="hide-new-mods-label">
                         <input type="checkbox" id="hide-not-found-mods-checkbox" />
-                        <span>Скрыть не найденные моды</span>
+                        <span>Hide not found mods</span>
                     </label>
                 </div>
                 <div class="hide-unused-mods-frame">
                     <label class="hide-new-mods-label">
                         <input type="checkbox" id="hide-unused-mods-checkbox" />
-                        <span>Скрыть все не используемые моды</span>
+                        <span>Hide all unused mods</span>
                     </label>
                 </div>
             </div>
@@ -121,43 +121,43 @@
             <div class="info-panel">
                 <div class="info-frame">
                     <div id="bulk-actions-panel" class="bulk-actions-frame">
-                        <label class="section-label">Действия:</label>
+                        <label class="section-label">Actions:</label>
                         <div class="bulk-actions-buttons">
-                            <button id="bulk-enable-btn" class="btn-icon" title="Включить выбранные">
+                            <button id="bulk-enable-btn" class="btn-icon" title="Enable selected">
                                 <i class="fas fa-check"></i>
                             </button>
-                            <button id="bulk-disable-btn" class="btn-icon" title="Выключить выбранные">
+                            <button id="bulk-disable-btn" class="btn-icon" title="Disable selected">
                                 <i class="fas fa-times"></i>
                             </button>
-                            <button id="bulk-delete-btn" class="btn-icon" title="Удалить выбранные">
+                            <button id="bulk-delete-btn" class="btn-icon" title="Delete selected">
                                 <i class="fas fa-trash"></i>
                             </button>
-                            <button id="bulk-clear-selection-btn" class="btn-icon" title="Снять выделение">
+                            <button id="bulk-clear-selection-btn" class="btn-icon" title="Clear selection">
                                 <i class="fas fa-times-circle"></i>
                             </button>
                         </div>
                         <div class="bulk-actions-info">
-                            <span id="bulk-selection-count">0 модов выбрано</span>
+                            <span id="bulk-selection-count">0 mods selected</span>
                         </div>
                     </div>
 
                     <div class="profiles-frame">
-                        <label class="section-label">Профили:</label>
+                        <label class="section-label">Profiles:</label>
                         <select id="profiles-list" class="profiles-list" size="6"></select>
                         <div class="profile-buttons">
-                            <button id="new-profile-btn" class="btn-icon" title="Новый профиль">
+                            <button id="new-profile-btn" class="btn-icon" title="New profile">
                                 <i class="fas fa-plus"></i>
                             </button>
-                            <button id="load-profile-btn" class="btn-icon" title="Загрузить профиль">
+                            <button id="load-profile-btn" class="btn-icon" title="Load profile">
                                 <i class="fas fa-file-arrow-down"></i>
                             </button>
-                            <button id="overwrite-profile-btn" class="btn-icon" title="Перезаписать профиль">
+                            <button id="overwrite-profile-btn" class="btn-icon" title="Overwrite profile">
                                 <i class="fas fa-save"></i>
                             </button>
-                            <button id="rename-profile-btn" class="btn-icon" title="Переименовать профиль">
+                            <button id="rename-profile-btn" class="btn-icon" title="Rename profile">
                                 <i class="fas fa-edit"></i>
                             </button>
-                            <button id="delete-profile-btn" class="btn-icon" title="Удалить профиль">
+                            <button id="delete-profile-btn" class="btn-icon" title="Delete profile">
                                 <i class="fas fa-trash"></i>
                             </button>
                         </div>
@@ -168,27 +168,27 @@
     </div>
 
     <div class="save-frame">
-        <button id="settings-btn" class="btn-icon" title="Настройки">
+        <button id="settings-btn" class="btn-icon" title="Settings">
             <i class="fas fa-cog"></i>
         </button>
-        <button id="save-btn" class="btn btn-primary">Сохранить</button>
+        <button id="save-btn" class="btn btn-primary">Save</button>
     </div>
 
     <div class="status-bar">
-        <span id="status-text">Готов</span>
+        <span id="status-text">Ready</span>
     </div>
 
     <div id="profile-dialog" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <span id="modal-title" class="modal-title">Введите имя профиля</span>
+                <span id="modal-title" class="modal-title">Enter profile name</span>
             </div>
             <div class="modal-body">
-                <input type="text" id="profile-name-input" class="modal-input" placeholder="Имя профиля..." autocomplete="off" />
+                <input type="text" id="profile-name-input" class="modal-input" placeholder="Profile name..." autocomplete="off" />
             </div>
             <div class="modal-footer">
-                <button id="modal-ok-btn" class="btn btn-primary">Сохранить</button>
-                <button id="modal-cancel-btn" class="btn">Отмена</button>
+                <button id="modal-ok-btn" class="btn btn-primary">Save</button>
+                <button id="modal-cancel-btn" class="btn">Cancel</button>
             </div>
         </div>
     </div>
@@ -196,13 +196,13 @@
     <div id="message-dialog" class="modal">
         <div class="modal-content modal-content-message">
             <div class="modal-header">
-                <span id="message-title" class="modal-title">Сообщение</span>
+                <span id="message-title" class="modal-title">Message</span>
             </div>
             <div class="modal-body">
                 <div id="message-text" class="message-text"></div>
             </div>
             <div class="modal-footer">
-                <button id="message-ok-btn" class="btn btn-primary">Сохранить</button>
+                <button id="message-ok-btn" class="btn btn-primary">Save</button>
             </div>
         </div>
     </div>
@@ -210,18 +210,18 @@
     <div id="settings-dialog" class="modal">
         <div class="modal-content modal-content-settings">
             <div class="modal-header">
-                <span class="modal-title">Настройки</span>
+                <span class="modal-title">Settings</span>
             </div>
             <div class="modal-body">
                 <div class="settings-section">
-                    <label class="settings-label" id="settings-theme-label">Тема:</label>
+                    <label class="settings-label" id="settings-theme-label">Theme:</label>
                     <select id="settings-theme-select" class="settings-input">
-                        <option value="">Светлая</option>
-                        <option value="dark">Темная</option>
+                        <option value="">Light</option>
+                        <option value="dark">Dark</option>
                     </select>
                 </div>
                 <div class="settings-section">
-                    <label class="settings-label" id="settings-locale-label">Язык:</label>
+                    <label class="settings-label" id="settings-locale-label">Language:</label>
                     <select id="settings-locale-select" class="settings-input">
                         <option value="en">English</option>
                         <option value="ru">Русский</option>
@@ -236,8 +236,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button id="settings-ok-btn" class="btn btn-primary">Сохранить</button>
-                <button id="settings-cancel-btn" class="btn">Отмена</button>
+                <button id="settings-ok-btn" class="btn btn-primary">Save</button>
+                <button id="settings-cancel-btn" class="btn">Cancel</button>
             </div>
         </div>
     </div>
@@ -245,24 +245,24 @@
     <div id="drag-drop-overlay" class="drag-drop-overlay">
         <div class="drag-drop-content">
             <i class="fas fa-folder-open drag-drop-icon"></i>
-            <div id="drag-drop-text" class="drag-drop-text">Перетащите папку мода сюда</div>
+            <div id="drag-drop-text" class="drag-drop-text">Drag mod folder here</div>
         </div>
     </div>
 
     <div id="mod-context-menu" class="context-menu">
         <button id="context-menu-enable" class="context-menu-item">
-            <span>Включить</span>
+            <span>Enable</span>
         </button>
         <button id="context-menu-disable" class="context-menu-item">
-            <span>Выключить</span>
+            <span>Disable</span>
         </button>
         <div class="context-menu-separator"></div>
         <button id="context-menu-copy" class="context-menu-item">
-            <span>Скопировать название</span>
+            <span>Copy name</span>
         </button>
         <div class="context-menu-separator"></div>
         <button id="context-menu-delete" class="context-menu-item">
-            <span>Удалить</span>
+            <span>Delete</span>
         </button>
     </div>
 
