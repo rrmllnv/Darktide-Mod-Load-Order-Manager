@@ -39,18 +39,13 @@ export class ProfileService {
             return { modEntries: [], selectedModName: '', settings: null };
         }
         
-        let profileOrder = [];
-        let profileMods = {};
-        let profileSettings = null;
-        
-        if (state._order && state._mods) {
-            profileOrder = state._order;
-            profileMods = state._mods;
-            profileSettings = state._settings || null;
-        } else {
-            profileOrder = Object.keys(state);
-            profileMods = state;
+        if (!state._order || !state._mods) {
+            return { modEntries: [], selectedModName: '', settings: null };
         }
+        
+        const profileOrder = state._order;
+        const profileMods = state._mods;
+        const profileSettings = state._settings || null;
         
         const profileModNames = new Set(profileOrder);
         
@@ -107,7 +102,7 @@ export class ProfileService {
     
     async saveProfile(profileName, state) {
         if (!this.profilesDir) {
-            return { success: false, error: 'Папка профилей не определена' };
+            return { success: false, error: 'Profiles directory not determined' };
         }
         
         return await window.electronAPI.saveProfile(this.profilesDir, profileName, state);
@@ -115,7 +110,7 @@ export class ProfileService {
     
     async loadProfile(profileName) {
         if (!this.profilesDir) {
-            return { success: false, error: 'Папка профилей не определена' };
+            return { success: false, error: 'Profiles directory not determined' };
         }
         
         return await window.electronAPI.loadProfile(this.profilesDir, profileName);
@@ -123,7 +118,7 @@ export class ProfileService {
     
     async deleteProfile(profileName) {
         if (!this.profilesDir) {
-            return { success: false, error: 'Папка профилей не определена' };
+            return { success: false, error: 'Profiles directory not determined' };
         }
         
         return await window.electronAPI.deleteProfile(this.profilesDir, profileName);
@@ -131,7 +126,7 @@ export class ProfileService {
     
     async renameProfile(oldName, newName) {
         if (!this.profilesDir) {
-            return { success: false, error: 'Папка профилей не определена' };
+            return { success: false, error: 'Profiles directory not determined' };
         }
         
         return await window.electronAPI.renameProfile(this.profilesDir, oldName, newName);

@@ -59,15 +59,16 @@ export class ProfileManager {
             }
             
             if (result.settings.sort && this.app.elements.sortSelect) {
-                let sortValue = result.settings.sort;
-                if (sortValue === 'By file order' || sortValue === 'По порядку файла') sortValue = 'fileOrder';
-                else if (sortValue === 'By name' || sortValue === 'По имени') sortValue = 'name';
-                else if (sortValue === 'By status' || sortValue === 'По статусу') sortValue = 'status';
-                else if (sortValue === 'New first' || sortValue === 'Новые сначала') sortValue = 'newFirst';
+                const sortValue = result.settings.sort;
+                const validSortKeys = ['fileOrder', 'name', 'status', 'newFirst'];
                 
-                const option = Array.from(this.app.elements.sortSelect.options).find(opt => opt.value === sortValue);
-                if (option) {
-                    this.app.elements.sortSelect.value = sortValue;
+                if (validSortKeys.includes(sortValue)) {
+                    const option = Array.from(this.app.elements.sortSelect.options).find(opt => opt.value === sortValue);
+                    if (option) {
+                        this.app.elements.sortSelect.value = sortValue;
+                    } else {
+                        this.app.elements.sortSelect.value = 'fileOrder';
+                    }
                 } else {
                     this.app.elements.sortSelect.value = 'fileOrder';
                 }

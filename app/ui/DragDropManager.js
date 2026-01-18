@@ -37,7 +37,7 @@ export class DragDropManager {
     }
     
     attachDragDrop(modItem, modEntry, index, currentSort) {
-        if (currentSort === 'fileOrder' || currentSort === 'По порядку файла') {
+        if (currentSort === 'fileOrder') {
             modItem.draggable = true;
             modItem.setAttribute('data-mod-name', modEntry.name);
             
