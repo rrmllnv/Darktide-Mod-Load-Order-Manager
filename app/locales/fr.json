@@ -141,7 +141,8 @@
             "dragDropNotFolder": "Glissez un dossier, pas un fichier",
             "folderCopied": "Dossier copié: {folderName}",
             "folderCopyError": "Erreur lors de la copie du dossier",
-            "fileNotFoundPleaseSelect": "Pour commencer, sélectionnez le fichier mod_load_order.txt.\n\nCliquez sur le bouton Parcourir pour trouver le fichier."
+            "fileNotFoundPleaseSelect": "Pour commencer, sélectionnez le fichier mod_load_order.txt.\n\nCliquez sur le bouton Parcourir pour trouver le fichier.",
+            "fileNotFoundCannotSave": "Fichier introuvable. Le fichier a peut-être été supprimé ou déplacé.\n\nVeuillez sélectionner à nouveau le fichier à l'aide du bouton Parcourir."
         },
         "profile": {
             "overwriteProfileConfirm": "Écraser le profil '{profileName}' avec l'état actuel?",

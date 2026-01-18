@@ -141,7 +141,8 @@
             "dragDropNotFolder": "Arraste uma pasta, não um arquivo",
             "folderCopied": "Pasta copiada: {folderName}",
             "folderCopyError": "Erro ao copiar pasta",
-            "fileNotFoundPleaseSelect": "Para começar, selecione o arquivo mod_load_order.txt.\n\nClique no botão Procurar para encontrar o arquivo."
+            "fileNotFoundPleaseSelect": "Para começar, selecione o arquivo mod_load_order.txt.\n\nClique no botão Procurar para encontrar o arquivo.",
+            "fileNotFoundCannotSave": "Arquivo não encontrado. O arquivo pode ter sido excluído ou movido.\n\nPor favor, selecione o arquivo novamente usando o botão Procurar."
         },
         "profile": {
             "overwriteProfileConfirm": "Sobrescrever o perfil '{profileName}' com o estado atual?",

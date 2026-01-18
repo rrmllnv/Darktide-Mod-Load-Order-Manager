@@ -263,6 +263,7 @@ class ModLoadOrderManager {
             await this.fileManager.loadFile();
         }
         await this.fileManager.updateOpenFileButton();
+        this.fileManager.updateSaveButton();
         
         this.initFileSystemDragDrop();
     }

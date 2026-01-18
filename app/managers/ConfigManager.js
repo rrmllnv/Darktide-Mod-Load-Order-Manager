@@ -73,11 +73,18 @@ export class ConfigManager {
             }
             this.app.filePath = '';
             this.app.elements.pathInput.value = '';
+            if (this.app.fileManager && this.app.fileManager.updateSaveButton) {
+                this.app.fileManager.updateSaveButton();
+            }
             this.app.settingsManager.applyAllSettings();
             return;
         }
         
         this.app.elements.pathInput.value = this.app.filePath;
+        
+        if (this.app.fileManager && this.app.fileManager.updateSaveButton) {
+            this.app.fileManager.updateSaveButton();
+        }
         
         if (wasAutoFound && this.app.filePath) {
             if (!this.app.userConfig) {

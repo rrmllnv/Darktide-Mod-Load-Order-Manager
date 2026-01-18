@@ -11,6 +11,7 @@ export class FileManager {
             this.app.filePath = result.filePath;
             this.app.elements.pathInput.value = this.app.filePath;
             await this.app.configManager.saveUserConfig();
+            this.updateSaveButton();
             await this.loadFile();
             await this.updateOpenFileButton();
         }
@@ -66,10 +67,17 @@ export class FileManager {
         }
     }
     
+    updateSaveButton() {
+        if (this.app.elements.saveBtn) {
+            this.app.elements.saveBtn.disabled = !this.app.filePath || this.app.filePath.trim() === '';
+        }
+    }
+    
     async loadFile() {
         this.app.filePath = this.app.elements.pathInput.value;
         await this.app.configManager.saveUserConfig();
         
+        this.updateSaveButton();
         await this.updateOpenFileButton();
         
         try {
@@ -105,6 +113,20 @@ export class FileManager {
     }
     
     async saveFile() {
+        if (!this.app.filePath) {
+            await this.app.uiManager.showMessage(this.app.t('messages.common.error'), this.app.t('messages.common.filePathNotSet'));
+            return;
+        }
+        
+        const fileExists = await window.electronAPI.fileExists(this.app.filePath);
+        if (!fileExists) {
+            await this.app.uiManager.showMessage(
+                this.app.t('messages.common.error'),
+                this.app.t('messages.common.fileNotFoundCannotSave')
+            );
+            return;
+        }
+        
         const confirmed = await this.app.uiManager.showConfirm(this.app.t('messages.common.saveConfirm'));
         if (!confirmed) {
             return;

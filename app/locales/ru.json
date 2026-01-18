@@ -141,7 +141,8 @@
             "dragDropNotFolder": "Перетащите папку, а не файл",
             "folderCopied": "Папка скопирована: {folderName}",
             "folderCopyError": "Ошибка при копировании папки",
-            "fileNotFoundPleaseSelect": "Для начала работы выберите файл mod_load_order.txt.\n\nНажмите кнопку Обзор, чтобы найти файл."
+            "fileNotFoundPleaseSelect": "Для начала работы выберите файл mod_load_order.txt.\n\nНажмите кнопку Обзор, чтобы найти файл.",
+            "fileNotFoundCannotSave": "Файл не найден. Возможно, файл был удален или перемещен.\n\nПожалуйста, выберите файл снова с помощью кнопки Обзор."
         },
         "profile": {
             "overwriteProfileConfirm": "Перезаписать профиль '{profileName}' текущим состоянием?",

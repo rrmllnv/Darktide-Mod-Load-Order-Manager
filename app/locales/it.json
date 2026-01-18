@@ -141,7 +141,8 @@
             "dragDropNotFolder": "Trascina una cartella, non un file",
             "folderCopied": "Cartella copiata: {folderName}",
             "folderCopyError": "Errore durante la copia della cartella",
-            "fileNotFoundPleaseSelect": "Per iniziare, seleziona il file mod_load_order.txt.\n\nClicca sul pulsante Sfoglia per trovare il file."
+            "fileNotFoundPleaseSelect": "Per iniziare, seleziona il file mod_load_order.txt.\n\nClicca sul pulsante Sfoglia per trovare il file.",
+            "fileNotFoundCannotSave": "File non trovato. Il file potrebbe essere stato eliminato o spostato.\n\nSi prega di selezionare nuovamente il file utilizzando il pulsante Sfoglia."
         },
         "profile": {
             "overwriteProfileConfirm": "Sovrascrivere il profilo '{profileName}' con lo stato attuale?",

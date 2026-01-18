@@ -141,7 +141,8 @@
             "dragDropNotFolder": "Drag a folder, not a file",
             "folderCopied": "Folder copied: {folderName}",
             "folderCopyError": "Error copying folder",
-            "fileNotFoundPleaseSelect": "To get started, select the mod_load_order.txt file.\n\nClick the Browse button to find the file."
+            "fileNotFoundPleaseSelect": "To get started, select the mod_load_order.txt file.\n\nClick the Browse button to find the file.",
+            "fileNotFoundCannotSave": "File not found. The file may have been deleted or moved.\n\nPlease select the file again using the Browse button."
         },
         "profile": {
             "overwriteProfileConfirm": "Overwrite profile '{profileName}' with current state?",
