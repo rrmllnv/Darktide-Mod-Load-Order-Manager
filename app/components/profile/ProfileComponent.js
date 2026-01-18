@@ -376,11 +376,8 @@ export class ProfileComponent {
                     this.app.elements.profilesList.value = previouslySelectedProfile;
                     this.selectedProfileName = previouslySelectedProfile;
                     this.app.selectedProfileName = previouslySelectedProfile;
-                } else if (result.profiles.length > 0) {
-                    this.app.elements.profilesList.selectedIndex = 0;
-                    this.selectedProfileName = this.app.elements.profilesList.options[0].value;
-                    this.app.selectedProfileName = this.selectedProfileName;
                 } else {
+                    this.app.elements.profilesList.selectedIndex = -1;
                     this.selectedProfileName = null;
                     this.app.selectedProfileName = null;
                 }
