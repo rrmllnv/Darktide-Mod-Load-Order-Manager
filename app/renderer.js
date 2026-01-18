@@ -259,7 +259,9 @@ class ModLoadOrderManager {
             saveFile: () => this.fileManager.saveFile()
         });
         
-        await this.fileManager.loadFile();
+        if (this.filePath) {
+            await this.fileManager.loadFile();
+        }
         await this.fileManager.updateOpenFileButton();
         
         this.initFileSystemDragDrop();
