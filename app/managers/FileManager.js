@@ -94,11 +94,6 @@ export class FileManager {
     }
     
     async saveFile() {
-        if (this.app.modEntries.length === 0) {
-            await this.app.uiManager.showMessage(this.app.t('messages.error'), this.app.t('messages.noModsToSave'));
-            return;
-        }
-        
         const confirmed = await this.app.uiManager.showConfirm(this.app.t('messages.saveConfirm'));
         if (!confirmed) {
             return;
