@@ -34,4 +34,8 @@ body.theme-dracula {
     
     --bg-selected-no-focus-dark: #44475a;
     --text-selected-no-focus-dark: #f8f8f2;
+    
+    --select-bg: #44475a;
+    --select-option-bg: #44475a;
+    --input-bg: #44475a;
 }

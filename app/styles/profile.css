@@ -10,7 +10,7 @@
     border-radius: 3px;
     font-size: 8pt;
     padding: 0;
-    background-color: var(--bg-secondary);
+    background-color: var(--select-bg);
     color: var(--text-primary);
 }
 
@@ -22,7 +22,7 @@
 
 .profiles-list option {
     padding: 5px;
-    background-color: var(--bg-secondary);
+    background-color: var(--select-option-bg);
     color: var(--text-primary);
 }
 
@@ -45,7 +45,7 @@
 }
 
 .profiles-list:not(:focus) option:not(:checked) {
-    background-color: var(--bg-secondary);
+    background-color: var(--select-option-bg);
     color: var(--text-primary);
 }
 

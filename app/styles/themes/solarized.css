@@ -34,4 +34,8 @@ body.theme-solarized {
     
     --bg-selected-no-focus-dark: #073642;
     --text-selected-no-focus-dark: #839496;
+    
+    --select-bg: #073642;
+    --select-option-bg: #073642;
+    --input-bg: #073642;
 }

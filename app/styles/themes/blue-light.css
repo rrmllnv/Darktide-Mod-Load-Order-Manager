@@ -34,4 +34,8 @@ body.theme-blue-light {
     
     --bg-selected-no-focus-dark: #ff8c42;
     --text-selected-no-focus-dark: #ffebcd;
+    
+    --select-bg: #252525;
+    --select-option-bg: #252525;
+    --input-bg: #252525;
 }

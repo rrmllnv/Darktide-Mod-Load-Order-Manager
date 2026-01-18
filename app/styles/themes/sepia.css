@@ -34,4 +34,8 @@ body.theme-sepia {
     
     --bg-selected-no-focus-light: #d4c5a9;
     --text-selected-no-focus-light: #3e2723;
+    
+    --select-bg: #faf8f3;
+    --select-option-bg: #faf8f3;
+    --input-bg: #faf8f3;
 }

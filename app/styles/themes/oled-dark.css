@@ -34,4 +34,8 @@ body.theme-oled-dark {
     
     --bg-selected-no-focus-dark: #1e3a5f;
     --text-selected-no-focus-dark: #ffffff;
+    
+    --select-bg: #000000;
+    --select-option-bg: #000000;
+    --input-bg: #000000;
 }

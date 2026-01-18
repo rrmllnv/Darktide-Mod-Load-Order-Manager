@@ -34,4 +34,8 @@
     
     --bg-selected-no-focus-light: #E3F2FD;
     --text-selected-no-focus-light: #333;
+    
+    --select-bg: #ffffff;
+    --select-option-bg: #ffffff;
+    --input-bg: #ffffff;
 }

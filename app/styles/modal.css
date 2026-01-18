@@ -73,7 +73,7 @@
     border-radius: 3px;
     font-size: 13px;
     box-sizing: border-box;
-    background-color: var(--bg-secondary);
+    background-color: var(--input-bg);
     color: var(--text-primary);
     pointer-events: auto !important;
     cursor: text !important;

@@ -34,4 +34,8 @@ body.theme-nord {
     
     --bg-selected-no-focus-dark: #5e81ac;
     --text-selected-no-focus-dark: #eceff4;
+    
+    --select-bg: #3b4252;
+    --select-option-bg: #3b4252;
+    --input-bg: #3b4252;
 }

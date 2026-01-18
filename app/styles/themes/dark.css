@@ -34,4 +34,8 @@ body.theme-dark {
     
     --bg-selected-no-focus-dark: #1e3a5f;
     --text-selected-no-focus-dark: #e8e8e8;
+    
+    --select-bg: #252525;
+    --select-option-bg: #252525;
+    --input-bg: #252525;
 }

@@ -126,7 +126,7 @@
     margin-right: 2px;
     border: 1px solid var(--border-secondary);
     border-radius: 3px;
-    background-color: var(--bg-tertiary);
+    background-color: var(--select-bg);
     cursor: pointer;
     font-size: 13px;
     transition: background-color 0.2s;
