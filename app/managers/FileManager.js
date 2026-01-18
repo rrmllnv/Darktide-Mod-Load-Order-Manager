@@ -55,6 +55,15 @@ export class FileManager {
                 this.app.elements.openFileBtn.style.display = 'none';
             }
         }
+        
+        if (this.app.elements.openModsFolderBtn) {
+            if (this.app.filePath) {
+                const fileExists = await window.electronAPI.fileExists(this.app.filePath);
+                this.app.elements.openModsFolderBtn.style.display = fileExists ? 'inline-block' : 'none';
+            } else {
+                this.app.elements.openModsFolderBtn.style.display = 'none';
+            }
+        }
     }
     
     async loadFile() {
