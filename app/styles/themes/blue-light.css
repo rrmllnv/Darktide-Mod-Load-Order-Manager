@@ -4,7 +4,7 @@ body.theme-blue-light {
     --bg-tertiary: #2d2d2d;
     --bg-hover: #333333;
     --bg-active: #3a3a3a;
-    --bg-selected: #1e3a5f;
+    --bg-selected: #ff8c42;
     --bg-disabled: #2a2a2a;
     
     --border-primary: #3a3a3a;
@@ -32,6 +32,6 @@ body.theme-blue-light {
     --bulk-actions-border: #ffc107;
     --bulk-actions-text: #ffd54f;
     
-    --bg-selected-no-focus-dark: #1e3a5f;
+    --bg-selected-no-focus-dark: #ff8c42;
     --text-selected-no-focus-dark: #ffebcd;
 }
