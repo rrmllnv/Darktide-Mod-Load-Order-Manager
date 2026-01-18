@@ -18,31 +18,31 @@ export class FileManager {
     
     async openFile() {
         if (!this.app.filePath) {
-            await this.app.uiManager.showMessage(this.app.t('messages.error'), this.app.t('messages.filePathNotSet'));
+            await this.app.uiManager.showMessage(this.app.t('messages.common.error'), this.app.t('messages.common.filePathNotSet'));
             return;
         }
         
         const result = await window.electronAPI.openFile(this.app.filePath);
         if (!result.success) {
-            await this.app.uiManager.showMessage(this.app.t('messages.error'), result.error || this.app.t('messages.failedToOpenFile'));
+            await this.app.uiManager.showMessage(this.app.t('messages.common.error'), result.error || this.app.t('messages.common.failedToOpenFile'));
         }
     }
     
     async openModsFolder() {
         if (!this.app.filePath) {
-            await this.app.uiManager.showMessage(this.app.t('messages.error'), this.app.t('messages.filePathNotSet'));
+            await this.app.uiManager.showMessage(this.app.t('messages.common.error'), this.app.t('messages.common.filePathNotSet'));
             return;
         }
         
         const modsDir = this.app.filePath.substring(0, this.app.filePath.lastIndexOf('\\'));
         if (!modsDir) {
-            await this.app.uiManager.showMessage(this.app.t('messages.error'), this.app.t('messages.failedToDetermineModsDir'));
+            await this.app.uiManager.showMessage(this.app.t('messages.common.error'), this.app.t('messages.common.failedToDetermineModsDir'));
             return;
         }
         
         const result = await window.electronAPI.openFolder(modsDir);
         if (!result.success) {
-            await this.app.uiManager.showMessage(this.app.t('messages.error'), result.error || this.app.t('messages.failedToOpenFolder'));
+            await this.app.uiManager.showMessage(this.app.t('messages.common.error'), result.error || this.app.t('messages.common.failedToOpenFolder'));
         }
     }
     
@@ -90,13 +90,13 @@ export class FileManager {
             }
             
         } catch (error) {
-            await this.app.uiManager.showMessage(this.app.t('messages.error'), `${this.app.t('messages.fileLoadError')}\n${error.message}`);
+            await this.app.uiManager.showMessage(this.app.t('messages.common.error'), `${this.app.t('messages.common.fileLoadError')}\n${error.message}`);
             this.app.setStatus(`Error: ${error.message}`);
         }
     }
     
     async saveFile() {
-        const confirmed = await this.app.uiManager.showConfirm(this.app.t('messages.saveConfirm'));
+        const confirmed = await this.app.uiManager.showConfirm(this.app.t('messages.common.saveConfirm'));
         if (!confirmed) {
             return;
         }
@@ -110,22 +110,22 @@ export class FileManager {
             }
             await this.app.fileService.saveFile(this.app.filePath, this.app.headerLines, this.app.modEntries, sortedModEntries);
             
-            await this.app.uiManager.showMessage(this.app.t('messages.success'), this.app.t('messages.fileSaved'));
-            this.app.setStatus(this.app.t('messages.fileSavedStatus'));
+            await this.app.uiManager.showMessage(this.app.t('messages.common.success'), this.app.t('messages.common.fileSaved'));
+            this.app.setStatus(this.app.t('messages.common.fileSavedStatus'));
             
             await this.loadFile();
             
         } catch (error) {
-            await this.app.uiManager.showMessage(this.app.t('messages.error'), `${this.app.t('messages.fileSaveError')}\n${error.message}`);
-            this.app.setStatus(`${this.app.t('messages.saveError')} ${error.message}`);
+            await this.app.uiManager.showMessage(this.app.t('messages.common.error'), `${this.app.t('messages.common.fileSaveError')}\n${error.message}`);
+            this.app.setStatus(`${this.app.t('messages.common.saveError')} ${error.message}`);
         }
     }
     
     async reloadFile() {
-        const confirmed = await this.app.uiManager.showConfirm(this.app.t('messages.reloadConfirm'));
+        const confirmed = await this.app.uiManager.showConfirm(this.app.t('messages.common.reloadConfirm'));
         if (confirmed) {
             await this.loadFile();
-            this.app.setStatus(this.app.t('messages.fileReloaded'));
+            this.app.setStatus(this.app.t('messages.common.fileReloaded'));
         }
     }
     
@@ -133,8 +133,8 @@ export class FileManager {
         const modsDir = this.app.filePath ? this.app.filePath.substring(0, this.app.filePath.lastIndexOf('\\')) : '';
         if (!modsDir) {
             await this.app.uiManager.showMessage(
-                this.app.t('messages.error'),
-                this.app.t('messages.failedToDetermineModsDir')
+                this.app.t('messages.common.error'),
+                this.app.t('messages.common.failedToDetermineModsDir')
             );
             return;
         }
@@ -150,8 +150,8 @@ export class FileManager {
         const isDirectory = await window.electronAPI.checkIsDirectory(selectedFolder);
         if (!isDirectory) {
             await this.app.uiManager.showMessage(
-                this.app.t('messages.error'),
-                this.app.t('messages.dragDropNotFolder') || 'Select a folder, not a file'
+                this.app.t('messages.common.error'),
+                this.app.t('messages.common.dragDropNotFolder') || 'Select a folder, not a file'
             );
             return;
         }
@@ -161,50 +161,50 @@ export class FileManager {
             
             if (copyResult.success) {
                 await this.app.uiManager.showMessage(
-                    this.app.t('messages.success'),
-                    (this.app.t('messages.folderCopied') || 'Folder copied: {folderName}').replace('{folderName}', copyResult.folderName)
+                    this.app.t('messages.common.success'),
+                    (this.app.t('messages.common.folderCopied') || 'Folder copied: {folderName}').replace('{folderName}', copyResult.folderName)
                 );
                 
                 await this.app.modListComponent.scanAndUpdate();
             } else {
                 await this.app.uiManager.showMessage(
-                    this.app.t('messages.error'),
-                    copyResult.error || (this.app.t('messages.folderCopyError') || 'Error copying folder')
+                    this.app.t('messages.common.error'),
+                    copyResult.error || (this.app.t('messages.common.folderCopyError') || 'Error copying folder')
                 );
             }
         } catch (error) {
             await this.app.uiManager.showMessage(
-                this.app.t('messages.error'),
-                error.message || (this.app.t('messages.folderCopyError') || 'Error copying folder')
+                this.app.t('messages.common.error'),
+                error.message || (this.app.t('messages.common.folderCopyError') || 'Error copying folder')
             );
         }
     }
     
     async launchDtkitPatch() {
         if (!this.app.filePath) {
-            await this.app.uiManager.showMessage(this.app.t('messages.error'), this.app.t('messages.filePathNotSet') || 'File path not set');
+            await this.app.uiManager.showMessage(this.app.t('messages.common.error'), this.app.t('messages.common.filePathNotSet') || 'File path not set');
             return;
         }
         
         const modsDir = this.app.filePath.substring(0, this.app.filePath.lastIndexOf('\\'));
         if (!modsDir) {
-            await this.app.uiManager.showMessage(this.app.t('messages.error'), this.app.t('messages.failedToDetermineModsDir'));
+            await this.app.uiManager.showMessage(this.app.t('messages.common.error'), this.app.t('messages.common.failedToDetermineModsDir'));
             return;
         }
         
         const gameDir = modsDir.substring(0, modsDir.lastIndexOf('\\'));
         if (!gameDir) {
-            await this.app.uiManager.showMessage(this.app.t('messages.error'), this.app.t('messages.failedToDetermineGameDir') || 'Failed to determine game directory');
+            await this.app.uiManager.showMessage(this.app.t('messages.common.error'), this.app.t('messages.common.failedToDetermineGameDir') || 'Failed to determine game directory');
             return;
         }
         
         try {
             const result = await window.electronAPI.launchDtkitPatch(gameDir);
             if (!result.success) {
-                await this.app.uiManager.showMessage(this.app.t('messages.error'), result.error || this.app.t('messages.launchDtkitPatchError') || 'Error launching application');
+                await this.app.uiManager.showMessage(this.app.t('messages.common.error'), result.error || this.app.t('messages.common.launchDtkitPatchError') || 'Error launching application');
             }
         } catch (error) {
-            await this.app.uiManager.showMessage(this.app.t('messages.error'), error.message || this.app.t('messages.launchDtkitPatchError') || 'Error launching application');
+            await this.app.uiManager.showMessage(this.app.t('messages.common.error'), error.message || this.app.t('messages.common.launchDtkitPatchError') || 'Error launching application');
         }
     }
 }

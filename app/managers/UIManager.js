@@ -5,19 +5,19 @@ export class UIManager {
     
     showMessage(title, message) {
         return new Promise((resolve) => {
-            const isError = title === this.app.t('messages.error') || 
+            const isError = title === this.app.t('messages.common.error') || 
                            title === 'Error' ||
                            title?.toLowerCase().includes('error');
             
-            const isSuccess = title === this.app.t('messages.success') || 
+            const isSuccess = title === this.app.t('messages.common.success') || 
                              title === 'Success' ||
                              title?.toLowerCase().includes('success');
             
-            const isInfo = title === this.app.t('messages.info') || 
+            const isInfo = title === this.app.t('messages.common.info') || 
                           title === 'Info' ||
                           title?.toLowerCase().includes('info');
             
-            const buttonText = this.app.t('ui.close');
+            const buttonText = this.app.t('ui.common.close');
             
             const footer = this.app.elements.messageDialog.querySelector('.modal-footer');
             if (!footer.querySelector('#message-ok-btn')) {
@@ -30,7 +30,7 @@ export class UIManager {
                 }
             }
             
-            this.app.elements.messageTitle.textContent = title || this.app.t('ui.message');
+            this.app.elements.messageTitle.textContent = title || this.app.t('ui.common.message');
             this.app.elements.messageText.textContent = message;
             this.app.elements.messageDialog.classList.add('show');
             
@@ -50,13 +50,13 @@ export class UIManager {
     
     showConfirm(message) {
         return new Promise((resolve) => {
-            this.app.elements.messageTitle.textContent = this.app.t('ui.confirmation');
+            this.app.elements.messageTitle.textContent = this.app.t('ui.common.confirmation');
             this.app.elements.messageText.textContent = message;
             
             const footer = this.app.elements.messageDialog.querySelector('.modal-footer');
             footer.innerHTML = `
-                <button id="confirm-yes-btn" class="btn btn-primary">${this.app.t('ui.yes')}</button>
-                <button id="confirm-no-btn" class="btn">${this.app.t('ui.no')}</button>
+                <button id="confirm-yes-btn" class="btn btn-primary">${this.app.t('ui.common.yes')}</button>
+                <button id="confirm-no-btn" class="btn">${this.app.t('ui.common.no')}</button>
             `;
             
             this.app.elements.messageDialog.classList.add('show');
@@ -66,7 +66,7 @@ export class UIManager {
             
             const handleYes = () => {
                 this.app.elements.messageDialog.classList.remove('show');
-                const saveText = this.app.t('ui.save');
+                const saveText = this.app.t('ui.common.save');
                 footer.innerHTML = `<button id="message-ok-btn" class="btn btn-primary">${saveText}</button>`;
                 this.app.elements.messageOkBtn = document.getElementById('message-ok-btn');
                 yesBtn.removeEventListener('click', handleYes);
@@ -76,7 +76,7 @@ export class UIManager {
             
             const handleNo = () => {
                 this.app.elements.messageDialog.classList.remove('show');
-                const saveText = this.app.t('ui.save');
+                const saveText = this.app.t('ui.common.save');
                 footer.innerHTML = `<button id="message-ok-btn" class="btn btn-primary">${saveText}</button>`;
                 this.app.elements.messageOkBtn = document.getElementById('message-ok-btn');
                 yesBtn.removeEventListener('click', handleYes);
