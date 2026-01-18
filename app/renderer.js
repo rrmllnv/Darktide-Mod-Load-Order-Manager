@@ -13,6 +13,7 @@ import { BulkOperationsManager } from './managers/BulkOperationsManager.js';
 import { SettingsManager } from './managers/SettingsManager.js';
 import { ThemeComponent } from './components/theme/ThemeComponent.js';
 import { ProfileComponent } from './components/profile/ProfileComponent.js';
+import { SearchComponent } from './components/search/SearchComponent.js';
 
 class ModLoadOrderManager {
     constructor() {
@@ -54,6 +55,7 @@ class ModLoadOrderManager {
         this.themeComponent = new ThemeComponent(this);
         this.profileComponent = new ProfileComponent(this);
         this.modListComponent = new ModListComponent(this);
+        this.searchComponent = new SearchComponent(this);
         
         this.init();
     }
@@ -153,6 +155,10 @@ class ModLoadOrderManager {
         if (this.modListComponent) {
             await this.modListComponent.init();
             this.modListComponent.modEntries = this.modEntries;
+        }
+        
+        if (this.searchComponent) {
+            await this.searchComponent.init();
         }
         
         document.addEventListener('click', (e) => {
@@ -406,19 +412,9 @@ class ModLoadOrderManager {
             if (options[3]) options[3].textContent = t('ui.sortNewFirst');
         }
         
-        const searchLabel = document.querySelector('.search-label');
-        if (searchLabel) searchLabel.textContent = t('ui.search');
-        if (this.elements.searchInput) {
-            this.elements.searchInput.placeholder = t('ui.searchPlaceholder');
+        if (this.searchComponent && this.searchComponent.updateLocalization) {
+            this.searchComponent.updateLocalization();
         }
-        if (this.elements.clearSearchBtn) this.elements.clearSearchBtn.title = t('ui.clear');
-        
-        const hideNewModsSpan = document.querySelector('#hide-new-mods-checkbox')?.nextElementSibling;
-        if (hideNewModsSpan) hideNewModsSpan.textContent = t('ui.hideNewMods');
-        const hideNotFoundModsSpan = document.querySelector('#hide-not-found-mods-checkbox')?.nextElementSibling;
-        if (hideNotFoundModsSpan) hideNotFoundModsSpan.textContent = t('ui.hideNotFoundMods');
-        const hideUnusedModsSpan = document.querySelector('#hide-unused-mods-checkbox')?.nextElementSibling;
-        if (hideUnusedModsSpan) hideUnusedModsSpan.textContent = t('ui.hideUnusedMods');
         
         const actionsLabel = document.querySelector('#bulk-actions-panel .section-label');
         if (actionsLabel) actionsLabel.textContent = t('ui.actions');

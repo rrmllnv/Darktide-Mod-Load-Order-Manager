@@ -161,18 +161,6 @@ export class ModListComponent {
             });
         }
         
-        if (this.app.elements.searchInput) {
-            this.app.elements.searchInput.addEventListener('input', () => {
-                this.onSearchChange();
-            });
-        }
-        
-        if (this.app.elements.clearSearchBtn) {
-            this.app.elements.clearSearchBtn.addEventListener('click', () => {
-                this.clearSearch();
-            });
-        }
-        
         if (this.app.elements.enableAllBtn) {
             this.app.elements.enableAllBtn.addEventListener('click', () => {
                 this.enableAll();
@@ -188,36 +176,6 @@ export class ModListComponent {
         if (this.app.elements.scanBtn) {
             this.app.elements.scanBtn.addEventListener('click', () => {
                 this.scanAndUpdate();
-            });
-        }
-        
-        if (this.app.elements.hideNewModsCheckbox) {
-            this.app.elements.hideNewModsCheckbox.addEventListener('change', () => {
-                this.app.hideNewMods = this.app.elements.hideNewModsCheckbox.checked;
-                this.updateModList();
-                if (this.app.configManager && this.app.configManager.saveUserConfig) {
-                    this.app.configManager.saveUserConfig();
-                }
-            });
-        }
-        
-        if (this.app.elements.hideUnusedModsCheckbox) {
-            this.app.elements.hideUnusedModsCheckbox.addEventListener('change', () => {
-                this.app.hideUnusedMods = this.app.elements.hideUnusedModsCheckbox.checked;
-                this.updateModList();
-                if (this.app.configManager && this.app.configManager.saveUserConfig) {
-                    this.app.configManager.saveUserConfig();
-                }
-            });
-        }
-        
-        if (this.app.elements.hideNotFoundModsCheckbox) {
-            this.app.elements.hideNotFoundModsCheckbox.addEventListener('change', () => {
-                this.app.hideNotFoundMods = this.app.elements.hideNotFoundModsCheckbox.checked;
-                this.updateModList();
-                if (this.app.configManager && this.app.configManager.saveUserConfig) {
-                    this.app.configManager.saveUserConfig();
-                }
             });
         }
         
@@ -378,7 +336,7 @@ export class ModListComponent {
     
     updateModList(filterText = null) {
         if (filterText === null) {
-            filterText = this.app.elements.searchInput ? this.app.elements.searchInput.value : '';
+            filterText = this.app.searchComponent ? this.app.searchComponent.getSearchText() : '';
         }
         
         const hideNewMods = this.app.hideNewMods || false;
@@ -446,20 +404,8 @@ export class ModListComponent {
     }
     
     onSortChange() {
-        const searchText = this.app.elements.searchInput ? this.app.elements.searchInput.value : '';
+        const searchText = this.app.searchComponent ? this.app.searchComponent.getSearchText() : '';
         this.updateModList(searchText);
-    }
-    
-    onSearchChange() {
-        const searchText = this.app.elements.searchInput ? this.app.elements.searchInput.value : '';
-        this.updateModList(searchText);
-    }
-    
-    clearSearch() {
-        if (this.app.elements.searchInput) {
-            this.app.elements.searchInput.value = '';
-        }
-        this.updateModList();
     }
     
     onCheckboxChange(modName) {
@@ -562,7 +508,7 @@ export class ModListComponent {
                 modEntry.statusElement.className = 'mod-status enabled';
             }
         });
-        const searchText = this.app.elements.searchInput ? this.app.elements.searchInput.value : '';
+        const searchText = this.app.searchComponent ? this.app.searchComponent.getSearchText() : '';
         this.updateModList(searchText);
     }
     
@@ -577,7 +523,7 @@ export class ModListComponent {
                 modEntry.statusElement.className = 'mod-status disabled';
             }
         });
-        const searchText = this.app.elements.searchInput ? this.app.elements.searchInput.value : '';
+        const searchText = this.app.searchComponent ? this.app.searchComponent.getSearchText() : '';
         this.updateModList(searchText);
     }
     

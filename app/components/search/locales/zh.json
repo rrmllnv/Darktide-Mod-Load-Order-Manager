@@ -1,0 +1,10 @@
+{
+    "ui": {
+        "search": "搜索模组:",
+        "searchPlaceholder": "输入模组名称...",
+        "clear": "清除",
+        "hideNewMods": "隐藏新模组",
+        "hideNotFoundMods": "隐藏未找到的模组",
+        "hideUnusedMods": "隐藏所有未使用的模组"
+    }
+}

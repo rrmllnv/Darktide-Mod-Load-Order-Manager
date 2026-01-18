@@ -128,6 +128,13 @@ export class SettingsManager {
                 this.app.modListComponent.updateModList();
             }
         }
+        
+        if (this.app.searchComponent) {
+            await this.app.searchComponent.loadLocale(locale);
+            if (this.app.searchComponent.updateLocalization) {
+                this.app.searchComponent.updateLocalization();
+            }
+        }
     }
     
     applyTheme(theme) {

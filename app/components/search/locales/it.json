@@ -1,0 +1,10 @@
+{
+    "ui": {
+        "search": "Cerca mod:",
+        "searchPlaceholder": "Inserisci nome mod...",
+        "clear": "Pulisci",
+        "hideNewMods": "Nascondi nuovi mod",
+        "hideNotFoundMods": "Nascondi mod non trovati",
+        "hideUnusedMods": "Nascondi tutti i mod non utilizzati"
+    }
+}
