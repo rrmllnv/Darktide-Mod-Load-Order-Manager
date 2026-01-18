@@ -6,11 +6,7 @@
         "enterModName": "Введите имя мода для симлинка:",
         "selectEnabled": "Выделить все включенные",
         "selectDisabled": "Выделить все выключенные",
-        "addMod": "Добавить мод",
-        "addModFolder": "Добавить папку мода",
-        "createSymlink": "Создать симлинк",
-        "reloadFile": "Перезагрузить файл",
-        "launchDtkitPatch": "Запустить Darktide Mod Patcher"
+        "createSymlink": "Создать симлинк"
     },
     "messages": {
         "scanNewMods": "Найдено новых модов:",

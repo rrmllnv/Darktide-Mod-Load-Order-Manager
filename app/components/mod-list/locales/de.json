@@ -6,11 +6,7 @@
         "enterModName": "Mod-Name für Symlink eingeben:",
         "selectEnabled": "Alle aktivierten auswählen",
         "selectDisabled": "Alle deaktivierten auswählen",
-        "addMod": "Mod hinzufügen",
-        "addModFolder": "Mod-Ordner hinzufügen",
-        "createSymlink": "Symlink erstellen",
-        "reloadFile": "Datei neu laden",
-        "launchDtkitPatch": "Darktide Mod Patcher starten"
+        "createSymlink": "Symlink erstellen"
     },
     "messages": {
         "scanNewMods": "Neue Mods gefunden:",

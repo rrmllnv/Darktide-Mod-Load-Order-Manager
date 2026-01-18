@@ -6,11 +6,7 @@
         "enterModName": "输入符号链接的模组名称:",
         "selectEnabled": "选择所有已启用",
         "selectDisabled": "选择所有已禁用",
-        "addMod": "添加模组",
-        "addModFolder": "添加模组文件夹",
-        "createSymlink": "创建符号链接",
-        "reloadFile": "重新加载文件",
-        "launchDtkitPatch": "启动 Darktide Mod Patcher"
+        "createSymlink": "创建符号链接"
     },
     "messages": {
         "scanNewMods": "发现新模组:",

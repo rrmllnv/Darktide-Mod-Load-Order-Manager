@@ -1,0 +1,11 @@
+{
+    "ui": {
+        "browse": "Parcourir...",
+        "openFile": "Ouvrir le fichier",
+        "openModsFolder": "Ouvrir le dossier des mods",
+        "reloadFile": "Recharger le fichier",
+        "addMod": "Ajouter un mod",
+        "addModFolder": "Ajouter un dossier de mod",
+        "launchDtkitPatch": "Lancer Darktide Mod Patcher"
+    }
+}

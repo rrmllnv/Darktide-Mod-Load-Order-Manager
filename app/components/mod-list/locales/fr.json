@@ -6,11 +6,7 @@
         "enterModName": "Entrez le nom du mod pour le lien symbolique:",
         "selectEnabled": "Sélectionner tous les activés",
         "selectDisabled": "Sélectionner tous les désactivés",
-        "addMod": "Ajouter un mod",
-        "addModFolder": "Ajouter un dossier de mod",
-        "createSymlink": "Créer un lien symbolique",
-        "reloadFile": "Recharger le fichier",
-        "launchDtkitPatch": "Lancer Darktide Mod Patcher"
+        "createSymlink": "Créer un lien symbolique"
     },
     "messages": {
         "scanNewMods": "Nouveaux mods trouvés:",

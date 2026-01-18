@@ -6,11 +6,7 @@
         "enterModName": "Enter mod name for symlink:",
         "selectEnabled": "Select all enabled",
         "selectDisabled": "Select all disabled",
-        "addMod": "Add mod",
-        "addModFolder": "Add mod folder",
-        "createSymlink": "Create symlink",
-        "reloadFile": "Reload file",
-        "launchDtkitPatch": "Launch Darktide Mod Patcher"
+        "createSymlink": "Create symlink"
     },
     "messages": {
         "scanNewMods": "New mods found:",

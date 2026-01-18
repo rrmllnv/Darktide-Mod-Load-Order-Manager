@@ -1,0 +1,11 @@
+{
+    "ui": {
+        "browse": "Durchsuchen...",
+        "openFile": "Datei öffnen",
+        "openModsFolder": "Mods-Ordner öffnen",
+        "reloadFile": "Datei neu laden",
+        "addMod": "Mod hinzufügen",
+        "addModFolder": "Mod-Ordner hinzufügen",
+        "launchDtkitPatch": "Darktide Mod Patcher starten"
+    }
+}

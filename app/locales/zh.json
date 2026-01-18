@@ -1,9 +1,6 @@
 {
     "ui": {
         "file": "文件:",
-        "browse": "浏览...",
-        "openFile": "打开文件",
-        "openModsFolder": "打开模组文件夹",
         "load": "加载",
         "save": "保存",
         "cancelChanges": "取消更改",

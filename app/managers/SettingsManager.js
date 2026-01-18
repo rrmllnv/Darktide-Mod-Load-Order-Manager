@@ -66,6 +66,13 @@ export class SettingsManager {
                 this.app.settingsComponent.updateLocalization();
             }
         }
+        
+        if (this.app.fileOperationsComponent) {
+            await this.app.fileOperationsComponent.loadLocale(locale);
+            if (this.app.fileOperationsComponent.updateLocalization) {
+                this.app.fileOperationsComponent.updateLocalization();
+            }
+        }
     }
     
     applyTheme(theme) {

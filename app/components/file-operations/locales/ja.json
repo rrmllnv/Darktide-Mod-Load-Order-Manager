@@ -1,0 +1,11 @@
+{
+    "ui": {
+        "browse": "参照...",
+        "openFile": "ファイルを開く",
+        "openModsFolder": "Modsフォルダを開く",
+        "reloadFile": "ファイルを再読み込み",
+        "addMod": "MODを追加",
+        "addModFolder": "MODフォルダを追加",
+        "launchDtkitPatch": "Darktide Mod Patcher を起動"
+    }
+}

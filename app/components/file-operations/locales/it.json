@@ -1,0 +1,11 @@
+{
+    "ui": {
+        "browse": "Sfoglia...",
+        "openFile": "Apri file",
+        "openModsFolder": "Apri cartella mods",
+        "reloadFile": "Ricarica file",
+        "addMod": "Aggiungi mod",
+        "addModFolder": "Aggiungi cartella mod",
+        "launchDtkitPatch": "Avvia Darktide Mod Patcher"
+    }
+}

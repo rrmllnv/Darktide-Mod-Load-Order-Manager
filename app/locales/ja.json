@@ -1,9 +1,6 @@
 {
     "ui": {
         "file": "ファイル:",
-        "browse": "参照...",
-        "openFile": "ファイルを開く",
-        "openModsFolder": "Modsフォルダを開く",
         "load": "読み込み",
         "save": "保存",
         "cancelChanges": "変更をキャンセル",

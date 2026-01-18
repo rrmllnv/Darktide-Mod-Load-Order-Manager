@@ -1,9 +1,6 @@
 {
     "ui": {
         "file": "File:",
-        "browse": "Browse...",
-        "openFile": "Open file",
-        "openModsFolder": "Open mods folder",
         "load": "Load",
         "save": "Save",
         "cancelChanges": "Cancel changes",

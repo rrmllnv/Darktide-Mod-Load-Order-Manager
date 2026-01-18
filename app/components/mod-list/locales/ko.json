@@ -6,11 +6,7 @@
         "enterModName": "심볼릭 링크용 모드 이름 입력:",
         "selectEnabled": "활성화된 항목 모두 선택",
         "selectDisabled": "비활성화된 항목 모두 선택",
-        "addMod": "모드 추가",
-        "addModFolder": "모드 폴더 추가",
-        "createSymlink": "심볼릭 링크 만들기",
-        "reloadFile": "파일 다시 로드",
-        "launchDtkitPatch": "Darktide Mod Patcher 실행"
+        "createSymlink": "심볼릭 링크 만들기"
     },
     "messages": {
         "scanNewMods": "새 모드 발견:",

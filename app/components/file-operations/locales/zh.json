@@ -1,0 +1,11 @@
+{
+    "ui": {
+        "browse": "浏览...",
+        "openFile": "打开文件",
+        "openModsFolder": "打开模组文件夹",
+        "reloadFile": "重新加载文件",
+        "addMod": "添加模组",
+        "addModFolder": "添加模组文件夹",
+        "launchDtkitPatch": "启动 Darktide Mod Patcher"
+    }
+}

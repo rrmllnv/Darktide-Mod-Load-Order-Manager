@@ -6,11 +6,7 @@
         "enterModName": "シンボリックリンクのMOD名を入力:",
         "selectEnabled": "有効なものをすべて選択",
         "selectDisabled": "無効なものをすべて選択",
-        "addMod": "MODを追加",
-        "addModFolder": "MODフォルダを追加",
-        "createSymlink": "シンボリックリンクを作成",
-        "reloadFile": "ファイルを再読み込み",
-        "launchDtkitPatch": "Darktide Mod Patcher を起動"
+        "createSymlink": "シンボリックリンクを作成"
     },
     "messages": {
         "scanNewMods": "新しいMODが見つかりました:",

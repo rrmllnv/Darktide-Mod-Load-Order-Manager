@@ -15,6 +15,7 @@ import { ProfileComponent } from './components/profile/ProfileComponent.js';
 import { SearchComponent } from './components/search/SearchComponent.js';
 import { BulkOperationsComponent } from './components/bulk-operations/BulkOperationsComponent.js';
 import { SettingsComponent } from './components/settings/SettingsComponent.js';
+import { FileOperationsComponent } from './components/file-operations/FileOperationsComponent.js';
 
 class ModLoadOrderManager {
     constructor() {
@@ -58,6 +59,7 @@ class ModLoadOrderManager {
         this.searchComponent = new SearchComponent(this);
         this.bulkOperationsComponent = new BulkOperationsComponent(this);
         this.settingsComponent = new SettingsComponent(this);
+        this.fileOperationsComponent = new FileOperationsComponent(this);
         
         this.init();
     }
@@ -171,6 +173,10 @@ class ModLoadOrderManager {
             await this.settingsComponent.init();
         }
         
+        if (this.fileOperationsComponent) {
+            await this.fileOperationsComponent.init();
+        }
+        
         document.addEventListener('click', (e) => {
             if (e.target.closest('#profile-dialog') || 
                 e.target.closest('.modal') || 
@@ -250,9 +256,6 @@ class ModLoadOrderManager {
         }
         
         this.eventBinder = new EventBinder(this.elements, {
-            browseFile: () => this.fileManager.browseFile(),
-            openFile: () => this.fileManager.openFile(),
-            openModsFolder: () => this.fileManager.openModsFolder(),
             saveFile: () => this.fileManager.saveFile()
         });
         
@@ -399,9 +402,6 @@ class ModLoadOrderManager {
         if (this.elements.pathInput?.previousElementSibling) {
             this.elements.pathInput.previousElementSibling.textContent = t('ui.file');
         }
-        if (this.elements.browseBtn) this.elements.browseBtn.textContent = t('ui.browse');
-        if (this.elements.openFileBtn) this.elements.openFileBtn.title = t('ui.openFile');
-        if (this.elements.openModsFolderBtn) this.elements.openModsFolderBtn.title = t('ui.openModsFolder');
         if (this.elements.saveBtn) this.elements.saveBtn.textContent = t('ui.save');
         if (this.elements.statusText) this.elements.statusText.textContent = t('ui.ready');
         
@@ -433,6 +433,10 @@ class ModLoadOrderManager {
         
         if (this.settingsComponent && this.settingsComponent.updateLocalization) {
             this.settingsComponent.updateLocalization();
+        }
+        
+        if (this.fileOperationsComponent && this.fileOperationsComponent.updateLocalization) {
+            this.fileOperationsComponent.updateLocalization();
         }
         
         if (this.elements.modalOkBtn) this.elements.modalOkBtn.textContent = t('ui.save');

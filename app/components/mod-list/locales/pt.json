@@ -6,11 +6,7 @@
         "enterModName": "Digite o nome do mod para link simbólico:",
         "selectEnabled": "Selecionar todos ativados",
         "selectDisabled": "Selecionar todos desativados",
-        "addMod": "Adicionar mod",
-        "addModFolder": "Adicionar pasta de mod",
-        "createSymlink": "Criar link simbólico",
-        "reloadFile": "Recarregar arquivo",
-        "launchDtkitPatch": "Iniciar Darktide Mod Patcher"
+        "createSymlink": "Criar link simbólico"
     },
     "messages": {
         "scanNewMods": "Novos mods encontrados:",
