@@ -1,9 +1,0 @@
-{
-    "ui": {
-        "settings": "Paramètres",
-        "theme": "Thème:",
-        "locale": "Langue:",
-        "save": "Enregistrer",
-        "cancel": "Annuler"
-    }
-}
