@@ -14,7 +14,7 @@ export class BulkOperationsManager {
             }
         });
         
-        this.app.modManager.updateModListSelection();
+        this.app.modListComponent.updateModListSelection();
         
         this.app.uiManager.updateBulkActionsPanel();
     }
@@ -30,7 +30,7 @@ export class BulkOperationsManager {
             }
         });
         
-        this.app.modManager.updateModListSelection();
+        this.app.modListComponent.updateModListSelection();
         
         this.app.uiManager.updateBulkActionsPanel();
     }
@@ -101,14 +101,12 @@ export class BulkOperationsManager {
             }
         });
         
-        if (this.app.modListRenderer) {
-            this.app.modListRenderer.modEntries = this.app.modEntries;
+        if (this.app.modListComponent) {
+            this.app.modListComponent.modEntries = this.app.modEntries;
         }
         
-        this.app.modManager.clearSelection();
-        
-        const searchText = this.app.elements.searchInput.value;
-        this.app.modManager.updateModList(searchText);
+        this.app.modListComponent.clearSelection();
+        this.app.modListComponent.updateModList();
         this.app.updateStatistics();
         
         this.app.setStatus(this.app.t('status.modsDeleted', { count: selected.length }));

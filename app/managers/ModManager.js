@@ -7,8 +7,8 @@ export class ModManager {
         const scanResult = await this.app.modScanService.scanModsDirectory(this.app.modEntries, this.app.selectedModName);
         this.app.selectedModName = scanResult.selectedModName;
         
-        if (this.app.modListRenderer) {
-            this.app.modListRenderer.modEntries = this.app.modEntries;
+        if (this.app.modListComponent) {
+            this.app.modListComponent.modEntries = this.app.modEntries;
         }
         
         if (scanResult.removed > 0) {
@@ -20,8 +20,9 @@ export class ModManager {
             });
         }
         
-        const searchText = this.app.elements.searchInput.value;
-        this.updateModList(searchText);
+        if (this.app.modListComponent) {
+            this.app.modListComponent.updateModList();
+        }
         this.app.updateStatistics();
         
         let message = '';
@@ -49,103 +50,6 @@ export class ModManager {
         this.app.uiManager.showMessage(this.app.t('messages.info'), message);
     }
     
-    updateModList(filterText = null) {
-        this.app.modListRenderer.updateModList(
-            filterText,
-            this.app.hideNewMods,
-            this.app.hideUnusedMods,
-            this.app.hideNotFoundMods,
-            this.app.selectedModName,
-            this.app.selectedModNames
-        );
-        this.app.updateStatistics();
-        this.app.uiManager.updateBulkActionsPanel();
-    }
-    
-    onSortChange() {
-        const searchText = this.app.elements.searchInput.value;
-        this.updateModList(searchText);
-    }
-    
-    onCheckboxChange(modName) {
-        const modEntry = this.app.modEntries.find(m => m.name === modName);
-        if (modEntry && modEntry.statusElement) {
-            modEntry.statusElement.textContent = modEntry.enabled ? '✓' : '✗';
-            modEntry.statusElement.className = `mod-status ${modEntry.enabled ? 'enabled' : 'disabled'}`;
-        }
-        
-        this.app.updateStatistics();
-        
-        if (this.app.selectedModName === modName) {
-            this.selectMod(modName);
-        }
-    }
-    
-    selectMod(modName, ctrlKey = false, shiftKey = false) {
-        const filteredMods = this.app.modListRenderer.filteredModEntries || [];
-        const currentIndex = filteredMods.findIndex(m => m.name === modName);
-        
-        if (shiftKey && this.app.lastSelectedModIndex !== -1) {
-            const startIndex = Math.min(this.app.lastSelectedModIndex, currentIndex);
-            const endIndex = Math.max(this.app.lastSelectedModIndex, currentIndex);
-            
-            for (let i = startIndex; i <= endIndex; i++) {
-                if (filteredMods[i]) {
-                    this.app.selectedModNames.add(filteredMods[i].name);
-                }
-            }
-        } else if (ctrlKey) {
-            if (this.app.selectedModNames.has(modName)) {
-                this.app.selectedModNames.delete(modName);
-            } else {
-                this.app.selectedModNames.add(modName);
-            }
-        } else {
-            this.app.selectedModNames.clear();
-            this.app.selectedModNames.add(modName);
-            this.app.selectedModName = modName;
-        }
-        
-        if (currentIndex !== -1) {
-            this.app.lastSelectedModIndex = currentIndex;
-            if (this.app.modListRenderer.callbacks.setLastSelectedIndex) {
-                this.app.modListRenderer.callbacks.setLastSelectedIndex(currentIndex);
-            }
-        }
-        
-        this.updateModListSelection();
-        
-        if (this.app.selectedModNames.size === 1) {
-            const singleMod = Array.from(this.app.selectedModNames)[0];
-            this.app.selectedModName = singleMod;
-        } else {
-            this.app.selectedModName = '';
-        }
-        
-        this.app.uiManager.updateBulkActionsPanel();
-        this.app.updateStatistics();
-    }
-    
-    updateModListSelection() {
-        this.app.modEntries.forEach(modEntry => {
-            if (modEntry.modItem) {
-                if (this.app.selectedModNames.has(modEntry.name)) {
-                    modEntry.modItem.classList.add('selected');
-                } else {
-                    modEntry.modItem.classList.remove('selected');
-                }
-            }
-        });
-    }
-    
-    clearSelection() {
-        this.app.selectedModNames.clear();
-        this.app.selectedModName = '';
-        this.app.lastSelectedModIndex = -1;
-        this.updateModListSelection();
-        this.app.uiManager.updateBulkActionsPanel();
-        this.app.updateStatistics();
-    }
     
     async createSymlinkForMod() {
         const modsDir = this.app.filePath.substring(0, this.app.filePath.lastIndexOf('\\'));
@@ -200,37 +104,6 @@ export class ModManager {
         });
     }
     
-    onSearchChange() {
-        const searchText = this.app.elements.searchInput.value;
-        this.updateModList(searchText);
-    }
-    
-    clearSearch() {
-        this.app.elements.searchInput.value = '';
-        this.updateModList();
-    }
-    
-    enableAll() {
-        this.app.modEntries.forEach(modEntry => {
-            modEntry.enabled = true;
-            if (modEntry.checkbox) {
-                modEntry.checkbox.checked = true;
-            }
-        });
-        const searchText = this.app.elements.searchInput.value;
-        this.updateModList(searchText);
-    }
-    
-    disableAll() {
-        this.app.modEntries.forEach(modEntry => {
-            modEntry.enabled = false;
-            if (modEntry.checkbox) {
-                modEntry.checkbox.checked = false;
-            }
-        });
-        const searchText = this.app.elements.searchInput.value;
-        this.updateModList(searchText);
-    }
     
     enableMod(modName) {
         const modEntry = this.app.modEntries.find(m => m.name === modName);
@@ -317,12 +190,13 @@ export class ModManager {
             this.app.selectedModName = '';
         }
         
-        if (this.app.modListRenderer) {
-            this.app.modListRenderer.modEntries = this.app.modEntries;
+        if (this.app.modListComponent) {
+            this.app.modListComponent.modEntries = this.app.modEntries;
         }
         
-        const searchText = this.app.elements.searchInput.value;
-        this.updateModList(searchText);
+        if (this.app.modListComponent) {
+            this.app.modListComponent.updateModList();
+        }
         this.app.updateStatistics();
         
         this.app.setStatus(this.app.t('status.modDeleted', { modName }));

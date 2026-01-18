@@ -118,9 +118,12 @@ export class SettingsManager {
             await this.app.profileComponent.updateLocalization();
         }
         
-        if (this.app.modListRenderer && this.app.elements.searchInput) {
-            const searchText = this.app.elements.searchInput.value;
-            this.app.modManager.updateModList(searchText);
+        if (this.app.modListComponent) {
+            await this.app.modListComponent.loadLocale(locale);
+            if (this.app.elements.searchInput) {
+                const searchText = this.app.elements.searchInput.value;
+                this.app.modListComponent.updateModList();
+            }
         }
     }
     

@@ -28,11 +28,9 @@ export class EventBinder {
             this.elements.launchDtkitBtn.addEventListener('click', () => this.callbacks.launchDtkitPatch());
         }
         
-        this.elements.sortSelect.addEventListener('change', () => this.callbacks.onSortChange());
-        
-        this.elements.enableAllBtn.addEventListener('click', () => this.callbacks.enableAll());
-        this.elements.disableAllBtn.addEventListener('click', () => this.callbacks.disableAll());
-        this.elements.scanBtn.addEventListener('click', () => this.callbacks.scanAndUpdate());
+        if (this.elements.scanBtn) {
+            this.elements.scanBtn.addEventListener('click', () => this.callbacks.scanAndUpdate());
+        }
         
         if (this.elements.bulkSelectEnabledBtn) {
             this.elements.bulkSelectEnabledBtn.addEventListener('click', () => this.callbacks.bulkSelectEnabled());
@@ -40,9 +38,6 @@ export class EventBinder {
         if (this.elements.bulkSelectDisabledBtn) {
             this.elements.bulkSelectDisabledBtn.addEventListener('click', () => this.callbacks.bulkSelectDisabled());
         }
-        
-        this.elements.searchInput.addEventListener('input', () => this.callbacks.onSearchChange());
-        this.elements.clearSearchBtn.addEventListener('click', () => this.callbacks.clearSearch());
         
         this.elements.hideNewModsCheckbox.addEventListener('change', () => {
             this.callbacks.onHideNewModsChange(this.elements.hideNewModsCheckbox.checked);

@@ -333,17 +333,16 @@ export class ProfileComponent {
             modEntry.modItem = null;
         });
         
-        if (this.app.modListRenderer) {
-            this.app.modListRenderer.modEntries = this.app.modEntries;
+        if (this.app.modListComponent) {
+            this.app.modListComponent.modEntries = this.app.modEntries;
         }
         
-        if (this.app.modManager) {
-            this.app.modManager.clearSelection();
+        if (this.app.modListComponent) {
+            this.app.modListComponent.clearSelection();
         }
         
-        const searchText = this.app.elements.searchInput.value;
-        if (this.app.modManager) {
-            this.app.modManager.updateModList(searchText);
+        if (this.app.modListComponent) {
+            this.app.modListComponent.updateModList();
         }
         if (this.app.updateStatistics) {
             this.app.updateStatistics();
@@ -457,17 +456,17 @@ export class ProfileComponent {
             
             this.restoreState(result.state);
             
-            if (this.app.modListRenderer) {
-                this.app.modListRenderer.modEntries = this.app.modEntries;
-            }
-            
-            if (this.app.modScanService) {
-                const scanResult = await this.app.modScanService.scanModsDirectory(this.app.modEntries, this.app.selectedModName);
-                this.app.selectedModName = scanResult.selectedModName;
-                
-                if (this.app.modListRenderer) {
-                    this.app.modListRenderer.modEntries = this.app.modEntries;
-                }
+                        if (this.app.modListComponent) {
+                            this.app.modListComponent.modEntries = this.app.modEntries;
+                        }
+                        
+                        if (this.app.modScanService) {
+                            const scanResult = await this.app.modScanService.scanModsDirectory(this.app.modEntries, this.app.selectedModName);
+                            this.app.selectedModName = scanResult.selectedModName;
+                            
+                            if (this.app.modListComponent) {
+                                this.app.modListComponent.modEntries = this.app.modEntries;
+                            }
                 
                 if (scanResult.removed > 0) {
                     const currentSelected = Array.from(this.app.selectedModNames);
@@ -478,10 +477,9 @@ export class ProfileComponent {
                     });
                 }
                 
-                const searchText = this.app.elements.searchInput.value;
-                if (this.app.modManager) {
-                    this.app.modManager.updateModList(searchText);
-                }
+                    if (this.app.modListComponent) {
+                        this.app.modListComponent.updateModList();
+                    }
                 if (this.app.updateStatistics) {
                     this.app.updateStatistics();
                 }

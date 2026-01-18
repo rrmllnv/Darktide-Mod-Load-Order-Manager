@@ -68,21 +68,21 @@ export class FileManager {
             this.app.headerLines = parsed.headerLines;
             this.app.modEntries = parsed.modEntries;
             
-            if (this.app.modListRenderer) {
-                this.app.modListRenderer.modEntries = this.app.modEntries;
-            }
+        if (this.app.modListComponent) {
+            this.app.modListComponent.modEntries = this.app.modEntries;
+        }
             
             this.app.modScanService = new ModScanService(this.app.filePath, (msg) => this.app.setStatus(msg), this.app);
             
             const scanResult = await this.app.modScanService.scanModsDirectory(this.app.modEntries, this.app.selectedModName);
             this.app.selectedModName = scanResult.selectedModName;
             
-            if (this.app.modListRenderer) {
-                this.app.modListRenderer.modEntries = this.app.modEntries;
-            }
+        if (this.app.modListComponent) {
+            this.app.modListComponent.modEntries = this.app.modEntries;
+        }
             
-            this.app.modManager.clearSelection();
-            this.app.modManager.updateModList();
+            this.app.modListComponent.clearSelection();
+            this.app.modListComponent.updateModList();
             this.app.updateStatistics();
             
             if (this.app.profileComponent) {

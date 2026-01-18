@@ -2,7 +2,7 @@ import { ModEntry } from './models/ModEntry.js';
 import { FileService } from './services/FileService.js';
 import { ModScanService } from './services/ModScanService.js';
 import { ModalManager } from './ui/ModalManager.js';
-import { ModListRenderer } from './ui/ModListRenderer.js';
+import { ModListComponent } from './components/mod-list/ModListComponent.js';
 import { EventBinder } from './ui/EventBinder.js';
 import { StatusManager } from './managers/StatusManager.js';
 import { LocaleManager } from './managers/LocaleManager.js';
@@ -41,7 +41,7 @@ class ModLoadOrderManager {
         this.fileService = null;
         this.modScanService = null;
         this.modalManager = null;
-        this.modListRenderer = null;
+        this.modListComponent = null;
         this.statusManager = null;
         this.eventBinder = null;
         
@@ -55,6 +55,7 @@ class ModLoadOrderManager {
         
         this.themeComponent = new ThemeComponent(this);
         this.profileComponent = new ProfileComponent(this);
+        this.modListComponent = new ModListComponent(this);
         
         this.init();
     }
@@ -151,23 +152,10 @@ class ModLoadOrderManager {
         
         this.modScanService = new ModScanService(this.filePath, (msg) => this.setStatus(msg), this);
         
-        this.modListRenderer = new ModListRenderer(
-            this.elements,
-            this.modEntries,
-            {
-                onCheckboxChange: (modName) => this.modManager.onCheckboxChange(modName),
-                onModSelect: (modName, ctrlKey, shiftKey) => this.modManager.selectMod(modName, ctrlKey, shiftKey),
-                onDrop: () => {
-                    const searchText = this.elements.searchInput.value;
-                    this.modManager.updateModList(searchText);
-                },
-                getSelectedMods: () => Array.from(this.selectedModNames),
-                getLastSelectedIndex: () => this.lastSelectedModIndex,
-                setLastSelectedIndex: (index) => { this.lastSelectedModIndex = index; },
-                onModContextMenu: (modName, x, y) => this.showContextMenu(modName, x, y)
-            },
-            this
-        );
+        if (this.modListComponent) {
+            await this.modListComponent.init();
+            this.modListComponent.modEntries = this.modEntries;
+        }
         
         document.addEventListener('click', (e) => {
             if (e.target.closest('#profile-dialog') || 
@@ -181,7 +169,7 @@ class ModLoadOrderManager {
             
             if (!e.target.closest('.mod-item') && !e.target.closest('#mods-list')) {
                 if (!e.target.closest('#bulk-actions-panel') && !e.target.closest('.btn-icon')) {
-                    this.modManager.clearSelection();
+                    this.modListComponent.clearSelection();
                 }
             }
             
@@ -252,28 +240,25 @@ class ModLoadOrderManager {
             openFile: () => this.fileManager.openFile(),
             openModsFolder: () => this.fileManager.openModsFolder(),
             launchDtkitPatch: () => this.fileManager.launchDtkitPatch(),
-            onSortChange: () => this.modManager.onSortChange(),
-            enableAll: () => this.modManager.enableAll(),
-            disableAll: () => this.modManager.disableAll(),
+            onSortChange: () => this.modListComponent.onSortChange(),
+            enableAll: () => this.modListComponent.enableAll(),
+            disableAll: () => this.modListComponent.disableAll(),
             scanAndUpdate: () => this.modManager.scanAndUpdate(),
-            onSearchChange: () => this.modManager.onSearchChange(),
-            clearSearch: () => this.modManager.clearSearch(),
+            onSearchChange: () => this.modListComponent.onSearchChange(),
+            clearSearch: () => this.modListComponent.clearSearch(),
             onHideNewModsChange: (checked) => {
                 this.hideNewMods = checked;
-                const searchText = this.elements.searchInput.value;
-                this.modManager.updateModList(searchText);
+                this.modListComponent.updateModList();
                 this.configManager.saveUserConfig();
             },
             onHideUnusedModsChange: (checked) => {
                 this.hideUnusedMods = checked;
-                const searchText = this.elements.searchInput.value;
-                this.modManager.updateModList(searchText);
+                this.modListComponent.updateModList();
                 this.configManager.saveUserConfig();
             },
             onHideNotFoundModsChange: (checked) => {
                 this.hideNotFoundMods = checked;
-                const searchText = this.elements.searchInput.value;
-                this.modManager.updateModList(searchText);
+                this.modListComponent.updateModList();
                 this.configManager.saveUserConfig();
             },
             createSymlinkForMod: () => this.modManager.createSymlinkForMod(),
@@ -285,7 +270,7 @@ class ModLoadOrderManager {
             bulkEnable: () => this.bulkOperationsManager.bulkEnable(),
             bulkDisable: () => this.bulkOperationsManager.bulkDisable(),
             bulkDelete: () => this.bulkOperationsManager.bulkDelete(),
-            bulkClearSelection: () => this.modManager.clearSelection(),
+            bulkClearSelection: () => this.modListComponent.clearSelection(),
             addModFolder: () => this.fileManager.addModFolder()
         });
         
@@ -389,19 +374,19 @@ class ModLoadOrderManager {
     }
     
     onCheckboxChange(modName) {
-        this.modManager.onCheckboxChange(modName);
+        this.modListComponent.onCheckboxChange(modName);
     }
     
     selectMod(modName, ctrlKey = false, shiftKey = false) {
-        this.modManager.selectMod(modName, ctrlKey, shiftKey);
+        this.modListComponent.selectMod(modName, ctrlKey, shiftKey);
     }
     
     updateModListSelection() {
-        this.modManager.updateModListSelection();
+        this.modListComponent.updateModListSelection();
     }
     
     clearSelection() {
-        this.modManager.clearSelection();
+        this.modListComponent.clearSelection();
     }
     
     updateStatistics() {

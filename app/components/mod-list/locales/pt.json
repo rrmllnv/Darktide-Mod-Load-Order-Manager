@@ -1,0 +1,7 @@
+{
+    "ui": {
+        "flagNew": "[NOVO]",
+        "flagNotFound": "[NÃO ENCONTRADO]",
+        "flagSymlink": "[SYMLINK]"
+    }
+}
