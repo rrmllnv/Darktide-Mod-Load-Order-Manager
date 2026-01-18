@@ -132,13 +132,11 @@ export class ModListComponent {
         this.app = app;
         this._modEntries = [];
         this.filteredModEntries = [];
-        this.locales = {};
         this.dragDropManager = null;
     }
     
     async init() {
         this.loadStyles();
-        await this.loadLocales();
         
         if (this.app.elements && this.app.elements.modsList) {
             this.dragDropManager = new DragDropManager(
@@ -203,62 +201,11 @@ export class ModListComponent {
         }
     }
     
-    async loadLocales() {
-        const currentLocale = this.app.localeManager ? this.app.localeManager.getCurrentLocale() || 'en' : 'en';
-        await this.loadLocale(currentLocale);
-    }
-    
-    async loadLocale(locale) {
-        if (this.locales[locale]) {
-            return this.locales[locale];
-        }
-        
-        try {
-            const response = await fetch(`components/mod-list/locales/${locale}.json`);
-            if (response.ok) {
-                this.locales[locale] = await response.json();
-                return this.locales[locale];
-            } else {
-                if (locale !== 'en') {
-                    return await this.loadLocale('en');
-                }
-            }
-        } catch (error) {
-            console.warn(`Failed to load mod-list locale ${locale}:`, error);
-            if (locale !== 'en') {
-                return await this.loadLocale('en');
-            }
-        }
-        
-        return null;
-    }
-    
     t(key, params = {}) {
-        const currentLocale = this.app.localeManager ? this.app.localeManager.getCurrentLocale() || 'en' : 'en';
-        const localeData = this.locales[currentLocale] || this.locales['en'] || {};
-        
-        const keys = key.split('.');
-        let value = localeData;
-        
-        for (const k of keys) {
-            if (value && typeof value === 'object' && k in value) {
-                value = value[k];
-            } else {
-                return this.app.t(key, params);
-            }
+        if (this.app.localeManager) {
+            return this.app.localeManager.t(key, params);
         }
-        
-        if (typeof value !== 'string') {
-            return this.app.t(key, params);
-        }
-        
-        if (Object.keys(params).length > 0) {
-            return value.replace(/\{(\w+)\}/g, (match, paramKey) => {
-                return params[paramKey] !== undefined ? params[paramKey] : match;
-            });
-        }
-        
-        return value;
+        return this.app.t(key, params);
     }
     
     set modEntries(value) {
@@ -488,21 +435,21 @@ export class ModListComponent {
         if (modEntry.isNew) {
             newLabel = document.createElement('span');
             newLabel.className = 'mod-new-label';
-            newLabel.textContent = this.t('ui.flagNew');
+            newLabel.textContent = this.t('ui.modList.flagNew');
         }
         
         let notFoundLabel = null;
         if (modEntry.isNotFound) {
             notFoundLabel = document.createElement('span');
             notFoundLabel.className = 'mod-not-found-label';
-            notFoundLabel.textContent = this.t('ui.flagNotFound');
+            notFoundLabel.textContent = this.t('ui.modList.flagNotFound');
         }
         
         let symlinkLabel = null;
         if (modEntry.isSymlink) {
             symlinkLabel = document.createElement('span');
             symlinkLabel.className = 'mod-symlink-label';
-            symlinkLabel.textContent = this.t('ui.flagSymlink');
+            symlinkLabel.textContent = this.t('ui.modList.flagSymlink');
         }
         
         const status = document.createElement('span');
@@ -574,26 +521,26 @@ export class ModListComponent {
         const parts = [];
         
         if (scanResult.added > 0) {
-            parts.push(`${this.t('messages.scanNewMods')} ${scanResult.added}`);
+            parts.push(`${this.t('messages.modList.scanNewMods')} ${scanResult.added}`);
         }
         if (scanResult.removed > 0) {
-            parts.push(`${this.t('messages.scanRemovedMods')} ${scanResult.removed}`);
+            parts.push(`${this.t('messages.modList.scanRemovedMods')} ${scanResult.removed}`);
         }
         if (scanResult.deleted > 0) {
-            parts.push(`${this.t('messages.scanDeletedMods')} ${scanResult.deleted}`);
+            parts.push(`${this.t('messages.modList.scanDeletedMods')} ${scanResult.deleted}`);
         }
         if (scanResult.restored > 0) {
-            parts.push(`${this.t('messages.scanRestoredMods')} ${scanResult.restored}`);
+            parts.push(`${this.t('messages.modList.scanRestoredMods')} ${scanResult.restored}`);
         }
         
         if (parts.length > 0) {
             message = parts.join('\n');
         } else {
-            message = this.t('messages.scanNoChanges');
+            message = this.t('messages.modList.scanNoChanges');
         }
         
         if (this.app.uiManager && this.app.uiManager.showMessage) {
-            this.app.uiManager.showMessage(this.t('messages.info'), message);
+            this.app.uiManager.showMessage(this.t('messages.common.info'), message);
         }
     }
     
@@ -601,7 +548,7 @@ export class ModListComponent {
         const modsDir = this.app.filePath.substring(0, this.app.filePath.lastIndexOf('\\'));
         if (!modsDir) {
             if (this.app.uiManager && this.app.uiManager.showMessage) {
-                await this.app.uiManager.showMessage(this.t('messages.error'), this.t('messages.failedToDetermineModsDir'));
+                await this.app.uiManager.showMessage(this.t('messages.common.error'), this.t('messages.modList.failedToDetermineModsDir'));
             }
             return;
         }
@@ -616,7 +563,7 @@ export class ModListComponent {
         const targetExists = await window.electronAPI.fileExists(targetPath);
         if (!targetExists) {
             if (this.app.uiManager && this.app.uiManager.showMessage) {
-                await this.app.uiManager.showMessage(this.t('messages.error'), this.t('messages.selectedFolderNotExists'));
+                await this.app.uiManager.showMessage(this.t('messages.common.error'), this.t('messages.modList.selectedFolderNotExists'));
             }
             return;
         }
@@ -625,7 +572,7 @@ export class ModListComponent {
         const defaultModName = pathParts[pathParts.length - 1];
         
         if (this.app.modalManager && this.app.modalManager.showModal) {
-            this.app.modalManager.showModal(this.t('ui.enterModName'), defaultModName, async (modName) => {
+            this.app.modalManager.showModal(this.t('ui.modList.enterModName'), defaultModName, async (modName) => {
                 if (!modName || !modName.trim()) {
                     return;
                 }
@@ -634,7 +581,7 @@ export class ModListComponent {
                 const linkPath = modsDir + '\\' + cleanModName;
                 
                 if (this.app.uiManager && this.app.uiManager.showConfirm) {
-                    const confirmed = await this.app.uiManager.showConfirm(this.t('messages.createSymlinkConfirm', { targetPath, linkPath, modName: cleanModName }));
+                    const confirmed = await this.app.uiManager.showConfirm(this.t('messages.modList.createSymlinkConfirm', { targetPath, linkPath, modName: cleanModName }));
                     if (!confirmed) {
                         return;
                     }
@@ -644,22 +591,22 @@ export class ModListComponent {
                     const symlinkResult = await window.electronAPI.createSymlink(linkPath, targetPath);
                     if (!symlinkResult.success) {
                         if (this.app.uiManager && this.app.uiManager.showMessage) {
-                            await this.app.uiManager.showMessage(this.t('messages.error'), `${this.t('messages.failedToCreateSymlink')}\n${symlinkResult.error}`);
+                            await this.app.uiManager.showMessage(this.t('messages.common.error'), `${this.t('messages.modList.failedToCreateSymlink')}\n${symlinkResult.error}`);
                         }
                         return;
                     }
                     
                     if (this.app.uiManager && this.app.uiManager.showMessage) {
-                        await this.app.uiManager.showMessage(this.t('messages.success'), this.t('messages.symlinkCreatedSuccess', { linkPath, targetPath }));
+                        await this.app.uiManager.showMessage(this.t('messages.common.success'), this.t('messages.modList.symlinkCreatedSuccess', { linkPath, targetPath }));
                     }
                     if (this.app.setStatus) {
-                        this.app.setStatus(this.t('status.symlinkCreated', { modName: cleanModName }));
+                        this.app.setStatus(this.t('status.modList.symlinkCreated', { modName: cleanModName }));
                     }
                     
                     await this.scanAndUpdate();
                 } catch (error) {
                     if (this.app.uiManager && this.app.uiManager.showMessage) {
-                        await this.app.uiManager.showMessage(this.t('messages.error'), `${this.t('messages.symlinkCreationError')}\n${error.message}`);
+                        await this.app.uiManager.showMessage(this.t('messages.common.error'), `${this.t('messages.modList.symlinkCreationError')}\n${error.message}`);
                     }
                 }
             });
@@ -704,7 +651,7 @@ export class ModListComponent {
         if (navigator.clipboard && navigator.clipboard.writeText) {
             navigator.clipboard.writeText(modName).then(() => {
                 if (this.app.setStatus) {
-                    this.app.setStatus(this.t('status.modNameCopied', { modName }));
+                    this.app.setStatus(this.t('status.modList.modNameCopied', { modName }));
                 }
             }).catch(() => {
                 const textArea = document.createElement('textarea');
@@ -716,11 +663,11 @@ export class ModListComponent {
                 try {
                     document.execCommand('copy');
                     if (this.app.setStatus) {
-                        this.app.setStatus(this.t('status.modNameCopied', { modName }));
+                        this.app.setStatus(this.t('status.modList.modNameCopied', { modName }));
                     }
                 } catch (err) {
                     if (this.app.setStatus) {
-                        this.app.setStatus(this.t('status.copyError'));
+                        this.app.setStatus(this.t('status.modList.copyError'));
                     }
                 }
                 document.body.removeChild(textArea);
@@ -735,11 +682,11 @@ export class ModListComponent {
             try {
                 document.execCommand('copy');
                 if (this.app.setStatus) {
-                    this.app.setStatus(this.t('status.modNameCopied', { modName }));
+                    this.app.setStatus(this.t('status.modList.modNameCopied', { modName }));
                 }
             } catch (err) {
                 if (this.app.setStatus) {
-                    this.app.setStatus(this.t('status.copyError'));
+                    this.app.setStatus(this.t('status.modList.copyError'));
                 }
             }
             document.body.removeChild(textArea);
@@ -748,7 +695,7 @@ export class ModListComponent {
     
     async deleteMod(modName) {
         if (this.app.uiManager && this.app.uiManager.showConfirm) {
-            const confirmed = await this.app.uiManager.showConfirm(this.t('messages.deleteModConfirm', { modName }));
+            const confirmed = await this.app.uiManager.showConfirm(this.t('messages.modList.deleteModConfirm', { modName }));
             if (!confirmed) {
                 return;
             }
@@ -776,7 +723,7 @@ export class ModListComponent {
         }
         
         if (this.app.setStatus) {
-            this.app.setStatus(this.t('status.modDeleted', { modName }));
+            this.app.setStatus(this.t('status.modList.modDeleted', { modName }));
         }
     }
     
@@ -826,17 +773,17 @@ export class ModListComponent {
     
     updateLocalization() {
         if (this.app.elements.bulkSelectEnabledBtn) {
-            this.app.elements.bulkSelectEnabledBtn.title = this.t('ui.selectEnabled');
+            this.app.elements.bulkSelectEnabledBtn.title = this.t('ui.modList.selectEnabled');
         }
         
         if (this.app.elements.bulkSelectDisabledBtn) {
-            this.app.elements.bulkSelectDisabledBtn.title = this.t('ui.selectDisabled');
+            this.app.elements.bulkSelectDisabledBtn.title = this.t('ui.modList.selectDisabled');
         }
         
         if (this.app.elements.createSymlinkBtn) {
             const span = this.app.elements.createSymlinkBtn.querySelector('span');
             if (span) {
-                span.textContent = this.t('ui.createSymlink');
+                span.textContent = this.t('ui.modList.createSymlink');
             }
         }
     }

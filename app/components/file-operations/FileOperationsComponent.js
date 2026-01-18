@@ -1,12 +1,10 @@
 export class FileOperationsComponent {
     constructor(app) {
         this.app = app;
-        this.locales = {};
     }
     
     async init() {
         this.loadStyles();
-        await this.loadLocales();
         this.bindEvents();
         this.updateLocalization();
     }
@@ -30,62 +28,11 @@ export class FileOperationsComponent {
         }
     }
     
-    async loadLocales() {
-        const currentLocale = this.app.localeManager ? this.app.localeManager.getCurrentLocale() || 'en' : 'en';
-        await this.loadLocale(currentLocale);
-    }
-    
-    async loadLocale(locale) {
-        if (this.locales[locale]) {
-            return this.locales[locale];
-        }
-        
-        try {
-            const response = await fetch(`components/file-operations/locales/${locale}.json`);
-            if (response.ok) {
-                this.locales[locale] = await response.json();
-                return this.locales[locale];
-            } else {
-                if (locale !== 'en') {
-                    return await this.loadLocale('en');
-                }
-            }
-        } catch (error) {
-            console.warn(`Failed to load file-operations locale ${locale}:`, error);
-            if (locale !== 'en') {
-                return await this.loadLocale('en');
-            }
-        }
-        
-        return null;
-    }
-    
     t(key, params = {}) {
-        const currentLocale = this.app.localeManager ? this.app.localeManager.getCurrentLocale() || 'en' : 'en';
-        const localeData = this.locales[currentLocale] || this.locales['en'] || {};
-        
-        const keys = key.split('.');
-        let value = localeData;
-        
-        for (const k of keys) {
-            if (value && typeof value === 'object' && k in value) {
-                value = value[k];
-            } else {
-                return this.app.t(key, params);
-            }
+        if (this.app.localeManager) {
+            return this.app.localeManager.t(key, params);
         }
-        
-        if (typeof value !== 'string') {
-            return this.app.t(key, params);
-        }
-        
-        if (Object.keys(params).length > 0) {
-            return value.replace(/\{(\w+)\}/g, (match, paramKey) => {
-                return params[paramKey] !== undefined ? params[paramKey] : match;
-            });
-        }
-        
-        return value;
+        return this.app.t(key, params);
     }
     
     bindEvents() {
@@ -160,34 +107,34 @@ export class FileOperationsComponent {
     
     updateLocalization() {
         if (this.app.elements.browseBtn) {
-            this.app.elements.browseBtn.textContent = this.t('ui.browse');
+            this.app.elements.browseBtn.textContent = this.t('ui.fileOperations.browse');
         }
         
         if (this.app.elements.openFileBtn) {
-            this.app.elements.openFileBtn.title = this.t('ui.openFile');
+            this.app.elements.openFileBtn.title = this.t('ui.fileOperations.openFile');
         }
         
         if (this.app.elements.openModsFolderBtn) {
-            this.app.elements.openModsFolderBtn.title = this.t('ui.openModsFolder');
+            this.app.elements.openModsFolderBtn.title = this.t('ui.fileOperations.openModsFolder');
         }
         
         if (this.app.elements.reloadFileBtn) {
-            this.app.elements.reloadFileBtn.title = this.t('ui.reloadFile');
+            this.app.elements.reloadFileBtn.title = this.t('ui.fileOperations.reloadFile');
         }
         
         if (this.app.elements.addModBtn) {
-            this.app.elements.addModBtn.title = this.t('ui.addMod');
+            this.app.elements.addModBtn.title = this.t('ui.fileOperations.addMod');
         }
         
         if (this.app.elements.addModFolderBtn) {
             const span = this.app.elements.addModFolderBtn.querySelector('span');
             if (span) {
-                span.textContent = this.t('ui.addModFolder');
+                span.textContent = this.t('ui.fileOperations.addModFolder');
             }
         }
         
         if (this.app.elements.launchDtkitBtn) {
-            this.app.elements.launchDtkitBtn.title = this.t('ui.launchDtkitPatch');
+            this.app.elements.launchDtkitBtn.title = this.t('ui.fileOperations.launchDtkitPatch');
         }
     }
 }

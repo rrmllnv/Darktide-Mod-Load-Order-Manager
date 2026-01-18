@@ -2,57 +2,25 @@ export class ThemeComponent {
     constructor(app) {
         this.app = app;
         this.themes = [
-            { id: '', name: 'light', cssClass: '', localizationKey: 'ui.light' },
-            { id: 'dark', name: 'dark', cssClass: 'theme-dark', localizationKey: 'ui.dark' },
-            { id: 'high-contrast', name: 'high-contrast', cssClass: 'theme-high-contrast', localizationKey: 'ui.highContrast' },
-            { id: 'oled-dark', name: 'oled-dark', cssClass: 'theme-oled-dark', localizationKey: 'ui.oledDark' },
-            { id: 'sepia', name: 'sepia', cssClass: 'theme-sepia', localizationKey: 'ui.sepia' },
-            { id: 'blue-light', name: 'blue-light', cssClass: 'theme-blue-light', localizationKey: 'ui.blueLight' },
-            { id: 'nord', name: 'nord', cssClass: 'theme-nord', localizationKey: 'ui.nord' },
-            { id: 'dracula', name: 'dracula', cssClass: 'theme-dracula', localizationKey: 'ui.dracula' },
-            { id: 'solarized', name: 'solarized', cssClass: 'theme-solarized', localizationKey: 'ui.solarized' }
+            { id: '', name: 'light', cssClass: '', localizationKey: 'ui.theme.light' },
+            { id: 'dark', name: 'dark', cssClass: 'theme-dark', localizationKey: 'ui.theme.dark' },
+            { id: 'high-contrast', name: 'high-contrast', cssClass: 'theme-high-contrast', localizationKey: 'ui.theme.highContrast' },
+            { id: 'oled-dark', name: 'oled-dark', cssClass: 'theme-oled-dark', localizationKey: 'ui.theme.oledDark' },
+            { id: 'sepia', name: 'sepia', cssClass: 'theme-sepia', localizationKey: 'ui.theme.sepia' },
+            { id: 'blue-light', name: 'blue-light', cssClass: 'theme-blue-light', localizationKey: 'ui.theme.blueLight' },
+            { id: 'nord', name: 'nord', cssClass: 'theme-nord', localizationKey: 'ui.theme.nord' },
+            { id: 'dracula', name: 'dracula', cssClass: 'theme-dracula', localizationKey: 'ui.theme.dracula' },
+            { id: 'solarized', name: 'solarized', cssClass: 'theme-solarized', localizationKey: 'ui.theme.solarized' }
         ];
-        this.locales = {};
     }
     
     async init() {
-        await this.loadLocales();
         this.loadStyles();
         await this.populateThemeSelect();
         
         if (this.app.userConfig && this.app.userConfig.theme !== undefined) {
             this.applyTheme(this.app.userConfig.theme);
         }
-    }
-    
-    async loadLocales() {
-        const currentLocale = this.app.localeManager ? this.app.localeManager.getCurrentLocale() || 'en' : 'en';
-        await this.loadLocale(currentLocale);
-    }
-    
-    async loadLocale(locale) {
-        if (this.locales[locale]) {
-            return this.locales[locale];
-        }
-        
-        try {
-            const response = await fetch(`components/theme/locales/${locale}.json`);
-            if (response.ok) {
-                this.locales[locale] = await response.json();
-                return this.locales[locale];
-            } else {
-                if (locale !== 'en') {
-                    return await this.loadLocale('en');
-                }
-            }
-        } catch (error) {
-            console.warn(`Failed to load theme locale ${locale}:`, error);
-            if (locale !== 'en') {
-                return await this.loadLocale('en');
-            }
-        }
-        
-        return null;
     }
     
     loadStyles() {
@@ -105,29 +73,16 @@ export class ThemeComponent {
             return;
         }
         
-        const currentLocale = this.app.localeManager ? this.app.localeManager.getCurrentLocale() || 'en' : 'en';
-        
-        if (!this.locales[currentLocale]) {
-            await this.loadLocale(currentLocale);
+        if (!this.app.localeManager) {
+            return;
         }
-        
-        const localeData = this.locales[currentLocale] || this.locales['en'] || {};
         
         const themeOptions = this.app.elements.settingsThemeSelect.options;
         
         Array.from(themeOptions).forEach(option => {
             const theme = this.themes.find(t => (t.id || '') === option.value);
             if (theme && theme.localizationKey) {
-                const keys = theme.localizationKey.split('.');
-                let value = localeData;
-                for (const key of keys) {
-                    value = value?.[key];
-                }
-                if (value) {
-                    option.textContent = value;
-                } else if (this.app.localeManager) {
-                    option.textContent = this.app.localeManager.t(theme.localizationKey);
-                }
+                option.textContent = this.app.localeManager.t(theme.localizationKey);
             }
         });
     }

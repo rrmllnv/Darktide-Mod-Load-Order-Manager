@@ -1,12 +1,10 @@
 export class BulkOperationsComponent {
     constructor(app) {
         this.app = app;
-        this.locales = {};
     }
     
     async init() {
         this.loadStyles();
-        await this.loadLocales();
         this.bindEvents();
         this.updateLocalization();
         this.updatePanel();
@@ -31,62 +29,11 @@ export class BulkOperationsComponent {
         }
     }
     
-    async loadLocales() {
-        const currentLocale = this.app.localeManager ? this.app.localeManager.getCurrentLocale() || 'en' : 'en';
-        await this.loadLocale(currentLocale);
-    }
-    
-    async loadLocale(locale) {
-        if (this.locales[locale]) {
-            return this.locales[locale];
-        }
-        
-        try {
-            const response = await fetch(`components/bulk-operations/locales/${locale}.json`);
-            if (response.ok) {
-                this.locales[locale] = await response.json();
-                return this.locales[locale];
-            } else {
-                if (locale !== 'en') {
-                    return await this.loadLocale('en');
-                }
-            }
-        } catch (error) {
-            console.warn(`Failed to load bulk-operations locale ${locale}:`, error);
-            if (locale !== 'en') {
-                return await this.loadLocale('en');
-            }
-        }
-        
-        return null;
-    }
-    
     t(key, params = {}) {
-        const currentLocale = this.app.localeManager ? this.app.localeManager.getCurrentLocale() || 'en' : 'en';
-        const localeData = this.locales[currentLocale] || this.locales['en'] || {};
-        
-        const keys = key.split('.');
-        let value = localeData;
-        
-        for (const k of keys) {
-            if (value && typeof value === 'object' && k in value) {
-                value = value[k];
-            } else {
-                return this.app.t(key, params);
-            }
+        if (this.app.localeManager) {
+            return this.app.localeManager.t(key, params);
         }
-        
-        if (typeof value !== 'string') {
-            return this.app.t(key, params);
-        }
-        
-        if (Object.keys(params).length > 0) {
-            return value.replace(/\{(\w+)\}/g, (match, paramKey) => {
-                return params[paramKey] !== undefined ? params[paramKey] : match;
-            });
-        }
-        
-        return value;
+        return this.app.t(key, params);
     }
     
     bindEvents() {
@@ -195,7 +142,7 @@ export class BulkOperationsComponent {
             this.app.updateStatistics();
         }
         if (this.app.setStatus) {
-            this.app.setStatus(this.app.t('status.modsEnabled', { count: selected.length }));
+            this.app.setStatus(this.app.t('status.common.modsEnabled', { count: selected.length }));
         }
     }
     
@@ -223,7 +170,7 @@ export class BulkOperationsComponent {
             this.app.updateStatistics();
         }
         if (this.app.setStatus) {
-            this.app.setStatus(this.app.t('status.modsDisabled', { count: selected.length }));
+            this.app.setStatus(this.app.t('status.common.modsDisabled', { count: selected.length }));
         }
     }
     
@@ -233,7 +180,7 @@ export class BulkOperationsComponent {
             return;
         }
         
-        const confirmed = await this.app.uiManager.showConfirm(this.app.t('messages.deleteModsConfirm', { count: selected.length }));
+        const confirmed = await this.app.uiManager.showConfirm(this.app.t('messages.common.deleteModsConfirm', { count: selected.length }));
         if (!confirmed) {
             return;
         }
@@ -255,7 +202,7 @@ export class BulkOperationsComponent {
             this.app.updateStatistics();
         }
         if (this.app.setStatus) {
-            this.app.setStatus(this.app.t('status.modsDeleted', { count: selected.length }));
+            this.app.setStatus(this.app.t('status.common.modsDeleted', { count: selected.length }));
         }
     }
     
@@ -276,15 +223,15 @@ export class BulkOperationsComponent {
         
         if (this.app.elements.bulkSelectionCount) {
             if (count === 0) {
-                this.app.elements.bulkSelectionCount.textContent = this.t('ui.noModsSelected');
+                this.app.elements.bulkSelectionCount.textContent = this.t('ui.common.noModsSelected');
             } else {
                 let modText;
                 if (count === 1) {
-                    modText = this.t('ui.modSelected');
+                    modText = this.t('ui.common.modSelected');
                 } else if (count < 5) {
-                    modText = this.t('ui.modsSelected');
+                    modText = this.t('ui.common.modsSelected');
                 } else {
-                    modText = this.t('ui.modsSelectedMany');
+                    modText = this.t('ui.common.modsSelectedMany');
                 }
                 this.app.elements.bulkSelectionCount.textContent = `${count} ${modText}`;
             }
@@ -313,31 +260,31 @@ export class BulkOperationsComponent {
     updateLocalization() {
         const actionsLabel = document.querySelector('#bulk-actions-panel .section-label');
         if (actionsLabel) {
-            actionsLabel.textContent = this.t('ui.actions');
+            actionsLabel.textContent = this.t('ui.bulkOperations.actions');
         }
         
         if (this.app.elements.bulkEnableBtn) {
-            this.app.elements.bulkEnableBtn.title = this.t('ui.enableSelected');
+            this.app.elements.bulkEnableBtn.title = this.t('ui.bulkOperations.enableSelected');
         }
         
         if (this.app.elements.bulkDisableBtn) {
-            this.app.elements.bulkDisableBtn.title = this.t('ui.disableSelected');
+            this.app.elements.bulkDisableBtn.title = this.t('ui.bulkOperations.disableSelected');
         }
         
         if (this.app.elements.bulkDeleteBtn) {
-            this.app.elements.bulkDeleteBtn.title = this.t('ui.deleteSelected');
+            this.app.elements.bulkDeleteBtn.title = this.t('ui.bulkOperations.deleteSelected');
         }
         
         if (this.app.elements.bulkClearSelectionBtn) {
-            this.app.elements.bulkClearSelectionBtn.title = this.t('ui.clearSelection');
+            this.app.elements.bulkClearSelectionBtn.title = this.t('ui.bulkOperations.clearSelection');
         }
         
         if (this.app.elements.bulkSelectEnabledBtn) {
-            this.app.elements.bulkSelectEnabledBtn.title = this.t('ui.selectEnabled');
+            this.app.elements.bulkSelectEnabledBtn.title = this.t('ui.bulkOperations.selectEnabled');
         }
         
         if (this.app.elements.bulkSelectDisabledBtn) {
-            this.app.elements.bulkSelectDisabledBtn.title = this.t('ui.selectDisabled');
+            this.app.elements.bulkSelectDisabledBtn.title = this.t('ui.bulkOperations.selectDisabled');
         }
     }
 }

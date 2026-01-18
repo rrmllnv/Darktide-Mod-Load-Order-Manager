@@ -3,12 +3,10 @@ import { ConfigManager } from '../../managers/ConfigManager.js';
 export class SettingsComponent {
     constructor(app) {
         this.app = app;
-        this.locales = {};
     }
     
     async init() {
         this.loadStyles();
-        await this.loadLocales();
         this.bindEvents();
         this.updateLocalization();
     }
@@ -32,62 +30,11 @@ export class SettingsComponent {
         }
     }
     
-    async loadLocales() {
-        const currentLocale = this.app.localeManager ? this.app.localeManager.getCurrentLocale() || 'en' : 'en';
-        await this.loadLocale(currentLocale);
-    }
-    
-    async loadLocale(locale) {
-        if (this.locales[locale]) {
-            return this.locales[locale];
-        }
-        
-        try {
-            const response = await fetch(`components/settings/locales/${locale}.json`);
-            if (response.ok) {
-                this.locales[locale] = await response.json();
-                return this.locales[locale];
-            } else {
-                if (locale !== 'en') {
-                    return await this.loadLocale('en');
-                }
-            }
-        } catch (error) {
-            console.warn(`Failed to load settings locale ${locale}:`, error);
-            if (locale !== 'en') {
-                return await this.loadLocale('en');
-            }
-        }
-        
-        return null;
-    }
-    
     t(key, params = {}) {
-        const currentLocale = this.app.localeManager ? this.app.localeManager.getCurrentLocale() || 'en' : 'en';
-        const localeData = this.locales[currentLocale] || this.locales['en'] || {};
-        
-        const keys = key.split('.');
-        let value = localeData;
-        
-        for (const k of keys) {
-            if (value && typeof value === 'object' && k in value) {
-                value = value[k];
-            } else {
-                return this.app.t(key, params);
-            }
+        if (this.app.localeManager) {
+            return this.app.localeManager.t(key, params);
         }
-        
-        if (typeof value !== 'string') {
-            return this.app.t(key, params);
-        }
-        
-        if (Object.keys(params).length > 0) {
-            return value.replace(/\{(\w+)\}/g, (match, paramKey) => {
-                return params[paramKey] !== undefined ? params[paramKey] : match;
-            });
-        }
-        
-        return value;
+        return this.app.t(key, params);
     }
     
     bindEvents() {
@@ -193,29 +140,29 @@ export class SettingsComponent {
     updateLocalization() {
         const settingsTitle = document.querySelector('#settings-dialog .modal-title');
         if (settingsTitle) {
-            settingsTitle.textContent = this.t('ui.settings');
+            settingsTitle.textContent = this.t('ui.settings.settings');
         }
         
         const settingsThemeLabel = document.getElementById('settings-theme-label');
         if (settingsThemeLabel) {
-            settingsThemeLabel.textContent = this.t('ui.theme');
+            settingsThemeLabel.textContent = this.t('ui.settings.theme');
         }
         
         const settingsLocaleLabel = document.getElementById('settings-locale-label');
         if (settingsLocaleLabel) {
-            settingsLocaleLabel.textContent = this.t('ui.locale');
+            settingsLocaleLabel.textContent = this.t('ui.settings.locale');
         }
         
         if (this.app.elements.settingsOkBtn) {
-            this.app.elements.settingsOkBtn.textContent = this.t('ui.save');
+            this.app.elements.settingsOkBtn.textContent = this.t('ui.common.save');
         }
         
         if (this.app.elements.settingsCancelBtn) {
-            this.app.elements.settingsCancelBtn.textContent = this.t('ui.cancel');
+            this.app.elements.settingsCancelBtn.textContent = this.t('ui.common.cancel');
         }
         
         if (this.app.elements.settingsBtn) {
-            this.app.elements.settingsBtn.title = this.t('ui.settings');
+            this.app.elements.settingsBtn.title = this.t('ui.settings.settings');
         }
     }
 }

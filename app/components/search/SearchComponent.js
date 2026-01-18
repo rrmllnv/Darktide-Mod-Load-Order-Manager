@@ -1,12 +1,10 @@
 export class SearchComponent {
     constructor(app) {
         this.app = app;
-        this.locales = {};
     }
     
     async init() {
         this.loadStyles();
-        await this.loadLocales();
         this.bindEvents();
         this.updateLocalization();
     }
@@ -30,62 +28,11 @@ export class SearchComponent {
         }
     }
     
-    async loadLocales() {
-        const currentLocale = this.app.localeManager ? this.app.localeManager.getCurrentLocale() || 'en' : 'en';
-        await this.loadLocale(currentLocale);
-    }
-    
-    async loadLocale(locale) {
-        if (this.locales[locale]) {
-            return this.locales[locale];
-        }
-        
-        try {
-            const response = await fetch(`components/search/locales/${locale}.json`);
-            if (response.ok) {
-                this.locales[locale] = await response.json();
-                return this.locales[locale];
-            } else {
-                if (locale !== 'en') {
-                    return await this.loadLocale('en');
-                }
-            }
-        } catch (error) {
-            console.warn(`Failed to load search locale ${locale}:`, error);
-            if (locale !== 'en') {
-                return await this.loadLocale('en');
-            }
-        }
-        
-        return null;
-    }
-    
     t(key, params = {}) {
-        const currentLocale = this.app.localeManager ? this.app.localeManager.getCurrentLocale() || 'en' : 'en';
-        const localeData = this.locales[currentLocale] || this.locales['en'] || {};
-        
-        const keys = key.split('.');
-        let value = localeData;
-        
-        for (const k of keys) {
-            if (value && typeof value === 'object' && k in value) {
-                value = value[k];
-            } else {
-                return this.app.t(key, params);
-            }
+        if (this.app.localeManager) {
+            return this.app.localeManager.t(key, params);
         }
-        
-        if (typeof value !== 'string') {
-            return this.app.t(key, params);
-        }
-        
-        if (Object.keys(params).length > 0) {
-            return value.replace(/\{(\w+)\}/g, (match, paramKey) => {
-                return params[paramKey] !== undefined ? params[paramKey] : match;
-            });
-        }
-        
-        return value;
+        return this.app.t(key, params);
     }
     
     bindEvents() {
@@ -188,30 +135,30 @@ export class SearchComponent {
     updateLocalization() {
         const searchLabel = document.querySelector('.search-label');
         if (searchLabel) {
-            searchLabel.textContent = this.t('ui.search');
+            searchLabel.textContent = this.t('ui.search.search');
         }
         
         if (this.app.elements.searchInput) {
-            this.app.elements.searchInput.placeholder = this.t('ui.searchPlaceholder');
+            this.app.elements.searchInput.placeholder = this.t('ui.search.searchPlaceholder');
         }
         
         if (this.app.elements.clearSearchBtn) {
-            this.app.elements.clearSearchBtn.title = this.t('ui.clear');
+            this.app.elements.clearSearchBtn.title = this.t('ui.search.clear');
         }
         
         const hideNewModsSpan = document.querySelector('#hide-new-mods-checkbox')?.nextElementSibling;
         if (hideNewModsSpan) {
-            hideNewModsSpan.textContent = this.t('ui.hideNewMods');
+            hideNewModsSpan.textContent = this.t('ui.search.hideNewMods');
         }
         
         const hideNotFoundModsSpan = document.querySelector('#hide-not-found-mods-checkbox')?.nextElementSibling;
         if (hideNotFoundModsSpan) {
-            hideNotFoundModsSpan.textContent = this.t('ui.hideNotFoundMods');
+            hideNotFoundModsSpan.textContent = this.t('ui.search.hideNotFoundMods');
         }
         
         const hideUnusedModsSpan = document.querySelector('#hide-unused-mods-checkbox')?.nextElementSibling;
         if (hideUnusedModsSpan) {
-            hideUnusedModsSpan.textContent = this.t('ui.hideUnusedMods');
+            hideUnusedModsSpan.textContent = this.t('ui.search.hideUnusedMods');
         }
     }
 }

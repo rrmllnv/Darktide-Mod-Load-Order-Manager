@@ -26,17 +26,14 @@ export class SettingsManager {
         await this.app.applyLocalization();
         
         if (this.app.themeComponent) {
-            await this.app.themeComponent.loadLocale(locale);
             await this.app.themeComponent.updateThemeSelectLabels();
         }
         
         if (this.app.profileComponent) {
-            await this.app.profileComponent.loadLocale(locale);
             await this.app.profileComponent.updateLocalization();
         }
         
         if (this.app.modListComponent) {
-            await this.app.modListComponent.loadLocale(locale);
             if (this.app.modListComponent.updateLocalization) {
                 this.app.modListComponent.updateLocalization();
             }
@@ -47,28 +44,24 @@ export class SettingsManager {
         }
         
         if (this.app.searchComponent) {
-            await this.app.searchComponent.loadLocale(locale);
             if (this.app.searchComponent.updateLocalization) {
                 this.app.searchComponent.updateLocalization();
             }
         }
         
         if (this.app.bulkOperationsComponent) {
-            await this.app.bulkOperationsComponent.loadLocale(locale);
             if (this.app.bulkOperationsComponent.updateLocalization) {
                 this.app.bulkOperationsComponent.updateLocalization();
             }
         }
         
         if (this.app.settingsComponent) {
-            await this.app.settingsComponent.loadLocale(locale);
             if (this.app.settingsComponent.updateLocalization) {
                 this.app.settingsComponent.updateLocalization();
             }
         }
         
         if (this.app.fileOperationsComponent) {
-            await this.app.fileOperationsComponent.loadLocale(locale);
             if (this.app.fileOperationsComponent.updateLocalization) {
                 this.app.fileOperationsComponent.updateLocalization();
             }
