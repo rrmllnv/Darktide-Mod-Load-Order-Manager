@@ -26,7 +26,7 @@ export class ModScanService {
                 if (this.app && this.app.t) {
                     this.setStatus(this.app.t('status.scanWarning', { error: result.error }));
                 } else {
-                    this.setStatus(`Предупреждение: не удалось просканировать папку модов: ${result.error}`);
+                    this.setStatus(`Warning: failed to scan mods folder: ${result.error}`);
                 }
                 return { added: 0, removed: 0, deleted: 0, restored: 0, selectedModName };
             }
@@ -103,7 +103,7 @@ export class ModScanService {
             if (this.app && this.app.t) {
                 this.setStatus(this.app.t('status.scanWarning', { error: error.message }));
             } else {
-                this.setStatus(`Предупреждение: не удалось просканировать папку модов: ${error.message}`);
+                this.setStatus(`Warning: failed to scan mods folder: ${error.message}`);
             }
             return { added: 0, removed: 0, deleted: 0, restored: 0, selectedModName };
         }

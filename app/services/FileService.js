@@ -95,7 +95,7 @@ export class FileService {
     async loadFile(filePath) {
         const exists = await window.electronAPI.fileExists(filePath);
         if (!exists) {
-            throw new Error(`Файл не найден: ${filePath}`);
+            throw new Error(`File not found: ${filePath}`);
         }
         
         const result = await window.electronAPI.loadFile(filePath);
