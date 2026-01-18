@@ -156,6 +156,26 @@ export class SettingsComponent {
         if (this.app.elements.settingsLocaleSelect) {
             this.app.elements.settingsLocaleSelect.value = this.app.userConfig.locale || 'en';
         }
+        
+        const saveProfileHideNewMods = document.getElementById('settings-save-profile-hide-new-mods');
+        if (saveProfileHideNewMods) {
+            saveProfileHideNewMods.checked = this.app.userConfig.saveProfileHideNewMods !== undefined ? this.app.userConfig.saveProfileHideNewMods : true;
+        }
+        
+        const saveProfileHideNotFoundMods = document.getElementById('settings-save-profile-hide-not-found-mods');
+        if (saveProfileHideNotFoundMods) {
+            saveProfileHideNotFoundMods.checked = this.app.userConfig.saveProfileHideNotFoundMods !== undefined ? this.app.userConfig.saveProfileHideNotFoundMods : true;
+        }
+        
+        const saveProfileHideUnusedMods = document.getElementById('settings-save-profile-hide-unused-mods');
+        if (saveProfileHideUnusedMods) {
+            saveProfileHideUnusedMods.checked = this.app.userConfig.saveProfileHideUnusedMods !== undefined ? this.app.userConfig.saveProfileHideUnusedMods : true;
+        }
+        
+        const saveProfileSort = document.getElementById('settings-save-profile-sort');
+        if (saveProfileSort) {
+            saveProfileSort.checked = this.app.userConfig.saveProfileSort !== undefined ? this.app.userConfig.saveProfileSort : true;
+        }
     }
     
     saveSettingsFromForm() {
@@ -169,6 +189,26 @@ export class SettingsComponent {
         
         if (this.app.elements.settingsLocaleSelect) {
             this.app.userConfig.locale = this.app.elements.settingsLocaleSelect.value || 'en';
+        }
+        
+        const saveProfileHideNewMods = document.getElementById('settings-save-profile-hide-new-mods');
+        if (saveProfileHideNewMods) {
+            this.app.userConfig.saveProfileHideNewMods = saveProfileHideNewMods.checked;
+        }
+        
+        const saveProfileHideNotFoundMods = document.getElementById('settings-save-profile-hide-not-found-mods');
+        if (saveProfileHideNotFoundMods) {
+            this.app.userConfig.saveProfileHideNotFoundMods = saveProfileHideNotFoundMods.checked;
+        }
+        
+        const saveProfileHideUnusedMods = document.getElementById('settings-save-profile-hide-unused-mods');
+        if (saveProfileHideUnusedMods) {
+            this.app.userConfig.saveProfileHideUnusedMods = saveProfileHideUnusedMods.checked;
+        }
+        
+        const saveProfileSort = document.getElementById('settings-save-profile-sort');
+        if (saveProfileSort) {
+            this.app.userConfig.saveProfileSort = saveProfileSort.checked;
         }
         
         if (this.app.configManager && this.app.configManager.saveUserConfig) {
@@ -214,6 +254,19 @@ export class SettingsComponent {
             settingsTitle.textContent = this.t('ui.settings.settings');
         }
         
+        const menuItems = document.querySelectorAll('.settings-menu-item-text');
+        menuItems.forEach(item => {
+            const menuItem = item.closest('.settings-menu-item');
+            if (menuItem) {
+                const section = menuItem.getAttribute('data-section');
+                if (section === 'general') {
+                    item.textContent = this.t('ui.settings.general');
+                } else if (section === 'profiles') {
+                    item.textContent = this.t('ui.settings.profiles');
+                }
+            }
+        });
+        
         const settingsThemeLabel = document.getElementById('settings-theme-label');
         if (settingsThemeLabel) {
             settingsThemeLabel.textContent = this.t('ui.settings.theme');
@@ -239,6 +292,31 @@ export class SettingsComponent {
         const restartTourLabel = document.getElementById('settings-restart-tour-label');
         if (restartTourLabel) {
             restartTourLabel.textContent = this.t('ui.settings.restartTour');
+        }
+        
+        const saveProfileFiltersLabel = document.getElementById('settings-profile-filters-label');
+        if (saveProfileFiltersLabel) {
+            saveProfileFiltersLabel.textContent = this.t('ui.settings.saveProfileFilters');
+        }
+        
+        const saveProfileHideNewModsLabel = document.getElementById('settings-save-profile-hide-new-mods-label');
+        if (saveProfileHideNewModsLabel) {
+            saveProfileHideNewModsLabel.textContent = this.t('ui.settings.saveProfileHideNewMods');
+        }
+        
+        const saveProfileHideNotFoundModsLabel = document.getElementById('settings-save-profile-hide-not-found-mods-label');
+        if (saveProfileHideNotFoundModsLabel) {
+            saveProfileHideNotFoundModsLabel.textContent = this.t('ui.settings.saveProfileHideNotFoundMods');
+        }
+        
+        const saveProfileHideUnusedModsLabel = document.getElementById('settings-save-profile-hide-unused-mods-label');
+        if (saveProfileHideUnusedModsLabel) {
+            saveProfileHideUnusedModsLabel.textContent = this.t('ui.settings.saveProfileHideUnusedMods');
+        }
+        
+        const saveProfileSortLabel = document.getElementById('settings-save-profile-sort-label');
+        if (saveProfileSortLabel) {
+            saveProfileSortLabel.textContent = this.t('ui.settings.saveProfileSort');
         }
     }
 }

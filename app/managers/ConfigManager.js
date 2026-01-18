@@ -12,7 +12,11 @@ export class ConfigManager {
             hideNotFoundMods: false,
             hideUnusedMods: false,
             tourCompleted: false,
-            browseTourCompleted: false
+            browseTourCompleted: false,
+            saveProfileHideNewMods: true,
+            saveProfileHideNotFoundMods: true,
+            saveProfileHideUnusedMods: true,
+            saveProfileSort: true
         };
     }
     

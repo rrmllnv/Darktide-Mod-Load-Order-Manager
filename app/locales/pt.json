@@ -101,9 +101,16 @@
         },
         "settings": {
             "settings": "Configurações",
+            "general": "Geral",
+            "profiles": "Perfis",
             "theme": "Tema:",
             "locale": "Idioma:",
             "restartTour": "Reiniciar tour tutorial",
+            "saveProfileFilters": "Salvar filtros no perfil:",
+            "saveProfileHideNewMods": "Ocultar novos mods",
+            "saveProfileHideNotFoundMods": "Ocultar mods não encontrados",
+            "saveProfileHideUnusedMods": "Ocultar todos os mods não utilizados",
+            "saveProfileSort": "Salvar ordem de classificação no perfil",
             "save": "Salvar",
             "cancel": "Cancelar"
         },

@@ -228,10 +228,10 @@
             <div class="settings-container">
                 <div class="settings-menu">
                     <button class="settings-menu-item active" data-section="general">
-                        <span class="settings-menu-item-text">Общие</span>
+                        <span class="settings-menu-item-text">General</span>
                     </button>
                     <button class="settings-menu-item" data-section="profiles">
-                        <span class="settings-menu-item-text">Профили</span>
+                        <span class="settings-menu-item-text">Profiles</span>
                     </button>
                 </div>
                 <div class="settings-content">
@@ -273,7 +273,28 @@
                     </div>
                     <div class="settings-content-section" id="settings-section-profiles">
                         <div class="settings-section">
-                            <p>Раздел профилей</p>
+                            <label class="settings-label" id="settings-profile-filters-label">Save filters in profile:</label>
+                            <div class="settings-checkbox-group">
+                                <label class="settings-label">
+                                    <input type="checkbox" id="settings-save-profile-hide-new-mods" />
+                                    <span id="settings-save-profile-hide-new-mods-label">Hide new mods</span>
+                                </label>
+                                <label class="settings-label">
+                                    <input type="checkbox" id="settings-save-profile-hide-not-found-mods" />
+                                    <span id="settings-save-profile-hide-not-found-mods-label">Hide not found mods</span>
+                                </label>
+                                <label class="settings-label">
+                                    <input type="checkbox" id="settings-save-profile-hide-unused-mods" />
+                                    <span id="settings-save-profile-hide-unused-mods-label">Hide all unused mods</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="settings-separator"></div>
+                        <div class="settings-section">
+                            <label class="settings-label">
+                                <input type="checkbox" id="settings-save-profile-sort" />
+                                <span id="settings-save-profile-sort-label">Save sort order in profile</span>
+                            </label>
                         </div>
                     </div>
                 </div>

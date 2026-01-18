@@ -133,12 +133,28 @@ export class ProfileComponent {
     }
     
     saveCurrentState() {
-        const settings = {
-            hideNewMods: this.app.hideNewMods || false,
-            hideNotFoundMods: this.app.hideNotFoundMods || false,
-            hideUnusedMods: this.app.hideUnusedMods || false,
-            sort: this.app.elements.sortSelect ? this.app.elements.sortSelect.value : null
-        };
+        const saveProfileHideNewMods = this.app.userConfig && this.app.userConfig.saveProfileHideNewMods !== undefined ? this.app.userConfig.saveProfileHideNewMods : true;
+        const saveProfileHideNotFoundMods = this.app.userConfig && this.app.userConfig.saveProfileHideNotFoundMods !== undefined ? this.app.userConfig.saveProfileHideNotFoundMods : true;
+        const saveProfileHideUnusedMods = this.app.userConfig && this.app.userConfig.saveProfileHideUnusedMods !== undefined ? this.app.userConfig.saveProfileHideUnusedMods : true;
+        const saveProfileSort = this.app.userConfig && this.app.userConfig.saveProfileSort !== undefined ? this.app.userConfig.saveProfileSort : true;
+        
+        const settings = {};
+        
+        if (saveProfileHideNewMods) {
+            settings.hideNewMods = this.app.hideNewMods || false;
+        }
+        
+        if (saveProfileHideNotFoundMods) {
+            settings.hideNotFoundMods = this.app.hideNotFoundMods || false;
+        }
+        
+        if (saveProfileHideUnusedMods) {
+            settings.hideUnusedMods = this.app.hideUnusedMods || false;
+        }
+        
+        if (saveProfileSort) {
+            settings.sort = this.app.elements.sortSelect ? this.app.elements.sortSelect.value : null;
+        }
         
         const modsToSave = this.app.modEntries.filter(modEntry => {
             if (modEntry.isNew && !modEntry.enabled) {
@@ -152,13 +168,24 @@ export class ProfileComponent {
         const state = {
             _order: [],
             _mods: {},
-            _settings: {
-                hideNewMods: settings.hideNewMods || false,
-                hideNotFoundMods: settings.hideNotFoundMods || false,
-                hideUnusedMods: settings.hideUnusedMods || false,
-                sort: settings.sort || null
-            }
+            _settings: {}
         };
+        
+        if (saveProfileHideNewMods) {
+            state._settings.hideNewMods = settings.hideNewMods || false;
+        }
+        
+        if (saveProfileHideNotFoundMods) {
+            state._settings.hideNotFoundMods = settings.hideNotFoundMods || false;
+        }
+        
+        if (saveProfileHideUnusedMods) {
+            state._settings.hideUnusedMods = settings.hideUnusedMods || false;
+        }
+        
+        if (saveProfileSort) {
+            state._settings.sort = settings.sort || null;
+        }
         
         for (const modEntry of sortedMods) {
             state._order.push(modEntry.name);
@@ -228,21 +255,33 @@ export class ProfileComponent {
         this.app.modEntries = restoredMods;
         
         if (profileSettings) {
-            this.app.hideNewMods = profileSettings.hideNewMods || false;
-            this.app.hideNotFoundMods = profileSettings.hideNotFoundMods || false;
-            this.app.hideUnusedMods = profileSettings.hideUnusedMods || false;
+            const saveProfileHideNewMods = this.app.userConfig && this.app.userConfig.saveProfileHideNewMods !== undefined ? this.app.userConfig.saveProfileHideNewMods : true;
+            const saveProfileHideNotFoundMods = this.app.userConfig && this.app.userConfig.saveProfileHideNotFoundMods !== undefined ? this.app.userConfig.saveProfileHideNotFoundMods : true;
+            const saveProfileHideUnusedMods = this.app.userConfig && this.app.userConfig.saveProfileHideUnusedMods !== undefined ? this.app.userConfig.saveProfileHideUnusedMods : true;
+            const saveProfileSort = this.app.userConfig && this.app.userConfig.saveProfileSort !== undefined ? this.app.userConfig.saveProfileSort : true;
             
-            if (this.app.elements.hideNewModsCheckbox) {
-                this.app.elements.hideNewModsCheckbox.checked = this.app.hideNewMods;
-            }
-            if (this.app.elements.hideNotFoundModsCheckbox) {
-                this.app.elements.hideNotFoundModsCheckbox.checked = this.app.hideNotFoundMods;
-            }
-            if (this.app.elements.hideUnusedModsCheckbox) {
-                this.app.elements.hideUnusedModsCheckbox.checked = this.app.hideUnusedMods;
+            if (saveProfileHideNewMods && profileSettings.hideNewMods !== undefined) {
+                this.app.hideNewMods = profileSettings.hideNewMods || false;
+                if (this.app.elements.hideNewModsCheckbox) {
+                    this.app.elements.hideNewModsCheckbox.checked = this.app.hideNewMods;
+                }
             }
             
-            if (profileSettings.sort && this.app.elements.sortSelect) {
+            if (saveProfileHideNotFoundMods && profileSettings.hideNotFoundMods !== undefined) {
+                this.app.hideNotFoundMods = profileSettings.hideNotFoundMods || false;
+                if (this.app.elements.hideNotFoundModsCheckbox) {
+                    this.app.elements.hideNotFoundModsCheckbox.checked = this.app.hideNotFoundMods;
+                }
+            }
+            
+            if (saveProfileHideUnusedMods && profileSettings.hideUnusedMods !== undefined) {
+                this.app.hideUnusedMods = profileSettings.hideUnusedMods || false;
+                if (this.app.elements.hideUnusedModsCheckbox) {
+                    this.app.elements.hideUnusedModsCheckbox.checked = this.app.hideUnusedMods;
+                }
+            }
+            
+            if (saveProfileSort && profileSettings.sort && this.app.elements.sortSelect) {
                 const sortValue = profileSettings.sort;
                 const validSortKeys = ['fileOrder', 'name', 'status', 'newFirst'];
                 

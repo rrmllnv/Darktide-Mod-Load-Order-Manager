@@ -101,9 +101,16 @@
         },
         "settings": {
             "settings": "Настройки",
+            "general": "Общие",
+            "profiles": "Профили",
             "theme": "Тема:",
             "locale": "Язык:",
             "restartTour": "Пройти обучающий тур заново",
+            "saveProfileFilters": "Сохранять фильтры в профиль:",
+            "saveProfileHideNewMods": "Скрыть новые моды",
+            "saveProfileHideNotFoundMods": "Скрыть не найденные моды",
+            "saveProfileHideUnusedMods": "Скрыть все не используемые моды",
+            "saveProfileSort": "Сохранять сортировку в профиль",
             "save": "Сохранить",
             "cancel": "Отмена"
         },

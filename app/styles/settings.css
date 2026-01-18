@@ -97,3 +97,21 @@
     align-items: center;
     cursor: pointer;
 }
+
+.settings-checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.settings-checkbox-group .settings-label {
+    font-weight: normal;
+    margin-bottom: 0;
+}
+
+.settings-separator {
+    height: 1px;
+    background-color: var(--border-secondary);
+    margin: 20px 0;
+}
