@@ -4,28 +4,8 @@ export class SearchComponent {
     }
     
     async init() {
-        this.loadStyles();
         this.bindEvents();
         this.updateLocalization();
-    }
-    
-    loadStyles() {
-        const existingLink = document.querySelector('link[data-search-style="search.css"]');
-        if (existingLink) {
-            return;
-        }
-        
-        const link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.href = 'components/search/styles/search.css';
-        link.setAttribute('data-search-style', 'search.css');
-        
-        const baseLink = document.querySelector('link[href="styles/base.css"]');
-        if (baseLink && baseLink.nextSibling) {
-            baseLink.parentNode.insertBefore(link, baseLink.nextSibling);
-        } else {
-            document.head.appendChild(link);
-        }
     }
     
     t(key, params = {}) {

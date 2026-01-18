@@ -8,24 +8,9 @@ export class ProfileComponent {
     }
     
     async init() {
-        this.loadStyles();
         await this.updateLocalization();
         await this.initProfilesDirectory();
         this.bindEvents();
-    }
-    
-    loadStyles() {
-        const link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.href = 'components/profile/styles/profile.css';
-        link.setAttribute('data-profile-style', 'profile.css');
-        
-        const baseLink = document.querySelector('link[href="styles/base.css"]');
-        if (baseLink && baseLink.nextSibling) {
-            baseLink.parentNode.insertBefore(link, baseLink.nextSibling);
-        } else {
-            document.head.appendChild(link);
-        }
     }
     
     t(key, params = {}) {

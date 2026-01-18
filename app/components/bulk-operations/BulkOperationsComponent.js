@@ -4,29 +4,9 @@ export class BulkOperationsComponent {
     }
     
     async init() {
-        this.loadStyles();
         this.bindEvents();
         this.updateLocalization();
         this.updatePanel();
-    }
-    
-    loadStyles() {
-        const existingLink = document.querySelector('link[data-bulk-operations-style="bulk-operations.css"]');
-        if (existingLink) {
-            return;
-        }
-        
-        const link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.href = 'components/bulk-operations/styles/bulk-operations.css';
-        link.setAttribute('data-bulk-operations-style', 'bulk-operations.css');
-        
-        const baseLink = document.querySelector('link[href="styles/base.css"]');
-        if (baseLink && baseLink.nextSibling) {
-            baseLink.parentNode.insertBefore(link, baseLink.nextSibling);
-        } else {
-            document.head.appendChild(link);
-        }
     }
     
     t(key, params = {}) {

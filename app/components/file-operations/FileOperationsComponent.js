@@ -4,28 +4,8 @@ export class FileOperationsComponent {
     }
     
     async init() {
-        this.loadStyles();
         this.bindEvents();
         this.updateLocalization();
-    }
-    
-    loadStyles() {
-        const existingLink = document.querySelector('link[data-file-operations-style="file-operations.css"]');
-        if (existingLink) {
-            return;
-        }
-        
-        const link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.href = 'components/file-operations/styles/file-operations.css';
-        link.setAttribute('data-file-operations-style', 'file-operations.css');
-        
-        const baseLink = document.querySelector('link[href="styles/base.css"]');
-        if (baseLink && baseLink.nextSibling) {
-            baseLink.parentNode.insertBefore(link, baseLink.nextSibling);
-        } else {
-            document.head.appendChild(link);
-        }
     }
     
     t(key, params = {}) {

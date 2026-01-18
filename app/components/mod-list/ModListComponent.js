@@ -136,8 +136,6 @@ export class ModListComponent {
     }
     
     async init() {
-        this.loadStyles();
-        
         if (this.app.elements && this.app.elements.modsList) {
             this.dragDropManager = new DragDropManager(
                 this._modEntries,
@@ -184,20 +182,6 @@ export class ModListComponent {
                 }
                 this.createSymlinkForMod();
             });
-        }
-    }
-    
-    loadStyles() {
-        const link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.href = 'components/mod-list/styles/mod-list.css';
-        link.setAttribute('data-mod-list-style', 'mod-list.css');
-        
-        const baseLink = document.querySelector('link[href="styles/base.css"]');
-        if (baseLink && baseLink.nextSibling) {
-            baseLink.parentNode.insertBefore(link, baseLink.nextSibling);
-        } else {
-            document.head.appendChild(link);
         }
     }
     
