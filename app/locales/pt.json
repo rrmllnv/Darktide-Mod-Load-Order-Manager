@@ -200,5 +200,37 @@
             "copyError": "Erro ao copiar",
             "modDeleted": "Mod '{modName}' excluído. Não se esqueça de salvar o arquivo."
         }
+    },
+    "tour": {
+        "next": "Próximo",
+        "previous": "Anterior",
+        "skip": "Pular",
+        "finish": "Concluir",
+        "steps": {
+            "selectFile": {
+                "title": "Selecionar arquivo",
+                "description": "Clique no botão Procurar para selecionar o arquivo mod_load_order.txt. Este arquivo contém a lista de mods e sua ordem de carregamento."
+            },
+            "modsList": {
+                "title": "Lista de mods",
+                "description": "Aqui você pode ver todos os seus mods. Clique em um mod para ativá-lo ou desativá-lo. Os mods ativados serão carregados pelo jogo."
+            },
+            "enableDisable": {
+                "title": "Ativar/Desativar mods",
+                "description": "Use estes botões para ativar ou desativar rapidamente todos os mods de uma vez. Você também pode usar as caixas de seleção ao lado de cada mod."
+            },
+            "search": {
+                "title": "Pesquisar mods",
+                "description": "Digite aqui para pesquisar mods por nome. Use as caixas de seleção abaixo para filtrar mods por status (novos, não encontrados, não utilizados)."
+            },
+            "profiles": {
+                "title": "Perfis",
+                "description": "Salve diferentes configurações de mods como perfis. Você pode alternar rapidamente entre diferentes configurações de mods sem ativar/desativar manualmente os mods."
+            },
+            "save": {
+                "title": "Salvar alterações",
+                "description": "Depois de fazer alterações nos seus mods, clique em Salvar para gravá-las no arquivo mod_load_order.txt. Não se esqueça de salvar suas alterações!"
+            }
+        }
     }
 }

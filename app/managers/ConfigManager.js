@@ -10,7 +10,8 @@ export class ConfigManager {
             locale: 'en',
             hideNewMods: false,
             hideNotFoundMods: false,
-            hideUnusedMods: false
+            hideUnusedMods: false,
+            tourCompleted: false
         };
     }
     
@@ -18,7 +19,8 @@ export class ConfigManager {
         try {
             const result = await window.electronAPI.loadUserConfig();
             if (result.success) {
-                this.app.userConfig = result.userConfig;
+                const defaultConfig = ConfigManager.getDefaultUserConfig();
+                this.app.userConfig = { ...defaultConfig, ...result.userConfig };
             } else {
                 this.app.userConfig = ConfigManager.getDefaultUserConfig();
             }

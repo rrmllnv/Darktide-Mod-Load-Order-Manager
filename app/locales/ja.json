@@ -200,5 +200,37 @@
             "copyError": "コピーエラー",
             "modDeleted": "MOD '{modName}'削除. ファイルを保存することを忘れないでください。"
         }
+    },
+    "tour": {
+        "next": "次へ",
+        "previous": "前へ",
+        "skip": "スキップ",
+        "finish": "完了",
+        "steps": {
+            "selectFile": {
+                "title": "ファイルを選択",
+                "description": "参照ボタンをクリックして、mod_load_order.txt ファイルを選択してください。このファイルには、MODのリストとその読み込み順序が含まれています。"
+            },
+            "modsList": {
+                "title": "MODリスト",
+                "description": "ここで、すべてのMODを確認できます。MODをクリックして有効化または無効化できます。有効化されたMODはゲームによって読み込まれます。"
+            },
+            "enableDisable": {
+                "title": "MODの有効化/無効化",
+                "description": "これらのボタンを使用して、すべてのMODを一度にすばやく有効化または無効化できます。各MODの横にあるチェックボックスを使用することもできます。"
+            },
+            "search": {
+                "title": "MODを検索",
+                "description": "ここに入力して、名前でMODを検索します。下のチェックボックスを使用して、ステータス（新規、見つからない、未使用）でMODをフィルタリングします。"
+            },
+            "profiles": {
+                "title": "プロファイル",
+                "description": "さまざまなMOD構成をプロファイルとして保存します。MODを手動で有効化/無効化することなく、異なるMOD設定間をすばやく切り替えることができます。"
+            },
+            "save": {
+                "title": "変更を保存",
+                "description": "MODに変更を加えた後、保存をクリックして、それらを mod_load_order.txt ファイルに書き込みます。変更を保存することを忘れないでください！"
+            }
+        }
     }
 }

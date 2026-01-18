@@ -1,0 +1,126 @@
+.tour-overlay {
+    display: none;
+    position: fixed;
+    z-index: 9998;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    pointer-events: auto;
+}
+
+.tour-overlay.show {
+    display: block;
+}
+
+.tour-highlight {
+    position: absolute;
+    border: 3px solid var(--btn-primary-bg, #007bff);
+    border-radius: 5px;
+    box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.7), 0 0 20px rgba(0, 123, 255, 0.5);
+    pointer-events: none;
+    z-index: 9999;
+    transition: all 0.3s ease;
+}
+
+.tour-tooltip {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    background-color: var(--modal-bg, #ffffff);
+    border: 1px solid var(--border-secondary, #ddd);
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    min-width: 300px;
+    max-width: 400px;
+    pointer-events: auto;
+    color: var(--text-primary, #000000);
+}
+
+.tour-tooltip.show {
+    display: block;
+}
+
+.tour-tooltip-header {
+    padding: 15px 20px;
+    background-color: var(--modal-header-bg, #f5f5f5);
+    border-bottom: 1px solid var(--border-secondary, #ddd);
+    border-radius: 8px 8px 0 0;
+}
+
+.tour-tooltip-title {
+    font-weight: bold;
+    font-size: 16px;
+    color: var(--text-primary, #000000);
+    margin: 0;
+}
+
+.tour-tooltip-body {
+    padding: 20px;
+    color: var(--text-primary, #000000);
+    line-height: 1.6;
+}
+
+.tour-tooltip-description {
+    margin: 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.tour-tooltip-footer {
+    padding: 15px 20px;
+    background-color: var(--modal-header-bg, #f5f5f5);
+    border-top: 1px solid var(--border-secondary, #ddd);
+    border-radius: 0 0 8px 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.tour-tooltip-footer-left {
+    display: flex;
+    gap: 10px;
+}
+
+.tour-tooltip-footer-right {
+    display: flex;
+    gap: 10px;
+}
+
+.tour-btn {
+    padding: 8px 16px;
+    border: 1px solid var(--border-secondary, #ddd);
+    border-radius: 4px;
+    background-color: var(--btn-bg, #ffffff);
+    color: var(--text-primary, #000000);
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s;
+}
+
+.tour-btn:hover:not(:disabled) {
+    background-color: var(--btn-hover-bg, #f0f0f0);
+}
+
+.tour-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.tour-btn-primary {
+    background-color: var(--btn-primary-bg, #007bff);
+    color: var(--btn-primary-text, #ffffff);
+    border-color: var(--btn-primary-bg, #007bff);
+}
+
+.tour-btn-primary:hover:not(:disabled) {
+    background-color: var(--btn-primary-hover-bg, #0056b3);
+}
+
+.tour-step-indicator {
+    font-size: 12px;
+    color: var(--text-secondary, #666666);
+    margin-left: 10px;
+}

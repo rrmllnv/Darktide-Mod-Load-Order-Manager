@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="styles/mod-list.css">
     <link rel="stylesheet" href="styles/file-operations.css">
     <link rel="stylesheet" href="styles/bulk-operations.css">
+    <link rel="stylesheet" href="styles/tour.css">
     <link rel="stylesheet" href="styles/themes/light.css">
     <link rel="stylesheet" href="styles/themes/dark.css">
     <link rel="stylesheet" href="styles/themes/high-contrast.css">
@@ -283,6 +284,28 @@
         <button id="context-menu-delete" class="context-menu-item">
             <span>Delete</span>
         </button>
+    </div>
+
+    <div id="tour-overlay" class="tour-overlay">
+        <div id="tour-highlight" class="tour-highlight"></div>
+    </div>
+
+    <div id="tour-tooltip" class="tour-tooltip">
+        <div class="tour-tooltip-header">
+            <h3 id="tour-title" class="tour-tooltip-title"></h3>
+        </div>
+        <div class="tour-tooltip-body">
+            <p id="tour-description" class="tour-tooltip-description"></p>
+        </div>
+        <div id="tour-footer" class="tour-tooltip-footer">
+            <div class="tour-tooltip-footer-left">
+                <button id="tour-skip-btn" class="tour-btn"></button>
+            </div>
+            <div class="tour-tooltip-footer-right">
+                <button id="tour-prev-btn" class="tour-btn"></button>
+                <button id="tour-next-btn" class="tour-btn tour-btn-primary"></button>
+            </div>
+        </div>
     </div>
 
     <script type="module" src="renderer.js"></script>

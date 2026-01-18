@@ -200,5 +200,37 @@
             "copyError": "Errore di copia",
             "modDeleted": "Mod '{modName}' eliminato. Non dimenticare di salvare il file."
         }
+    },
+    "tour": {
+        "next": "Avanti",
+        "previous": "Indietro",
+        "skip": "Salta",
+        "finish": "Fine",
+        "steps": {
+            "selectFile": {
+                "title": "Seleziona file",
+                "description": "Fare clic sul pulsante Sfoglia per selezionare il file mod_load_order.txt. Questo file contiene l'elenco dei mod e il loro ordine di caricamento."
+            },
+            "modsList": {
+                "title": "Elenco mod",
+                "description": "Qui puoi vedere tutti i tuoi mod. Fai clic su un mod per abilitarlo o disabilitarlo. I mod abilitati verranno caricati dal gioco."
+            },
+            "enableDisable": {
+                "title": "Abilita/Disabilita mod",
+                "description": "Usa questi pulsanti per abilitare o disabilitare rapidamente tutti i mod contemporaneamente. Puoi anche usare le caselle di controllo accanto a ogni mod."
+            },
+            "search": {
+                "title": "Cerca mod",
+                "description": "Digita qui per cercare mod per nome. Usa le caselle di controllo sotto per filtrare i mod per stato (nuovi, non trovati, inutilizzati)."
+            },
+            "profiles": {
+                "title": "Profili",
+                "description": "Salva diverse configurazioni di mod come profili. Puoi passare rapidamente tra diverse configurazioni di mod senza abilitare/disabilitare manualmente i mod."
+            },
+            "save": {
+                "title": "Salva modifiche",
+                "description": "Dopo aver apportato modifiche ai tuoi mod, fai clic su Salva per scriverle nel file mod_load_order.txt. Non dimenticare di salvare le modifiche!"
+            }
+        }
     }
 }

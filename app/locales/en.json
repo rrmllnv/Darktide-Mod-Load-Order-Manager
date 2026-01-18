@@ -200,5 +200,37 @@
             "copyError": "Copy error",
             "modDeleted": "Mod '{modName}' deleted. Don't forget to save the file."
         }
+    },
+    "tour": {
+        "next": "Next",
+        "previous": "Previous",
+        "skip": "Skip",
+        "finish": "Finish",
+        "steps": {
+            "selectFile": {
+                "title": "Select File",
+                "description": "Click the Browse button to select the mod_load_order.txt file. This file contains the list of mods and their load order."
+            },
+            "modsList": {
+                "title": "Mods List",
+                "description": "Here you can see all your mods. Click on a mod to enable or disable it. Enabled mods will be loaded by the game."
+            },
+            "enableDisable": {
+                "title": "Enable/Disable Mods",
+                "description": "Use these buttons to quickly enable or disable all mods at once. You can also use the checkboxes next to each mod."
+            },
+            "search": {
+                "title": "Search Mods",
+                "description": "Type here to search for mods by name. Use the checkboxes below to filter mods by status (new, not found, unused)."
+            },
+            "profiles": {
+                "title": "Profiles",
+                "description": "Save different mod configurations as profiles. You can quickly switch between different mod setups without manually enabling/disabling mods."
+            },
+            "save": {
+                "title": "Save Changes",
+                "description": "After making changes to your mods, click Save to write them to the mod_load_order.txt file. Don't forget to save your changes!"
+            }
+        }
     }
 }

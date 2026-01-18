@@ -16,6 +16,7 @@ import { SearchComponent } from './components/search/SearchComponent.js';
 import { BulkOperationsComponent } from './components/bulk-operations/BulkOperationsComponent.js';
 import { SettingsComponent } from './components/settings/SettingsComponent.js';
 import { FileOperationsComponent } from './components/file-operations/FileOperationsComponent.js';
+import { TourComponent } from './components/tour/TourComponent.js';
 
 class ModLoadOrderManager {
     constructor() {
@@ -60,6 +61,7 @@ class ModLoadOrderManager {
         this.bulkOperationsComponent = new BulkOperationsComponent(this);
         this.settingsComponent = new SettingsComponent(this);
         this.fileOperationsComponent = new FileOperationsComponent(this);
+        this.tourComponent = new TourComponent(this);
         
         this.init();
     }
@@ -264,6 +266,15 @@ class ModLoadOrderManager {
         }
         await this.fileManager.updateOpenFileButton();
         this.fileManager.updateSaveButton();
+        
+        if (this.tourComponent) {
+            await this.tourComponent.init();
+            if (this.tourComponent.shouldShowTour() && this.filePath) {
+                setTimeout(() => {
+                    this.tourComponent.startTour();
+                }, 500);
+            }
+        }
         
         this.initFileSystemDragDrop();
     }

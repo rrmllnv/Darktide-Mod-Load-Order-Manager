@@ -200,5 +200,37 @@
             "copyError": "Kopierfehler",
             "modDeleted": "Mod '{modName}' gelöscht. Vergessen Sie nicht, die Datei zu speichern."
         }
+    },
+    "tour": {
+        "next": "Weiter",
+        "previous": "Zurück",
+        "skip": "Überspringen",
+        "finish": "Fertig",
+        "steps": {
+            "selectFile": {
+                "title": "Datei auswählen",
+                "description": "Klicken Sie auf die Schaltfläche Durchsuchen, um die Datei mod_load_order.txt auszuwählen. Diese Datei enthält die Liste der Mods und ihre Ladereihenfolge."
+            },
+            "modsList": {
+                "title": "Mods-Liste",
+                "description": "Hier können Sie alle Ihre Mods sehen. Klicken Sie auf einen Mod, um ihn zu aktivieren oder zu deaktivieren. Aktivierte Mods werden vom Spiel geladen."
+            },
+            "enableDisable": {
+                "title": "Mods aktivieren/deaktivieren",
+                "description": "Verwenden Sie diese Schaltflächen, um alle Mods schnell zu aktivieren oder zu deaktivieren. Sie können auch die Kontrollkästchen neben jedem Mod verwenden."
+            },
+            "search": {
+                "title": "Mods suchen",
+                "description": "Geben Sie hier ein, um nach Mods nach Namen zu suchen. Verwenden Sie die Kontrollkästchen unten, um Mods nach Status zu filtern (neu, nicht gefunden, ungenutzt)."
+            },
+            "profiles": {
+                "title": "Profile",
+                "description": "Speichern Sie verschiedene Mod-Konfigurationen als Profile. Sie können schnell zwischen verschiedenen Mod-Einstellungen wechseln, ohne Mods manuell zu aktivieren/deaktivieren."
+            },
+            "save": {
+                "title": "Änderungen speichern",
+                "description": "Nachdem Sie Änderungen an Ihren Mods vorgenommen haben, klicken Sie auf Speichern, um sie in die Datei mod_load_order.txt zu schreiben. Vergessen Sie nicht, Ihre Änderungen zu speichern!"
+            }
+        }
     }
 }
