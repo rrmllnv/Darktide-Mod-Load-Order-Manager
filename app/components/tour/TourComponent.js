@@ -132,14 +132,6 @@ export class TourComponent {
         if (this.elements.tourSkipBtn) {
             this.elements.tourSkipBtn.addEventListener('click', () => this.skipTour());
         }
-        
-        if (this.elements.tourOverlay) {
-            this.elements.tourOverlay.addEventListener('click', (e) => {
-                if (e.target === this.elements.tourOverlay) {
-                    this.skipTour();
-                }
-            });
-        }
     }
     
     async startTour() {
