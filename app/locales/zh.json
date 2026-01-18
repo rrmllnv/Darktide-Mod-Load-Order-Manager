@@ -142,7 +142,8 @@
             "folderCopied": "文件夹已复制: {folderName}",
             "folderCopyError": "复制文件夹时出错",
             "fileNotFoundPleaseSelect": "要开始使用，请选择 mod_load_order.txt 文件。\n\n点击浏览按钮来查找文件。",
-            "fileNotFoundCannotSave": "找不到文件。文件可能已被删除或移动。\n\n请使用浏览按钮重新选择文件。"
+            "fileNotFoundCannotSave": "找不到文件。文件可能已被删除或移动。\n\n请使用浏览按钮重新选择文件。",
+            "welcomeFileFound": "已找到并加载 mod_load_order.txt 文件。\n\n让我们开始熟悉应用程序。"
         },
         "profile": {
             "overwriteProfileConfirm": "用当前状态覆盖配置文件 '{profileName}'？",

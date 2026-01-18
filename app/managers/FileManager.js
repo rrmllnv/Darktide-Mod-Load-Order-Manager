@@ -29,9 +29,15 @@ export class FileManager {
                 }
                 
                 if (this.app.tourComponent.shouldShowTour()) {
+                    // Показываем приветственное окно перед началом тура
+                    await this.app.uiManager.showMessage(
+                        this.app.t('messages.common.welcome'),
+                        this.app.t('messages.common.welcomeFileFound')
+                    );
+                    // После закрытия приветственного окна запускаем тур
                     setTimeout(() => {
                         this.app.tourComponent.startTour();
-                    }, 500);
+                    }, 300);
                 }
             }
         }

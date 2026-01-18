@@ -270,9 +270,15 @@ class ModLoadOrderManager {
         if (this.tourComponent) {
             await this.tourComponent.init();
             if (this.tourComponent.shouldShowTour() && this.filePath) {
+                // Показываем приветственное окно перед началом тура
+                await this.uiManager.showMessage(
+                    this.t('messages.common.welcome'),
+                    this.t('messages.common.welcomeFileFound')
+                );
+                // После закрытия приветственного окна запускаем тур
                 setTimeout(() => {
                     this.tourComponent.startTour();
-                }, 500);
+                }, 300);
             }
         }
         

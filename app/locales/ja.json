@@ -142,7 +142,8 @@
             "folderCopied": "フォルダをコピーしました: {folderName}",
             "folderCopyError": "フォルダのコピー中にエラーが発生しました",
             "fileNotFoundPleaseSelect": "開始するには、mod_load_order.txt ファイルを選択してください。\n\n参照ボタンをクリックしてファイルを探してください。",
-            "fileNotFoundCannotSave": "ファイルが見つかりません。ファイルが削除されたか移動された可能性があります。\n\n参照ボタンを使用してファイルを再度選択してください。"
+            "fileNotFoundCannotSave": "ファイルが見つかりません。ファイルが削除されたか移動された可能性があります。\n\n参照ボタンを使用してファイルを再度選択してください。",
+            "welcomeFileFound": "mod_load_order.txt ファイルが見つかり、読み込まれました。\n\nアプリケーションに慣れ親しみましょう。"
         },
         "profile": {
             "overwriteProfileConfirm": "現在の状態でプロファイル '{profileName}' を上書きしますか？",

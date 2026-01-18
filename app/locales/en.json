@@ -142,7 +142,8 @@
             "folderCopied": "Folder copied: {folderName}",
             "folderCopyError": "Error copying folder",
             "fileNotFoundPleaseSelect": "To get started, select the mod_load_order.txt file.\n\nClick the Browse button to find the file.",
-            "fileNotFoundCannotSave": "File not found. The file may have been deleted or moved.\n\nPlease select the file again using the Browse button."
+            "fileNotFoundCannotSave": "File not found. The file may have been deleted or moved.\n\nPlease select the file again using the Browse button.",
+            "welcomeFileFound": "The mod_load_order.txt file has been found and loaded.\n\nLet's start getting familiar with the application."
         },
         "profile": {
             "overwriteProfileConfirm": "Overwrite profile '{profileName}' with current state?",

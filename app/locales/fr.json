@@ -142,7 +142,8 @@
             "folderCopied": "Dossier copié: {folderName}",
             "folderCopyError": "Erreur lors de la copie du dossier",
             "fileNotFoundPleaseSelect": "Pour commencer, sélectionnez le fichier mod_load_order.txt.\n\nCliquez sur le bouton Parcourir pour trouver le fichier.",
-            "fileNotFoundCannotSave": "Fichier introuvable. Le fichier a peut-être été supprimé ou déplacé.\n\nVeuillez sélectionner à nouveau le fichier à l'aide du bouton Parcourir."
+            "fileNotFoundCannotSave": "Fichier introuvable. Le fichier a peut-être été supprimé ou déplacé.\n\nVeuillez sélectionner à nouveau le fichier à l'aide du bouton Parcourir.",
+            "welcomeFileFound": "Le fichier mod_load_order.txt a été trouvé et chargé.\n\nCommençons à nous familiariser avec l'application."
         },
         "profile": {
             "overwriteProfileConfirm": "Écraser le profil '{profileName}' avec l'état actuel?",
