@@ -15,19 +15,33 @@
 }
 
 .tour-highlight {
-    position: absolute;
+    display: none;
+    position: fixed;
     border: 3px solid var(--btn-primary-bg, #007bff);
     border-radius: 5px;
     box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.7), 0 0 20px rgba(0, 123, 255, 0.5);
     pointer-events: none;
-    z-index: 9999;
+    z-index: 10002;
     transition: all 0.3s ease;
+}
+
+.tour-step.active {
+    position: relative;
+    z-index: 10001;
+    isolation: isolate;
+}
+
+/* Для элементов без класса tour-step, но которые подсвечиваются */
+#browse-btn.active,
+.tour-step.active * {
+    position: relative;
+    z-index: 10001;
 }
 
 .tour-tooltip {
     display: none;
     position: fixed;
-    z-index: 10000;
+    z-index: 10002;
     background-color: var(--modal-bg, #ffffff);
     border: 1px solid var(--border-secondary, #ddd);
     border-radius: 8px;

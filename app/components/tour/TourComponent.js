@@ -7,6 +7,7 @@ export class TourComponent {
         this.steps = [];
         this.isActive = false;
         this.isBrowseTour = false;
+        this.currentHighlightedElement = null;
     }
     
     t(key, params = {}) {
@@ -28,11 +29,11 @@ export class TourComponent {
             tourSkipBtn: document.getElementById('tour-skip-btn')
         };
         
-        if (this.elements.tourOverlay && !document.getElementById('tour-highlight')) {
+        if (!document.getElementById('tour-highlight')) {
             const highlight = document.createElement('div');
             highlight.id = 'tour-highlight';
             highlight.className = 'tour-highlight';
-            this.elements.tourOverlay.appendChild(highlight);
+            document.body.appendChild(highlight);
         }
         
         this.setupSteps();
@@ -261,10 +262,28 @@ export class TourComponent {
     highlightElement(element, rect) {
         const highlight = document.getElementById('tour-highlight');
         if (highlight) {
+            highlight.style.display = 'block';
             highlight.style.left = `${rect.left}px`;
             highlight.style.top = `${rect.top}px`;
             highlight.style.width = `${rect.width}px`;
             highlight.style.height = `${rect.height}px`;
+        }
+        
+        // Удаляем класс active с предыдущего элемента
+        if (this.currentHighlightedElement) {
+            this.currentHighlightedElement.classList.remove('active');
+        }
+        
+        // Находим элемент с классом tour-step (сам элемент или его родитель)
+        let tourStepElement = element;
+        if (element && !element.classList.contains('tour-step')) {
+            tourStepElement = element.closest('.tour-step') || element;
+        }
+        
+        // Добавляем класс active к элементу
+        if (tourStepElement && tourStepElement.classList) {
+            tourStepElement.classList.add('active');
+            this.currentHighlightedElement = tourStepElement;
         }
     }
     
@@ -362,6 +381,19 @@ export class TourComponent {
         this.isActive = false;
         this.elements.tourOverlay.classList.remove('show');
         this.elements.tourTooltip.classList.remove('show');
+        
+        // Скрываем highlight
+        const highlight = document.getElementById('tour-highlight');
+        if (highlight) {
+            highlight.style.display = 'none';
+        }
+        
+        // Удаляем класс active с подсвеченного элемента
+        if (this.currentHighlightedElement) {
+            this.currentHighlightedElement.classList.remove('active');
+            this.currentHighlightedElement = null;
+        }
+        
         if (isBrowseTour) {
             this.saveBrowseTourCompleted();
         } else {
