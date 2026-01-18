@@ -1,0 +1,13 @@
+{
+  "ui": {
+    "light": "Chiaro",
+    "dark": "Scuro",
+    "highContrast": "Alto contrasto",
+    "oledDark": "OLED Scuro",
+    "sepia": "Seppia",
+    "blueLight": "Filtro luce blu",
+    "nord": "Nord",
+    "dracula": "Dracula",
+    "solarized": "Solarized"
+  }
+}

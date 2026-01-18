@@ -12,9 +12,11 @@ export class ThemeComponent {
             { id: 'dracula', name: 'dracula', cssClass: 'theme-dracula', localizationKey: 'ui.dracula' },
             { id: 'solarized', name: 'solarized', cssClass: 'theme-solarized', localizationKey: 'ui.solarized' }
         ];
+        this.locales = {};
     }
     
-    init() {
+    async init() {
+        await this.loadLocales();
         this.loadStyles();
         this.populateThemeSelect();
         
@@ -23,17 +25,32 @@ export class ThemeComponent {
         }
     }
     
+    async loadLocales() {
+        const localeFiles = ['en', 'ru', 'de', 'fr', 'it', 'ja', 'ko', 'pt', 'zh'];
+        
+        for (const locale of localeFiles) {
+            try {
+                const response = await fetch(`components/theme/locales/${locale}.json`);
+                if (response.ok) {
+                    this.locales[locale] = await response.json();
+                }
+            } catch (error) {
+                console.warn(`Failed to load theme locale ${locale}:`, error);
+            }
+        }
+    }
+    
     loadStyles() {
         const styles = [
-            'styles/theme-light.css',
-            'styles/theme-dark.css',
-            'styles/theme-high-contrast.css',
-            'styles/theme-oled-dark.css',
-            'styles/theme-sepia.css',
-            'styles/theme-blue-light.css',
-            'styles/theme-nord.css',
-            'styles/theme-dracula.css',
-            'styles/theme-solarized.css'
+            'components/theme/styles/theme-light.css',
+            'components/theme/styles/theme-dark.css',
+            'components/theme/styles/theme-high-contrast.css',
+            'components/theme/styles/theme-oled-dark.css',
+            'components/theme/styles/theme-sepia.css',
+            'components/theme/styles/theme-blue-light.css',
+            'components/theme/styles/theme-nord.css',
+            'components/theme/styles/theme-dracula.css',
+            'components/theme/styles/theme-solarized.css'
         ];
         
         styles.forEach(styleFile => {
@@ -73,19 +90,24 @@ export class ThemeComponent {
             return;
         }
         
-        if (!this.app.localeManager) {
-            return;
-        }
-        
-        const currentLocale = this.app.localeManager.getCurrentLocale() || 'en';
-        const t = (key) => this.app.localeManager.t(key);
+        const currentLocale = this.app.localeManager ? this.app.localeManager.getCurrentLocale() || 'en' : 'en';
+        const localeData = this.locales[currentLocale] || this.locales['en'] || {};
         
         const themeOptions = this.app.elements.settingsThemeSelect.options;
         
         Array.from(themeOptions).forEach(option => {
             const theme = this.themes.find(t => (t.id || '') === option.value);
             if (theme && theme.localizationKey) {
-                option.textContent = t(theme.localizationKey);
+                const keys = theme.localizationKey.split('.');
+                let value = localeData;
+                for (const key of keys) {
+                    value = value?.[key];
+                }
+                if (value) {
+                    option.textContent = value;
+                } else if (this.app.localeManager) {
+                    option.textContent = this.app.localeManager.t(theme.localizationKey);
+                }
             }
         });
     }

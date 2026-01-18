@@ -122,7 +122,7 @@ class ModLoadOrderManager {
         
         await this.configManager.loadUserConfig();
         
-        this.themeComponent.init();
+        await this.themeComponent.init();
         
         const locale = this.userConfig?.locale || 'en';
         await this.localeManager.loadLocale(locale);

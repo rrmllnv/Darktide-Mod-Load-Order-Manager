@@ -1,0 +1,13 @@
+{
+  "ui": {
+    "light": "Светлая",
+    "dark": "Темная",
+    "highContrast": "Высокий контраст",
+    "oledDark": "OLED Темная",
+    "sepia": "Сепия",
+    "blueLight": "Фильтр синего света",
+    "nord": "Nord",
+    "dracula": "Dracula",
+    "solarized": "Solarized"
+  }
+}

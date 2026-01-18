@@ -1,0 +1,13 @@
+{
+  "ui": {
+    "light": "Light",
+    "dark": "Dark",
+    "highContrast": "High Contrast",
+    "oledDark": "OLED Dark",
+    "sepia": "Sepia",
+    "blueLight": "Blue Light Filter",
+    "nord": "Nord",
+    "dracula": "Dracula",
+    "solarized": "Solarized"
+  }
+}
