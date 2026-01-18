@@ -1,5 +1,64 @@
 .modal-content-settings {
-    width: 500px;
+    width: 700px;
+    max-width: 90vw;
+}
+
+.settings-container {
+    display: flex;
+    min-height: 400px;
+}
+
+.settings-menu {
+    width: 180px;
+    min-width: 180px;
+    background-color: var(--bg-secondary);
+    border-right: 1px solid var(--border-secondary);
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.settings-menu-item {
+    width: 100%;
+    padding: 12px 20px;
+    border: none;
+    background-color: transparent;
+    color: var(--text-primary);
+    text-align: left;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+    border-left: 3px solid transparent;
+}
+
+.settings-menu-item:hover {
+    background-color: var(--bg-hover);
+}
+
+.settings-menu-item.active {
+    background-color: var(--bg-active);
+    border-left-color: var(--btn-primary-bg);
+    font-weight: 600;
+}
+
+.settings-menu-item-text {
+    color: var(--text-primary);
+}
+
+.settings-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.settings-content-section {
+    display: none;
+}
+
+.settings-content-section.active {
+    display: block;
 }
 
 .settings-section {

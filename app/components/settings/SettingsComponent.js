@@ -25,8 +25,49 @@ export class SettingsComponent {
         }
     }
     
+    bindSectionSwitchers() {
+        const menuItems = document.querySelectorAll('.settings-menu-item');
+        menuItems.forEach(item => {
+            const newItem = item.cloneNode(true);
+            item.parentNode.replaceChild(newItem, item);
+            
+            newItem.addEventListener('click', (e) => {
+                const section = newItem.getAttribute('data-section');
+                if (section) {
+                    this.switchSection(section);
+                }
+            });
+        });
+    }
+    
+    switchSection(sectionName) {
+        const menuItems = document.querySelectorAll('.settings-menu-item');
+        menuItems.forEach(item => {
+            item.classList.remove('active');
+        });
+        
+        const contentSections = document.querySelectorAll('.settings-content-section');
+        contentSections.forEach(section => {
+            section.classList.remove('active');
+        });
+        
+        const activeMenuItem = document.querySelector(`.settings-menu-item[data-section="${sectionName}"]`);
+        if (activeMenuItem) {
+            activeMenuItem.classList.add('active');
+        }
+        
+        const activeSection = document.getElementById(`settings-section-${sectionName}`);
+        if (activeSection) {
+            activeSection.classList.add('active');
+        }
+    }
+    
     openSettings() {
         this.loadSettingsToForm();
+        
+        this.bindSectionSwitchers();
+        
+        this.switchSection('general');
         
         this.app.elements.settingsDialog.classList.add('show');
         

@@ -225,34 +225,51 @@
             <div class="modal-header">
                 <span class="modal-title">Settings</span>
             </div>
-            <div class="modal-body">
-                <div class="settings-section">
-                    <label class="settings-label" id="settings-theme-label">Theme:</label>
-                    <select id="settings-theme-select" class="settings-input">
-                        <option value="">Light</option>
-                        <option value="dark">Dark</option>
-                        <option value="high-contrast">High Contrast</option>
-                        <option value="oled-dark">OLED Dark</option>
-                        <option value="sepia">Sepia</option>
-                        <option value="blue-light">Blue Light Filter</option>
-                        <option value="nord">Nord</option>
-                        <option value="dracula">Dracula</option>
-                        <option value="solarized">Solarized</option>
-                    </select>
+            <div class="settings-container">
+                <div class="settings-menu">
+                    <button class="settings-menu-item active" data-section="general">
+                        <span class="settings-menu-item-text">Общие</span>
+                    </button>
+                    <button class="settings-menu-item" data-section="profiles">
+                        <span class="settings-menu-item-text">Профили</span>
+                    </button>
                 </div>
-                <div class="settings-section">
-                    <label class="settings-label" id="settings-locale-label">Language:</label>
-                    <select id="settings-locale-select" class="settings-input">
-                        <option value="en">English</option>
-                        <option value="ru">Русский</option>
-                        <option value="de">Deutsch</option>
-                        <option value="fr">Français</option>
-                        <option value="it">Italiano</option>
-                        <option value="pt">Português</option>
-                        <option value="ko">한국어</option>
-                        <option value="zh">中文</option>
-                        <option value="ja">日本語</option>
-                    </select>
+                <div class="settings-content">
+                    <div class="settings-content-section active" id="settings-section-general">
+                        <div class="settings-section">
+                            <label class="settings-label" id="settings-theme-label">Theme:</label>
+                            <select id="settings-theme-select" class="settings-input">
+                                <option value="">Light</option>
+                                <option value="dark">Dark</option>
+                                <option value="high-contrast">High Contrast</option>
+                                <option value="oled-dark">OLED Dark</option>
+                                <option value="sepia">Sepia</option>
+                                <option value="blue-light">Blue Light Filter</option>
+                                <option value="nord">Nord</option>
+                                <option value="dracula">Dracula</option>
+                                <option value="solarized">Solarized</option>
+                            </select>
+                        </div>
+                        <div class="settings-section">
+                            <label class="settings-label" id="settings-locale-label">Language:</label>
+                            <select id="settings-locale-select" class="settings-input">
+                                <option value="en">English</option>
+                                <option value="ru">Русский</option>
+                                <option value="de">Deutsch</option>
+                                <option value="fr">Français</option>
+                                <option value="it">Italiano</option>
+                                <option value="pt">Português</option>
+                                <option value="ko">한국어</option>
+                                <option value="zh">中文</option>
+                                <option value="ja">日本語</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="settings-content-section" id="settings-section-profiles">
+                        <div class="settings-section">
+                            <p>Раздел профилей</p>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
