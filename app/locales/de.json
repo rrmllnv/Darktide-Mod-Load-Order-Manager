@@ -121,6 +121,7 @@
             "success": "Erfolg",
             "error": "Fehler",
             "info": "Information",
+            "welcome": "Willkommen",
             "fileSaved": "Datei erfolgreich gespeichert!",
             "fileReloaded": "Datei neu geladen. Status aus Datei wiederhergestellt.",
             "fileSavedStatus": "Datei gespeichert",
@@ -140,7 +141,7 @@
             "dragDropNotFolder": "Ziehen Sie einen Ordner, keine Datei",
             "folderCopied": "Ordner kopiert: {folderName}",
             "folderCopyError": "Fehler beim Kopieren des Ordners",
-            "fileNotFoundPleaseSelect": "Datei mod_load_order.txt nicht gefunden.\n\nBitte wählen Sie die Datei über die Schaltfläche Durchsuchen aus."
+            "fileNotFoundPleaseSelect": "Um zu beginnen, wählen Sie die Datei mod_load_order.txt aus.\n\nKlicken Sie auf die Schaltfläche Durchsuchen, um die Datei zu finden."
         },
         "profile": {
             "overwriteProfileConfirm": "Profil '{profileName}' mit aktuellem Status überschreiben?",

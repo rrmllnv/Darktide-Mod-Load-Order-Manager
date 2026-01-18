@@ -121,6 +121,7 @@
             "success": "Success",
             "error": "Error",
             "info": "Information",
+            "welcome": "Welcome",
             "fileSaved": "File saved successfully!",
             "fileReloaded": "File reloaded. State restored from file.",
             "fileSavedStatus": "File saved",
@@ -140,7 +141,7 @@
             "dragDropNotFolder": "Drag a folder, not a file",
             "folderCopied": "Folder copied: {folderName}",
             "folderCopyError": "Error copying folder",
-            "fileNotFoundPleaseSelect": "File mod_load_order.txt not found.\n\nPlease select the file using the Browse button."
+            "fileNotFoundPleaseSelect": "To get started, select the mod_load_order.txt file.\n\nClick the Browse button to find the file."
         },
         "profile": {
             "overwriteProfileConfirm": "Overwrite profile '{profileName}' with current state?",

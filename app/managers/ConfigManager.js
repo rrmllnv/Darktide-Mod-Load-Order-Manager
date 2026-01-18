@@ -67,7 +67,7 @@ export class ConfigManager {
         if (!this.app.filePath) {
             if (this.app.uiManager && this.app.uiManager.showMessage) {
                 await this.app.uiManager.showMessage(
-                    this.app.t('messages.common.error'),
+                    this.app.t('messages.common.welcome'),
                     this.app.t('messages.common.fileNotFoundPleaseSelect')
                 );
             }

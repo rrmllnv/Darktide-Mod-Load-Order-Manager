@@ -121,6 +121,7 @@
             "success": "Успех",
             "error": "Ошибка",
             "info": "Информация",
+            "welcome": "Добро пожаловать",
             "fileSaved": "Файл успешно сохранен!",
             "fileReloaded": "Файл перезагружен. Состояние восстановлено из файла.",
             "fileSavedStatus": "Файл сохранен",
@@ -140,7 +141,7 @@
             "dragDropNotFolder": "Перетащите папку, а не файл",
             "folderCopied": "Папка скопирована: {folderName}",
             "folderCopyError": "Ошибка при копировании папки",
-            "fileNotFoundPleaseSelect": "Файл mod_load_order.txt не найден.\n\nПожалуйста, выберите файл с помощью кнопки Обзор."
+            "fileNotFoundPleaseSelect": "Для начала работы выберите файл mod_load_order.txt.\n\nНажмите кнопку Обзор, чтобы найти файл."
         },
         "profile": {
             "overwriteProfileConfirm": "Перезаписать профиль '{profileName}' текущим состоянием?",

@@ -121,6 +121,7 @@
             "success": "成功",
             "error": "エラー",
             "info": "情報",
+            "welcome": "ようこそ",
             "fileSaved": "ファイルが正常に保存されました！",
             "fileReloaded": "ファイルを再読み込みしました。ファイルから状態を復元しました。",
             "fileSavedStatus": "ファイルが保存されました",
@@ -140,7 +141,7 @@
             "dragDropNotFolder": "ファイルではなくフォルダをドラッグしてください",
             "folderCopied": "フォルダをコピーしました: {folderName}",
             "folderCopyError": "フォルダのコピー中にエラーが発生しました",
-            "fileNotFoundPleaseSelect": "mod_load_order.txt ファイルが見つかりません。\n\n参照ボタンを使用してファイルを選択してください。"
+            "fileNotFoundPleaseSelect": "開始するには、mod_load_order.txt ファイルを選択してください。\n\n参照ボタンをクリックしてファイルを探してください。"
         },
         "profile": {
             "overwriteProfileConfirm": "現在の状態でプロファイル '{profileName}' を上書きしますか？",
