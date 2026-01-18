@@ -127,6 +127,10 @@ class ModLoadOrderManager {
         const locale = this.userConfig?.locale || 'en';
         await this.localeManager.loadLocale(locale);
         
+        if (this.themeComponent) {
+            await this.themeComponent.updateThemeSelectLabels();
+        }
+        
         await this.applyLocalization();
         
         if (this.elements.settingsLocaleSelect) {
@@ -488,17 +492,6 @@ class ModLoadOrderManager {
         if (this.elements.bulkSelectEnabledBtn) this.elements.bulkSelectEnabledBtn.title = t('ui.selectEnabled');
         if (this.elements.bulkSelectDisabledBtn) this.elements.bulkSelectDisabledBtn.title = t('ui.selectDisabled');
         
-        const profilesLabel = document.querySelector('.profiles-frame .section-label');
-        if (profilesLabel) profilesLabel.textContent = t('ui.profiles');
-        
-        if (this.elements.newProfileBtn) this.elements.newProfileBtn.title = t('ui.newProfile');
-        if (this.elements.loadProfileBtn) this.elements.loadProfileBtn.title = t('ui.loadProfile');
-        if (this.elements.overwriteProfileBtn) this.elements.overwriteProfileBtn.title = t('ui.overwriteProfile');
-        if (this.elements.renameProfileBtn) this.elements.renameProfileBtn.title = t('ui.renameProfile');
-        if (this.elements.deleteProfileBtn) this.elements.deleteProfileBtn.title = t('ui.deleteProfile');
-        
-        if (this.elements.modalTitle) this.elements.modalTitle.textContent = t('ui.enterProfileName');
-        if (this.elements.profileNameInput) this.elements.profileNameInput.placeholder = t('ui.profileNamePlaceholder');
         if (this.elements.modalOkBtn) this.elements.modalOkBtn.textContent = t('ui.save');
         if (this.elements.modalCancelBtn) this.elements.modalCancelBtn.textContent = t('ui.cancel');
         
@@ -509,10 +502,6 @@ class ModLoadOrderManager {
         if (settingsTitle) settingsTitle.textContent = t('ui.settings');
         const themeLabel = document.getElementById('settings-theme-label');
         if (themeLabel) themeLabel.textContent = t('ui.theme');
-        
-        if (this.themeComponent) {
-            await this.themeComponent.updateThemeSelectLabels();
-        }
         
         const localeLabel = document.getElementById('settings-locale-label');
         if (localeLabel) localeLabel.textContent = t('ui.locale');

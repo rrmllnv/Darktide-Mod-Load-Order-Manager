@@ -1,0 +1,31 @@
+{
+  "ui": {
+    "profiles": "Profile:",
+    "newProfile": "Neues Profil",
+    "loadProfile": "Profil laden",
+    "overwriteProfile": "Profil überschreiben",
+    "renameProfile": "Profil umbenennen",
+    "deleteProfile": "Profil löschen",
+    "enterProfileName": "Profilname eingeben",
+    "profileNamePlaceholder": "Profilname..."
+  },
+  "messages": {
+    "overwriteProfileConfirm": "Profil '{profileName}' mit aktuellem Status überschreiben?",
+    "deleteProfileConfirm": "Profil '{profileName}' löschen?",
+    "enterNewProfileName": "Neuen Namen für Profil '{oldProfileName}' eingeben:",
+    "invalidProfileName": "Ungültiger Profilname",
+    "profileSaved": "Profil '{profileName}' gespeichert",
+    "profileLoaded": "Profil '{profileName}' geladen",
+    "profileRenamed": "Profil '{oldProfileName}' umbenannt in '{newProfileName}'",
+    "profileOverwritten": "Profil '{profileName}' überschrieben",
+    "profileDeleted": "Profil '{profileName}' gelöscht",
+    "selectProfileFromList": "Profil aus Liste auswählen",
+    "selectProfileToOverwrite": "Profil aus Liste zum Überschreiben auswählen",
+    "failedToDetermineProfilesDir": "Profilordner konnte nicht bestimmt werden",
+    "failedToSaveProfile": "Profil konnte nicht gespeichert werden:",
+    "failedToLoadProfile": "Profil konnte nicht geladen werden:",
+    "failedToRenameProfile": "Profil konnte nicht umbenannt werden:",
+    "failedToOverwriteProfile": "Profil konnte nicht überschrieben werden:",
+    "failedToDeleteProfile": "Profil konnte nicht gelöscht werden:"
+  }
+}

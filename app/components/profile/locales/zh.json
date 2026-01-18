@@ -1,0 +1,31 @@
+{
+  "ui": {
+    "profiles": "配置文件:",
+    "newProfile": "新建配置文件",
+    "loadProfile": "加载配置文件",
+    "overwriteProfile": "覆盖配置文件",
+    "renameProfile": "重命名配置文件",
+    "deleteProfile": "删除配置文件",
+    "enterProfileName": "输入配置文件名称",
+    "profileNamePlaceholder": "配置文件名称..."
+  },
+  "messages": {
+    "overwriteProfileConfirm": "用当前状态覆盖配置文件 '{profileName}'？",
+    "deleteProfileConfirm": "删除配置文件 '{profileName}'？",
+    "enterNewProfileName": "输入配置文件 '{oldProfileName}' 的新名称:",
+    "invalidProfileName": "无效的配置文件名称",
+    "profileSaved": "配置文件 '{profileName}' 已保存",
+    "profileLoaded": "配置文件 '{profileName}' 已加载",
+    "profileRenamed": "配置文件 '{oldProfileName}' 已重命名为 '{newProfileName}'",
+    "profileOverwritten": "配置文件 '{profileName}' 已覆盖",
+    "profileDeleted": "配置文件 '{profileName}' 已删除",
+    "selectProfileFromList": "从列表中选择配置文件",
+    "selectProfileToOverwrite": "从列表中选择要覆盖的配置文件",
+    "failedToDetermineProfilesDir": "无法确定配置文件文件夹",
+    "failedToSaveProfile": "无法保存配置文件:",
+    "failedToLoadProfile": "无法加载配置文件:",
+    "failedToRenameProfile": "无法重命名配置文件:",
+    "failedToOverwriteProfile": "无法覆盖配置文件:",
+    "failedToDeleteProfile": "无法删除配置文件:"
+  }
+}

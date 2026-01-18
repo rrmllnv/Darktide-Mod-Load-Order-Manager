@@ -5,11 +5,87 @@ export class ProfileComponent {
         this.app = app;
         this.profilesDir = null;
         this.selectedProfileName = null;
+        this.locales = {};
     }
     
     async init() {
+        this.loadStyles();
+        await this.loadLocales();
+        await this.updateLocalization();
         await this.initProfilesDirectory();
         this.bindEvents();
+    }
+    
+    loadStyles() {
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = 'components/profile/styles/profile.css';
+        link.setAttribute('data-profile-style', 'profile.css');
+        
+        const baseLink = document.querySelector('link[href="styles/base.css"]');
+        if (baseLink && baseLink.nextSibling) {
+            baseLink.parentNode.insertBefore(link, baseLink.nextSibling);
+        } else {
+            document.head.appendChild(link);
+        }
+    }
+    
+    async loadLocales() {
+        const currentLocale = this.app.localeManager ? this.app.localeManager.getCurrentLocale() || 'en' : 'en';
+        await this.loadLocale(currentLocale);
+    }
+    
+    async loadLocale(locale) {
+        if (this.locales[locale]) {
+            return this.locales[locale];
+        }
+        
+        try {
+            const response = await fetch(`components/profile/locales/${locale}.json`);
+            if (response.ok) {
+                this.locales[locale] = await response.json();
+                return this.locales[locale];
+            } else {
+                if (locale !== 'en') {
+                    return await this.loadLocale('en');
+                }
+            }
+        } catch (error) {
+            console.warn(`Failed to load profile locale ${locale}:`, error);
+            if (locale !== 'en') {
+                return await this.loadLocale('en');
+            }
+        }
+        
+        return null;
+    }
+    
+    t(key, params = {}) {
+        const currentLocale = this.app.localeManager ? this.app.localeManager.getCurrentLocale() || 'en' : 'en';
+        const localeData = this.locales[currentLocale] || this.locales['en'] || {};
+        
+        const keys = key.split('.');
+        let value = localeData;
+        
+        for (const k of keys) {
+            if (value && typeof value === 'object' && k in value) {
+                value = value[k];
+            } else {
+                return this.app.t(key, params);
+            }
+        }
+        
+        if (typeof value !== 'string') {
+            return this.app.t(key, params);
+        }
+        
+        if (Object.keys(params).length > 0) {
+            return value.replace(/\{(\w+)\}/g, (match, paramKey) => {
+                return params[paramKey] !== undefined ? params[paramKey] : match;
+            });
+        }
+        
+        return value;
     }
     
     async initProfilesDirectory() {
@@ -106,6 +182,22 @@ export class ProfileComponent {
                 option.classList.remove('selected-no-focus');
             }
         });
+    }
+    
+    async updateLocalization() {
+        const t = (key) => this.t(key);
+        
+        const profilesLabel = document.querySelector('.profiles-frame .section-label');
+        if (profilesLabel) profilesLabel.textContent = t('ui.profiles');
+        
+        if (this.app.elements.newProfileBtn) this.app.elements.newProfileBtn.title = t('ui.newProfile');
+        if (this.app.elements.loadProfileBtn) this.app.elements.loadProfileBtn.title = t('ui.loadProfile');
+        if (this.app.elements.overwriteProfileBtn) this.app.elements.overwriteProfileBtn.title = t('ui.overwriteProfile');
+        if (this.app.elements.renameProfileBtn) this.app.elements.renameProfileBtn.title = t('ui.renameProfile');
+        if (this.app.elements.deleteProfileBtn) this.app.elements.deleteProfileBtn.title = t('ui.deleteProfile');
+        
+        if (this.app.elements.modalTitle) this.app.elements.modalTitle.textContent = t('ui.enterProfileName');
+        if (this.app.elements.profileNameInput) this.app.elements.profileNameInput.placeholder = t('ui.profileNamePlaceholder');
     }
     
     saveCurrentState() {
@@ -304,7 +396,7 @@ export class ProfileComponent {
         }
         
         if (!this.profilesDir) {
-            await this.app.uiManager.showMessage(this.app.t('messages.error'), this.app.t('messages.failedToDetermineProfilesDir'));
+            await this.app.uiManager.showMessage(this.app.t('messages.error'), this.t('messages.failedToDetermineProfilesDir'));
             return;
         }
         
@@ -313,14 +405,14 @@ export class ProfileComponent {
             return;
         }
         
-        this.app.modalManager.showModal(this.app.t('ui.enterProfileName') + ':', '', async (profileName) => {
+        this.app.modalManager.showModal(this.t('ui.enterProfileName') + ':', '', async (profileName) => {
             if (!profileName) {
                 return;
             }
             
             const cleanName = profileName.replace(/[^a-zA-Z0-9\s\-_]/g, '').trim();
             if (!cleanName) {
-                await this.app.uiManager.showMessage(this.app.t('messages.error'), this.app.t('messages.invalidProfileName'));
+                await this.app.uiManager.showMessage(this.app.t('messages.error'), this.t('messages.invalidProfileName'));
                 return;
             }
             
@@ -329,14 +421,14 @@ export class ProfileComponent {
                 const result = await window.electronAPI.saveProfile(this.profilesDir, cleanName, state);
                 
                 if (!result.success) {
-                    await this.app.uiManager.showMessage(this.app.t('messages.error'), `${this.app.t('messages.failedToSaveProfile')}\n${result.error}`);
+                    await this.app.uiManager.showMessage(this.app.t('messages.error'), `${this.t('messages.failedToSaveProfile')}\n${result.error}`);
                     return;
                 }
                 
                 await this.refreshProfilesList();
-                await this.app.uiManager.showMessage(this.app.t('messages.success'), this.app.t('messages.profileSaved', { profileName: cleanName }));
+                await this.app.uiManager.showMessage(this.app.t('messages.success'), this.t('messages.profileSaved', { profileName: cleanName }));
             } catch (error) {
-                await this.app.uiManager.showMessage(this.app.t('messages.error'), `${this.app.t('messages.failedToSaveProfile')}\n${error.message}`);
+                await this.app.uiManager.showMessage(this.app.t('messages.error'), `${this.t('messages.failedToSaveProfile')}\n${error.message}`);
             }
         });
     }
@@ -347,13 +439,13 @@ export class ProfileComponent {
         }
         
         if (!this.profilesDir) {
-            await this.app.uiManager.showMessage(this.app.t('messages.error'), this.app.t('messages.failedToDetermineProfilesDir'));
+            await this.app.uiManager.showMessage(this.app.t('messages.error'), this.t('messages.failedToDetermineProfilesDir'));
             return;
         }
         
         const selectedIndex = this.app.elements.profilesList.selectedIndex;
         if (selectedIndex === -1) {
-            await this.app.uiManager.showMessage(this.app.t('messages.error'), this.app.t('messages.selectProfileFromList'));
+            await this.app.uiManager.showMessage(this.app.t('messages.error'), this.t('messages.selectProfileFromList'));
             return;
         }
         
@@ -362,7 +454,7 @@ export class ProfileComponent {
         try {
             const result = await window.electronAPI.loadProfile(this.profilesDir, profileName);
             if (!result.success) {
-                await this.app.uiManager.showMessage(this.app.t('messages.error'), `${this.app.t('messages.failedToLoadProfile')}\n${result.error}`);
+                await this.app.uiManager.showMessage(this.app.t('messages.error'), `${this.t('messages.failedToLoadProfile')}\n${result.error}`);
                 return;
             }
             
@@ -398,9 +490,9 @@ export class ProfileComponent {
                 }
             }
             
-            await this.app.uiManager.showMessage(this.app.t('messages.success'), this.app.t('messages.profileLoaded', { profileName }));
+            await this.app.uiManager.showMessage(this.app.t('messages.success'), this.t('messages.profileLoaded', { profileName }));
         } catch (error) {
-            await this.app.uiManager.showMessage(this.app.t('messages.error'), `${this.app.t('messages.failedToLoadProfile')}\n${error.message}`);
+            await this.app.uiManager.showMessage(this.app.t('messages.error'), `${this.t('messages.failedToLoadProfile')}\n${error.message}`);
         }
     }
     
@@ -410,13 +502,13 @@ export class ProfileComponent {
         }
         
         if (!this.profilesDir) {
-            await this.app.uiManager.showMessage(this.app.t('messages.error'), this.app.t('messages.failedToDetermineProfilesDir'));
+            await this.app.uiManager.showMessage(this.app.t('messages.error'), this.t('messages.failedToDetermineProfilesDir'));
             return;
         }
         
         const selectedIndex = this.app.elements.profilesList.selectedIndex;
         if (selectedIndex === -1) {
-            await this.app.uiManager.showMessage(this.app.t('messages.error'), this.app.t('messages.selectProfileFromList'));
+            await this.app.uiManager.showMessage(this.app.t('messages.error'), this.t('messages.selectProfileFromList'));
             return;
         }
         
@@ -427,14 +519,14 @@ export class ProfileComponent {
             return;
         }
         
-        this.app.modalManager.showModal(this.app.t('messages.enterNewProfileName', { oldProfileName }), oldProfileName, async (newProfileName) => {
+        this.app.modalManager.showModal(this.t('messages.enterNewProfileName', { oldProfileName }), oldProfileName, async (newProfileName) => {
             if (!newProfileName) {
                 return;
             }
             
             const cleanName = newProfileName.replace(/[^a-zA-Z0-9\s\-_]/g, '').trim();
             if (!cleanName) {
-                await this.app.uiManager.showMessage(this.app.t('messages.error'), this.app.t('messages.invalidProfileName'));
+                await this.app.uiManager.showMessage(this.app.t('messages.error'), this.t('messages.invalidProfileName'));
                 return;
             }
             
@@ -445,14 +537,14 @@ export class ProfileComponent {
             try {
                 const result = await window.electronAPI.renameProfile(this.profilesDir, oldProfileName, cleanName);
                 if (!result.success) {
-                    await this.app.uiManager.showMessage(this.app.t('messages.error'), `${this.app.t('messages.failedToRenameProfile')}\n${result.error}`);
+                    await this.app.uiManager.showMessage(this.app.t('messages.error'), `${this.t('messages.failedToRenameProfile')}\n${result.error}`);
                     return;
                 }
                 
                 await this.refreshProfilesList();
-                await this.app.uiManager.showMessage(this.app.t('messages.success'), this.app.t('messages.profileRenamed', { oldProfileName, newProfileName: cleanName }));
+                await this.app.uiManager.showMessage(this.app.t('messages.success'), this.t('messages.profileRenamed', { oldProfileName, newProfileName: cleanName }));
             } catch (error) {
-                await this.app.uiManager.showMessage(this.app.t('messages.error'), `${this.app.t('messages.failedToRenameProfile')}\n${error.message}`);
+                await this.app.uiManager.showMessage(this.app.t('messages.error'), `${this.t('messages.failedToRenameProfile')}\n${error.message}`);
             }
         });
     }
@@ -463,19 +555,19 @@ export class ProfileComponent {
         }
         
         if (!this.profilesDir) {
-            await this.app.uiManager.showMessage(this.app.t('messages.error'), this.app.t('messages.failedToDetermineProfilesDir'));
+            await this.app.uiManager.showMessage(this.app.t('messages.error'), this.t('messages.failedToDetermineProfilesDir'));
             return;
         }
         
         const selectedIndex = this.app.elements.profilesList.selectedIndex;
         if (selectedIndex === -1) {
-            await this.app.uiManager.showMessage(this.app.t('messages.error'), this.app.t('messages.selectProfileToOverwrite'));
+            await this.app.uiManager.showMessage(this.app.t('messages.error'), this.t('messages.selectProfileToOverwrite'));
             return;
         }
         
         const profileName = this.app.elements.profilesList.options[selectedIndex].value;
         
-        const confirmed = await this.app.uiManager.showConfirm(this.app.t('messages.overwriteProfileConfirm', { profileName }));
+        const confirmed = await this.app.uiManager.showConfirm(this.t('messages.overwriteProfileConfirm', { profileName }));
         if (!confirmed) {
             return;
         }
@@ -485,13 +577,13 @@ export class ProfileComponent {
             const result = await window.electronAPI.saveProfile(this.profilesDir, profileName, state);
             
             if (!result.success) {
-                await this.app.uiManager.showMessage(this.app.t('messages.error'), `${this.app.t('messages.failedToOverwriteProfile')}\n${result.error}`);
+                await this.app.uiManager.showMessage(this.app.t('messages.error'), `${this.t('messages.failedToOverwriteProfile')}\n${result.error}`);
                 return;
             }
             
-            await this.app.uiManager.showMessage(this.app.t('messages.success'), this.app.t('messages.profileOverwritten', { profileName }));
+            await this.app.uiManager.showMessage(this.app.t('messages.success'), this.t('messages.profileOverwritten', { profileName }));
         } catch (error) {
-            await this.app.uiManager.showMessage(this.app.t('messages.error'), `${this.app.t('messages.failedToOverwriteProfile')}\n${error.message}`);
+            await this.app.uiManager.showMessage(this.app.t('messages.error'), `${this.t('messages.failedToOverwriteProfile')}\n${error.message}`);
         }
     }
     
@@ -501,19 +593,19 @@ export class ProfileComponent {
         }
         
         if (!this.profilesDir) {
-            await this.app.uiManager.showMessage(this.app.t('messages.error'), this.app.t('messages.failedToDetermineProfilesDir'));
+            await this.app.uiManager.showMessage(this.app.t('messages.error'), this.t('messages.failedToDetermineProfilesDir'));
             return;
         }
         
         const selectedIndex = this.app.elements.profilesList.selectedIndex;
         if (selectedIndex === -1) {
-            await this.app.uiManager.showMessage(this.app.t('messages.error'), this.app.t('messages.selectProfileFromList'));
+            await this.app.uiManager.showMessage(this.app.t('messages.error'), this.t('messages.selectProfileFromList'));
             return;
         }
         
         const profileName = this.app.elements.profilesList.options[selectedIndex].value;
         
-        const confirmed = await this.app.uiManager.showConfirm(this.app.t('messages.deleteProfileConfirm', { profileName }));
+        const confirmed = await this.app.uiManager.showConfirm(this.t('messages.deleteProfileConfirm', { profileName }));
         if (!confirmed) {
             return;
         }
@@ -521,14 +613,14 @@ export class ProfileComponent {
         try {
             const result = await window.electronAPI.deleteProfile(this.profilesDir, profileName);
             if (!result.success) {
-                await this.app.uiManager.showMessage(this.app.t('messages.error'), `${this.app.t('messages.failedToDeleteProfile')}\n${result.error}`);
+                await this.app.uiManager.showMessage(this.app.t('messages.error'), `${this.t('messages.failedToDeleteProfile')}\n${result.error}`);
                 return;
             }
             
             await this.refreshProfilesList();
-            await this.app.uiManager.showMessage(this.app.t('messages.success'), this.app.t('messages.profileDeleted', { profileName }));
+            await this.app.uiManager.showMessage(this.app.t('messages.success'), this.t('messages.profileDeleted', { profileName }));
         } catch (error) {
-            await this.app.uiManager.showMessage(this.app.t('messages.error'), `${this.app.t('messages.failedToDeleteProfile')}\n${error.message}`);
+            await this.app.uiManager.showMessage(this.app.t('messages.error'), `${this.t('messages.failedToDeleteProfile')}\n${error.message}`);
         }
     }
 }

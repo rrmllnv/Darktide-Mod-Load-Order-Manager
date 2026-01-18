@@ -1,0 +1,31 @@
+{
+  "ui": {
+    "profiles": "Perfis:",
+    "newProfile": "Novo perfil",
+    "loadProfile": "Carregar perfil",
+    "overwriteProfile": "Sobrescrever perfil",
+    "renameProfile": "Renomear perfil",
+    "deleteProfile": "Excluir perfil",
+    "enterProfileName": "Digite o nome do perfil",
+    "profileNamePlaceholder": "Nome do perfil..."
+  },
+  "messages": {
+    "overwriteProfileConfirm": "Sobrescrever o perfil '{profileName}' com o estado atual?",
+    "deleteProfileConfirm": "Excluir o perfil '{profileName}'?",
+    "enterNewProfileName": "Digite o novo nome para o perfil '{oldProfileName}':",
+    "invalidProfileName": "Nome de perfil inválido",
+    "profileSaved": "Perfil '{profileName}' salvo",
+    "profileLoaded": "Perfil '{profileName}' carregado",
+    "profileRenamed": "Perfil '{oldProfileName}' renomeado para '{newProfileName}'",
+    "profileOverwritten": "Perfil '{profileName}' sobrescrito",
+    "profileDeleted": "Perfil '{profileName}' excluído",
+    "selectProfileFromList": "Selecione um perfil da lista",
+    "selectProfileToOverwrite": "Selecione um perfil da lista para sobrescrever",
+    "failedToDetermineProfilesDir": "Falha ao determinar a pasta de perfis",
+    "failedToSaveProfile": "Falha ao salvar perfil:",
+    "failedToLoadProfile": "Falha ao carregar perfil:",
+    "failedToRenameProfile": "Falha ao renomear perfil:",
+    "failedToOverwriteProfile": "Falha ao sobrescrever perfil:",
+    "failedToDeleteProfile": "Falha ao excluir perfil:"
+  }
+}

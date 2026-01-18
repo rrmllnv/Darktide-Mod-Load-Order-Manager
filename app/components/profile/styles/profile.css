@@ -1,0 +1,77 @@
+.profiles-frame {
+    margin-bottom: 10px;
+    color: var(--text-primary);
+}
+
+.profiles-list {
+    width: 100%;
+    margin-bottom: 5px;
+    border: 1px solid var(--border-secondary);
+    border-radius: 3px;
+    font-size: 8pt;
+    padding: 0;
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+.profiles-list:focus {
+    outline: 2px solid var(--btn-primary-bg);
+    outline-offset: -2px;
+    border-color: var(--btn-primary-bg);
+}
+
+.profiles-list option {
+    padding: 5px;
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+.profiles-list option:checked {
+    background-color: var(--btn-primary-bg);
+    color: white;
+}
+
+.profiles-list:not(:focus) option:checked {
+    background-color: var(--btn-primary-bg);
+    color: white;
+}
+
+.profiles-list option.selected-no-focus {
+    background-color: var(--bg-selected-no-focus-light);
+    color: var(--text-selected-no-focus-light);
+}
+
+.profile-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    color: var(--text-primary);
+}
+
+.profile-buttons .btn-icon {
+    flex: 1;
+    height: 28px;
+    min-width: 0;
+    padding: 5px;
+}
+
+.profile-buttons .btn-icon i {
+    font-size: 16px;
+}
+
+.profiles-list::-webkit-scrollbar {
+    width: 4px;
+}
+
+.profiles-list::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+}
+
+.profiles-list::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 2px;
+}
+
+.profiles-list::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover);
+}

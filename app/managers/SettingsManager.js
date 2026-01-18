@@ -113,6 +113,11 @@ export class SettingsManager {
             await this.app.themeComponent.updateThemeSelectLabels();
         }
         
+        if (this.app.profileComponent) {
+            await this.app.profileComponent.loadLocale(locale);
+            await this.app.profileComponent.updateLocalization();
+        }
+        
         if (this.app.modListRenderer && this.app.elements.searchInput) {
             const searchText = this.app.elements.searchInput.value;
             this.app.modManager.updateModList(searchText);

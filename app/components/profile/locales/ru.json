@@ -1,0 +1,31 @@
+{
+  "ui": {
+    "profiles": "Профили:",
+    "newProfile": "Новый профиль",
+    "loadProfile": "Загрузить профиль",
+    "overwriteProfile": "Перезаписать профиль",
+    "renameProfile": "Переименовать профиль",
+    "deleteProfile": "Удалить профиль",
+    "enterProfileName": "Введите имя профиля",
+    "profileNamePlaceholder": "Имя профиля..."
+  },
+  "messages": {
+    "overwriteProfileConfirm": "Перезаписать профиль '{profileName}' текущим состоянием?",
+    "deleteProfileConfirm": "Удалить профиль '{profileName}'?",
+    "enterNewProfileName": "Введите новое имя для профиля '{oldProfileName}':",
+    "invalidProfileName": "Недопустимое имя профиля",
+    "profileSaved": "Профиль '{profileName}' сохранен",
+    "profileLoaded": "Профиль '{profileName}' загружен",
+    "profileRenamed": "Профиль '{oldProfileName}' переименован в '{newProfileName}'",
+    "profileOverwritten": "Профиль '{profileName}' перезаписан",
+    "profileDeleted": "Профиль '{profileName}' удален",
+    "selectProfileFromList": "Выберите профиль из списка",
+    "selectProfileToOverwrite": "Выберите профиль из списка для перезаписи",
+    "failedToDetermineProfilesDir": "Не удалось определить папку для профилей",
+    "failedToSaveProfile": "Не удалось сохранить профиль:",
+    "failedToLoadProfile": "Не удалось загрузить профиль:",
+    "failedToRenameProfile": "Не удалось переименовать профиль:",
+    "failedToOverwriteProfile": "Не удалось перезаписать профиль:",
+    "failedToDeleteProfile": "Не удалось удалить профиль:"
+  }
+}
