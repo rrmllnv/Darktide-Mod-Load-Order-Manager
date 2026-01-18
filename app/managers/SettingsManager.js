@@ -117,10 +117,10 @@ export class SettingsManager {
     applyTheme(theme) {
         const body = document.body;
         
-        body.classList.remove('dark-theme');
+        body.classList.remove('theme-dark');
         
         if (theme === 'dark') {
-            body.classList.add('dark-theme');
+            body.classList.add('theme-dark');
         }
     }
     
