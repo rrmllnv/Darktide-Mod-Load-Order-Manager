@@ -1,19 +1,20 @@
 .btn {
     padding: 5px 15px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border-secondary);
     border-radius: 3px;
-    background-color: #f0f0f0;
+    background-color: var(--btn-bg);
     cursor: pointer;
     font-size: 12px;
     transition: background-color 0.2s;
+    color: var(--text-primary);
 }
 
 .btn:hover {
-    background-color: #e0e0e0;
+    background-color: var(--btn-bg-hover);
 }
 
 .btn:active {
-    background-color: #d0d0d0;
+    background-color: var(--btn-bg-active);
 }
 
 .btn:disabled {
@@ -22,21 +23,21 @@
 }
 
 .btn-primary {
-    background-color: #0078d4;
+    background-color: var(--btn-primary-bg);
     color: white;
-    border-color: #0078d4;
+    border-color: var(--btn-primary-bg);
 }
 
 .btn-primary:hover {
-    background-color: #0063b1;
+    background-color: var(--btn-primary-bg-hover);
 }
 
 .btn-icon {
     width: 100%;
     padding: 8px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border-secondary);
     border-radius: 3px;
-    background-color: #f0f0f0;
+    background-color: var(--btn-bg);
     cursor: pointer;
     font-size: 14px;
     transition: background-color 0.2s;
@@ -44,14 +45,15 @@
     align-items: center;
     justify-content: center;
     min-height: 35px;
+    color: var(--text-primary);
 }
 
 .btn-icon:hover {
-    background-color: #e0e0e0;
+    background-color: var(--btn-bg-hover);
 }
 
 .btn-icon:active {
-    background-color: #d0d0d0;
+    background-color: var(--btn-bg-active);
 }
 
 .btn-icon:disabled {
@@ -61,15 +63,15 @@
 
 .btn-icon i {
     font-size: 16px;
-    color: #333;
+    color: var(--text-primary);
 }
 
 .btn-action {
     flex: 1;
     padding: 8px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border-secondary);
     border-radius: 3px;
-    background-color: #f0f0f0;
+    background-color: var(--btn-bg);
     cursor: pointer;
     font-size: 14px;
     transition: background-color 0.2s;
@@ -77,14 +79,15 @@
     align-items: center;
     justify-content: center;
     min-height: 35px;
+    color: var(--text-primary);
 }
 
 .btn-action:hover {
-    background-color: #e0e0e0;
+    background-color: var(--btn-bg-hover);
 }
 
 .btn-action:active {
-    background-color: #d0d0d0;
+    background-color: var(--btn-bg-active);
 }
 
 .btn-action:disabled {
@@ -94,27 +97,28 @@
 
 .btn-action i {
     font-size: 16px;
-    color: #333;
+    color: var(--text-primary);
 }
 
 .btn-full {
     width: 100%;
     margin-bottom: 2px;
     padding: 5px 15px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border-secondary);
     border-radius: 3px;
-    background-color: #f0f0f0;
+    background-color: var(--btn-bg);
     cursor: pointer;
     font-size: 12px;
     transition: background-color 0.2s;
+    color: var(--text-primary);
 }
 
 .btn-full:hover {
-    background-color: #e0e0e0;
+    background-color: var(--btn-bg-hover);
 }
 
 .btn-full:active {
-    background-color: #d0d0d0;
+    background-color: var(--btn-bg-active);
 }
 
 .btn-full:disabled {

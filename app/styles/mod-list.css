@@ -2,13 +2,14 @@
     flex: 1;
     overflow-y: auto;
     overflow-x: hidden;
-    border: 1px solid #ccc;
-    background-color: #ffffff;
+    border: 1px solid var(--border-secondary);
+    background-color: var(--bg-secondary);
     border-radius: 3px;
 }
 
 .mods-list {
     padding: 5px;
+    background-color: var(--bg-secondary);
 }
 
 .mod-item {
@@ -21,16 +22,17 @@
     transition: background-color 0.2s;
     height: 28px;
     box-sizing: border-box;
-    border: 2px solid white;
+    border: 2px solid var(--bg-secondary);
+    color: var(--text-primary);
 }
 
 .mod-item:hover {
-    background-color: #f5f5f5;
+    background-color: var(--bg-hover);
 }
 
 .mod-item.selected {
-    background-color: #E3F2FD;
-    border: 2px solid #2196F3;
+    background-color: var(--bg-selected);
+    border: 2px solid var(--border-selected);
 }
 
 .mod-item[draggable="true"] {
@@ -39,44 +41,46 @@
 
 .mod-item.dragging {
     opacity: 0.5;
-    background-color: #e0e0e0;
-    border: 2px solid white;
+    background-color: var(--bg-active);
+    border: 2px solid var(--bg-secondary);
 }
 
 .mod-item.drag-over {
-    border-top: 3px solid #2196F3;
-    border-left: 2px solid white;
-    border-right: 2px solid white;
-    border-bottom: 2px solid white;
-    background-color: #f0f8ff;
+    border-top: 3px solid var(--border-selected);
+    border-left: 2px solid var(--bg-secondary);
+    border-right: 2px solid var(--bg-secondary);
+    border-bottom: 2px solid var(--bg-secondary);
+    background-color: var(--bg-selected);
     height: 28px;
 }
 
 .mod-item input[type="checkbox"] {
     margin-right: 5px;
+    accent-color: var(--btn-primary-bg);
 }
 
 .mod-name {
     flex: 1;
     margin-right: 5px;
+    color: var(--text-primary);
 }
 
 .mod-new-label {
-    color: blue;
+    color: #6ba3ff;
     font-weight: bold;
     font-size: 7pt;
     margin-right: 5px;
 }
 
 .mod-not-found-label {
-    color: red;
+    color: #ff6b6b;
     font-weight: bold;
     font-size: 7pt;
     margin-right: 5px;
 }
 
 .mod-symlink-label {
-    color: purple;
+    color: #b794f6;
     font-weight: bold;
     font-size: 7pt;
     margin-right: 5px;
@@ -85,14 +89,15 @@
 .mod-status {
     margin-left: 5px;
     font-weight: bold;
+    color: var(--text-primary);
 }
 
 .mod-status.enabled {
-    color: green;
+    color: #4ade80;
 }
 
 .mod-status.disabled {
-    color: red;
+    color: #ff6b6b;
 }
 
 .canvas-frame::-webkit-scrollbar {
@@ -100,14 +105,14 @@
 }
 
 .canvas-frame::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: var(--scrollbar-track);
 }
 
 .canvas-frame::-webkit-scrollbar-thumb {
-    background: #888;
+    background: var(--scrollbar-thumb);
     border-radius: 2px;
 }
 
 .canvas-frame::-webkit-scrollbar-thumb:hover {
-    background: #555;
+    background: var(--scrollbar-thumb-hover);
 }

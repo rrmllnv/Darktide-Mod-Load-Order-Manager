@@ -1,9 +1,10 @@
 .bulk-actions-frame {
     padding: 10px;
-    background-color: #fff3cd;
-    border: 1px solid #ffc107;
+    background-color: var(--bulk-actions-bg);
+    border: 1px solid var(--bulk-actions-border);
     border-radius: 3px;
     margin-bottom: 10px;
+    color: var(--text-primary);
 }
 
 .bulk-actions-buttons {
@@ -11,6 +12,7 @@
     gap: 5px;
     margin-top: 5px;
     margin-bottom: 5px;
+    color: var(--text-primary);
 }
 
 .bulk-actions-buttons .btn-icon {
@@ -20,15 +22,15 @@
 
 .bulk-actions-info {
     font-size: 11px;
-    color: #856404;
+    color: var(--bulk-actions-text);
     text-align: center;
     margin-top: 5px;
 }
 
 .bulk-actions-frame.disabled {
     opacity: 0.6;
-    background-color: #f5f5f5;
-    border-color: #ccc;
+    background-color: var(--bg-disabled);
+    border-color: var(--border-secondary);
 }
 
 .bulk-actions-frame.disabled .bulk-actions-buttons button {

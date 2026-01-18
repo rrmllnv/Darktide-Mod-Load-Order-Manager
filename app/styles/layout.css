@@ -2,24 +2,27 @@
     display: flex;
     align-items: center;
     padding: 10px;
-    background-color: #ffffff;
-    border-bottom: 1px solid #d0d0d0;
+    background-color: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-primary);
     gap: 5px;
 }
 
 .path-frame label {
     margin-right: 5px;
+    color: var(--text-primary);
 }
 
 .path-input {
     flex: 1;
     padding: 5px 10px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border-secondary);
     border-radius: 3px;
     font-size: 12px;
     box-sizing: border-box;
     height: auto;
     line-height: 1.4;
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
 }
 
 .path-frame .btn,
@@ -47,6 +50,8 @@
     padding: 10px;
     gap: 10px;
     overflow: hidden;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
 }
 
 .left-panel {
@@ -54,6 +59,7 @@
     display: flex;
     flex-direction: column;
     min-width: 0;
+    color: var(--text-primary);
 }
 
 .header-frame {
@@ -62,10 +68,12 @@
     align-items: center;
     margin-bottom: 5px;
     gap: 5px;
+    color: var(--text-primary);
 }
 
 .sort-frame {
     margin-bottom: 0;
+    color: var(--text-primary);
 }
 
 .launch-dtkit-frame {
@@ -76,12 +84,14 @@
 .header-label {
     font-weight: bold;
     font-size: 10pt;
+    color: var(--text-primary);
 }
 
 .button-frame {
     display: flex;
     align-items: center;
     gap: 2px;
+    color: var(--text-primary);
 }
 
 .button-frame .btn-icon {
@@ -92,6 +102,7 @@
 
 .selection-buttons-frame {
     margin-left: 10px;
+    color: var(--text-primary);
 }
 
 .add-mod-frame {
@@ -110,11 +121,11 @@
     position: absolute;
     top: 100%;
     left: 0;
-    background-color: #ffffff;
+    background-color: var(--bg-secondary);
     min-width: 200px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1000;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border-secondary);
     border-radius: 3px;
     margin-top: 2px;
     overflow: hidden;
@@ -129,52 +140,55 @@
     padding: 8px 12px;
     text-align: left;
     border: none;
-    background-color: #ffffff;
+    background-color: var(--bg-secondary);
     cursor: pointer;
     font-size: 12px;
     display: flex;
     align-items: center;
     gap: 8px;
     transition: background-color 0.2s;
+    color: var(--text-primary);
 }
 
 .dropdown-item:hover {
-    background-color: #f0f0f0;
+    background-color: var(--bg-hover);
 }
 
 .dropdown-item i {
     font-size: 14px;
-    color: #333;
+    color: var(--text-primary);
     width: 16px;
 }
 
 .sort-label {
     font-size: 8pt;
     margin-right: 2px;
+    color: var(--text-primary);
 }
 
 .sort-combo {
     width: 160px;
     padding: 8px;
     margin-right: 2px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border-secondary);
     border-radius: 3px;
-    background-color: #f0f0f0;
+    background-color: var(--bg-tertiary);
     cursor: pointer;
     font-size: 13px;
     transition: background-color 0.2s;
     min-height: 35px;
     box-sizing: border-box;
+    color: var(--text-primary);
 }
 
 .sort-combo:hover {
-    background-color: #e0e0e0;
+    background-color: var(--bg-hover);
 }
 
 .sort-combo:focus {
-    outline: 2px solid #0078d4;
+    outline: 2px solid var(--btn-primary-bg);
     outline-offset: -2px;
-    border-color: #0078d4;
+    border-color: var(--btn-primary-bg);
 }
 
 .btn-small {
@@ -188,6 +202,7 @@
     display: flex;
     flex-direction: column;
     gap: 5px;
+    color: var(--text-primary);
 }
 
 .save-frame {
@@ -195,9 +210,10 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px;
-    background-color: #ffffff;
-    border-top: 1px solid #d0d0d0;
+    background-color: var(--bg-secondary);
+    border-top: 1px solid var(--border-primary);
     gap: 5px;
+    color: var(--text-primary);
 }
 
 .save-frame .btn-icon {
@@ -209,16 +225,17 @@
 
 .status-bar {
     padding: 5px 10px;
-    background-color: #e0e0e0;
-    border-top: 1px solid #ccc;
+    background-color: var(--bg-tertiary);
+    border-top: 1px solid var(--border-secondary);
     font-size: 11px;
+    color: var(--text-primary);
 }
 
 .context-menu {
     display: none;
     position: fixed;
-    background-color: #ffffff;
-    border: 1px solid #ccc;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-primary);
     border-radius: 3px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 10000;
@@ -235,18 +252,19 @@
     padding: 8px 12px;
     text-align: left;
     border: none;
-    background-color: #ffffff;
+    background-color: var(--bg-secondary);
     cursor: pointer;
     font-size: 12px;
     transition: background-color 0.2s;
+    color: var(--text-primary);
 }
 
 .context-menu-item:hover {
-    background-color: #f0f0f0;
+    background-color: var(--bg-hover);
 }
 
 .context-menu-separator {
     height: 1px;
-    background-color: #ccc;
+    background-color: var(--border-primary);
     margin: 4px 0;
 }

@@ -32,5 +32,8 @@
         --bulk-actions-bg: #3a2a0a;
         --bulk-actions-border: #ffc107;
         --bulk-actions-text: #ffd54f;
+        
+        --bg-selected-no-focus-dark: #1e3a5f;
+        --text-selected-no-focus-dark: #e8e8e8;
     }
 }
