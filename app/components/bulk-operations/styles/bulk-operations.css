@@ -1,0 +1,39 @@
+.bulk-actions-frame {
+    padding: 10px;
+    background-color: var(--bulk-actions-bg);
+    border: 1px solid var(--bulk-actions-border);
+    border-radius: 3px;
+    margin-bottom: 10px;
+    color: var(--text-primary);
+}
+
+.bulk-actions-buttons {
+    display: flex;
+    gap: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    color: var(--text-primary);
+}
+
+.bulk-actions-buttons .btn-icon {
+    flex: 1;
+    min-width: 40px;
+}
+
+.bulk-actions-info {
+    font-size: 11px;
+    color: var(--bulk-actions-text);
+    text-align: center;
+    margin-top: 5px;
+}
+
+.bulk-actions-frame.disabled {
+    opacity: 0.6;
+    background-color: var(--bg-disabled);
+    border-color: var(--border-secondary);
+}
+
+.bulk-actions-frame.disabled .bulk-actions-buttons button {
+    cursor: not-allowed;
+    opacity: 0.5;
+}

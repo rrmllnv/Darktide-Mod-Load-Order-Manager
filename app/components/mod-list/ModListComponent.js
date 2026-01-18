@@ -188,24 +188,6 @@ export class ModListComponent {
             });
         }
         
-        if (this.app.elements.bulkClearSelectionBtn) {
-            this.app.elements.bulkClearSelectionBtn.addEventListener('click', () => {
-                this.clearSelection();
-            });
-        }
-        
-        if (this.app.elements.bulkSelectEnabledBtn) {
-            this.app.elements.bulkSelectEnabledBtn.addEventListener('click', () => {
-                this.bulkSelectEnabled();
-            });
-        }
-        
-        if (this.app.elements.bulkSelectDisabledBtn) {
-            this.app.elements.bulkSelectDisabledBtn.addEventListener('click', () => {
-                this.bulkSelectDisabled();
-            });
-        }
-        
         if (this.app.elements.addModBtn) {
             this.app.elements.addModBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
@@ -398,8 +380,8 @@ export class ModListComponent {
             this.app.updateStatistics();
         }
         
-        if (this.app.uiManager && this.app.uiManager.updateBulkActionsPanel) {
-            this.app.uiManager.updateBulkActionsPanel();
+        if (this.app.bulkOperationsComponent && this.app.bulkOperationsComponent.updatePanel) {
+            this.app.bulkOperationsComponent.updatePanel();
         }
     }
     
@@ -461,8 +443,8 @@ export class ModListComponent {
             this.app.selectedModName = '';
         }
         
-        if (this.app.uiManager && this.app.uiManager.updateBulkActionsPanel) {
-            this.app.uiManager.updateBulkActionsPanel();
+        if (this.app.bulkOperationsComponent && this.app.bulkOperationsComponent.updatePanel) {
+            this.app.bulkOperationsComponent.updatePanel();
         }
         
         if (this.app.updateStatistics) {
@@ -488,8 +470,8 @@ export class ModListComponent {
         this.app.lastSelectedModIndex = -1;
         this.updateModListSelection();
         
-        if (this.app.uiManager && this.app.uiManager.updateBulkActionsPanel) {
-            this.app.uiManager.updateBulkActionsPanel();
+        if (this.app.bulkOperationsComponent && this.app.bulkOperationsComponent.updatePanel) {
+            this.app.bulkOperationsComponent.updatePanel();
         }
         
         if (this.app.updateStatistics) {
@@ -855,8 +837,8 @@ export class ModListComponent {
         
         this.updateModListSelection();
         
-        if (this.app.uiManager && this.app.uiManager.updateBulkActionsPanel) {
-            this.app.uiManager.updateBulkActionsPanel();
+        if (this.app.bulkOperationsComponent && this.app.bulkOperationsComponent.updatePanel) {
+            this.app.bulkOperationsComponent.updatePanel();
         }
         
         if (this.app.updateStatistics) {
@@ -877,8 +859,8 @@ export class ModListComponent {
         
         this.updateModListSelection();
         
-        if (this.app.uiManager && this.app.uiManager.updateBulkActionsPanel) {
-            this.app.uiManager.updateBulkActionsPanel();
+        if (this.app.bulkOperationsComponent && this.app.bulkOperationsComponent.updatePanel) {
+            this.app.bulkOperationsComponent.updatePanel();
         }
         
         if (this.app.updateStatistics) {

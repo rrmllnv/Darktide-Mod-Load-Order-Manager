@@ -1,0 +1,15 @@
+{
+    "ui": {
+        "actions": "작업:",
+        "enableSelected": "선택 항목 활성화",
+        "disableSelected": "선택 항목 비활성화",
+        "deleteSelected": "선택 항목 삭제",
+        "clearSelection": "선택 해제",
+        "selectEnabled": "활성화된 항목 모두 선택",
+        "selectDisabled": "비활성화된 항목 모두 선택",
+        "noModsSelected": "선택된 모드 없음",
+        "modSelected": "모드 선택됨",
+        "modsSelected": "모드 선택됨",
+        "modsSelectedMany": "모드 선택됨"
+    }
+}

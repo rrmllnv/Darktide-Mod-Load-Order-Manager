@@ -9,11 +9,11 @@ import { LocaleManager } from './managers/LocaleManager.js';
 import { ConfigManager } from './managers/ConfigManager.js';
 import { FileManager } from './managers/FileManager.js';
 import { UIManager } from './managers/UIManager.js';
-import { BulkOperationsManager } from './managers/BulkOperationsManager.js';
 import { SettingsManager } from './managers/SettingsManager.js';
 import { ThemeComponent } from './components/theme/ThemeComponent.js';
 import { ProfileComponent } from './components/profile/ProfileComponent.js';
 import { SearchComponent } from './components/search/SearchComponent.js';
+import { BulkOperationsComponent } from './components/bulk-operations/BulkOperationsComponent.js';
 
 class ModLoadOrderManager {
     constructor() {
@@ -49,13 +49,13 @@ class ModLoadOrderManager {
         this.configManager = new ConfigManager(this);
         this.fileManager = new FileManager(this);
         this.uiManager = new UIManager(this);
-        this.bulkOperationsManager = new BulkOperationsManager(this);
         this.settingsManager = new SettingsManager(this);
         
         this.themeComponent = new ThemeComponent(this);
         this.profileComponent = new ProfileComponent(this);
         this.modListComponent = new ModListComponent(this);
         this.searchComponent = new SearchComponent(this);
+        this.bulkOperationsComponent = new BulkOperationsComponent(this);
         
         this.init();
     }
@@ -161,6 +161,10 @@ class ModLoadOrderManager {
             await this.searchComponent.init();
         }
         
+        if (this.bulkOperationsComponent) {
+            await this.bulkOperationsComponent.init();
+        }
+        
         document.addEventListener('click', (e) => {
             if (e.target.closest('#profile-dialog') || 
                 e.target.closest('.modal') || 
@@ -244,10 +248,7 @@ class ModLoadOrderManager {
             openFile: () => this.fileManager.openFile(),
             openModsFolder: () => this.fileManager.openModsFolder(),
             saveFile: () => this.fileManager.saveFile(),
-            openSettings: () => this.settingsManager.openSettings(),
-            bulkEnable: () => this.bulkOperationsManager.bulkEnable(),
-            bulkDisable: () => this.bulkOperationsManager.bulkDisable(),
-            bulkDelete: () => this.bulkOperationsManager.bulkDelete()
+            openSettings: () => this.settingsManager.openSettings()
         });
         
         await this.fileManager.loadFile();
@@ -382,7 +383,9 @@ class ModLoadOrderManager {
     }
     
     updateBulkActionsPanel() {
-        this.uiManager.updateBulkActionsPanel();
+        if (this.bulkOperationsComponent && this.bulkOperationsComponent.updatePanel) {
+            this.bulkOperationsComponent.updatePanel();
+        }
     }
     
     async applyLocalization() {
@@ -416,16 +419,12 @@ class ModLoadOrderManager {
             this.searchComponent.updateLocalization();
         }
         
-        const actionsLabel = document.querySelector('#bulk-actions-panel .section-label');
-        if (actionsLabel) actionsLabel.textContent = t('ui.actions');
-        
-        if (this.elements.bulkEnableBtn) this.elements.bulkEnableBtn.title = t('ui.enableSelected');
-        if (this.elements.bulkDisableBtn) this.elements.bulkDisableBtn.title = t('ui.disableSelected');
-        if (this.elements.bulkDeleteBtn) this.elements.bulkDeleteBtn.title = t('ui.deleteSelected');
-        if (this.elements.bulkClearSelectionBtn) this.elements.bulkClearSelectionBtn.title = t('ui.clearSelection');
-        
         if (this.modListComponent && this.modListComponent.updateLocalization) {
             this.modListComponent.updateLocalization();
+        }
+        
+        if (this.bulkOperationsComponent && this.bulkOperationsComponent.updateLocalization) {
+            this.bulkOperationsComponent.updateLocalization();
         }
         
         if (this.elements.modalOkBtn) this.elements.modalOkBtn.textContent = t('ui.save');

@@ -1,0 +1,15 @@
+{
+    "ui": {
+        "actions": "Actions:",
+        "enableSelected": "Activer la sélection",
+        "disableSelected": "Désactiver la sélection",
+        "deleteSelected": "Supprimer la sélection",
+        "clearSelection": "Effacer la sélection",
+        "selectEnabled": "Sélectionner tous les activés",
+        "selectDisabled": "Sélectionner tous les désactivés",
+        "noModsSelected": "Aucun mod sélectionné",
+        "modSelected": "mod sélectionné",
+        "modsSelected": "mods sélectionnés",
+        "modsSelectedMany": "mods sélectionnés"
+    }
+}

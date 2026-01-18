@@ -30,15 +30,5 @@ export class EventBinder {
         if (this.elements.settingsBtn) {
             this.elements.settingsBtn.addEventListener('click', () => this.callbacks.openSettings());
         }
-        
-        if (this.elements.bulkEnableBtn) {
-            this.elements.bulkEnableBtn.addEventListener('click', () => this.callbacks.bulkEnable());
-        }
-        if (this.elements.bulkDisableBtn) {
-            this.elements.bulkDisableBtn.addEventListener('click', () => this.callbacks.bulkDisable());
-        }
-        if (this.elements.bulkDeleteBtn) {
-            this.elements.bulkDeleteBtn.addEventListener('click', () => this.callbacks.bulkDelete());
-        }
     }
 }

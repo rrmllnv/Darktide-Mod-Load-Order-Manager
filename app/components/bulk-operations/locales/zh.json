@@ -1,0 +1,15 @@
+{
+    "ui": {
+        "actions": "操作:",
+        "enableSelected": "启用所选",
+        "disableSelected": "禁用所选",
+        "deleteSelected": "删除所选",
+        "clearSelection": "清除选择",
+        "selectEnabled": "选择所有已启用",
+        "selectDisabled": "选择所有已禁用",
+        "noModsSelected": "未选择模组",
+        "modSelected": "个模组已选择",
+        "modsSelected": "个模组已选择",
+        "modsSelectedMany": "个模组已选择"
+    }
+}

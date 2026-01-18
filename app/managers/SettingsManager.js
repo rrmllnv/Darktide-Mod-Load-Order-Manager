@@ -135,6 +135,13 @@ export class SettingsManager {
                 this.app.searchComponent.updateLocalization();
             }
         }
+        
+        if (this.app.bulkOperationsComponent) {
+            await this.app.bulkOperationsComponent.loadLocale(locale);
+            if (this.app.bulkOperationsComponent.updateLocalization) {
+                this.app.bulkOperationsComponent.updateLocalization();
+            }
+        }
     }
     
     applyTheme(theme) {
