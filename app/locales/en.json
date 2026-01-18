@@ -139,7 +139,8 @@
             "failedToDetermineModsDir": "Failed to determine mods directory",
             "dragDropNotFolder": "Drag a folder, not a file",
             "folderCopied": "Folder copied: {folderName}",
-            "folderCopyError": "Error copying folder"
+            "folderCopyError": "Error copying folder",
+            "fileNotFoundPleaseSelect": "File mod_load_order.txt not found.\n\nPlease select the file using the Browse button."
         },
         "profile": {
             "overwriteProfileConfirm": "Overwrite profile '{profileName}' with current state?",

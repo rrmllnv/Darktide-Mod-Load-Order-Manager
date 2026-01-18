@@ -64,6 +64,19 @@ export class ConfigManager {
             wasAutoFound = true;
         }
         
+        if (!this.app.filePath) {
+            if (this.app.uiManager && this.app.uiManager.showMessage) {
+                await this.app.uiManager.showMessage(
+                    this.app.t('messages.common.error'),
+                    this.app.t('messages.common.fileNotFoundPleaseSelect')
+                );
+            }
+            this.app.filePath = '';
+            this.app.elements.pathInput.value = '';
+            this.app.settingsManager.applyAllSettings();
+            return;
+        }
+        
         this.app.elements.pathInput.value = this.app.filePath;
         
         if (wasAutoFound && this.app.filePath) {

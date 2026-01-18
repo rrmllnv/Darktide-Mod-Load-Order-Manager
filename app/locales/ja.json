@@ -139,7 +139,8 @@
             "failedToDetermineModsDir": "MODフォルダを特定できませんでした",
             "dragDropNotFolder": "ファイルではなくフォルダをドラッグしてください",
             "folderCopied": "フォルダをコピーしました: {folderName}",
-            "folderCopyError": "フォルダのコピー中にエラーが発生しました"
+            "folderCopyError": "フォルダのコピー中にエラーが発生しました",
+            "fileNotFoundPleaseSelect": "mod_load_order.txt ファイルが見つかりません。\n\n参照ボタンを使用してファイルを選択してください。"
         },
         "profile": {
             "overwriteProfileConfirm": "現在の状態でプロファイル '{profileName}' を上書きしますか？",

@@ -139,7 +139,8 @@
             "failedToDetermineModsDir": "Не удалось определить папку модов",
             "dragDropNotFolder": "Перетащите папку, а не файл",
             "folderCopied": "Папка скопирована: {folderName}",
-            "folderCopyError": "Ошибка при копировании папки"
+            "folderCopyError": "Ошибка при копировании папки",
+            "fileNotFoundPleaseSelect": "Файл mod_load_order.txt не найден.\n\nПожалуйста, выберите файл с помощью кнопки Обзор."
         },
         "profile": {
             "overwriteProfileConfirm": "Перезаписать профиль '{profileName}' текущим состоянием?",

@@ -25,17 +25,18 @@ async function copyDirectory(src, dest) {
 const DEFAULT_PATH = 'C:\\Program Files (x86)\\Steam\\steamapps\\common\\Warhammer 40,000 DARKTIDE\\mods\\mod_load_order.txt';
 
 function findModLoadOrderFile() {
-  const standardPaths = [
-    'C:\\Program Files (x86)\\Steam\\steamapps\\common\\Warhammer 40,000 DARKTIDE\\mods\\mod_load_order.txt',
-    'C:\\Program Files\\Steam\\steamapps\\common\\Warhammer 40,000 DARKTIDE\\mods\\mod_load_order.txt',
-    'D:\\Steam\\steamapps\\common\\Warhammer 40,000 DARKTIDE\\mods\\mod_load_order.txt',
-    'E:\\Steam\\steamapps\\common\\Warhammer 40,000 DARKTIDE\\mods\\mod_load_order.txt',
-    'F:\\Steam\\steamapps\\common\\Warhammer 40,000 DARKTIDE\\mods\\mod_load_order.txt',
-    'C:\\SteamLibrary\\steamapps\\common\\Warhammer 40,000 DARKTIDE\\mods\\mod_load_order.txt',
-    'D:\\SteamLibrary\\steamapps\\common\\Warhammer 40,000 DARKTIDE\\mods\\mod_load_order.txt',
-    'E:\\SteamLibrary\\steamapps\\common\\Warhammer 40,000 DARKTIDE\\mods\\mod_load_order.txt',
-    'F:\\SteamLibrary\\steamapps\\common\\Warhammer 40,000 DARKTIDE\\mods\\mod_load_order.txt'
-  ];
+  const standardPaths = [];
+  
+  // Пути для всех дисков (A-Z) с вариантами Program Files, Program Files (x86), Steam и SteamLibrary
+  const drives = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+  const gamePath = '\\steamapps\\common\\Warhammer 40,000 DARKTIDE\\mods\\mod_load_order.txt';
+  
+  for (const drive of drives) {
+    standardPaths.push(`${drive}:\\Program Files (x86)\\Steam${gamePath}`);
+    standardPaths.push(`${drive}:\\Program Files\\Steam${gamePath}`);
+    standardPaths.push(`${drive}:\\Steam${gamePath}`);
+    standardPaths.push(`${drive}:\\SteamLibrary${gamePath}`);
+  }
   
   for (const filePath of standardPaths) {
     if (existsSync(filePath)) {
@@ -43,7 +44,7 @@ function findModLoadOrderFile() {
     }
   }
   
-  return DEFAULT_PATH;
+  return null;
 }
 
 let mainWindow;

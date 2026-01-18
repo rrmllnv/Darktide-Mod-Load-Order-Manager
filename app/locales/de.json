@@ -139,7 +139,8 @@
             "failedToDetermineModsDir": "Mod-Ordner konnte nicht bestimmt werden",
             "dragDropNotFolder": "Ziehen Sie einen Ordner, keine Datei",
             "folderCopied": "Ordner kopiert: {folderName}",
-            "folderCopyError": "Fehler beim Kopieren des Ordners"
+            "folderCopyError": "Fehler beim Kopieren des Ordners",
+            "fileNotFoundPleaseSelect": "Datei mod_load_order.txt nicht gefunden.\n\nBitte wählen Sie die Datei über die Schaltfläche Durchsuchen aus."
         },
         "profile": {
             "overwriteProfileConfirm": "Profil '{profileName}' mit aktuellem Status überschreiben?",

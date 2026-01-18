@@ -139,7 +139,8 @@
             "failedToDetermineModsDir": "Falha ao determinar a pasta de mods",
             "dragDropNotFolder": "Arraste uma pasta, não um arquivo",
             "folderCopied": "Pasta copiada: {folderName}",
-            "folderCopyError": "Erro ao copiar pasta"
+            "folderCopyError": "Erro ao copiar pasta",
+            "fileNotFoundPleaseSelect": "Arquivo mod_load_order.txt não encontrado.\n\nPor favor, selecione o arquivo usando o botão Procurar."
         },
         "profile": {
             "overwriteProfileConfirm": "Sobrescrever o perfil '{profileName}' com o estado atual?",

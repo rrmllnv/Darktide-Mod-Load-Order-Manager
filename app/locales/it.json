@@ -139,7 +139,8 @@
             "failedToDetermineModsDir": "Impossibile determinare la cartella dei mod",
             "dragDropNotFolder": "Trascina una cartella, non un file",
             "folderCopied": "Cartella copiata: {folderName}",
-            "folderCopyError": "Errore durante la copia della cartella"
+            "folderCopyError": "Errore durante la copia della cartella",
+            "fileNotFoundPleaseSelect": "File mod_load_order.txt non trovato.\n\nSi prega di selezionare il file utilizzando il pulsante Sfoglia."
         },
         "profile": {
             "overwriteProfileConfirm": "Sovrascrivere il profilo '{profileName}' con lo stato attuale?",
