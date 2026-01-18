@@ -183,6 +183,57 @@ export class ModListComponent {
                 this.disableAll();
             });
         }
+        
+        if (this.app.elements.scanBtn) {
+            this.app.elements.scanBtn.addEventListener('click', () => {
+                this.scanAndUpdate();
+            });
+        }
+        
+        if (this.app.elements.hideNewModsCheckbox) {
+            this.app.elements.hideNewModsCheckbox.addEventListener('change', () => {
+                this.app.hideNewMods = this.app.elements.hideNewModsCheckbox.checked;
+                this.updateModList();
+                if (this.app.configManager && this.app.configManager.saveUserConfig) {
+                    this.app.configManager.saveUserConfig();
+                }
+            });
+        }
+        
+        if (this.app.elements.hideUnusedModsCheckbox) {
+            this.app.elements.hideUnusedModsCheckbox.addEventListener('change', () => {
+                this.app.hideUnusedMods = this.app.elements.hideUnusedModsCheckbox.checked;
+                this.updateModList();
+                if (this.app.configManager && this.app.configManager.saveUserConfig) {
+                    this.app.configManager.saveUserConfig();
+                }
+            });
+        }
+        
+        if (this.app.elements.hideNotFoundModsCheckbox) {
+            this.app.elements.hideNotFoundModsCheckbox.addEventListener('change', () => {
+                this.app.hideNotFoundMods = this.app.elements.hideNotFoundModsCheckbox.checked;
+                this.updateModList();
+                if (this.app.configManager && this.app.configManager.saveUserConfig) {
+                    this.app.configManager.saveUserConfig();
+                }
+            });
+        }
+        
+        if (this.app.elements.createSymlinkBtn) {
+            this.app.elements.createSymlinkBtn.addEventListener('click', () => {
+                if (this.app.elements.addModDropdown) {
+                    this.app.elements.addModDropdown.classList.remove('show');
+                }
+                this.createSymlinkForMod();
+            });
+        }
+        
+        if (this.app.elements.bulkClearSelectionBtn) {
+            this.app.elements.bulkClearSelectionBtn.addEventListener('click', () => {
+                this.clearSelection();
+            });
+        }
     }
     
     loadStyles() {

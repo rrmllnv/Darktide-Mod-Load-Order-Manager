@@ -238,28 +238,6 @@ class ModLoadOrderManager {
             openFile: () => this.fileManager.openFile(),
             openModsFolder: () => this.fileManager.openModsFolder(),
             launchDtkitPatch: () => this.fileManager.launchDtkitPatch(),
-            onSortChange: () => this.modListComponent.onSortChange(),
-            enableAll: () => this.modListComponent.enableAll(),
-            disableAll: () => this.modListComponent.disableAll(),
-            scanAndUpdate: () => this.modListComponent.scanAndUpdate(),
-            onSearchChange: () => this.modListComponent.onSearchChange(),
-            clearSearch: () => this.modListComponent.clearSearch(),
-            onHideNewModsChange: (checked) => {
-                this.hideNewMods = checked;
-                this.modListComponent.updateModList();
-                this.configManager.saveUserConfig();
-            },
-            onHideUnusedModsChange: (checked) => {
-                this.hideUnusedMods = checked;
-                this.modListComponent.updateModList();
-                this.configManager.saveUserConfig();
-            },
-            onHideNotFoundModsChange: (checked) => {
-                this.hideNotFoundMods = checked;
-                this.modListComponent.updateModList();
-                this.configManager.saveUserConfig();
-            },
-            createSymlinkForMod: () => this.modListComponent.createSymlinkForMod(),
             reloadFile: () => this.fileManager.reloadFile(),
             saveFile: () => this.fileManager.saveFile(),
             openSettings: () => this.settingsManager.openSettings(),
@@ -268,7 +246,6 @@ class ModLoadOrderManager {
             bulkEnable: () => this.bulkOperationsManager.bulkEnable(),
             bulkDisable: () => this.bulkOperationsManager.bulkDisable(),
             bulkDelete: () => this.bulkOperationsManager.bulkDelete(),
-            bulkClearSelection: () => this.modListComponent.clearSelection(),
             addModFolder: () => this.fileManager.addModFolder()
         });
         

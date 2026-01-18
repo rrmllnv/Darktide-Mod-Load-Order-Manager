@@ -28,29 +28,11 @@ export class EventBinder {
             this.elements.launchDtkitBtn.addEventListener('click', () => this.callbacks.launchDtkitPatch());
         }
         
-        if (this.elements.scanBtn) {
-            this.elements.scanBtn.addEventListener('click', () => this.callbacks.scanAndUpdate());
-        }
-        
         if (this.elements.bulkSelectEnabledBtn) {
             this.elements.bulkSelectEnabledBtn.addEventListener('click', () => this.callbacks.bulkSelectEnabled());
         }
         if (this.elements.bulkSelectDisabledBtn) {
             this.elements.bulkSelectDisabledBtn.addEventListener('click', () => this.callbacks.bulkSelectDisabled());
-        }
-        
-        this.elements.hideNewModsCheckbox.addEventListener('change', () => {
-            this.callbacks.onHideNewModsChange(this.elements.hideNewModsCheckbox.checked);
-        });
-        
-        this.elements.hideUnusedModsCheckbox.addEventListener('change', () => {
-            this.callbacks.onHideUnusedModsChange(this.elements.hideUnusedModsCheckbox.checked);
-        });
-        
-        if (this.elements.hideNotFoundModsCheckbox) {
-            this.elements.hideNotFoundModsCheckbox.addEventListener('change', () => {
-                this.callbacks.onHideNotFoundModsChange(this.elements.hideNotFoundModsCheckbox.checked);
-            });
         }
         
         if (this.elements.addModBtn) {
@@ -79,14 +61,6 @@ export class EventBinder {
             });
         }
         
-        if (this.elements.createSymlinkBtn) {
-            this.elements.createSymlinkBtn.addEventListener('click', () => {
-                if (this.elements.addModDropdown) {
-                    this.elements.addModDropdown.classList.remove('show');
-                }
-                this.callbacks.createSymlinkForMod();
-            });
-        }
         
         this.elements.reloadFileBtn.addEventListener('click', () => this.callbacks.reloadFile());
         
@@ -104,9 +78,6 @@ export class EventBinder {
         }
         if (this.elements.bulkDeleteBtn) {
             this.elements.bulkDeleteBtn.addEventListener('click', () => this.callbacks.bulkDelete());
-        }
-        if (this.elements.bulkClearSelectionBtn) {
-            this.elements.bulkClearSelectionBtn.addEventListener('click', () => this.callbacks.bulkClearSelection());
         }
     }
 }
