@@ -87,14 +87,36 @@ export class SettingsComponent {
         };
         this.app.elements.settingsDialog.addEventListener('click', handleOutsideClick);
         
-        const handleOk = () => {
+        const handleOk = async () => {
             this.saveSettingsFromForm();
+            
+            const restartTourCheckbox = document.getElementById('settings-restart-tour-checkbox');
+            let shouldRestartTour = false;
+            
+            if (restartTourCheckbox && restartTourCheckbox.checked) {
+                if (!this.app.userConfig) {
+                    this.app.userConfig = ConfigManager.getDefaultUserConfig();
+                }
+                this.app.userConfig.tourCompleted = false;
+                this.app.userConfig.browseTourCompleted = false;
+                
+                if (this.app.configManager && this.app.configManager.saveUserConfig) {
+                    await this.app.configManager.saveUserConfig();
+                }
+                
+                restartTourCheckbox.checked = false;
+                shouldRestartTour = true;
+            }
             
             if (this.app.settingsManager && this.app.settingsManager.applySettings) {
                 this.app.settingsManager.applySettings();
             }
             
             this.closeSettings();
+            
+            if (shouldRestartTour) {
+                await this.startTourAfterClose();
+            }
             
             this.app.elements.settingsOkBtn.removeEventListener('click', handleOk);
             this.app.elements.settingsCancelBtn.removeEventListener('click', handleCancel);
@@ -158,6 +180,34 @@ export class SettingsComponent {
         this.app.elements.settingsDialog.classList.remove('show');
     }
     
+    async startTourAfterClose() {
+        if (!this.app.tourComponent) {
+            return;
+        }
+        
+        if (!this.app.tourComponent.elements) {
+            await this.app.tourComponent.init();
+        }
+        
+        if (this.app.tourComponent.isActive) {
+            this.app.tourComponent.isActive = false;
+        }
+        
+        if (this.app.filePath) {
+            await this.app.uiManager.showMessage(
+                this.app.t('messages.common.welcome'),
+                this.app.t('messages.common.welcomeFileFound')
+            );
+            setTimeout(() => {
+                this.app.tourComponent.startTour();
+            }, 300);
+        } else {
+            setTimeout(() => {
+                this.app.tourComponent.startBrowseTour();
+            }, 300);
+        }
+    }
+    
     updateLocalization() {
         const settingsTitle = document.querySelector('#settings-dialog .modal-title');
         if (settingsTitle) {
@@ -184,6 +234,11 @@ export class SettingsComponent {
         
         if (this.app.elements.settingsBtn) {
             this.app.elements.settingsBtn.title = this.t('ui.settings.settings');
+        }
+        
+        const restartTourLabel = document.getElementById('settings-restart-tour-label');
+        if (restartTourLabel) {
+            restartTourLabel.textContent = this.t('ui.settings.restartTour');
         }
     }
 }

@@ -103,6 +103,7 @@
             "settings": "設定",
             "theme": "テーマ:",
             "locale": "言語:",
+            "restartTour": "チュートリアルツアーを再開",
             "save": "保存",
             "cancel": "キャンセル"
         },

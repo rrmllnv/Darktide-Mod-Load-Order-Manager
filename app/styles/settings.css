@@ -86,3 +86,14 @@
     background-color: var(--input-bg);
     color: var(--text-primary);
 }
+
+.settings-label input[type="checkbox"] {
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+.settings-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}

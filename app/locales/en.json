@@ -103,6 +103,7 @@
             "settings": "Settings",
             "theme": "Theme:",
             "locale": "Language:",
+            "restartTour": "Restart tutorial tour",
             "save": "Save",
             "cancel": "Cancel"
         },

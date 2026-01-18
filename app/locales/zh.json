@@ -103,6 +103,7 @@
             "settings": "设置",
             "theme": "主题:",
             "locale": "语言:",
+            "restartTour": "重新开始教程",
             "save": "保存",
             "cancel": "取消"
         },

@@ -103,6 +103,7 @@
             "settings": "Paramètres",
             "theme": "Thème:",
             "locale": "Langue:",
+            "restartTour": "Relancer le tutoriel",
             "save": "Enregistrer",
             "cancel": "Annuler"
         },
