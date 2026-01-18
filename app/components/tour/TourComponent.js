@@ -139,10 +139,11 @@ export class TourComponent {
             return;
         }
         
-        this.currentStep = 0;
         this.isActive = true;
         this.isBrowseTour = false;
-        await this.showStep(0);
+        // Полный тур начинается со второго шага (индекс 1), первый шаг (#browse-btn) только для краткого тура
+        this.currentStep = 1;
+        await this.showStep(1);
     }
     
     async startBrowseTour() {
@@ -376,10 +377,10 @@ export class TourComponent {
     }
     
     skipTour() {
-        this.endTour(this.isBrowseTour);
+        this.endTour();
     }
     
-    endTour(isBrowseTour = false) {
+    endTour() {
         this.isActive = false;
         this.elements.tourOverlay.classList.remove('show');
         this.elements.tourTooltip.classList.remove('show');
@@ -396,7 +397,8 @@ export class TourComponent {
             this.currentHighlightedElement = null;
         }
         
-        if (isBrowseTour) {
+        // Сохраняем статус тура на основе типа тура
+        if (this.isBrowseTour) {
             this.saveBrowseTourCompleted();
         } else {
             this.saveTourCompleted();
