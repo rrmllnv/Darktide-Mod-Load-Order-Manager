@@ -122,7 +122,6 @@ class ModLoadOrderManager {
             bulkEnableBtn: document.getElementById('bulk-enable-btn'),
             bulkDisableBtn: document.getElementById('bulk-disable-btn'),
             bulkDeleteBtn: document.getElementById('bulk-delete-btn'),
-            bulkClearSelectionBtn: document.getElementById('bulk-clear-selection-btn'),
             bulkSelectionCount: document.getElementById('bulk-selection-count'),
             dragDropOverlay: document.getElementById('drag-drop-overlay')
         };
@@ -388,10 +387,6 @@ class ModLoadOrderManager {
     
     updateModListSelection() {
         this.modListComponent.updateModListSelection();
-    }
-    
-    clearSelection() {
-        this.modListComponent.clearSelection();
     }
     
     updateStatistics() {

@@ -35,12 +35,6 @@ export class BulkOperationsComponent {
             });
         }
         
-        if (this.app.elements.bulkClearSelectionBtn) {
-            this.app.elements.bulkClearSelectionBtn.addEventListener('click', () => {
-                this.clearSelection();
-            });
-        }
-        
         if (this.app.elements.bulkSelectEnabledBtn) {
             this.app.elements.bulkSelectEnabledBtn.addEventListener('click', () => {
                 this.bulkSelectEnabled();
@@ -186,13 +180,6 @@ export class BulkOperationsComponent {
         }
     }
     
-    clearSelection() {
-        if (this.app.modListComponent) {
-            this.app.modListComponent.clearSelection();
-        }
-        this.updatePanel();
-    }
-    
     updatePanel() {
         if (!this.app.elements.bulkActionsPanel) {
             return;
@@ -226,9 +213,6 @@ export class BulkOperationsComponent {
         if (this.app.elements.bulkDeleteBtn) {
             this.app.elements.bulkDeleteBtn.disabled = !hasSelection;
         }
-        if (this.app.elements.bulkClearSelectionBtn) {
-            this.app.elements.bulkClearSelectionBtn.disabled = !hasSelection;
-        }
         
         if (hasSelection) {
             this.app.elements.bulkActionsPanel.classList.remove('disabled');
@@ -253,10 +237,6 @@ export class BulkOperationsComponent {
         
         if (this.app.elements.bulkDeleteBtn) {
             this.app.elements.bulkDeleteBtn.title = this.t('ui.bulkOperations.deleteSelected');
-        }
-        
-        if (this.app.elements.bulkClearSelectionBtn) {
-            this.app.elements.bulkClearSelectionBtn.title = this.t('ui.bulkOperations.clearSelection');
         }
         
         if (this.app.elements.bulkSelectEnabledBtn) {
