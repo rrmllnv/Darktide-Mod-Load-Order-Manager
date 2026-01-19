@@ -55,7 +55,25 @@
 .backup-list {
     max-height: 400px;
     overflow-y: auto;
+    overflow-x: hidden;
     padding: 10px;
+}
+
+.backup-list::-webkit-scrollbar {
+    width: 4px;
+}
+
+.backup-list::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+}
+
+.backup-list::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 2px;
+}
+
+.backup-list::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover);
 }
 
 .backup-item {
