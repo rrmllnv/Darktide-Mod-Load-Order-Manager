@@ -145,6 +145,8 @@
             "edit": "Bearbeiten",
             "delete": "Löschen",
             "dragToReorder": "Zum Sortieren ziehen",
+            "customOrder": "Benutzerdefinierte Reihenfolge",
+            "recentFirst": "Neueste zuerst",
             "pleaseSelectMod": "Bitte wählen Sie zuerst einen Mod aus"
         },
         "developer": {

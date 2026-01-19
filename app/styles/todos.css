@@ -6,6 +6,18 @@
     min-height: 0;
 }
 
+.todos-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.todos-sort-label {
+    font-size: 9pt;
+    color: var(--text-secondary);
+}
+
 .todos-filter {
     margin-bottom: 5px;
 }

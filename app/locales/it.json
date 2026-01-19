@@ -145,6 +145,8 @@
             "edit": "Modifica",
             "delete": "Elimina",
             "dragToReorder": "Trascina per riordinare",
+            "customOrder": "Ordine personalizzato",
+            "recentFirst": "Recenti prima",
             "pleaseSelectMod": "Seleziona prima un mod"
         },
         "developer": {

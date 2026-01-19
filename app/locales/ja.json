@@ -145,6 +145,8 @@
             "edit": "編集",
             "delete": "削除",
             "dragToReorder": "ドラッグして並び替え",
+            "customOrder": "カスタム順序",
+            "recentFirst": "最近のものを最初に",
             "pleaseSelectMod": "まずMODを選択してください"
         },
         "developer": {

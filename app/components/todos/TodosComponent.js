@@ -37,10 +37,26 @@ export class TodosComponent {
         if (filterLabel) {
             filterLabel.textContent = this.t('ui.todos.showOnlyActive');
         }
-        
+
         const todosInput = document.getElementById('todos-input');
         if (todosInput) {
             todosInput.placeholder = this.t('ui.todos.addNewTodo');
+        }
+        
+        this.updateSortLabel();
+    }
+    
+    updateSortLabel() {
+        const sortLabel = document.getElementById('todos-sort-label');
+        if (!sortLabel) {
+            return;
+        }
+        
+        const modName = this.app.selectedModName || '';
+        if (modName) {
+            sortLabel.textContent = this.t('ui.todos.customOrder');
+        } else {
+            sortLabel.textContent = this.t('ui.todos.recentFirst');
         }
     }
     
@@ -178,6 +194,8 @@ export class TodosComponent {
         }
         
         const modName = this.app.selectedModName || '';
+        
+        this.updateSortLabel();
         
         if (modName) {
             this.currentModName = modName;
@@ -725,6 +743,7 @@ export class TodosComponent {
     }
     
     async onModSelectionChanged() {
+        this.updateSortLabel();
         await this.loadTodos();
     }
     

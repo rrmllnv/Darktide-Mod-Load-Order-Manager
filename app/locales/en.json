@@ -144,6 +144,8 @@
             "edit": "Edit",
             "delete": "Delete",
             "dragToReorder": "Drag to reorder",
+            "customOrder": "Custom order",
+            "recentFirst": "Recent first",
             "pleaseSelectMod": "Please select a mod first"
         },
         "developer": {
