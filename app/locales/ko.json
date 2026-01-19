@@ -150,7 +150,10 @@
             "createBackup": "백업 만들기",
             "restoreBackup": "백업에서 복원",
             "restore": "복원",
-            "delete": "삭제"
+            "delete": "삭제",
+            "enterBackupComment": "백업 주석 입력 (선택사항):",
+            "editComment": "주석 편집",
+            "editBackupComment": "백업 주석 편집:"
         }
     },
     "messages": {
@@ -245,7 +248,9 @@
             "backupRestoreError": "백업에서 복원하는데 실패했습니다.",
             "deleteBackupConfirm": "모드 '{modName}'의 백업을 삭제하시겠습니까?\n\n버전: {versionName}\n\n이 작업은 되돌릴 수 없습니다!",
             "backupDeleted": "모드 '{modName}'의 백업이 성공적으로 삭제되었습니다!\n\n버전: {versionName}",
-            "backupDeleteError": "백업 삭제에 실패했습니다."
+            "backupDeleteError": "백업 삭제에 실패했습니다.",
+            "backupCommentUpdated": "백업 주석이 업데이트되었습니다!",
+            "backupCommentUpdateError": "백업 주석 업데이트에 실패했습니다."
         }
     },
     "status": {

@@ -150,7 +150,10 @@
             "createBackup": "Criar backup",
             "restoreBackup": "Restaurar do backup",
             "restore": "Restaurar",
-            "delete": "Excluir"
+            "delete": "Excluir",
+            "enterBackupComment": "Digite um comentário para o backup (opcional):",
+            "editComment": "Editar comentário",
+            "editBackupComment": "Editar comentário do backup:"
         }
     },
     "messages": {
@@ -245,7 +248,9 @@
             "backupRestoreError": "Falha ao restaurar do backup.",
             "deleteBackupConfirm": "Excluir backup do mod '{modName}'?\n\nVersão: {versionName}\n\nEsta ação não pode ser desfeita!",
             "backupDeleted": "Backup do mod '{modName}' excluído com sucesso!\n\nVersão: {versionName}",
-            "backupDeleteError": "Falha ao excluir backup."
+            "backupDeleteError": "Falha ao excluir backup.",
+            "backupCommentUpdated": "Comentário do backup atualizado!",
+            "backupCommentUpdateError": "Falha ao atualizar comentário do backup."
         }
     },
     "status": {

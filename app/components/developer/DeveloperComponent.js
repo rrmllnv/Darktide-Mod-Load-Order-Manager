@@ -1,4 +1,9 @@
 export class DeveloperComponent {
+    escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
     constructor(app) {
         this.app = app;
     }
@@ -737,8 +742,21 @@ export class DeveloperComponent {
             }
         }
         
+        let comment = '';
+        if (this.app.modalManager) {
+            comment = await new Promise((resolve) => {
+                this.app.modalManager.showModal(
+                    this.app.t('ui.developer.enterBackupComment'),
+                    '',
+                    (value) => {
+                        resolve(value !== null ? (value ? value.trim() : '') : '');
+                    }
+                );
+            });
+        }
+        
         try {
-            const result = await window.electronAPI.createBackup(projectPath, modName);
+            const result = await window.electronAPI.createBackup(projectPath, modName, comment);
             if (result.success) {
                 if (this.app.uiManager && this.app.uiManager.showMessage) {
                     await this.app.uiManager.showMessage(
@@ -842,17 +860,23 @@ export class DeveloperComponent {
             const dateTime = backup.versionName.replace(/_/g, ' ').replace(/-/g, ':');
             const formattedDate = dateTime.replace(/(\d{4}):(\d{2}):(\d{2}) (\d{2}):(\d{2}):(\d{2})/, '$1-$2-$3 $4:$5:$6');
             
+            const commentHtml = backup.comment ? `<div class="backup-item-comment">${this.escapeHtml(backup.comment)}</div>` : '';
+            
             backupItem.innerHTML = `
                 <div class="backup-item-info">
                     <div class="backup-item-date">${formattedDate}</div>
+                    ${commentHtml}
                     <div class="backup-item-size">${backup.sizeFormatted}</div>
                 </div>
                 <div class="backup-item-actions">
                     <button class="btn btn-primary backup-restore-btn" data-version="${backup.versionName}">
                         ${this.app.t('ui.developer.restore')}
                     </button>
-                    <button class="btn backup-delete-btn" data-version="${backup.versionName}">
-                        ${this.app.t('ui.developer.delete')}
+                    <button class="btn backup-edit-comment-btn" data-version="${backup.versionName}" title="${this.app.t('ui.developer.editComment')}">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn backup-delete-btn" data-version="${backup.versionName}" title="${this.app.t('ui.developer.delete')}">
+                        <i class="fas fa-trash"></i>
                     </button>
                 </div>
             `;
@@ -860,6 +884,11 @@ export class DeveloperComponent {
             const restoreBtn = backupItem.querySelector('.backup-restore-btn');
             restoreBtn.addEventListener('click', async () => {
                 await this.restoreBackup(modName, backup.versionName);
+            });
+            
+            const editCommentBtn = backupItem.querySelector('.backup-edit-comment-btn');
+            editCommentBtn.addEventListener('click', async () => {
+                await this.editBackupComment(modName, backup.versionName, backup.comment || '');
             });
             
             const deleteBtn = backupItem.querySelector('.backup-delete-btn');
@@ -994,6 +1023,52 @@ export class DeveloperComponent {
             }
         } catch (error) {
             console.error('Error deleting backup:', error);
+            if (this.app.uiManager && this.app.uiManager.showMessage) {
+                await this.app.uiManager.showMessage(
+                    this.app.t('messages.common.error'),
+                    error.message || String(error)
+                );
+            }
+        }
+    }
+    
+    async editBackupComment(modName, versionName, currentComment) {
+        if (!this.app.userConfig || !this.app.userConfig.developerMode) {
+            return;
+        }
+        
+        if (!this.app.modalManager) {
+            return;
+        }
+        
+        const newComment = await new Promise((resolve) => {
+            this.app.modalManager.showModal(
+                this.app.t('ui.developer.editBackupComment'),
+                currentComment || '',
+                (value) => {
+                    resolve(value !== null ? (value ? value.trim() : '') : null);
+                }
+            );
+        });
+        
+        if (newComment === null) {
+            return;
+        }
+        
+        try {
+            const result = await window.electronAPI.updateBackupComment(modName, versionName, newComment);
+            if (result.success) {
+                await this.showRestoreBackupDialog(modName);
+            } else {
+                if (this.app.uiManager && this.app.uiManager.showMessage) {
+                    await this.app.uiManager.showMessage(
+                        this.app.t('messages.common.error'),
+                        result.error || this.app.t('messages.developer.backupCommentUpdateError')
+                    );
+                }
+            }
+        } catch (error) {
+            console.error('Error updating backup comment:', error);
             if (this.app.uiManager && this.app.uiManager.showMessage) {
                 await this.app.uiManager.showMessage(
                     this.app.t('messages.common.error'),

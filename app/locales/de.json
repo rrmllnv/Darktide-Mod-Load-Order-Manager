@@ -150,7 +150,10 @@
             "createBackup": "Backup erstellen",
             "restoreBackup": "Aus Backup wiederherstellen",
             "restore": "Wiederherstellen",
-            "delete": "Löschen"
+            "delete": "Löschen",
+            "enterBackupComment": "Backup-Kommentar eingeben (optional):",
+            "editComment": "Kommentar bearbeiten",
+            "editBackupComment": "Backup-Kommentar bearbeiten:"
         }
     },
     "messages": {
@@ -245,7 +248,9 @@
             "backupRestoreError": "Wiederherstellung aus Backup fehlgeschlagen.",
             "deleteBackupConfirm": "Backup des Mods '{modName}' löschen?\n\nVersion: {versionName}\n\nDiese Aktion kann nicht rückgängig gemacht werden!",
             "backupDeleted": "Backup des Mods '{modName}' erfolgreich gelöscht!\n\nVersion: {versionName}",
-            "backupDeleteError": "Backup konnte nicht gelöscht werden."
+            "backupDeleteError": "Backup konnte nicht gelöscht werden.",
+            "backupCommentUpdated": "Backup-Kommentar aktualisiert!",
+            "backupCommentUpdateError": "Backup-Kommentar konnte nicht aktualisiert werden."
         }
     },
     "status": {

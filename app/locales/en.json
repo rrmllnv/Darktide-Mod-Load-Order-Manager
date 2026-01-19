@@ -149,7 +149,10 @@
             "createBackup": "Create backup",
             "restoreBackup": "Restore from backup",
             "restore": "Restore",
-            "delete": "Delete"
+            "delete": "Delete",
+            "enterBackupComment": "Enter backup comment (optional):",
+            "editComment": "Edit comment",
+            "editBackupComment": "Edit backup comment:"
         }
     },
     "messages": {
@@ -244,7 +247,9 @@
             "backupRestoreError": "Failed to restore from backup.",
             "deleteBackupConfirm": "Delete backup of mod '{modName}'?\n\nVersion: {versionName}\n\nThis action cannot be undone!",
             "backupDeleted": "Backup of mod '{modName}' deleted successfully!\n\nVersion: {versionName}",
-            "backupDeleteError": "Failed to delete backup."
+            "backupDeleteError": "Failed to delete backup.",
+            "backupCommentUpdated": "Backup comment updated!",
+            "backupCommentUpdateError": "Failed to update backup comment."
         }
     },
     "status": {

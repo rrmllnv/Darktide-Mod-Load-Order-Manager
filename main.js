@@ -383,6 +383,40 @@ function formatBytes(bytes) {
   return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
 }
 
+function getBackupsMetadataPath(modName) {
+  const userDataDir = app.getPath('userData');
+  return path.join(userDataDir, 'Backups', 'ProjectMods', modName, 'backups_metadata.json');
+}
+
+async function loadBackupsMetadata(modName) {
+  try {
+    const metadataPath = getBackupsMetadataPath(modName);
+    if (!existsSync(metadataPath)) {
+      return {};
+    }
+    const content = await fs.readFile(metadataPath, 'utf-8');
+    return JSON.parse(content);
+  } catch (error) {
+    console.error('Error loading backups metadata:', error);
+    return {};
+  }
+}
+
+async function saveBackupsMetadata(modName, metadata) {
+  try {
+    const userDataDir = app.getPath('userData');
+    const backupsDir = path.join(userDataDir, 'Backups', 'ProjectMods', modName);
+    await fs.mkdir(backupsDir, { recursive: true });
+    
+    const metadataPath = getBackupsMetadataPath(modName);
+    await fs.writeFile(metadataPath, JSON.stringify(metadata, null, 2), 'utf-8');
+    return true;
+  } catch (error) {
+    console.error('Error saving backups metadata:', error);
+    return false;
+  }
+}
+
 ipcMain.handle('get-backups-directory', async (event) => {
   try {
     const userDataDir = app.getPath('userData');
@@ -394,7 +428,7 @@ ipcMain.handle('get-backups-directory', async (event) => {
   }
 });
 
-ipcMain.handle('create-backup', async (event, projectPath, modName) => {
+ipcMain.handle('create-backup', async (event, projectPath, modName, comment = '') => {
   try {
     if (!projectPath || !modName) {
       return { success: false, error: 'Project path and mod name are required' };
@@ -427,6 +461,13 @@ ipcMain.handle('create-backup', async (event, projectPath, modName) => {
 
     await copyDirectory(modPath, backupPath);
 
+    const metadata = await loadBackupsMetadata(modName);
+    metadata[versionName] = {
+      comment: comment || '',
+      created: now.toISOString()
+    };
+    await saveBackupsMetadata(modName, metadata);
+
     return { success: true, versionName, backupPath };
   } catch (error) {
     return { success: false, error: error.message };
@@ -448,19 +489,22 @@ ipcMain.handle('list-backups', async (event, modName) => {
 
     const entries = await fs.readdir(modBackupsDir, { withFileTypes: true });
     const backups = [];
+    const metadata = await loadBackupsMetadata(modName);
 
     for (const entry of entries) {
       if (entry.isDirectory()) {
         const backupPath = path.join(modBackupsDir, entry.name);
         const size = await getDirectorySize(backupPath);
         const stats = await fs.stat(backupPath);
+        const backupMeta = metadata[entry.name] || {};
         
         backups.push({
           versionName: entry.name,
           path: backupPath,
           size: size,
           sizeFormatted: formatBytes(size),
-          created: stats.birthtime || stats.mtime
+          created: stats.birthtime || stats.mtime,
+          comment: backupMeta.comment || ''
         });
       }
     }
@@ -520,6 +564,36 @@ ipcMain.handle('delete-backup', async (event, modName, versionName) => {
     }
 
     await fs.rm(backupPath, { recursive: true, force: true });
+
+    const metadata = await loadBackupsMetadata(modName);
+    if (metadata[versionName]) {
+      delete metadata[versionName];
+      await saveBackupsMetadata(modName, metadata);
+    }
+
+    return { success: true };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+});
+
+ipcMain.handle('update-backup-comment', async (event, modName, versionName, comment) => {
+  try {
+    if (!modName || !versionName) {
+      return { success: false, error: 'Mod name and version name are required' };
+    }
+
+    const metadata = await loadBackupsMetadata(modName);
+    if (!metadata[versionName]) {
+      metadata[versionName] = {};
+    }
+    
+    metadata[versionName].comment = comment || '';
+    if (!metadata[versionName].created) {
+      metadata[versionName].created = new Date().toISOString();
+    }
+    
+    await saveBackupsMetadata(modName, metadata);
 
     return { success: true };
   } catch (error) {

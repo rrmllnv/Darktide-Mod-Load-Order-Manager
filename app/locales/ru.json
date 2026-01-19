@@ -149,7 +149,10 @@
             "createBackup": "Создать бэкап",
             "restoreBackup": "Восстановить из бэкапа",
             "restore": "Восстановить",
-            "delete": "Удалить"
+            "delete": "Удалить",
+            "enterBackupComment": "Введите комментарий к бэкапу (необязательно):",
+            "editComment": "Изменить комментарий",
+            "editBackupComment": "Изменить комментарий к бэкапу:"
         }
     },
     "messages": {
@@ -244,7 +247,9 @@
             "backupRestoreError": "Не удалось восстановить из бэкапа.",
             "deleteBackupConfirm": "Удалить бэкап мода '{modName}'?\n\nВерсия: {versionName}\n\nЭто действие нельзя отменить!",
             "backupDeleted": "Бэкап мода '{modName}' успешно удален!\n\nВерсия: {versionName}",
-            "backupDeleteError": "Не удалось удалить бэкап."
+            "backupDeleteError": "Не удалось удалить бэкап.",
+            "backupCommentUpdated": "Комментарий к бэкапу обновлен!",
+            "backupCommentUpdateError": "Не удалось обновить комментарий к бэкапу."
         }
     },
     "status": {

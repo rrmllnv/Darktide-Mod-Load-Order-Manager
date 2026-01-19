@@ -150,7 +150,10 @@
             "createBackup": "Créer une sauvegarde",
             "restoreBackup": "Restaurer depuis une sauvegarde",
             "restore": "Restaurer",
-            "delete": "Supprimer"
+            "delete": "Supprimer",
+            "enterBackupComment": "Entrer un commentaire pour la sauvegarde (optionnel):",
+            "editComment": "Modifier le commentaire",
+            "editBackupComment": "Modifier le commentaire de la sauvegarde:"
         }
     },
     "messages": {
@@ -245,7 +248,9 @@
             "backupRestoreError": "Échec de la restauration depuis la sauvegarde.",
             "deleteBackupConfirm": "Supprimer la sauvegarde du mod '{modName}'?\n\nVersion: {versionName}\n\nCette action ne peut pas être annulée!",
             "backupDeleted": "Sauvegarde du mod '{modName}' supprimée avec succès!\n\nVersion: {versionName}",
-            "backupDeleteError": "Échec de la suppression de la sauvegarde."
+            "backupDeleteError": "Échec de la suppression de la sauvegarde.",
+            "backupCommentUpdated": "Commentaire de la sauvegarde mis à jour!",
+            "backupCommentUpdateError": "Échec de la mise à jour du commentaire de la sauvegarde."
         }
     },
     "status": {

@@ -85,6 +85,17 @@
     color: var(--text-primary);
 }
 
+.backup-item-comment {
+    font-size: 0.85em;
+    color: var(--text-secondary);
+    font-style: italic;
+    margin-top: 4px;
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 .backup-item-size {
     font-size: 0.9em;
     color: var(--text-secondary);
@@ -98,10 +109,35 @@
 
 .backup-restore-btn {
     min-width: 100px;
+    height: 32px;
+}
+
+.backup-edit-comment-btn {
+    min-width: 32px;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.backup-edit-comment-btn i {
+    font-size: 0.9em;
 }
 
 .backup-delete-btn {
-    min-width: 80px;
+    min-width: 32px;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.backup-delete-btn i {
+    font-size: 0.9em;
 }
 
 .modal-header {

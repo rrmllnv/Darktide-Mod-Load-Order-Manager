@@ -150,7 +150,10 @@
             "createBackup": "Crea backup",
             "restoreBackup": "Ripristina da backup",
             "restore": "Ripristina",
-            "delete": "Elimina"
+            "delete": "Elimina",
+            "enterBackupComment": "Inserisci commento per il backup (opzionale):",
+            "editComment": "Modifica commento",
+            "editBackupComment": "Modifica commento del backup:"
         }
     },
     "messages": {
@@ -245,7 +248,9 @@
             "backupRestoreError": "Impossibile ripristinare dal backup.",
             "deleteBackupConfirm": "Eliminare il backup del mod '{modName}'?\n\nVersione: {versionName}\n\nQuesta azione non può essere annullata!",
             "backupDeleted": "Backup del mod '{modName}' eliminato con successo!\n\nVersione: {versionName}",
-            "backupDeleteError": "Impossibile eliminare il backup."
+            "backupDeleteError": "Impossibile eliminare il backup.",
+            "backupCommentUpdated": "Commento del backup aggiornato!",
+            "backupCommentUpdateError": "Impossibile aggiornare il commento del backup."
         }
     },
     "status": {

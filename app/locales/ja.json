@@ -150,7 +150,10 @@
             "createBackup": "バックアップを作成",
             "restoreBackup": "バックアップから復元",
             "restore": "復元",
-            "delete": "削除"
+            "delete": "削除",
+            "enterBackupComment": "バックアップのコメントを入力（任意）:",
+            "editComment": "コメントを編集",
+            "editBackupComment": "バックアップのコメントを編集:"
         }
     },
     "messages": {
@@ -245,7 +248,9 @@
             "backupRestoreError": "バックアップからの復元に失敗しました。",
             "deleteBackupConfirm": "MOD '{modName}'のバックアップを削除しますか?\n\nバージョン: {versionName}\n\nこの操作は元に戻せません!",
             "backupDeleted": "MOD '{modName}'のバックアップが正常に削除されました!\n\nバージョン: {versionName}",
-            "backupDeleteError": "バックアップの削除に失敗しました。"
+            "backupDeleteError": "バックアップの削除に失敗しました。",
+            "backupCommentUpdated": "バックアップのコメントが更新されました!",
+            "backupCommentUpdateError": "バックアップのコメントの更新に失敗しました。"
         }
     },
     "status": {

@@ -26,8 +26,9 @@ contextBridge.exposeInMainWorld('electronAPI', {
   createModStructure: (projectPath, modName) => ipcRenderer.invoke('create-mod-structure', projectPath, modName),
   deleteFolder: (folderPath) => ipcRenderer.invoke('delete-folder', folderPath),
   getBackupsDirectory: () => ipcRenderer.invoke('get-backups-directory'),
-  createBackup: (projectPath, modName) => ipcRenderer.invoke('create-backup', projectPath, modName),
+  createBackup: (projectPath, modName, comment) => ipcRenderer.invoke('create-backup', projectPath, modName, comment),
   listBackups: (modName) => ipcRenderer.invoke('list-backups', modName),
   restoreBackup: (projectPath, modName, versionName) => ipcRenderer.invoke('restore-backup', projectPath, modName, versionName),
-  deleteBackup: (modName, versionName) => ipcRenderer.invoke('delete-backup', modName, versionName)
+  deleteBackup: (modName, versionName) => ipcRenderer.invoke('delete-backup', modName, versionName),
+  updateBackupComment: (modName, versionName, comment) => ipcRenderer.invoke('update-backup-comment', modName, versionName, comment)
 });

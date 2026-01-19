@@ -150,7 +150,10 @@
             "createBackup": "创建备份",
             "restoreBackup": "从备份恢复",
             "restore": "恢复",
-            "delete": "删除"
+            "delete": "删除",
+            "enterBackupComment": "输入备份注释（可选）:",
+            "editComment": "编辑注释",
+            "editBackupComment": "编辑备份注释:"
         }
     },
     "messages": {
@@ -245,7 +248,9 @@
             "backupRestoreError": "从备份恢复失败。",
             "deleteBackupConfirm": "删除模组 '{modName}' 的备份?\n\n版本: {versionName}\n\n此操作无法撤销!",
             "backupDeleted": "模组 '{modName}' 的备份删除成功!\n\n版本: {versionName}",
-            "backupDeleteError": "删除备份失败。"
+            "backupDeleteError": "删除备份失败。",
+            "backupCommentUpdated": "备份注释已更新!",
+            "backupCommentUpdateError": "更新备份注释失败。"
         }
     },
     "status": {
