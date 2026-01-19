@@ -109,9 +109,9 @@ class ModLoadOrderManager {
             settingsLocaleSelect: document.getElementById('settings-locale-select'),
             settingsOkBtn: document.getElementById('settings-ok-btn'),
             settingsCancelBtn: document.getElementById('settings-cancel-btn'),
-            profileDialog: document.getElementById('profile-dialog'),
+            inputDialog: document.getElementById('input-dialog'),
             modalTitle: document.getElementById('modal-title'),
-            profileNameInput: document.getElementById('profile-name-input'),
+            modalInputName: document.getElementById('modal-input-name'),
             modalOkBtn: document.getElementById('modal-ok-btn'),
             modalCancelBtn: document.getElementById('modal-cancel-btn'),
             messageDialog: document.getElementById('message-dialog'),
@@ -185,7 +185,7 @@ class ModLoadOrderManager {
         }
         
         document.addEventListener('click', (e) => {
-            if (e.target.closest('#profile-dialog') || 
+            if (e.target.closest('#input-dialog') || 
                 e.target.closest('.modal') || 
                 e.target.closest('.modal-content') ||
                 e.target.closest('.modal-body') ||

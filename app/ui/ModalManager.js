@@ -9,7 +9,7 @@ export class ModalManager {
         this.elements.modalOkBtn.addEventListener('click', () => this.handleModalOk());
         this.elements.modalCancelBtn.addEventListener('click', () => this.handleModalCancel());
         
-        this.elements.profileNameInput.addEventListener('keydown', (e) => {
+        this.elements.modalInputName.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') {
                 e.preventDefault();
                 this.handleModalOk();
@@ -22,19 +22,19 @@ export class ModalManager {
     
     showModal(title, defaultValue = '', callback) {
         this.elements.modalTitle.textContent = title;
-        this.elements.profileNameInput.value = defaultValue || '';
+        this.elements.modalInputName.value = defaultValue || '';
         this.modalCallback = callback;
-        this.elements.profileDialog.classList.add('show');
+        this.elements.inputDialog.classList.add('show');
     }
     
     hideModal() {
-        this.elements.profileDialog.classList.remove('show');
-        this.elements.profileNameInput.value = '';
+        this.elements.inputDialog.classList.remove('show');
+        this.elements.modalInputName.value = '';
         this.modalCallback = null;
     }
     
     handleModalOk() {
-        const value = this.elements.profileNameInput.value.trim();
+        const value = this.elements.modalInputName.value.trim();
         const callback = this.modalCallback;
         this.hideModal();
         if (callback) {

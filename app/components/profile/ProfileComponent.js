@@ -129,7 +129,7 @@ export class ProfileComponent {
         if (this.app.elements.deleteProfileBtn) this.app.elements.deleteProfileBtn.title = t('ui.profile.deleteProfile');
         
         if (this.app.elements.modalTitle) this.app.elements.modalTitle.textContent = t('ui.profile.enterProfileName');
-        if (this.app.elements.profileNameInput) this.app.elements.profileNameInput.placeholder = t('ui.profile.profileNamePlaceholder');
+        if (this.app.elements.modalInputName) this.app.elements.modalInputName.placeholder = t('ui.profile.profileNamePlaceholder');
     }
     
     saveCurrentState() {
