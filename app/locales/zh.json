@@ -111,6 +111,7 @@
             "saveProfileHideNotFoundMods": "隐藏未找到的模组",
             "saveProfileHideUnusedMods": "隐藏所有未使用的模组",
             "saveProfileSort": "在配置文件中保存排序顺序",
+            "profilesListSize": "配置文件列表行数:",
             "save": "保存",
             "cancel": "取消"
         },

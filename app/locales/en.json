@@ -111,6 +111,7 @@
             "saveProfileHideNotFoundMods": "Hide not found mods",
             "saveProfileHideUnusedMods": "Hide all unused mods",
             "saveProfileSort": "Save sort order in profile",
+            "profilesListSize": "Profiles list size:",
             "save": "Save",
             "cancel": "Cancel"
         },

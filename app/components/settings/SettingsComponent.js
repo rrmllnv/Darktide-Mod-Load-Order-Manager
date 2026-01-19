@@ -176,6 +176,11 @@ export class SettingsComponent {
         if (saveProfileSort) {
             saveProfileSort.checked = this.app.userConfig.saveProfileSort !== undefined ? this.app.userConfig.saveProfileSort : true;
         }
+        
+        const profilesListSize = document.getElementById('settings-profiles-list-size');
+        if (profilesListSize) {
+            profilesListSize.value = this.app.userConfig.profilesListSize !== undefined ? this.app.userConfig.profilesListSize : 6;
+        }
     }
     
     saveSettingsFromForm() {
@@ -209,6 +214,20 @@ export class SettingsComponent {
         const saveProfileSort = document.getElementById('settings-save-profile-sort');
         if (saveProfileSort) {
             this.app.userConfig.saveProfileSort = saveProfileSort.checked;
+        }
+        
+        const profilesListSize = document.getElementById('settings-profiles-list-size');
+        if (profilesListSize) {
+            const sizeValue = parseInt(profilesListSize.value, 10);
+            if (!isNaN(sizeValue) && sizeValue >= 3 && sizeValue <= 20) {
+                this.app.userConfig.profilesListSize = sizeValue;
+            } else {
+                this.app.userConfig.profilesListSize = 6;
+            }
+            
+            if (this.app.elements.profilesList) {
+                this.app.elements.profilesList.size = this.app.userConfig.profilesListSize;
+            }
         }
         
         if (this.app.configManager && this.app.configManager.saveUserConfig) {
@@ -317,6 +336,11 @@ export class SettingsComponent {
         const saveProfileSortLabel = document.getElementById('settings-save-profile-sort-label');
         if (saveProfileSortLabel) {
             saveProfileSortLabel.textContent = this.t('ui.settings.saveProfileSort');
+        }
+        
+        const profilesListSizeLabel = document.getElementById('settings-profiles-list-size-label');
+        if (profilesListSizeLabel) {
+            profilesListSizeLabel.textContent = this.t('ui.settings.profilesListSize');
         }
     }
 }

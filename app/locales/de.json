@@ -111,6 +111,7 @@
             "saveProfileHideNotFoundMods": "Nicht gefundene Mods ausblenden",
             "saveProfileHideUnusedMods": "Alle ungenutzten Mods ausblenden",
             "saveProfileSort": "Sortierreihenfolge im Profil speichern",
+            "profilesListSize": "Anzahl der Profillistenzeilen:",
             "save": "Speichern",
             "cancel": "Abbrechen"
         },

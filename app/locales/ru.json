@@ -111,6 +111,7 @@
             "saveProfileHideNotFoundMods": "Скрыть не найденные моды",
             "saveProfileHideUnusedMods": "Скрыть все не используемые моды",
             "saveProfileSort": "Сохранять сортировку в профиль",
+            "profilesListSize": "Количество строк списка профилей:",
             "save": "Сохранить",
             "cancel": "Отмена"
         },

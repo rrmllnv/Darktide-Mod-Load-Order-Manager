@@ -111,6 +111,7 @@
             "saveProfileHideNotFoundMods": "見つからないMODを非表示",
             "saveProfileHideUnusedMods": "使用されていないMODをすべて非表示",
             "saveProfileSort": "プロフィールに並び順を保存",
+            "profilesListSize": "プロファイルリストの行数:",
             "save": "保存",
             "cancel": "キャンセル"
         },
