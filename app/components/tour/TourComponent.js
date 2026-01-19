@@ -85,6 +85,13 @@ export class TourComponent {
                 interactive: false
             },
             {
+                selector: '.bulk-actions-buttons.tour-step',
+                titleKey: 'tour.steps.bulkActions.title',
+                descriptionKey: 'tour.steps.bulkActions.description',
+                position: 'bottom',
+                interactive: false
+            },
+            {
                 selector: '.canvas-frame.tour-step',
                 titleKey: 'tour.steps.modsList.title',
                 descriptionKey: 'tour.steps.modsList.description',
@@ -92,17 +99,10 @@ export class TourComponent {
                 interactive: false
             },
             {
-                selector: '#bulk-actions-panel.tour-step',
-                titleKey: 'tour.steps.bulkActions.title',
-                descriptionKey: 'tour.steps.bulkActions.description',
-                position: 'left',
-                interactive: false
-            },
-            {
                 selector: '.search-panel.tour-step',
                 titleKey: 'tour.steps.search.title',
                 descriptionKey: 'tour.steps.search.description',
-                position: 'bottom',
+                position: 'left',
                 interactive: false
             },
             {
