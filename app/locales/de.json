@@ -251,7 +251,7 @@
             },
             "bulkActions": {
                 "title": "Massenoperationen",
-                "description": "Nach der Auswahl mehrerer Mods erscheinen hier Schaltflächen für Massenoperationen: aktivieren, deaktivieren, ausgewählte Mods löschen oder Auswahl aufheben."
+                "description": "Nach der Auswahl mehrerer Mods erscheinen hier Schaltflächen für Massenoperationen: aktivieren, deaktivieren, ausgewählte Mods löschen."
             },
             "profiles": {
                 "title": "Profile",

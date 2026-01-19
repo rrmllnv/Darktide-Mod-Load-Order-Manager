@@ -251,7 +251,7 @@
             },
             "bulkActions": {
                 "title": "Opérations en masse",
-                "description": "Après avoir sélectionné plusieurs mods, des boutons apparaîtront ici pour les opérations en masse : activer, désactiver, supprimer les mods sélectionnés ou effacer la sélection."
+                "description": "Après avoir sélectionné plusieurs mods, des boutons apparaîtront ici pour les opérations en masse : activer, désactiver, supprimer les mods sélectionnés."
             },
             "profiles": {
                 "title": "Profils",

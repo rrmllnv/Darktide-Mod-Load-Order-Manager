@@ -251,7 +251,7 @@
             },
             "bulkActions": {
                 "title": "Operazioni in blocco",
-                "description": "Dopo aver selezionato più mod, qui appariranno pulsanti per operazioni in blocco: abilita, disabilita, elimina mod selezionati o cancella selezione."
+                "description": "Dopo aver selezionato più mod, qui appariranno pulsanti per operazioni in blocco: abilita, disabilita, elimina mod selezionati."
             },
             "profiles": {
                 "title": "Profili",

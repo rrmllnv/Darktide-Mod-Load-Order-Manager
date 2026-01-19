@@ -251,7 +251,7 @@
             },
             "bulkActions": {
                 "title": "Operações em massa",
-                "description": "Após selecionar vários mods, os botões aparecerão aqui para operações em massa: ativar, desativar, excluir mods selecionados ou limpar seleção."
+                "description": "Após selecionar vários mods, os botões aparecerão aqui para operações em massa: ativar, desativar, excluir mods selecionados."
             },
             "profiles": {
                 "title": "Perfis",

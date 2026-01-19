@@ -251,7 +251,7 @@
             },
             "bulkActions": {
                 "title": "Bulk Operations",
-                "description": "After selecting multiple mods, buttons will appear here for bulk operations: enable, disable, delete selected mods, or clear selection."
+                "description": "After selecting multiple mods, buttons will appear here for bulk operations: enable, disable, delete selected mods."
             },
             "profiles": {
                 "title": "Profiles",
