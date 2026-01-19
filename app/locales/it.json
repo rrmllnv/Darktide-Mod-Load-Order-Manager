@@ -111,6 +111,7 @@
             "settings": "Impostazioni",
             "general": "Generale",
             "profiles": "Profili",
+            "development": "Sviluppo",
             "theme": "Tema:",
             "locale": "Lingua:",
             "restartTour": "Riavvia il tour tutorial",
@@ -120,6 +121,8 @@
             "saveProfileHideUnusedMods": "Nascondi tutti i mod non utilizzati",
             "saveProfileSort": "Salva ordine di ordinamento nel profilo",
             "profilesListSize": "Numero di righe dell'elenco profili:",
+            "developerMode": "Abilita modalità sviluppatore",
+            "projectPath": "Specifica il percorso del tuo progetto",
             "save": "Salva",
             "cancel": "Annulla"
         },

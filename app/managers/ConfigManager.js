@@ -17,7 +17,9 @@ export class ConfigManager {
             saveProfileHideNotFoundMods: true,
             saveProfileHideUnusedMods: true,
             saveProfileSort: true,
-            profilesListSize: 6
+            profilesListSize: 6,
+            developerMode: false,
+            projectPath: ''
         };
     }
     

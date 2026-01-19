@@ -111,6 +111,7 @@
             "settings": "设置",
             "general": "常规",
             "profiles": "配置文件",
+            "development": "开发",
             "theme": "主题:",
             "locale": "语言:",
             "restartTour": "重新开始教程",
@@ -120,6 +121,8 @@
             "saveProfileHideUnusedMods": "隐藏所有未使用的模组",
             "saveProfileSort": "在配置文件中保存排序顺序",
             "profilesListSize": "配置文件列表行数:",
+            "developerMode": "启用开发者模式",
+            "projectPath": "指定项目路径",
             "save": "保存",
             "cancel": "取消"
         },

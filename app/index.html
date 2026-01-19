@@ -240,6 +240,9 @@
                     <button class="settings-menu-item" data-section="profiles">
                         <span class="settings-menu-item-text">Profiles</span>
                     </button>
+                    <button class="settings-menu-item" data-section="development">
+                        <span class="settings-menu-item-text">Development</span>
+                    </button>
                 </div>
                 <div class="settings-content">
                     <div class="settings-content-section active" id="settings-section-general">
@@ -306,6 +309,21 @@
                                 <input type="checkbox" id="settings-save-profile-sort" />
                                 <span id="settings-save-profile-sort-label">Save sort order in profile</span>
                             </label>
+                        </div>
+                    </div>
+                    <div class="settings-content-section" id="settings-section-development">
+                        <div class="settings-section">
+                            <label class="settings-label">
+                                <input type="checkbox" id="settings-developer-mode-checkbox" />
+                                <span id="settings-developer-mode-label">Enable developer mode</span>
+                            </label>
+                        </div>
+                        <div class="settings-section">
+                            <label class="settings-label" id="settings-project-path-label">Укажите путь до вашего проекта</label>
+                            <div style="display: flex; gap: 5px; align-items: center;">
+                                <input type="text" id="settings-project-path-input" class="settings-input" readonly style="flex: 1;" />
+                                <button id="settings-project-path-browse-btn" class="btn">Browse...</button>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -111,6 +111,7 @@
             "settings": "設定",
             "general": "一般",
             "profiles": "プロファイル",
+            "development": "開発",
             "theme": "テーマ:",
             "locale": "言語:",
             "restartTour": "チュートリアルツアーを再開",
@@ -120,6 +121,8 @@
             "saveProfileHideUnusedMods": "使用されていないMODをすべて非表示",
             "saveProfileSort": "プロフィールに並び順を保存",
             "profilesListSize": "プロファイルリストの行数:",
+            "developerMode": "開発者モードを有効にする",
+            "projectPath": "プロジェクトのパスを指定してください",
             "save": "保存",
             "cancel": "キャンセル"
         },

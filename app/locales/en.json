@@ -111,6 +111,7 @@
             "settings": "Settings",
             "general": "General",
             "profiles": "Profiles",
+            "development": "Development",
             "theme": "Theme:",
             "locale": "Language:",
             "restartTour": "Restart tutorial tour",
@@ -120,6 +121,8 @@
             "saveProfileHideUnusedMods": "Hide all unused mods",
             "saveProfileSort": "Save sort order in profile",
             "profilesListSize": "Profiles list size:",
+            "developerMode": "Enable developer mode",
+            "projectPath": "Specify the path to your project",
             "save": "Save",
             "cancel": "Cancel"
         },

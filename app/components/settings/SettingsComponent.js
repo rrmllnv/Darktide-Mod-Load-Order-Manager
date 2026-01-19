@@ -62,10 +62,33 @@ export class SettingsComponent {
         }
     }
     
+    bindProjectPathBrowse() {
+        const browseBtn = document.getElementById('settings-project-path-browse-btn');
+        if (browseBtn) {
+            const newBrowseBtn = browseBtn.cloneNode(true);
+            browseBtn.parentNode.replaceChild(newBrowseBtn, browseBtn);
+            
+            newBrowseBtn.addEventListener('click', async () => {
+                try {
+                    const result = await window.electronAPI.selectFolder();
+                    if (result.success && result.folderPath) {
+                        const projectPathInput = document.getElementById('settings-project-path-input');
+                        if (projectPathInput) {
+                            projectPathInput.value = result.folderPath;
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error selecting project folder:', error);
+                }
+            });
+        }
+    }
+    
     openSettings() {
         this.loadSettingsToForm();
         
         this.bindSectionSwitchers();
+        this.bindProjectPathBrowse();
         
         this.switchSection('general');
         
@@ -181,6 +204,16 @@ export class SettingsComponent {
         if (profilesListSize) {
             profilesListSize.value = this.app.userConfig.profilesListSize !== undefined ? this.app.userConfig.profilesListSize : 6;
         }
+        
+        const developerMode = document.getElementById('settings-developer-mode-checkbox');
+        if (developerMode) {
+            developerMode.checked = this.app.userConfig.developerMode !== undefined ? this.app.userConfig.developerMode : false;
+        }
+        
+        const projectPathInput = document.getElementById('settings-project-path-input');
+        if (projectPathInput) {
+            projectPathInput.value = this.app.userConfig.projectPath || '';
+        }
     }
     
     saveSettingsFromForm() {
@@ -228,6 +261,16 @@ export class SettingsComponent {
             if (this.app.elements.profilesList) {
                 this.app.elements.profilesList.size = this.app.userConfig.profilesListSize;
             }
+        }
+        
+        const developerMode = document.getElementById('settings-developer-mode-checkbox');
+        if (developerMode) {
+            this.app.userConfig.developerMode = developerMode.checked;
+        }
+        
+        const projectPathInput = document.getElementById('settings-project-path-input');
+        if (projectPathInput) {
+            this.app.userConfig.projectPath = projectPathInput.value || '';
         }
         
         if (this.app.configManager && this.app.configManager.saveUserConfig) {
@@ -282,6 +325,8 @@ export class SettingsComponent {
                     item.textContent = this.t('ui.settings.general');
                 } else if (section === 'profiles') {
                     item.textContent = this.t('ui.settings.profiles');
+                } else if (section === 'development') {
+                    item.textContent = this.t('ui.settings.development');
                 }
             }
         });
@@ -341,6 +386,21 @@ export class SettingsComponent {
         const profilesListSizeLabel = document.getElementById('settings-profiles-list-size-label');
         if (profilesListSizeLabel) {
             profilesListSizeLabel.textContent = this.t('ui.settings.profilesListSize');
+        }
+        
+        const developerModeLabel = document.getElementById('settings-developer-mode-label');
+        if (developerModeLabel) {
+            developerModeLabel.textContent = this.t('ui.settings.developerMode');
+        }
+        
+        const projectPathLabel = document.getElementById('settings-project-path-label');
+        if (projectPathLabel) {
+            projectPathLabel.textContent = this.t('ui.settings.projectPath');
+        }
+        
+        const projectPathBrowseBtn = document.getElementById('settings-project-path-browse-btn');
+        if (projectPathBrowseBtn) {
+            projectPathBrowseBtn.textContent = this.t('ui.fileOperations.browse');
         }
     }
 }
