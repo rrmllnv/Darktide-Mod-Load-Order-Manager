@@ -1077,6 +1077,22 @@ ipcMain.handle('update-todo', async (event, todosDir, modName, todoId, updatedTo
   }
 });
 
+ipcMain.handle('update-todos-file', async (event, todosDir, modName, todos) => {
+  try {
+    if (!modName) {
+      return { success: false, error: 'Mod name is required' };
+    }
+    
+    const todosPath = path.join(todosDir, `${modName}.json`);
+    
+    await fs.writeFile(todosPath, JSON.stringify(todos, null, 2), 'utf-8');
+    
+    return { success: true };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+});
+
 ipcMain.handle('delete-todo', async (event, todosDir, modName, todoId) => {
   try {
     if (!modName) {

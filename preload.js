@@ -37,5 +37,6 @@ contextBridge.exposeInMainWorld('electronAPI', {
   loadAllTodos: (todosDir) => ipcRenderer.invoke('load-all-todos', todosDir),
   addTodo: (todosDir, modName, todo) => ipcRenderer.invoke('add-todo', todosDir, modName, todo),
   updateTodo: (todosDir, modName, todoId, updatedTodo) => ipcRenderer.invoke('update-todo', todosDir, modName, todoId, updatedTodo),
-  deleteTodo: (todosDir, modName, todoId) => ipcRenderer.invoke('delete-todo', todosDir, modName, todoId)
+  deleteTodo: (todosDir, modName, todoId) => ipcRenderer.invoke('delete-todo', todosDir, modName, todoId),
+  updateTodosFile: (todosDir, modName, todos) => ipcRenderer.invoke('update-todos-file', todosDir, modName, todos)
 });

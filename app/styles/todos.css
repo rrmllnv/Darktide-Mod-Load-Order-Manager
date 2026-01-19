@@ -93,6 +93,14 @@
     min-height: 24px;
 }
 
+.todo-item.dragging {
+    opacity: 0.5;
+}
+
+.todo-item.drag-over {
+    border-top: 2px solid var(--btn-primary-bg);
+}
+
 .todo-item:hover {
     background-color: var(--bg-hover);
 }
@@ -175,7 +183,8 @@
 }
 
 .todo-edit,
-.todo-delete {
+.todo-delete,
+.todo-drag {
     width: 18px;
     height: 18px;
     min-width: 18px;
@@ -194,6 +203,20 @@
 
 .todo-delete:hover {
     color: var(--text-danger, #ff4444);
+}
+
+.todo-drag {
+    cursor: grab;
+    opacity: 0.6;
+}
+
+.todo-drag:active {
+    cursor: grabbing;
+}
+
+.todo-drag:hover {
+    color: var(--text-primary);
+    opacity: 1;
 }
 
 .todo-edit-input {

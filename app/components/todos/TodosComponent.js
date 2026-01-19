@@ -188,12 +188,6 @@ export class TodosComponent {
                         ...todo,
                         modName: todo.modName || modName
                     }));
-                    
-                    this.todos.sort((a, b) => {
-                        const dateA = new Date(a.created || 0);
-                        const dateB = new Date(b.created || 0);
-                        return dateB - dateA;
-                    });
                 } else {
                     this.todos = [];
                 }
@@ -604,9 +598,16 @@ export class TodosComponent {
                 lastModName = todoModName;
             }
             
-            const todoItem = document.createElement('div');
-            todoItem.className = `todo-item ${todo.completed ? 'completed' : ''}`;
-            todoItem.setAttribute('data-todo-id', todo.id);
+                const todoItem = document.createElement('div');
+                todoItem.className = `todo-item ${todo.completed ? 'completed' : ''}`;
+                todoItem.setAttribute('data-todo-id', todo.id);
+                
+                const modName = this.app.selectedModName || '';
+                if (modName) {
+                    todoItem.draggable = true;
+                } else {
+                    todoItem.draggable = false;
+                }
             
             if (this.editingTodoId === todo.id) {
                 const editInput = document.createElement('textarea');
@@ -680,8 +681,17 @@ export class TodosComponent {
                     this.deleteTodo(todo.id);
                 });
                 
+                const todoDrag = document.createElement('div');
+                todoDrag.className = 'todo-drag';
+                todoDrag.innerHTML = '<i class="fas fa-grip-vertical"></i>';
+                todoDrag.title = 'Drag to reorder';
+                todoDrag.style.cursor = 'grab';
+                
                 todoActions.appendChild(todoEdit);
                 todoActions.appendChild(todoDelete);
+                if (modName) {
+                    todoActions.appendChild(todoDrag);
+                }
                 
                 todoTextWrapper.appendChild(todoText);
                 todoTextWrapper.appendChild(todoActions);
@@ -693,6 +703,10 @@ export class TodosComponent {
                 
                 if (activeTodoIds.has(todo.id)) {
                     todoText.classList.add('active');
+                }
+                
+                if (modName) {
+                    this.attachDragDrop(todoItem, todo, index);
                 }
                 
                 setTimeout(() => {
@@ -712,5 +726,119 @@ export class TodosComponent {
     
     async onModSelectionChanged() {
         await this.loadTodos();
+    }
+    
+    attachDragDrop(todoItem, todo, index) {
+        todoItem.addEventListener('dragstart', (e) => {
+            todoItem.classList.add('dragging');
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/plain', todo.id);
+            e.dataTransfer.setData('todo-index', index.toString());
+        });
+        
+        todoItem.addEventListener('dragend', (e) => {
+            todoItem.classList.remove('dragging');
+            const todosList = document.getElementById('todos-list');
+            if (todosList) {
+                todosList.querySelectorAll('.todo-item.drag-over').forEach(item => {
+                    item.classList.remove('drag-over');
+                });
+            }
+        });
+        
+        todoItem.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+            
+            const draggingItem = document.querySelector('.todo-item.dragging');
+            if (draggingItem && draggingItem !== todoItem) {
+                const todosList = document.getElementById('todos-list');
+                if (!todosList) {
+                    return;
+                }
+                
+                const allItems = Array.from(todosList.querySelectorAll('.todo-item'));
+                const draggingIndex = allItems.indexOf(draggingItem);
+                const currentIndex = allItems.indexOf(todoItem);
+                
+                allItems.forEach(item => item.classList.remove('drag-over'));
+                
+                if (draggingIndex !== currentIndex) {
+                    todoItem.classList.add('drag-over');
+                }
+            }
+        });
+        
+        todoItem.addEventListener('dragleave', (e) => {
+            todoItem.classList.remove('drag-over');
+        });
+        
+        todoItem.addEventListener('drop', async (e) => {
+            e.preventDefault();
+            todoItem.classList.remove('drag-over');
+            
+            const draggedTodoId = e.dataTransfer.getData('text/plain');
+            if (!draggedTodoId || draggedTodoId === todo.id) {
+                return;
+            }
+            
+            const todosList = document.getElementById('todos-list');
+            if (!todosList) {
+                return;
+            }
+            
+            const allItems = Array.from(todosList.querySelectorAll('.todo-item'));
+            const draggedItem = allItems.find(item => item.getAttribute('data-todo-id') === draggedTodoId);
+            const targetItem = allItems.find(item => item.getAttribute('data-todo-id') === todo.id);
+            
+            if (!draggedItem || !targetItem) {
+                return;
+            }
+            
+            const draggedIndex = allItems.indexOf(draggedItem);
+            const targetIndex = allItems.indexOf(targetItem);
+            
+            if (draggedIndex === -1 || targetIndex === -1 || draggedIndex === targetIndex) {
+                return;
+            }
+            
+            if (draggedIndex < targetIndex) {
+                targetItem.parentNode.insertBefore(draggedItem, targetItem.nextSibling);
+            } else {
+                targetItem.parentNode.insertBefore(draggedItem, targetItem);
+            }
+            
+            const domOrder = Array.from(todosList.querySelectorAll('.todo-item'))
+                .map(item => item.getAttribute('data-todo-id'))
+                .filter(id => id);
+            
+            const todosMap = new Map(this.todos.map(t => [t.id, t]));
+            this.todos = domOrder.map(id => todosMap.get(id)).filter(Boolean);
+            
+            await this.saveTodosOrder();
+        });
+    }
+    
+    async saveTodosOrder() {
+        if (!this.todosDir || !this.app.selectedModName) {
+            return;
+        }
+        
+        const modName = this.app.selectedModName;
+        
+        try {
+            const todosToSave = this.todos.filter(t => t.modName === modName);
+            
+            if (todosToSave.length === 0) {
+                return;
+            }
+            
+            const saveResult = await window.electronAPI.updateTodosFile(this.todosDir, modName, todosToSave);
+            if (!saveResult.success) {
+                console.error('Error saving todos order:', saveResult.error);
+            }
+        } catch (error) {
+            console.error('Error saving todos order:', error);
+        }
     }
 }
