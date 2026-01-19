@@ -1,4 +1,10 @@
 .search-panel {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.search-panel-content {
     background-color: var(--bg-secondary);
     border: 1px solid var(--border-secondary);
     border-radius: 3px;
