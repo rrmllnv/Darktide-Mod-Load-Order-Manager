@@ -428,6 +428,69 @@ ipcMain.handle('get-backups-directory', async (event) => {
   }
 });
 
+ipcMain.handle('list-mods-with-backups', async (event) => {
+  try {
+    const userDataDir = app.getPath('userData');
+    const backupsDir = path.join(userDataDir, 'Backups', 'ProjectMods');
+
+    if (!existsSync(backupsDir)) {
+      return { success: true, mods: [] };
+    }
+
+    const entries = await fs.readdir(backupsDir, { withFileTypes: true });
+    const mods = [];
+
+    for (const entry of entries) {
+      if (entry.isDirectory()) {
+        const modName = entry.name;
+        const modBackupsDir = path.join(backupsDir, modName);
+        
+        const backupEntries = await fs.readdir(modBackupsDir, { withFileTypes: true });
+        const backupDirs = backupEntries.filter(e => e.isDirectory());
+        
+        if (backupDirs.length > 0) {
+          const metadata = await loadBackupsMetadata(modName);
+          const backupVersions = Object.keys(metadata);
+          let lastBackupDate = null;
+          
+          if (backupVersions.length > 0) {
+            const lastBackup = backupVersions.sort().reverse()[0];
+            const lastBackupMeta = metadata[lastBackup];
+            if (lastBackupMeta && lastBackupMeta.created) {
+              lastBackupDate = new Date(lastBackupMeta.created);
+            }
+          }
+          
+          if (!lastBackupDate) {
+            const backupStats = await Promise.all(
+              backupDirs.map(async (dir) => {
+                const backupPath = path.join(modBackupsDir, dir.name);
+                const stats = await fs.stat(backupPath);
+                return stats.birthtime || stats.mtime;
+              })
+            );
+            lastBackupDate = new Date(Math.max(...backupStats.map(d => d.getTime())));
+          }
+          
+          mods.push({
+            modName: modName,
+            backupsCount: backupDirs.length,
+            lastBackupDate: lastBackupDate
+          });
+        }
+      }
+    }
+
+    mods.sort((a, b) => {
+      return b.lastBackupDate.getTime() - a.lastBackupDate.getTime();
+    });
+
+    return { success: true, mods };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+});
+
 ipcMain.handle('create-backup', async (event, projectPath, modName, comment = '') => {
   try {
     if (!projectPath || !modName) {

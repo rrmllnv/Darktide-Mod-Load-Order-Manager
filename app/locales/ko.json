@@ -42,6 +42,7 @@
             "cancel": "취소",
             "yes": "예",
             "no": "아니오",
+            "select": "선택",
             "message": "메시지",
             "confirmation": "확인",
             "noModsSelected": "선택된 모드 없음",
@@ -153,7 +154,10 @@
             "delete": "삭제",
             "enterBackupComment": "백업 주석 입력 (선택사항):",
             "editComment": "주석 편집",
-            "editBackupComment": "백업 주석 편집:"
+            "editBackupComment": "백업 주석 편집:",
+            "selectModWithBackups": "복원할 모드 선택",
+            "searchModPlaceholder": "모드 검색...",
+            "backupsCount": "백업: {count}"
         }
     },
     "messages": {
@@ -250,7 +254,8 @@
             "backupDeleted": "모드 '{modName}'의 백업이 성공적으로 삭제되었습니다!\n\n버전: {versionName}",
             "backupDeleteError": "백업 삭제에 실패했습니다.",
             "backupCommentUpdated": "백업 주석이 업데이트되었습니다!",
-            "backupCommentUpdateError": "백업 주석 업데이트에 실패했습니다."
+            "backupCommentUpdateError": "백업 주석 업데이트에 실패했습니다.",
+            "noModsWithBackups": "백업이 있는 모드를 찾을 수 없습니다."
         }
     },
     "status": {

@@ -791,12 +791,7 @@ export class DeveloperComponent {
         const selectedModName = modName || this.app.selectedModName;
         
         if (!selectedModName) {
-            if (this.app.uiManager && this.app.uiManager.showMessage) {
-                await this.app.uiManager.showMessage(
-                    this.app.t('messages.common.error'),
-                    this.app.t('messages.developer.noModSelected')
-                );
-            }
+            await this.showModsWithBackupsDialog();
             return;
         }
         
@@ -834,6 +829,117 @@ export class DeveloperComponent {
                     error.message || String(error)
                 );
             }
+        }
+    }
+    
+    async showModsWithBackupsDialog() {
+        try {
+            const result = await window.electronAPI.listModsWithBackups();
+            if (!result.success) {
+                if (this.app.uiManager && this.app.uiManager.showMessage) {
+                    await this.app.uiManager.showMessage(
+                        this.app.t('messages.common.error'),
+                        result.error || this.app.t('messages.developer.backupListError')
+                    );
+                }
+                return;
+            }
+            
+            const mods = result.mods || [];
+            if (mods.length === 0) {
+                if (this.app.uiManager && this.app.uiManager.showMessage) {
+                    await this.app.uiManager.showMessage(
+                        this.app.t('messages.common.info'),
+                        this.app.t('messages.developer.noModsWithBackups')
+                    );
+                }
+                return;
+            }
+            
+            this.showModsWithBackupsDialogContent(mods);
+        } catch (error) {
+            console.error('Error listing mods with backups:', error);
+            if (this.app.uiManager && this.app.uiManager.showMessage) {
+                await this.app.uiManager.showMessage(
+                    this.app.t('messages.common.error'),
+                    error.message || String(error)
+                );
+            }
+        }
+    }
+    
+    showModsWithBackupsDialogContent(mods) {
+        const backupDialog = document.getElementById('backup-dialog');
+        const backupTitle = document.getElementById('backup-title');
+        const backupList = document.getElementById('backup-list');
+        const backupCancelBtn = document.getElementById('backup-cancel-btn');
+        
+        if (!backupDialog || !backupTitle || !backupList) {
+            return;
+        }
+        
+        backupTitle.textContent = this.app.t('ui.developer.selectModWithBackups');
+        if (backupCancelBtn) {
+            backupCancelBtn.textContent = this.app.t('ui.common.cancel');
+        }
+        
+        backupList.innerHTML = `
+            <div class="backup-search-frame">
+                <input type="text" id="backup-mod-search" class="backup-mod-search-input" placeholder="${this.app.t('ui.developer.searchModPlaceholder')}" />
+            </div>
+            <div id="backup-mods-list" class="backup-mods-list"></div>
+        `;
+        
+        const modsList = document.getElementById('backup-mods-list');
+        const searchInput = document.getElementById('backup-mod-search');
+        
+        const renderModsList = (filteredMods) => {
+            modsList.innerHTML = '';
+            
+            filteredMods.forEach(mod => {
+                const modItem = document.createElement('div');
+                modItem.className = 'backup-mod-item';
+                
+                const lastBackupDate = mod.lastBackupDate ? new Date(mod.lastBackupDate).toLocaleString(this.app.localeManager?.currentLocale || 'en') : '';
+                
+                modItem.innerHTML = `
+                    <div class="backup-mod-item-info">
+                        <div class="backup-mod-item-name">${this.escapeHtml(mod.modName)}</div>
+                        <div class="backup-mod-item-details">
+                            ${this.app.t('ui.developer.backupsCount', { count: mod.backupsCount })}${lastBackupDate ? ' • ' + lastBackupDate : ''}
+                        </div>
+                    </div>
+                    <button class="btn btn-primary backup-mod-select-btn" data-mod="${this.escapeHtml(mod.modName)}">
+                        ${this.app.t('ui.common.select')}
+                    </button>
+                `;
+                
+                const selectBtn = modItem.querySelector('.backup-mod-select-btn');
+                selectBtn.addEventListener('click', async () => {
+                    await this.showRestoreBackupDialog(mod.modName);
+                });
+                
+                modsList.appendChild(modItem);
+            });
+        };
+        
+        if (searchInput) {
+            searchInput.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase().trim();
+                const filteredMods = mods.filter(mod => 
+                    mod.modName.toLowerCase().includes(searchTerm)
+                );
+                renderModsList(filteredMods);
+            });
+        }
+        
+        renderModsList(mods);
+        
+        backupDialog.style.display = 'flex';
+        backupDialog.classList.add('show');
+        
+        if (searchInput) {
+            setTimeout(() => searchInput.focus(), 100);
         }
     }
     

@@ -42,6 +42,7 @@
             "cancel": "Annulla",
             "yes": "Sì",
             "no": "No",
+            "select": "Seleziona",
             "message": "Messaggio",
             "confirmation": "Conferma",
             "noModsSelected": "Nessun mod selezionato",
@@ -153,7 +154,10 @@
             "delete": "Elimina",
             "enterBackupComment": "Inserisci commento per il backup (opzionale):",
             "editComment": "Modifica commento",
-            "editBackupComment": "Modifica commento del backup:"
+            "editBackupComment": "Modifica commento del backup:",
+            "selectModWithBackups": "Seleziona mod da ripristinare",
+            "searchModPlaceholder": "Cerca mod...",
+            "backupsCount": "Backup: {count}"
         }
     },
     "messages": {
@@ -250,7 +254,8 @@
             "backupDeleted": "Backup del mod '{modName}' eliminato con successo!\n\nVersione: {versionName}",
             "backupDeleteError": "Impossibile eliminare il backup.",
             "backupCommentUpdated": "Commento del backup aggiornato!",
-            "backupCommentUpdateError": "Impossibile aggiornare il commento del backup."
+            "backupCommentUpdateError": "Impossibile aggiornare il commento del backup.",
+            "noModsWithBackups": "Nessun mod con backup trovato."
         }
     },
     "status": {

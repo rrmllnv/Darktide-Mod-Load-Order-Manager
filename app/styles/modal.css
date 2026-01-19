@@ -158,6 +158,89 @@
     font-size: 0.9em;
 }
 
+.backup-search-frame {
+    padding: 10px;
+    border-bottom: 1px solid var(--border-secondary);
+}
+
+.backup-mod-search-input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid var(--border-secondary);
+    border-radius: 3px;
+    font-size: 13px;
+    box-sizing: border-box;
+    background-color: var(--input-bg);
+    color: var(--text-primary);
+}
+
+.backup-mod-search-input:focus {
+    outline: 2px solid var(--btn-primary-bg);
+    outline-offset: -2px;
+    border-color: var(--btn-primary-bg);
+}
+
+.backup-mods-list {
+    max-height: 350px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 10px;
+}
+
+.backup-mods-list::-webkit-scrollbar {
+    width: 4px;
+}
+
+.backup-mods-list::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+}
+
+.backup-mods-list::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 2px;
+}
+
+.backup-mods-list::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover);
+}
+
+.backup-mod-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    margin-bottom: 8px;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-secondary);
+    border-radius: 4px;
+}
+
+.backup-mod-item:last-child {
+    margin-bottom: 0;
+}
+
+.backup-mod-item-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+}
+
+.backup-mod-item-name {
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.backup-mod-item-details {
+    font-size: 0.9em;
+    color: var(--text-secondary);
+}
+
+.backup-mod-select-btn {
+    min-width: 100px;
+    height: 32px;
+}
+
 .modal-header {
     padding: 15px;
     background-color: var(--modal-header-bg);

@@ -42,6 +42,7 @@
             "cancel": "Cancel",
             "yes": "Yes",
             "no": "No",
+            "select": "Select",
             "message": "Message",
             "confirmation": "Confirmation",
             "noModsSelected": "No mods selected",
@@ -152,7 +153,10 @@
             "delete": "Delete",
             "enterBackupComment": "Enter backup comment (optional):",
             "editComment": "Edit comment",
-            "editBackupComment": "Edit backup comment:"
+            "editBackupComment": "Edit backup comment:",
+            "selectModWithBackups": "Select mod to restore",
+            "searchModPlaceholder": "Search mod...",
+            "backupsCount": "Backups: {count}"
         }
     },
     "messages": {
@@ -249,7 +253,8 @@
             "backupDeleted": "Backup of mod '{modName}' deleted successfully!\n\nVersion: {versionName}",
             "backupDeleteError": "Failed to delete backup.",
             "backupCommentUpdated": "Backup comment updated!",
-            "backupCommentUpdateError": "Failed to update backup comment."
+            "backupCommentUpdateError": "Failed to update backup comment.",
+            "noModsWithBackups": "No mods with backups found."
         }
     },
     "status": {

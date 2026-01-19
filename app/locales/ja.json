@@ -42,6 +42,7 @@
             "cancel": "キャンセル",
             "yes": "はい",
             "no": "いいえ",
+            "select": "選択",
             "message": "メッセージ",
             "confirmation": "確認",
             "noModsSelected": "MODが選択されていません",
@@ -153,7 +154,10 @@
             "delete": "削除",
             "enterBackupComment": "バックアップのコメントを入力（任意）:",
             "editComment": "コメントを編集",
-            "editBackupComment": "バックアップのコメントを編集:"
+            "editBackupComment": "バックアップのコメントを編集:",
+            "selectModWithBackups": "復元するMODを選択",
+            "searchModPlaceholder": "MODを検索...",
+            "backupsCount": "バックアップ: {count}"
         }
     },
     "messages": {
@@ -250,7 +254,8 @@
             "backupDeleted": "MOD '{modName}'のバックアップが正常に削除されました!\n\nバージョン: {versionName}",
             "backupDeleteError": "バックアップの削除に失敗しました。",
             "backupCommentUpdated": "バックアップのコメントが更新されました!",
-            "backupCommentUpdateError": "バックアップのコメントの更新に失敗しました。"
+            "backupCommentUpdateError": "バックアップのコメントの更新に失敗しました。",
+            "noModsWithBackups": "バックアップを持つMODが見つかりませんでした。"
         }
     },
     "status": {

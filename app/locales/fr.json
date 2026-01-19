@@ -42,6 +42,7 @@
             "cancel": "Annuler",
             "yes": "Oui",
             "no": "Non",
+            "select": "Sélectionner",
             "message": "Message",
             "confirmation": "Confirmation",
             "noModsSelected": "Aucun mod sélectionné",
@@ -153,7 +154,10 @@
             "delete": "Supprimer",
             "enterBackupComment": "Entrer un commentaire pour la sauvegarde (optionnel):",
             "editComment": "Modifier le commentaire",
-            "editBackupComment": "Modifier le commentaire de la sauvegarde:"
+            "editBackupComment": "Modifier le commentaire de la sauvegarde:",
+            "selectModWithBackups": "Sélectionner le mod à restaurer",
+            "searchModPlaceholder": "Rechercher un mod...",
+            "backupsCount": "Sauvegardes: {count}"
         }
     },
     "messages": {
@@ -250,7 +254,8 @@
             "backupDeleted": "Sauvegarde du mod '{modName}' supprimée avec succès!\n\nVersion: {versionName}",
             "backupDeleteError": "Échec de la suppression de la sauvegarde.",
             "backupCommentUpdated": "Commentaire de la sauvegarde mis à jour!",
-            "backupCommentUpdateError": "Échec de la mise à jour du commentaire de la sauvegarde."
+            "backupCommentUpdateError": "Échec de la mise à jour du commentaire de la sauvegarde.",
+            "noModsWithBackups": "Aucun mod avec sauvegardes trouvé."
         }
     },
     "status": {

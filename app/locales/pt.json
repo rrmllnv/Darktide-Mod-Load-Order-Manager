@@ -42,6 +42,7 @@
             "cancel": "Cancelar",
             "yes": "Sim",
             "no": "Não",
+            "select": "Selecionar",
             "message": "Mensagem",
             "confirmation": "Confirmação",
             "noModsSelected": "Nenhum mod selecionado",
@@ -153,7 +154,10 @@
             "delete": "Excluir",
             "enterBackupComment": "Digite um comentário para o backup (opcional):",
             "editComment": "Editar comentário",
-            "editBackupComment": "Editar comentário do backup:"
+            "editBackupComment": "Editar comentário do backup:",
+            "selectModWithBackups": "Selecionar mod para restaurar",
+            "searchModPlaceholder": "Pesquisar mod...",
+            "backupsCount": "Backups: {count}"
         }
     },
     "messages": {
@@ -250,7 +254,8 @@
             "backupDeleted": "Backup do mod '{modName}' excluído com sucesso!\n\nVersão: {versionName}",
             "backupDeleteError": "Falha ao excluir backup.",
             "backupCommentUpdated": "Comentário do backup atualizado!",
-            "backupCommentUpdateError": "Falha ao atualizar comentário do backup."
+            "backupCommentUpdateError": "Falha ao atualizar comentário do backup.",
+            "noModsWithBackups": "Nenhum mod com backups encontrado."
         }
     },
     "status": {

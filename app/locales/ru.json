@@ -42,6 +42,7 @@
             "cancel": "Отмена",
             "yes": "Да",
             "no": "Нет",
+            "select": "Выбрать",
             "message": "Сообщение",
             "confirmation": "Подтверждение",
             "noModsSelected": "Нет выбранных модов",
@@ -152,7 +153,10 @@
             "delete": "Удалить",
             "enterBackupComment": "Введите комментарий к бэкапу (необязательно):",
             "editComment": "Изменить комментарий",
-            "editBackupComment": "Изменить комментарий к бэкапу:"
+            "editBackupComment": "Изменить комментарий к бэкапу:",
+            "selectModWithBackups": "Выберите мод для восстановления",
+            "searchModPlaceholder": "Поиск мода...",
+            "backupsCount": "Бэкапов: {count}"
         }
     },
     "messages": {
@@ -249,7 +253,8 @@
             "backupDeleted": "Бэкап мода '{modName}' успешно удален!\n\nВерсия: {versionName}",
             "backupDeleteError": "Не удалось удалить бэкап.",
             "backupCommentUpdated": "Комментарий к бэкапу обновлен!",
-            "backupCommentUpdateError": "Не удалось обновить комментарий к бэкапу."
+            "backupCommentUpdateError": "Не удалось обновить комментарий к бэкапу.",
+            "noModsWithBackups": "Моды с бэкапами не найдены."
         }
     },
     "status": {
