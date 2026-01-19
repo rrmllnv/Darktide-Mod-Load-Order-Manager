@@ -335,6 +335,10 @@ export class ModListComponent {
         if (this.app.updateStatistics) {
             this.app.updateStatistics();
         }
+        
+        if (this.app.todosComponent && this.app.todosComponent.onModSelectionChanged) {
+            this.app.todosComponent.onModSelectionChanged();
+        }
     }
     
     updateModListSelection() {
@@ -361,6 +365,10 @@ export class ModListComponent {
         
         if (this.app.updateStatistics) {
             this.app.updateStatistics();
+        }
+        
+        if (this.app.todosComponent && this.app.todosComponent.onModSelectionChanged) {
+            this.app.todosComponent.onModSelectionChanged();
         }
     }
     

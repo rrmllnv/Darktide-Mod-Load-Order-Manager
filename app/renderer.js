@@ -18,6 +18,7 @@ import { SettingsComponent } from './components/settings/SettingsComponent.js';
 import { FileOperationsComponent } from './components/file-operations/FileOperationsComponent.js';
 import { TourComponent } from './components/tour/TourComponent.js';
 import { DeveloperComponent } from './components/developer/DeveloperComponent.js';
+import { TodosComponent } from './components/todos/TodosComponent.js';
 
 class ModLoadOrderManager {
     constructor() {
@@ -64,6 +65,7 @@ class ModLoadOrderManager {
         this.fileOperationsComponent = new FileOperationsComponent(this);
         this.tourComponent = new TourComponent(this);
         this.developerComponent = new DeveloperComponent(this);
+        this.todosComponent = new TodosComponent(this);
         
         this.init();
     }
@@ -190,6 +192,10 @@ class ModLoadOrderManager {
             await this.developerComponent.init();
         }
         
+        if (this.todosComponent) {
+            await this.todosComponent.init();
+        }
+        
         document.addEventListener('click', (e) => {
             if (e.target.closest('#input-dialog') || 
                 e.target.closest('.modal') || 
@@ -201,7 +207,7 @@ class ModLoadOrderManager {
             }
             
             if (!e.target.closest('.mod-item') && !e.target.closest('#mods-list')) {
-                if (!e.target.closest('#bulk-actions-panel') && !e.target.closest('.btn-icon')) {
+                if (!e.target.closest('#bulk-actions-panel') && !e.target.closest('.btn-icon') && !e.target.closest('.todos-frame')) {
                     this.modListComponent.clearSelection();
                 }
             }

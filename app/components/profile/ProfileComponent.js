@@ -436,6 +436,10 @@ export class ProfileComponent {
                 if (this.app.updateStatistics) {
                     this.app.updateStatistics();
                 }
+                
+                if (this.app.todosComponent && this.app.todosComponent.onModSelectionChanged) {
+                    await this.app.todosComponent.onModSelectionChanged();
+                }
             }
             
             await this.app.uiManager.showMessage(this.app.t('messages.common.success'), this.t('messages.profile.profileLoaded', { profileName }));

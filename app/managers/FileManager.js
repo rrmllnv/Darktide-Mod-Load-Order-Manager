@@ -136,6 +136,10 @@ export class FileManager {
                 await this.app.profileComponent.initProfilesDirectory();
             }
             
+            if (this.app.todosComponent && this.app.todosComponent.onModSelectionChanged) {
+                await this.app.todosComponent.onModSelectionChanged();
+            }
+            
         } catch (error) {
             await this.app.uiManager.showMessage(this.app.t('messages.common.error'), `${this.app.t('messages.common.fileLoadError')}\n${error.message}`);
             this.app.setStatus(`Error: ${error.message}`);

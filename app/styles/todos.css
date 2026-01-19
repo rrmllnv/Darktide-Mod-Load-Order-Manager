@@ -1,0 +1,213 @@
+.todos-frame {
+    color: var(--text-primary);
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+}
+
+.todos-filter {
+    margin-bottom: 5px;
+}
+
+.todos-filter-label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 10pt;
+    color: var(--text-primary);
+    cursor: pointer;
+}
+
+.todos-filter-label input[type="checkbox"] {
+    cursor: pointer;
+}
+
+.todos-input-wrapper {
+    margin-bottom: 5px;
+}
+
+.todos-input {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid var(--border-secondary);
+    border-radius: 3px;
+    font-size: 10pt;
+    background-color: var(--input-bg);
+    color: var(--text-primary);
+    box-sizing: border-box;
+    resize: none;
+    overflow: hidden;
+    min-height: 28px;
+    line-height: 1.4;
+    font-family: inherit;
+}
+
+.todos-input:focus {
+    outline: 2px solid var(--btn-primary-bg);
+    outline-offset: -2px;
+    border-color: var(--btn-primary-bg);
+}
+
+.todos-input::placeholder {
+    color: var(--text-secondary);
+}
+
+.todos-list {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    border: 1px solid var(--border-secondary);
+    border-radius: 3px;
+    background-color: var(--select-bg);
+    padding: 2px;
+}
+
+.todos-list::-webkit-scrollbar {
+    width: 4px;
+}
+
+.todos-list::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+}
+
+.todos-list::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 2px;
+}
+
+.todos-list::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover);
+}
+
+.todo-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 5px;
+    margin-bottom: 2px;
+    border-bottom: 1px solid var(--border-secondary);
+    border-radius: 3px;
+    cursor: pointer;
+    position: relative;
+    min-height: 24px;
+}
+
+.todo-item:hover {
+    background-color: var(--bg-hover);
+}
+
+.todo-item:hover .todo-actions {
+    opacity: 1;
+}
+
+.todo-item.completed {
+    opacity: 0.6;
+}
+
+.todo-checkbox {
+    width: 18px;
+    height: 18px;
+    min-width: 18px;
+    min-height: 18px;
+    border: 1px solid var(--border-secondary);
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--input-bg);
+    color: var(--text-primary);
+    font-size: 12px;
+    cursor: pointer;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.todo-item.completed .todo-checkbox {
+    background-color: var(--btn-primary-bg);
+    border-color: var(--btn-primary-bg);
+    color: var(--btn-primary-text);
+}
+
+.todo-text {
+    flex: 1;
+    font-size: 10pt;
+    color: var(--text-primary);
+    word-break: break-word;
+    user-select: none;
+    line-height: 1.4;
+    cursor: pointer;
+    transition: max-height 0.2s ease;
+}
+
+.todo-text-collapsed {
+    max-height: calc(1.4em * 3);
+    overflow: hidden;
+    position: relative;
+}
+
+.todo-item.completed .todo-text {
+    text-decoration: line-through;
+}
+
+.todo-actions {
+    display: flex;
+    gap: 5px;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.todo-edit,
+.todo-delete {
+    width: 18px;
+    height: 18px;
+    min-width: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 12px;
+    flex-shrink: 0;
+}
+
+.todo-edit:hover {
+    color: var(--btn-primary-bg);
+}
+
+.todo-delete:hover {
+    color: var(--text-danger, #ff4444);
+}
+
+.todo-edit-input {
+    flex: 1;
+    padding: 3px 5px;
+    border: 1px solid var(--btn-primary-bg);
+    border-radius: 3px;
+    font-size: 10pt;
+    background-color: var(--input-bg);
+    color: var(--text-primary);
+    outline: none;
+    resize: none;
+    overflow: hidden;
+    min-height: 20px;
+    line-height: 1.4;
+    font-family: inherit;
+}
+
+.todos-empty {
+    padding: 10px;
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 10pt;
+}
+
+.todo-mod-header {
+    padding: 6px 5px 4px 5px;
+    font-size: 12px;
+    font-weight: bold;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border-secondary);
+    margin-bottom: 2px;
+    background-color: var(--bg-hover);
+}

@@ -304,6 +304,11 @@ export class DeveloperComponent {
             profilesFrame.style.display = isEnabled ? 'none' : '';
         }
         
+        const todosFrame = document.querySelector('.todos-frame');
+        if (todosFrame) {
+            todosFrame.style.display = isEnabled ? '' : 'none';
+        }
+        
         const saveBtn = document.getElementById('save-btn');
         if (saveBtn) {
             saveBtn.style.display = isEnabled ? 'none' : '';

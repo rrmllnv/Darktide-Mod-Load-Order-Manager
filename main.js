@@ -936,3 +936,173 @@ ipcMain.handle('delete-folder', async (event, folderPath) => {
     return { success: false, error: errorMessage };
   }
 });
+
+ipcMain.handle('get-todos-directory', async (event) => {
+  try {
+    const userDataDir = app.getPath('userData');
+    const todosDir = path.join(userDataDir, 'Todos');
+    await fs.mkdir(todosDir, { recursive: true });
+    return { success: true, path: todosDir };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+});
+
+ipcMain.handle('load-todos', async (event, todosDir, modName) => {
+  try {
+    if (!modName) {
+      return { success: false, error: 'Mod name is required' };
+    }
+    
+    const todosPath = path.join(todosDir, `${modName}.json`);
+    
+    if (!existsSync(todosPath)) {
+      return { success: true, todos: [] };
+    }
+    
+    const content = await fs.readFile(todosPath, 'utf-8');
+    const data = JSON.parse(content);
+    
+    const todos = Array.isArray(data) ? data : (data.todos || []);
+    
+    return { success: true, todos };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+});
+
+ipcMain.handle('load-all-todos', async (event, todosDir) => {
+  try {
+    if (!existsSync(todosDir)) {
+      return { success: true, allTodos: [] };
+    }
+    
+    const files = readdirSync(todosDir);
+    const jsonFiles = files.filter(file => file.endsWith('.json'));
+    
+    const allTodos = [];
+    
+    for (const file of jsonFiles) {
+      try {
+        const filePath = path.join(todosDir, file);
+        const content = await fs.readFile(filePath, 'utf-8');
+        const data = JSON.parse(content);
+        
+        const todos = Array.isArray(data) ? data : (data.todos || []);
+        
+        todos.forEach(todo => {
+          if (!todo.modName) {
+            const modName = file.slice(0, -5);
+            todo.modName = modName;
+          }
+          allTodos.push(todo);
+        });
+      } catch (error) {
+        console.error(`Error reading todos file ${file}:`, error);
+      }
+    }
+    
+    return { success: true, allTodos };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+});
+
+ipcMain.handle('add-todo', async (event, todosDir, modName, todo) => {
+  try {
+    if (!modName) {
+      return { success: false, error: 'Mod name is required' };
+    }
+    
+    if (!todo || !todo.id || !todo.text) {
+      return { success: false, error: 'Invalid todo data' };
+    }
+    
+    const todosPath = path.join(todosDir, `${modName}.json`);
+    
+    let todos = [];
+    if (existsSync(todosPath)) {
+      try {
+        const content = await fs.readFile(todosPath, 'utf-8');
+        const data = JSON.parse(content);
+        todos = Array.isArray(data) ? data : (data.todos || []);
+      } catch (error) {
+        console.error('Error reading existing todos:', error);
+      }
+    }
+    
+    todo.modName = modName;
+    todos.push(todo);
+    
+    await fs.writeFile(todosPath, JSON.stringify(todos, null, 2), 'utf-8');
+    
+    return { success: true };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+});
+
+ipcMain.handle('update-todo', async (event, todosDir, modName, todoId, updatedTodo) => {
+  try {
+    if (!modName) {
+      return { success: false, error: 'Mod name is required' };
+    }
+    
+    if (!todoId) {
+      return { success: false, error: 'Todo ID is required' };
+    }
+    
+    const todosPath = path.join(todosDir, `${modName}.json`);
+    
+    if (!existsSync(todosPath)) {
+      return { success: false, error: 'Todos file not found' };
+    }
+    
+    const content = await fs.readFile(todosPath, 'utf-8');
+    const data = JSON.parse(content);
+    let todos = Array.isArray(data) ? data : (data.todos || []);
+    
+    const index = todos.findIndex(t => t.id === todoId);
+    if (index === -1) {
+      return { success: false, error: 'Todo not found' };
+    }
+    
+    todos[index] = { ...todos[index], ...updatedTodo };
+    
+    await fs.writeFile(todosPath, JSON.stringify(todos, null, 2), 'utf-8');
+    
+    return { success: true };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+});
+
+ipcMain.handle('delete-todo', async (event, todosDir, modName, todoId) => {
+  try {
+    if (!modName) {
+      return { success: false, error: 'Mod name is required' };
+    }
+    
+    if (!todoId) {
+      return { success: false, error: 'Todo ID is required' };
+    }
+    
+    const todosPath = path.join(todosDir, `${modName}.json`);
+    
+    if (!existsSync(todosPath)) {
+      return { success: false, error: 'Todos file not found' };
+    }
+    
+    const content = await fs.readFile(todosPath, 'utf-8');
+    const data = JSON.parse(content);
+    let todos = Array.isArray(data) ? data : (data.todos || []);
+    
+    todos = todos.filter(t => t.id !== todoId);
+    
+    await fs.writeFile(todosPath, JSON.stringify(todos, null, 2), 'utf-8');
+    
+    return { success: true };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+});
