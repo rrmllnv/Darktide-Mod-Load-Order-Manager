@@ -548,19 +548,21 @@ ipcMain.handle('create-mod-structure', async (event, projectPath, modName) => {
 mod.version = "1.0.0"
 
 -- Your mod code goes here.
--- https://dmf-docs.darkti.de
 `;
     
     const modDataContent = `local mod = get_mod("${modName}")
 
 return {
-	name = "${modName}",
+	name = mod:localize("mod_name"),
 	description = mod:localize("mod_description"),
 	is_togglable = true,
 }
 `;
     
     const modLocalizationContent = `return {
+	mod_name = {
+		en = "${modName}",
+	},
 	mod_description = {
 		en = "${modName} description",
 	},
