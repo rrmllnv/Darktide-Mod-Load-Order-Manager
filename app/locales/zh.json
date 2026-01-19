@@ -78,7 +78,7 @@
             "profileNamePlaceholder": "输入名称..."
         },
         "modList": {
-            "flagNew": "[新增]",
+            "flagNew": "[等待添加]",
             "flagNotFound": "[未找到]",
             "flagSymlink": "[符号链接]",
             "enterModName": "输入符号链接的模组名称:",

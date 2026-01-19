@@ -78,7 +78,7 @@
             "profileNamePlaceholder": "名前を入力..."
         },
         "modList": {
-            "flagNew": "[新規]",
+            "flagNew": "[追加待ち]",
             "flagNotFound": "[見つかりません]",
             "flagSymlink": "[シンボリックリンク]",
             "enterModName": "シンボリックリンクのMOD名を入力:",

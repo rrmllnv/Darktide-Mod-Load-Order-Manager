@@ -78,7 +78,7 @@
             "profileNamePlaceholder": "Enter name..."
         },
         "modList": {
-            "flagNew": "[NEW]",
+            "flagNew": "[AWAITING ADDITION]",
             "flagNotFound": "[NOT FOUND]",
             "flagSymlink": "[SYMLINK]",
             "enterModName": "Enter mod name for symlink:",

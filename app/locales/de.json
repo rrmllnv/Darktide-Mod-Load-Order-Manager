@@ -78,7 +78,7 @@
             "profileNamePlaceholder": "Namen eingeben..."
         },
         "modList": {
-            "flagNew": "[NEU]",
+            "flagNew": "[ERWARTET HINZUFÜGUNG]",
             "flagNotFound": "[NICHT GEFUNDEN]",
             "flagSymlink": "[SYMLINK]",
             "enterModName": "Mod-Name für Symlink eingeben:",

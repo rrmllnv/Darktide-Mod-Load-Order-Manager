@@ -78,7 +78,7 @@
             "profileNamePlaceholder": "Inserisci nome..."
         },
         "modList": {
-            "flagNew": "[NUOVO]",
+            "flagNew": "[IN ATTESA DI AGGIUNTA]",
             "flagNotFound": "[NON TROVATO]",
             "flagSymlink": "[SYMLINK]",
             "enterModName": "Inserisci nome mod per collegamento simbolico:",

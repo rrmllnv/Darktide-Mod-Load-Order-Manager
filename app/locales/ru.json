@@ -78,7 +78,7 @@
             "profileNamePlaceholder": "Введите название..."
         },
         "modList": {
-            "flagNew": "[НОВЫЙ]",
+            "flagNew": "[ОЖИДАЕТ ДОБАВЛЕНИЯ]",
             "flagNotFound": "[НЕ НАЙДЕН]",
             "flagSymlink": "[СИМЛИНК]",
             "enterModName": "Введите имя мода для симлинка:",
