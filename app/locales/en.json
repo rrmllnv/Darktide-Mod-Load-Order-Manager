@@ -137,7 +137,8 @@
         },
         "developer": {
             "tools": "Developer tools",
-            "createMod": "Create mod"
+            "createMod": "Create mod",
+            "enterModName": "Enter mod name:"
         }
     },
     "messages": {
@@ -206,7 +207,10 @@
             "deleteModConfirm": "Delete mod '{modName}' from list?\n\nMod will be removed from file on save."
         },
         "developer": {
-            "projectPathNotSet": "Project path is not set. Please specify the path to your project in the settings."
+            "projectPathNotSet": "Project path is not set. Please specify the path to your project in the settings.",
+            "invalidModName": "Invalid mod name. Only English letters, numbers, and underscores are allowed. The name must start with a letter.",
+            "modCreated": "Mod '{modName}' created successfully!\n\nPath: {modPath}",
+            "modCreationError": "Failed to create mod structure."
         }
     },
     "status": {

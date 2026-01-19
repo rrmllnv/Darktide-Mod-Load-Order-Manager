@@ -22,5 +22,6 @@ contextBridge.exposeInMainWorld('electronAPI', {
   findModLoadOrderFile: () => ipcRenderer.invoke('find-mod-load-order-file'),
   launchDtkitPatch: (gameDir) => ipcRenderer.invoke('launch-dtkit-patch', gameDir),
   openFile: (filePath) => ipcRenderer.invoke('open-file', filePath),
-  openFolder: (folderPath) => ipcRenderer.invoke('open-folder', folderPath)
+  openFolder: (folderPath) => ipcRenderer.invoke('open-folder', folderPath),
+  createModStructure: (projectPath, modName) => ipcRenderer.invoke('create-mod-structure', projectPath, modName)
 });

@@ -67,7 +67,58 @@ export class DeveloperComponent {
             return;
         }
         
-        console.log('Create mod functionality - to be implemented');
+        if (!this.app.modalManager) {
+            return;
+        }
+        
+        this.app.modalManager.showModal(this.t('ui.developer.enterModName'), '', async (modName) => {
+            if (!modName || !modName.trim()) {
+                return;
+            }
+            
+            modName = modName.trim();
+            
+            if (!/^[A-Za-z][A-Za-z0-9_]*$/.test(modName)) {
+                if (this.app.uiManager && this.app.uiManager.showMessage) {
+                    await this.app.uiManager.showMessage(
+                        this.app.t('messages.common.error'),
+                        this.app.t('messages.developer.invalidModName')
+                    );
+                }
+                return;
+            }
+            
+            try {
+                const result = await window.electronAPI.createModStructure(
+                    this.app.userConfig.projectPath,
+                    modName
+                );
+                
+                if (result.success) {
+                    if (this.app.uiManager && this.app.uiManager.showMessage) {
+                        await this.app.uiManager.showMessage(
+                            this.app.t('messages.common.success'),
+                            this.app.t('messages.developer.modCreated', { modName, modPath: result.modPath })
+                        );
+                    }
+                } else {
+                    if (this.app.uiManager && this.app.uiManager.showMessage) {
+                        await this.app.uiManager.showMessage(
+                            this.app.t('messages.common.error'),
+                            result.error || this.app.t('messages.developer.modCreationError')
+                        );
+                    }
+                }
+            } catch (error) {
+                console.error('Error creating mod:', error);
+                if (this.app.uiManager && this.app.uiManager.showMessage) {
+                    await this.app.uiManager.showMessage(
+                        this.app.t('messages.common.error'),
+                        error.message || this.app.t('messages.developer.modCreationError')
+                    );
+                }
+            }
+        });
     }
     
     updateVisibility() {

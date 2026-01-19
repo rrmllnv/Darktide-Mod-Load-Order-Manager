@@ -508,3 +508,72 @@ ipcMain.handle('open-folder', async (event, folderPath) => {
     return { success: false, error: error.message };
   }
 });
+
+ipcMain.handle('create-mod-structure', async (event, projectPath, modName) => {
+  try {
+    if (!projectPath || !existsSync(projectPath)) {
+      return { success: false, error: 'Путь к проекту не найден' };
+    }
+    
+    if (!modName || !/^[A-Za-z][A-Za-z0-9_]*$/.test(modName)) {
+      return { success: false, error: 'Недопустимое название мода. Разрешены только английские буквы, цифры и подчеркивание, начинаться должно с буквы.' };
+    }
+    
+    const modDir = path.join(projectPath, modName);
+    if (existsSync(modDir)) {
+      return { success: false, error: 'Мод с таким названием уже существует' };
+    }
+    
+    await fs.mkdir(modDir, { recursive: true });
+    
+    const scriptsDir = path.join(modDir, 'scripts', 'mods', modName);
+    await fs.mkdir(scriptsDir, { recursive: true });
+    
+    const modFileContent = `return {
+	run = function()
+		fassert(rawget(_G, "new_mod"), "\`${modName}\` encountered an error loading the Darktide Mod Framework.")
+
+		new_mod("${modName}", {
+			mod_script       = "${modName}/scripts/mods/${modName}/${modName}",
+			mod_data         = "${modName}/scripts/mods/${modName}/${modName}_data",
+			mod_localization = "${modName}/scripts/mods/${modName}/${modName}_localization",
+		})
+	end,
+	packages = {},
+}
+`;
+    
+    const modLuaContent = `local mod = get_mod("${modName}")
+
+mod.version = "1.0.0"
+
+-- Your mod code goes here.
+-- https://dmf-docs.darkti.de
+`;
+    
+    const modDataContent = `local mod = get_mod("${modName}")
+
+return {
+	name = "${modName}",
+	description = mod:localize("mod_description"),
+	is_togglable = true,
+}
+`;
+    
+    const modLocalizationContent = `return {
+	mod_description = {
+		en = "${modName} description",
+	},
+}
+`;
+    
+    await fs.writeFile(path.join(modDir, `${modName}.mod`), modFileContent, 'utf8');
+    await fs.writeFile(path.join(scriptsDir, `${modName}.lua`), modLuaContent, 'utf8');
+    await fs.writeFile(path.join(scriptsDir, `${modName}_data.lua`), modDataContent, 'utf8');
+    await fs.writeFile(path.join(scriptsDir, `${modName}_localization.lua`), modLocalizationContent, 'utf8');
+    
+    return { success: true, modPath: modDir };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+});
