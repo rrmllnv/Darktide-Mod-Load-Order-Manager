@@ -142,7 +142,7 @@
             "devView": "Entwicklermodus",
             "selectAll": "Alle auswählen",
             "scan": "Mods scannen",
-            "copyMod": "Mod im Spiel-Mods-Ordner kopieren",
+            "copyMod": "Mod in den Spiel-Mods-Ordner kopieren",
             "createSymlink": "Symbolischen Link im Spiel-Mods-Ordner erstellen",
             "deleteModFolder": "Mod-Ordner löschen"
         }

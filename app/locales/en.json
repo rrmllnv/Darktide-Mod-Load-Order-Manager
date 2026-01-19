@@ -141,7 +141,7 @@
             "devView": "Dev View",
             "selectAll": "Select all",
             "scan": "Scan mods",
-            "copyMod": "Copy mod in game mods folder",
+            "copyMod": "Copy mod to game mods folder",
             "createSymlink": "Create symlink in game mods folder",
             "deleteModFolder": "Delete mod folder"
         }

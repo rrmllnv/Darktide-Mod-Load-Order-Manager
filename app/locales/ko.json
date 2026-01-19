@@ -142,7 +142,7 @@
             "devView": "개발 모드",
             "selectAll": "모두 선택",
             "scan": "모드 스캔",
-            "copyMod": "게임 모드 폴더의 모드 복사",
+            "copyMod": "모드를 게임 모드 폴더로 복사",
             "createSymlink": "게임 모드 폴더에 심볼릭 링크 만들기",
             "deleteModFolder": "모드 폴더 삭제"
         }

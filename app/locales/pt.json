@@ -142,7 +142,7 @@
             "devView": "Modo de desenvolvimento",
             "selectAll": "Selecionar tudo",
             "scan": "Escanear mods",
-            "copyMod": "Copiar mod na pasta de mods do jogo",
+            "copyMod": "Copiar mod para a pasta de mods do jogo",
             "createSymlink": "Criar link simbólico na pasta de mods do jogo",
             "deleteModFolder": "Excluir pasta do mod"
         }

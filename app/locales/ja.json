@@ -142,7 +142,7 @@
             "devView": "開発モード",
             "selectAll": "すべて選択",
             "scan": "MODをスキャン",
-            "copyMod": "ゲームMODフォルダ内のMODをコピー",
+            "copyMod": "MODをゲームMODフォルダにコピー",
             "createSymlink": "ゲームMODフォルダにシンボリックリンクを作成",
             "deleteModFolder": "MODフォルダを削除"
         }

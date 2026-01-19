@@ -142,7 +142,7 @@
             "devView": "开发模式",
             "selectAll": "全选",
             "scan": "扫描模组",
-            "copyMod": "在游戏模组文件夹中复制模组",
+            "copyMod": "将模组复制到游戏模组文件夹",
             "createSymlink": "在游戏模组文件夹中创建符号链接",
             "deleteModFolder": "删除模组文件夹"
         }
