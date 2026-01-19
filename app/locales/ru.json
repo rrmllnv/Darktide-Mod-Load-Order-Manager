@@ -134,6 +134,10 @@
             "addMod": "Добавить мод",
             "addModFolder": "Добавить папку мода",
             "launchDtkitPatch": "Запустить Darktide Mod Patcher"
+        },
+        "developer": {
+            "tools": "Инструменты разработчика",
+            "createMod": "Создать мод"
         }
     },
     "messages": {
@@ -200,6 +204,9 @@
             "symlinkCreationError": "Ошибка при создании символической ссылки:",
             "symlinkCreatedSuccess": "Символическая ссылка успешно создана!\n\n{linkPath} -> {targetPath}",
             "deleteModConfirm": "Удалить мод '{modName}' из списка?\n\nМод будет удален из файла при сохранении."
+        },
+        "developer": {
+            "projectPathNotSet": "Путь к проекту не установлен. Пожалуйста, укажите путь к вашему проекту в настройках."
         }
     },
     "status": {

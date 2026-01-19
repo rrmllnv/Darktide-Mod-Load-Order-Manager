@@ -134,6 +134,10 @@
             "addMod": "Add mod",
             "addModFolder": "Add mod folder",
             "launchDtkitPatch": "Launch Darktide Mod Patcher"
+        },
+        "developer": {
+            "tools": "Developer tools",
+            "createMod": "Create mod"
         }
     },
     "messages": {
@@ -200,6 +204,9 @@
             "symlinkCreationError": "Error creating symbolic link:",
             "symlinkCreatedSuccess": "Symbolic link created successfully!\n\n{linkPath} -> {targetPath}",
             "deleteModConfirm": "Delete mod '{modName}' from list?\n\nMod will be removed from file on save."
+        },
+        "developer": {
+            "projectPathNotSet": "Project path is not set. Please specify the path to your project in the settings."
         }
     },
     "status": {

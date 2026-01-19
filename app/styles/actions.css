@@ -1,8 +1,20 @@
+.actions-panel {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.expert-mode-frame {
+    display: flex;
+    align-items: center;
+}
+
 .bulk-actions-frame {
     display: flex;
     flex-direction: column;
     padding: 0;
-    margin-bottom: 10px;
+    margin-left: auto;
     color: var(--text-primary);
     background-color: transparent;
 }

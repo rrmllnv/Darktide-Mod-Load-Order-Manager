@@ -17,6 +17,7 @@ import { BulkOperationsComponent } from './components/bulk-operations/BulkOperat
 import { SettingsComponent } from './components/settings/SettingsComponent.js';
 import { FileOperationsComponent } from './components/file-operations/FileOperationsComponent.js';
 import { TourComponent } from './components/tour/TourComponent.js';
+import { DeveloperComponent } from './components/developer/DeveloperComponent.js';
 
 class ModLoadOrderManager {
     constructor() {
@@ -62,6 +63,7 @@ class ModLoadOrderManager {
         this.settingsComponent = new SettingsComponent(this);
         this.fileOperationsComponent = new FileOperationsComponent(this);
         this.tourComponent = new TourComponent(this);
+        this.developerComponent = new DeveloperComponent(this);
         
         this.init();
     }
@@ -176,6 +178,10 @@ class ModLoadOrderManager {
         
         if (this.fileOperationsComponent) {
             await this.fileOperationsComponent.init();
+        }
+        
+        if (this.developerComponent) {
+            await this.developerComponent.init();
         }
         
         document.addEventListener('click', (e) => {
@@ -452,6 +458,10 @@ class ModLoadOrderManager {
         
         if (this.fileOperationsComponent && this.fileOperationsComponent.updateLocalization) {
             this.fileOperationsComponent.updateLocalization();
+        }
+        
+        if (this.developerComponent && this.developerComponent.updateLocalization) {
+            this.developerComponent.updateLocalization();
         }
         
         if (this.elements.modalOkBtn) this.elements.modalOkBtn.textContent = t('ui.common.save');

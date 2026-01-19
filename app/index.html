@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="styles/profile.css">
     <link rel="stylesheet" href="styles/mod-list.css">
     <link rel="stylesheet" href="styles/file-operations.css">
-    <link rel="stylesheet" href="styles/bulk-operations.css">
+    <link rel="stylesheet" href="styles/actions.css">
     <link rel="stylesheet" href="styles/tour.css">
     <link rel="stylesheet" href="styles/themes/light.css">
     <link rel="stylesheet" href="styles/themes/dark.css">
@@ -111,21 +111,36 @@
         </div>
 
         <div class="right-container">
-            <div id="bulk-actions-panel" class="bulk-actions-frame">
-                <div class="bulk-actions-buttons tour-step">
-                    <button id="bulk-enable-btn" class="btn-icon" title="Enable selected">
-                        <i class="fas fa-check"></i>
-                    </button>
-                    <button id="bulk-disable-btn" class="btn-icon" title="Disable selected">
-                        <i class="fas fa-times"></i>
-                    </button>
-                    <button id="bulk-delete-btn" class="btn-icon" title="Delete selected">
-                        <i class="fas fa-trash"></i>
-                    </button>
+            <div class="actions-panel">
+                <div class="expert-mode-frame">
+                    <div class="dropdown">
+                        <button id="developer-btn" class="btn-icon" title="Developer tools">
+                            <i class="fas fa-code"></i>
+                        </button>
+                        <div id="developer-dropdown" class="dropdown-content">
+                            <button id="create-mod-btn" class="dropdown-item">
+                                <span>Create mod</span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <div class="bulk-actions-info">
-                    <span id="bulk-selection-count">0 mods selected</span>
+                <div id="bulk-actions-panel" class="bulk-actions-frame">
+                    <div class="bulk-actions-buttons tour-step">
+                        <button id="bulk-enable-btn" class="btn-icon" title="Enable selected">
+                            <i class="fas fa-check"></i>
+                        </button>
+                        <button id="bulk-disable-btn" class="btn-icon" title="Disable selected">
+                            <i class="fas fa-times"></i>
+                        </button>
+                        <button id="bulk-delete-btn" class="btn-icon" title="Delete selected">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                    <div class="bulk-actions-info">
+                        <span id="bulk-selection-count">0 mods selected</span>
+                    </div>
                 </div>
+                
             </div>
 
             <div class="search-panel tour-step">

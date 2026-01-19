@@ -135,6 +135,10 @@ export class SettingsComponent {
                 this.app.settingsManager.applySettings();
             }
             
+            if (this.app.developerComponent && this.app.developerComponent.updateVisibility) {
+                this.app.developerComponent.updateVisibility();
+            }
+            
             this.closeSettings();
             
             if (shouldRestartTour) {
