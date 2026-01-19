@@ -1,4 +1,6 @@
 .bulk-actions-frame {
+    display: flex;
+    flex-direction: column;
     padding: 0;
     margin-bottom: 10px;
     color: var(--text-primary);
@@ -9,6 +11,7 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    align-self: flex-end;
     gap: 2px;
     color: var(--text-primary);
 }
