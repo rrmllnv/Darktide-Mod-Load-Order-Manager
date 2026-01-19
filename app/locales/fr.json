@@ -61,7 +61,11 @@
             "oneDark": "One Dark",
             "gruvbox": "Gruvbox",
             "catppuccin": "Catppuccin",
-            "tokyoNight": "Tokyo Night"
+            "tokyoNight": "Tokyo Night",
+            "materialDark": "Material Dark",
+            "githubDark": "GitHub Dark",
+            "ayuDark": "Ayu Dark",
+            "monokai": "Monokai"
         },
         "profile": {
             "profiles": "Profils:",

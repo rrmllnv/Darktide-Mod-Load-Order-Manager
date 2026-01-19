@@ -1,0 +1,47 @@
+body.theme-material-dark {
+    --bg-primary: #212121;
+    --bg-secondary: #303030;
+    --bg-tertiary: #424242;
+    --bg-hover: #424242;
+    --bg-active: #616161;
+    --bg-selected: #1976d2;
+    --bg-disabled: #1e1e1e;
+    
+    --border-primary: #424242;
+    --border-secondary: #616161;
+    --border-selected: #64b5f6;
+    
+    --text-primary: #ffffff;
+    --text-secondary: #b0b0b0;
+    --text-disabled: #757575;
+    
+    --btn-bg: #303030;
+    --btn-bg-hover: #424242;
+    --btn-bg-active: #616161;
+    --btn-primary-bg: #1976d2;
+    --btn-primary-bg-hover: #1565c0;
+    
+    --modal-bg: #303030;
+    --modal-header-bg: #424242;
+    
+    --scrollbar-track: #212121;
+    --scrollbar-thumb: #616161;
+    --scrollbar-thumb-hover: #757575;
+    
+    --bulk-actions-bg: #303030;
+    --bulk-actions-border: #616161;
+    --bulk-actions-text: #ffffff;
+    
+    --bg-selected-no-focus-dark: #1976d2;
+    --text-selected-no-focus-dark: #ffffff;
+    
+    --select-bg: #303030;
+    --select-option-bg: #303030;
+    --input-bg: #303030;
+    
+    --flag-new-color: #64b5f6;
+    --flag-not-found-color: #e57373;
+    --flag-symlink-color: #ba68c8;
+    --status-enabled-color: #81c784;
+    --status-disabled-color: #e57373;
+}

@@ -14,7 +14,11 @@ export class ThemeComponent {
             { id: 'one-dark', name: 'one-dark', cssClass: 'theme-one-dark', localizationKey: 'ui.theme.oneDark' },
             { id: 'gruvbox', name: 'gruvbox', cssClass: 'theme-gruvbox', localizationKey: 'ui.theme.gruvbox' },
             { id: 'catppuccin', name: 'catppuccin', cssClass: 'theme-catppuccin', localizationKey: 'ui.theme.catppuccin' },
-            { id: 'tokyo-night', name: 'tokyo-night', cssClass: 'theme-tokyo-night', localizationKey: 'ui.theme.tokyoNight' }
+            { id: 'tokyo-night', name: 'tokyo-night', cssClass: 'theme-tokyo-night', localizationKey: 'ui.theme.tokyoNight' },
+            { id: 'material-dark', name: 'material-dark', cssClass: 'theme-material-dark', localizationKey: 'ui.theme.materialDark' },
+            { id: 'github-dark', name: 'github-dark', cssClass: 'theme-github-dark', localizationKey: 'ui.theme.githubDark' },
+            { id: 'ayu-dark', name: 'ayu-dark', cssClass: 'theme-ayu-dark', localizationKey: 'ui.theme.ayuDark' },
+            { id: 'monokai', name: 'monokai', cssClass: 'theme-monokai', localizationKey: 'ui.theme.monokai' }
         ];
     }
     

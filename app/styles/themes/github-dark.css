@@ -1,0 +1,47 @@
+body.theme-github-dark {
+    --bg-primary: #0d1117;
+    --bg-secondary: #161b22;
+    --bg-tertiary: #21262d;
+    --bg-hover: #21262d;
+    --bg-active: #30363d;
+    --bg-selected: #1f6feb;
+    --bg-disabled: #0a0d12;
+    
+    --border-primary: #30363d;
+    --border-secondary: #21262d;
+    --border-selected: #58a6ff;
+    
+    --text-primary: #c9d1d9;
+    --text-secondary: #8b949e;
+    --text-disabled: #6e7681;
+    
+    --btn-bg: #21262d;
+    --btn-bg-hover: #30363d;
+    --btn-bg-active: #484f58;
+    --btn-primary-bg: #238636;
+    --btn-primary-bg-hover: #2ea043;
+    
+    --modal-bg: #161b22;
+    --modal-header-bg: #21262d;
+    
+    --scrollbar-track: #0d1117;
+    --scrollbar-thumb: #30363d;
+    --scrollbar-thumb-hover: #484f58;
+    
+    --bulk-actions-bg: #161b22;
+    --bulk-actions-border: #30363d;
+    --bulk-actions-text: #c9d1d9;
+    
+    --bg-selected-no-focus-dark: #1f6feb;
+    --text-selected-no-focus-dark: #c9d1d9;
+    
+    --select-bg: #161b22;
+    --select-option-bg: #161b22;
+    --input-bg: #161b22;
+    
+    --flag-new-color: #58a6ff;
+    --flag-not-found-color: #f85149;
+    --flag-symlink-color: #bc8cff;
+    --status-enabled-color: #3fb950;
+    --status-disabled-color: #f85149;
+}

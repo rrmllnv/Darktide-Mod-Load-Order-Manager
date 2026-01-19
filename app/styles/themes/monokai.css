@@ -1,0 +1,47 @@
+body.theme-monokai {
+    --bg-primary: #272822;
+    --bg-secondary: #3e3d32;
+    --bg-tertiary: #49483e;
+    --bg-hover: #49483e;
+    --bg-active: #75715e;
+    --bg-selected: #49483e;
+    --bg-disabled: #1e1f1c;
+    
+    --border-primary: #75715e;
+    --border-secondary: #a59f85;
+    --border-selected: #a6e22e;
+    
+    --text-primary: #f8f8f2;
+    --text-secondary: #cfcfc2;
+    --text-disabled: #75715e;
+    
+    --btn-bg: #3e3d32;
+    --btn-bg-hover: #49483e;
+    --btn-bg-active: #75715e;
+    --btn-primary-bg: #a6e22e;
+    --btn-primary-bg-hover: #b8e63e;
+    
+    --modal-bg: #3e3d32;
+    --modal-header-bg: #49483e;
+    
+    --scrollbar-track: #272822;
+    --scrollbar-thumb: #75715e;
+    --scrollbar-thumb-hover: #a59f85;
+    
+    --bulk-actions-bg: #3e3d32;
+    --bulk-actions-border: #a59f85;
+    --bulk-actions-text: #f8f8f2;
+    
+    --bg-selected-no-focus-dark: #49483e;
+    --text-selected-no-focus-dark: #f8f8f2;
+    
+    --select-bg: #3e3d32;
+    --select-option-bg: #3e3d32;
+    --input-bg: #3e3d32;
+    
+    --flag-new-color: #66d9ef;
+    --flag-not-found-color: #f92672;
+    --flag-symlink-color: #ae81ff;
+    --status-enabled-color: #a6e22e;
+    --status-disabled-color: #f92672;
+}
