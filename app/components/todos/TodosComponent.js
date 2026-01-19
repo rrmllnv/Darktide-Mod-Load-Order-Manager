@@ -332,6 +332,11 @@ export class TodosComponent {
             return;
         }
         
+        const confirmed = await this.app.uiManager.showConfirm('Are you sure you want to delete this task?');
+        if (!confirmed) {
+            return;
+        }
+        
         try {
             const result = await window.electronAPI.deleteTodo(this.todosDir, modName, todoId);
             if (result.success) {
@@ -521,6 +526,9 @@ export class TodosComponent {
                     this.toggleTodo(todo.id);
                 });
                 
+                const todoTextWrapper = document.createElement('div');
+                todoTextWrapper.className = 'todo-text-wrapper';
+                
                 const todoText = document.createElement('div');
                 todoText.className = 'todo-text';
                 todoText.textContent = todo.text;
@@ -549,9 +557,11 @@ export class TodosComponent {
                 todoActions.appendChild(todoEdit);
                 todoActions.appendChild(todoDelete);
                 
+                todoTextWrapper.appendChild(todoText);
+                todoTextWrapper.appendChild(todoActions);
+                
                 todoItem.appendChild(todoCheckbox);
-                todoItem.appendChild(todoText);
-                todoItem.appendChild(todoActions);
+                todoItem.appendChild(todoTextWrapper);
                 
                 todosList.appendChild(todoItem);
                 
