@@ -299,9 +299,9 @@ export class DeveloperComponent {
             searchFilters.style.display = isEnabled ? 'none' : '';
         }
         
-        const infoPanel = document.querySelector('.info-panel');
-        if (infoPanel) {
-            infoPanel.style.display = isEnabled ? 'none' : '';
+        const profilesFrame = document.querySelector('.profiles-frame');
+        if (profilesFrame) {
+            profilesFrame.style.display = isEnabled ? 'none' : '';
         }
         
         const saveBtn = document.getElementById('save-btn');
