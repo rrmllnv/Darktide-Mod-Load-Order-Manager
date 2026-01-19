@@ -24,7 +24,8 @@
             "contextMenuEnable": "有効化",
             "contextMenuDisable": "無効化",
             "contextMenuCopyName": "名前をコピー",
-            "contextMenuDelete": "削除",
+            "contextMenuDeleteFromFile": "ファイルから削除",
+            "contextMenuDeleteFolder": "MODフォルダを削除",
             "languageNames": {
                 "en": "英語",
                 "ru": "ロシア語",

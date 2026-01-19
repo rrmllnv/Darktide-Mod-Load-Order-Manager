@@ -105,6 +105,7 @@ class ModLoadOrderManager {
             contextMenuDisable: document.getElementById('context-menu-disable'),
             contextMenuCopy: document.getElementById('context-menu-copy'),
             contextMenuDelete: document.getElementById('context-menu-delete'),
+            contextMenuDeleteFolder: document.getElementById('context-menu-delete-folder'),
             contextMenuDevCopyMod: document.getElementById('context-menu-dev-copy-mod'),
             contextMenuDevCreateSymlink: document.getElementById('context-menu-dev-create-symlink'),
             contextMenuDevCopyName: document.getElementById('context-menu-dev-copy-name'),
@@ -263,6 +264,16 @@ class ModLoadOrderManager {
                     const modName = this.contextMenuModName;
                     this.hideContextMenu();
                     await this.modListComponent.deleteMod(modName);
+                }
+            });
+        }
+        
+        if (this.elements.contextMenuDeleteFolder) {
+            this.elements.contextMenuDeleteFolder.addEventListener('click', async () => {
+                const modName = this.contextMenuModName;
+                if (modName && this.modListComponent) {
+                    this.hideContextMenu();
+                    await this.modListComponent.deleteModFolder(modName);
                 }
             });
         }
@@ -647,7 +658,10 @@ class ModLoadOrderManager {
                 this.elements.contextMenuCopy.querySelector('span').textContent = this.t('ui.common.contextMenuCopyName');
             }
             if (this.elements.contextMenuDelete && this.elements.contextMenuDelete.querySelector('span')) {
-                this.elements.contextMenuDelete.querySelector('span').textContent = this.t('ui.common.contextMenuDelete');
+                this.elements.contextMenuDelete.querySelector('span').textContent = this.t('ui.common.contextMenuDeleteFromFile');
+            }
+            if (this.elements.contextMenuDeleteFolder && this.elements.contextMenuDeleteFolder.querySelector('span')) {
+                this.elements.contextMenuDeleteFolder.querySelector('span').textContent = this.t('ui.common.contextMenuDeleteFolder');
             }
         }
         

@@ -24,7 +24,8 @@
             "contextMenuEnable": "Включить",
             "contextMenuDisable": "Выключить",
             "contextMenuCopyName": "Скопировать название",
-            "contextMenuDelete": "Удалить",
+            "contextMenuDeleteFromFile": "Удалить из файла",
+            "contextMenuDeleteFolder": "Удалить папку мода",
             "languageNames": {
                 "en": "Английский",
                 "ru": "Русский",

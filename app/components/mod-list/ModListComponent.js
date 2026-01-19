@@ -653,6 +653,90 @@ export class ModListComponent {
         }
     }
     
+    async deleteModFolder(modName) {
+        if (!modName) {
+            if (this.app.uiManager && this.app.uiManager.showMessage) {
+                await this.app.uiManager.showMessage(
+                    this.app.t('messages.common.error'),
+                    this.app.t('messages.developer.noModSelected')
+                );
+            }
+            return;
+        }
+        
+        const modsDir = this.app.filePath ? this.app.filePath.substring(0, this.app.filePath.lastIndexOf('\\')) : '';
+        if (!modsDir) {
+            if (this.app.uiManager && this.app.uiManager.showMessage) {
+                await this.app.uiManager.showMessage(
+                    this.app.t('messages.common.error'),
+                    this.app.t('messages.common.failedToDetermineModsDir')
+                );
+            }
+            return;
+        }
+        
+        const modPath = `${modsDir}\\${modName}`;
+        const isDirectory = await window.electronAPI.checkIsDirectory(modPath);
+        
+        if (!isDirectory) {
+            if (this.app.uiManager && this.app.uiManager.showMessage) {
+                await this.app.uiManager.showMessage(
+                    this.app.t('messages.common.error'),
+                    this.app.t('messages.developer.modNotFoundInProject')
+                );
+            }
+            return;
+        }
+        
+        if (this.app.uiManager && this.app.uiManager.showConfirm) {
+            const confirmed = await this.app.uiManager.showConfirm(
+                this.app.t('messages.developer.deleteModFolderConfirm', { modName, modPath })
+            );
+            if (!confirmed) {
+                return;
+            }
+        }
+        
+        try {
+            const deleteResult = await window.electronAPI.deleteFolder(modPath);
+            if (deleteResult.success) {
+                if (this.app.uiManager && this.app.uiManager.showMessage) {
+                    await this.app.uiManager.showMessage(
+                        this.app.t('messages.common.success'),
+                        this.app.t('messages.developer.modFolderDeleted', { modName })
+                    );
+                }
+                
+                if (this.app.modScanService) {
+                    const scanResult = await this.app.modScanService.scanModsDirectory(this.app.modEntries, this.app.selectedModName);
+                    if (scanResult) {
+                        this.updateModList();
+                        if (this.app.updateStatistics) {
+                            this.app.updateStatistics();
+                        }
+                    }
+                }
+            } else {
+                const errorMessage = deleteResult.error || this.app.t('messages.developer.modFolderDeleteError');
+                if (this.app.uiManager && this.app.uiManager.showMessage) {
+                    await this.app.uiManager.showMessage(
+                        this.app.t('messages.common.error'),
+                        `${this.app.t('messages.developer.modFolderDeleteError')}\n\n${errorMessage}\n\nМод: ${modName}\nПуть: ${modPath}`
+                    );
+                }
+            }
+        } catch (error) {
+            console.error('Error deleting mod folder:', error);
+            const errorPath = modPath || 'неизвестно';
+            if (this.app.uiManager && this.app.uiManager.showMessage) {
+                await this.app.uiManager.showMessage(
+                    this.app.t('messages.common.error'),
+                    `${this.app.t('messages.developer.modFolderDeleteError')}\n\n${error.message || String(error)}\n\nМод: ${modName}\nПуть: ${errorPath}`
+                );
+            }
+        }
+    }
+    
     bulkSelectEnabled() {
         this.app.selectedModNames.clear();
         this.app.selectedModName = '';

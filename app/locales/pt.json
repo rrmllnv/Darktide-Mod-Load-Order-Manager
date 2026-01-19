@@ -24,7 +24,8 @@
             "contextMenuEnable": "Ativar",
             "contextMenuDisable": "Desativar",
             "contextMenuCopyName": "Copiar nome",
-            "contextMenuDelete": "Excluir",
+            "contextMenuDeleteFromFile": "Excluir do arquivo",
+            "contextMenuDeleteFolder": "Excluir pasta do mod",
             "languageNames": {
                 "en": "Inglês",
                 "ru": "Russo",
