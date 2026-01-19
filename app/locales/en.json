@@ -143,6 +143,7 @@
             "noTodos": "No todos",
             "edit": "Edit",
             "delete": "Delete",
+            "dragToReorder": "Drag to reorder",
             "pleaseSelectMod": "Please select a mod first"
         },
         "developer": {

@@ -684,7 +684,7 @@ export class TodosComponent {
                 const todoDrag = document.createElement('div');
                 todoDrag.className = 'todo-drag';
                 todoDrag.innerHTML = '<i class="fas fa-grip-vertical"></i>';
-                todoDrag.title = 'Drag to reorder';
+                todoDrag.title = this.t('ui.todos.dragToReorder');
                 todoDrag.style.cursor = 'grab';
                 
                 todoActions.appendChild(todoEdit);

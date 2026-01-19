@@ -144,6 +144,7 @@
             "noTodos": "タスクなし",
             "edit": "編集",
             "delete": "削除",
+            "dragToReorder": "ドラッグして並び替え",
             "pleaseSelectMod": "まずMODを選択してください"
         },
         "developer": {

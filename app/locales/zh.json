@@ -144,6 +144,7 @@
             "noTodos": "无任务",
             "edit": "编辑",
             "delete": "删除",
+            "dragToReorder": "拖拽以重新排序",
             "pleaseSelectMod": "请先选择一个模组"
         },
         "developer": {

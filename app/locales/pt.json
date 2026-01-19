@@ -144,6 +144,7 @@
             "noTodos": "Sem tarefas",
             "edit": "Editar",
             "delete": "Excluir",
+            "dragToReorder": "Arrastar para reordenar",
             "pleaseSelectMod": "Por favor, selecione um mod primeiro"
         },
         "developer": {

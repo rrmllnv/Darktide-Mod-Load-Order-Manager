@@ -144,6 +144,7 @@
             "noTodos": "Nessuna attività",
             "edit": "Modifica",
             "delete": "Elimina",
+            "dragToReorder": "Trascina per riordinare",
             "pleaseSelectMod": "Seleziona prima un mod"
         },
         "developer": {

@@ -144,6 +144,7 @@
             "noTodos": "Keine Aufgaben",
             "edit": "Bearbeiten",
             "delete": "Löschen",
+            "dragToReorder": "Zum Sortieren ziehen",
             "pleaseSelectMod": "Bitte wählen Sie zuerst einen Mod aus"
         },
         "developer": {
