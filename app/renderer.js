@@ -547,6 +547,42 @@ class ModLoadOrderManager {
                 }
             }
         });
+        
+        const adjustRightPanelWidth = () => {
+            const mainContainer = document.querySelector('.main-container');
+            const leftPanel = document.querySelector('.left-panel');
+            const resizerWidth = 4;
+            const containerPadding = 20;
+            
+            if (!mainContainer || !leftPanel || !rightContainer) {
+                return;
+            }
+            
+            const containerWidth = mainContainer.offsetWidth;
+            const leftPanelMinWidth = parseInt(window.getComputedStyle(leftPanel).minWidth) || 570;
+            const currentRightWidth = parseInt(rightContainer.style.width) || rightContainer.offsetWidth || 300;
+            const maxWidth = containerWidth - leftPanelMinWidth - resizerWidth - containerPadding;
+            const minWidth = 250;
+            
+            if (currentRightWidth > maxWidth) {
+                const newWidth = Math.max(minWidth, maxWidth);
+                rightContainer.style.width = newWidth + 'px';
+                this.rightPanelWidth = newWidth;
+                if (this.configManager) {
+                    this.configManager.saveUserConfig();
+                }
+            } else if (currentRightWidth < minWidth) {
+                rightContainer.style.width = minWidth + 'px';
+                this.rightPanelWidth = minWidth;
+                if (this.configManager) {
+                    this.configManager.saveUserConfig();
+                }
+            }
+        };
+        
+        window.addEventListener('resize', adjustRightPanelWidth);
+        
+        setTimeout(adjustRightPanelWidth, 100);
     }
     
     async applyLocalization() {
