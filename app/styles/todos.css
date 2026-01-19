@@ -143,6 +143,11 @@
     line-height: 1.4;
     cursor: pointer;
     transition: max-height 0.2s ease;
+    white-space: normal !important;
+}
+
+.todo-text-line-breaks {
+    white-space: pre-wrap !important;
 }
 
 .todo-text-collapsed {

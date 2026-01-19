@@ -441,6 +441,18 @@ export class TodosComponent {
         });
     }
     
+    collapseAllLineBreaks() {
+        const todosList = document.getElementById('todos-list');
+        if (!todosList) {
+            return;
+        }
+        
+        const allTodoTexts = todosList.querySelectorAll('.todo-text.todo-text-line-breaks');
+        allTodoTexts.forEach(textElement => {
+            textElement.classList.remove('todo-text-line-breaks');
+        });
+    }
+    
     renderTodos() {
         const todosList = document.getElementById('todos-list');
         if (!todosList) {
@@ -576,23 +588,37 @@ export class TodosComponent {
                         todoText.classList.add('todo-text-collapsed');
                     }
                     
-                    if (needsCollapse) {
-                        todoText.addEventListener('click', (e) => {
-                            e.stopPropagation();
-                            if (e.target === todoText || todoText.contains(e.target)) {
-                                const wasCollapsed = todoText.classList.contains('todo-text-collapsed');
-                                
-                                if (wasCollapsed) {
-                                    this.collapseAllTodos();
-                                    this.expandedTodos.add(todo.id);
-                                    todoText.classList.remove('todo-text-collapsed');
-                                } else {
-                                    this.expandedTodos.delete(todo.id);
-                                    todoText.classList.add('todo-text-collapsed');
-                                }
+                    todoItem.addEventListener('click', (e) => {
+                        if (e.target.closest('.todo-checkbox') || e.target.closest('.todo-actions')) {
+                            return;
+                        }
+                        
+                        e.stopPropagation();
+                        
+                        if (todo.text.includes('\n')) {
+                            const hasLineBreaksClass = todoText.classList.contains('todo-text-line-breaks');
+                            
+                            if (hasLineBreaksClass) {
+                                todoText.classList.remove('todo-text-line-breaks');
+                            } else {
+                                this.collapseAllLineBreaks();
+                                todoText.classList.add('todo-text-line-breaks');
                             }
-                        });
-                    }
+                        }
+                        
+                        if (needsCollapse) {
+                            const wasCollapsed = todoText.classList.contains('todo-text-collapsed');
+                            
+                            if (wasCollapsed) {
+                                this.collapseAllTodos();
+                                this.expandedTodos.add(todo.id);
+                                todoText.classList.remove('todo-text-collapsed');
+                            } else {
+                                this.expandedTodos.delete(todo.id);
+                                todoText.classList.add('todo-text-collapsed');
+                            }
+                        }
+                    });
                     
                     todoText.addEventListener('dblclick', (e) => {
                         e.stopPropagation();
