@@ -20,7 +20,8 @@ export class ConfigManager {
             profilesListSize: 6,
             developerMode: false,
             projectPath: '',
-            developerViewMode: false
+            developerViewMode: false,
+            todosShowOnlyActive: false
         };
     }
     
@@ -49,6 +50,9 @@ export class ConfigManager {
             this.app.userConfig.hideNewMods = this.app.hideNewMods;
             this.app.userConfig.hideNotFoundMods = this.app.hideNotFoundMods;
             this.app.userConfig.hideUnusedMods = this.app.hideUnusedMods;
+            if (this.app.todosShowOnlyActive !== undefined) {
+                this.app.userConfig.todosShowOnlyActive = this.app.todosShowOnlyActive;
+            }
             
             const result = await window.electronAPI.saveUserConfig(this.app.userConfig);
             if (!result.success) {

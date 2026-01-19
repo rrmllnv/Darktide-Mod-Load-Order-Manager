@@ -11,9 +11,20 @@ export class TodosComponent {
     
     async init() {
         await this.initTodosDirectory();
+        this.loadState();
         this.bindEvents();
         await this.loadTodos();
         this.updateLocalization();
+    }
+    
+    loadState() {
+        if (this.app.userConfig && this.app.userConfig.todosShowOnlyActive !== undefined) {
+            this.showOnlyActive = this.app.userConfig.todosShowOnlyActive;
+            const todosFilterActive = document.getElementById('todos-filter-active');
+            if (todosFilterActive) {
+                todosFilterActive.checked = this.showOnlyActive;
+            }
+        }
     }
     
     updateLocalization() {
@@ -67,6 +78,14 @@ export class TodosComponent {
         if (todosFilterActive) {
             todosFilterActive.addEventListener('change', () => {
                 this.showOnlyActive = todosFilterActive.checked;
+                if (this.app.todosShowOnlyActive !== undefined) {
+                    this.app.todosShowOnlyActive = this.showOnlyActive;
+                } else {
+                    this.app.todosShowOnlyActive = this.showOnlyActive;
+                }
+                if (this.app.configManager) {
+                    this.app.configManager.saveUserConfig();
+                }
                 this.renderTodos();
             });
         }
