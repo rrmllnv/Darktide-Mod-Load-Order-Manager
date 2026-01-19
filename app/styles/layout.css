@@ -2,7 +2,7 @@
     display: flex;
     flex: 1;
     padding: 10px;
-    gap: 10px;
+    gap: 0;
     overflow: hidden;
     background-color: var(--bg-primary);
     color: var(--text-primary);
@@ -12,7 +12,8 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    min-width: 0;
+    min-width: 570px;
+    overflow: hidden;
     color: var(--text-primary);
 }
 
@@ -151,12 +152,34 @@
     margin-left: 2px;
 }
 
+.resizer {
+    width: 4px;
+    background-color: transparent;
+    cursor: col-resize;
+    flex-shrink: 0;
+    user-select: none;
+    transition: background-color 0.2s;
+}
+
+.resizer:hover {
+    background-color: var(--btn-primary-bg);
+    opacity: 0.5;
+}
+
+.resizer.resizing {
+    background-color: var(--btn-primary-bg);
+    opacity: 1;
+}
+
 .right-container {
     width: 300px;
+    min-width: 250px;
+    max-width: 50%;
     display: flex;
     flex-direction: column;
     gap: 5px;
     color: var(--text-primary);
+    flex-shrink: 0;
 }
 
 .save-frame {

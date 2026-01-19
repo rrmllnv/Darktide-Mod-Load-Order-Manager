@@ -196,6 +196,8 @@ class ModLoadOrderManager {
             await this.todosComponent.init();
         }
         
+        this.initPanelResizer();
+        
         document.addEventListener('click', (e) => {
             if (e.target.closest('#input-dialog') || 
                 e.target.closest('.modal') || 
@@ -476,6 +478,75 @@ class ModLoadOrderManager {
         if (this.bulkOperationsComponent && this.bulkOperationsComponent.updatePanel) {
             this.bulkOperationsComponent.updatePanel();
         }
+    }
+    
+    initPanelResizer() {
+        const resizer = document.getElementById('panel-resizer');
+        const rightContainer = document.querySelector('.right-container');
+        
+        if (!resizer || !rightContainer) {
+            return;
+        }
+        
+        if (this.userConfig && this.userConfig.rightPanelWidth !== undefined) {
+            rightContainer.style.width = this.userConfig.rightPanelWidth + 'px';
+            this.rightPanelWidth = this.userConfig.rightPanelWidth;
+        } else {
+            this.rightPanelWidth = 300;
+        }
+        
+        let isResizing = false;
+        let startX = 0;
+        let startWidth = 0;
+        
+        resizer.addEventListener('mousedown', (e) => {
+            isResizing = true;
+            startX = e.clientX;
+            startWidth = rightContainer.offsetWidth;
+            resizer.classList.add('resizing');
+            document.body.style.cursor = 'col-resize';
+            document.body.style.userSelect = 'none';
+            e.preventDefault();
+        });
+        
+        document.addEventListener('mousemove', (e) => {
+            if (!isResizing) {
+                return;
+            }
+            
+            const diff = startX - e.clientX;
+            const newWidth = startWidth + diff;
+            const minWidth = 250;
+            
+            const mainContainer = document.querySelector('.main-container');
+            const leftPanel = document.querySelector('.left-panel');
+            const resizerWidth = 4;
+            const containerPadding = 20;
+            
+            if (mainContainer && leftPanel) {
+                const containerWidth = mainContainer.offsetWidth;
+                const leftPanelMinWidth = parseInt(window.getComputedStyle(leftPanel).minWidth) || 570;
+                const maxWidth = containerWidth - leftPanelMinWidth - resizerWidth - containerPadding;
+                
+                if (newWidth >= minWidth && newWidth <= maxWidth) {
+                    rightContainer.style.width = newWidth + 'px';
+                    this.rightPanelWidth = newWidth;
+                }
+            }
+        });
+        
+        document.addEventListener('mouseup', () => {
+            if (isResizing) {
+                isResizing = false;
+                resizer.classList.remove('resizing');
+                document.body.style.cursor = '';
+                document.body.style.userSelect = '';
+                
+                if (this.configManager) {
+                    this.configManager.saveUserConfig();
+                }
+            }
+        });
     }
     
     async applyLocalization() {
