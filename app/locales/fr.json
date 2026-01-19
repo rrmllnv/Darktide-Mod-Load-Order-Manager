@@ -142,6 +142,7 @@
             "devView": "Mode développement",
             "selectAll": "Tout sélectionner",
             "scan": "Scanner les mods",
+            "openProjectFolder": "Ouvrir le dossier du projet",
             "copyMod": "Copier le mod dans le dossier des mods du jeu",
             "createSymlink": "Créer un lien symbolique dans le dossier des mods du jeu",
             "deleteModFolder": "Supprimer le dossier du mod"

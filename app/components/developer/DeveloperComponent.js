@@ -51,6 +51,13 @@ export class DeveloperComponent {
             });
         }
         
+        const devOpenProjectFolderBtn = document.getElementById('dev-open-project-folder-btn');
+        if (devOpenProjectFolderBtn) {
+            devOpenProjectFolderBtn.addEventListener('click', async () => {
+                await this.openProjectFolder();
+            });
+        }
+        
         const devCopyModBtn = document.getElementById('dev-copy-mod-btn');
         if (devCopyModBtn) {
             devCopyModBtn.addEventListener('click', async () => {
@@ -297,6 +304,11 @@ export class DeveloperComponent {
             devCreateModBtn.title = this.t('ui.developer.createMod');
         }
         
+        const devOpenProjectFolderBtn = document.getElementById('dev-open-project-folder-btn');
+        if (devOpenProjectFolderBtn) {
+            devOpenProjectFolderBtn.title = this.t('ui.developer.openProjectFolder');
+        }
+        
         const devCopyModBtn = document.getElementById('dev-copy-mod-btn');
         if (devCopyModBtn) {
             devCopyModBtn.title = this.t('ui.developer.copyMod');
@@ -502,6 +514,42 @@ export class DeveloperComponent {
                 await this.app.uiManager.showMessage(
                     this.app.t('messages.common.error'),
                     error.message || this.app.t('messages.developer.symlinkCreationError')
+                );
+            }
+        }
+    }
+    
+    async openProjectFolder() {
+        if (!this.app.userConfig || !this.app.userConfig.developerMode) {
+            return;
+        }
+        
+        if (!this.app.userConfig.projectPath) {
+            if (this.app.uiManager && this.app.uiManager.showMessage) {
+                await this.app.uiManager.showMessage(
+                    this.app.t('messages.common.error'),
+                    this.app.t('messages.developer.projectPathNotSet')
+                );
+            }
+            return;
+        }
+        
+        try {
+            const result = await window.electronAPI.openFolder(this.app.userConfig.projectPath);
+            if (!result.success && result.error) {
+                if (this.app.uiManager && this.app.uiManager.showMessage) {
+                    await this.app.uiManager.showMessage(
+                        this.app.t('messages.common.error'),
+                        result.error
+                    );
+                }
+            }
+        } catch (error) {
+            console.error('Error opening project folder:', error);
+            if (this.app.uiManager && this.app.uiManager.showMessage) {
+                await this.app.uiManager.showMessage(
+                    this.app.t('messages.common.error'),
+                    error.message || String(error)
                 );
             }
         }
