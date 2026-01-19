@@ -654,6 +654,26 @@ class ModLoadOrderManager {
         this.elements.contextMenu.style.left = `${x}px`;
         this.elements.contextMenu.style.top = `${y}px`;
         this.elements.contextMenu.classList.add('show');
+        
+        const menuRect = this.elements.contextMenu.getBoundingClientRect();
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
+        
+        let adjustedX = x;
+        let adjustedY = y;
+        
+        if (menuRect.right > windowWidth) {
+            adjustedX = windowWidth - menuRect.width - 5;
+        }
+        
+        if (menuRect.bottom > windowHeight) {
+            adjustedY = windowHeight - menuRect.height - 5;
+        }
+        
+        if (adjustedX !== x || adjustedY !== y) {
+            this.elements.contextMenu.style.left = `${adjustedX}px`;
+            this.elements.contextMenu.style.top = `${adjustedY}px`;
+        }
     }
     
     hideContextMenu() {
