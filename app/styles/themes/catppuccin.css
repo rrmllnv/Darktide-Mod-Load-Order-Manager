@@ -1,0 +1,47 @@
+body.theme-catppuccin {
+    --bg-primary: #1e1e2e;
+    --bg-secondary: #313244;
+    --bg-tertiary: #45475a;
+    --bg-hover: #45475a;
+    --bg-active: #585b70;
+    --bg-selected: #1e66f5;
+    --bg-disabled: #181825;
+    
+    --border-primary: #45475a;
+    --border-secondary: #585b70;
+    --border-selected: #89b4fa;
+    
+    --text-primary: #cdd6f4;
+    --text-secondary: #bac2de;
+    --text-disabled: #6c7086;
+    
+    --btn-bg: #313244;
+    --btn-bg-hover: #45475a;
+    --btn-bg-active: #585b70;
+    --btn-primary-bg: #1e66f5;
+    --btn-primary-bg-hover: #3584e4;
+    
+    --modal-bg: #313244;
+    --modal-header-bg: #45475a;
+    
+    --scrollbar-track: #1e1e2e;
+    --scrollbar-thumb: #45475a;
+    --scrollbar-thumb-hover: #585b70;
+    
+    --bulk-actions-bg: #313244;
+    --bulk-actions-border: #585b70;
+    --bulk-actions-text: #cdd6f4;
+    
+    --bg-selected-no-focus-dark: #1e66f5;
+    --text-selected-no-focus-dark: #cdd6f4;
+    
+    --select-bg: #313244;
+    --select-option-bg: #313244;
+    --input-bg: #313244;
+    
+    --flag-new-color: #89b4fa;
+    --flag-not-found-color: #f38ba8;
+    --flag-symlink-color: #cba6f7;
+    --status-enabled-color: #a6e3a1;
+    --status-disabled-color: #f38ba8;
+}

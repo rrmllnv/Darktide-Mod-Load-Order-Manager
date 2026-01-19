@@ -10,7 +10,11 @@ export class ThemeComponent {
             { id: 'blue-light', name: 'blue-light', cssClass: 'theme-blue-light', localizationKey: 'ui.theme.blueLight' },
             { id: 'nord', name: 'nord', cssClass: 'theme-nord', localizationKey: 'ui.theme.nord' },
             { id: 'dracula', name: 'dracula', cssClass: 'theme-dracula', localizationKey: 'ui.theme.dracula' },
-            { id: 'solarized', name: 'solarized', cssClass: 'theme-solarized', localizationKey: 'ui.theme.solarized' }
+            { id: 'solarized', name: 'solarized', cssClass: 'theme-solarized', localizationKey: 'ui.theme.solarized' },
+            { id: 'one-dark', name: 'one-dark', cssClass: 'theme-one-dark', localizationKey: 'ui.theme.oneDark' },
+            { id: 'gruvbox', name: 'gruvbox', cssClass: 'theme-gruvbox', localizationKey: 'ui.theme.gruvbox' },
+            { id: 'catppuccin', name: 'catppuccin', cssClass: 'theme-catppuccin', localizationKey: 'ui.theme.catppuccin' },
+            { id: 'tokyo-night', name: 'tokyo-night', cssClass: 'theme-tokyo-night', localizationKey: 'ui.theme.tokyoNight' }
         ];
     }
     

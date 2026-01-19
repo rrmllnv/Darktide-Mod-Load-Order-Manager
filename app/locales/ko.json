@@ -57,7 +57,11 @@
             "blueLight": "블루 라이트 필터",
             "nord": "Nord",
             "dracula": "Dracula",
-            "solarized": "Solarized"
+            "solarized": "Solarized",
+            "oneDark": "One Dark",
+            "gruvbox": "Gruvbox",
+            "catppuccin": "Catppuccin",
+            "tokyoNight": "Tokyo Night"
         },
         "profile": {
             "profiles": "프로필:",

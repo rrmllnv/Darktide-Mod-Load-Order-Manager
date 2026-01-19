@@ -57,7 +57,11 @@
             "blueLight": "蓝光过滤",
             "nord": "Nord",
             "dracula": "Dracula",
-            "solarized": "Solarized"
+            "solarized": "Solarized",
+            "oneDark": "One Dark",
+            "gruvbox": "Gruvbox",
+            "catppuccin": "Catppuccin",
+            "tokyoNight": "Tokyo Night"
         },
         "profile": {
             "profiles": "配置文件:",

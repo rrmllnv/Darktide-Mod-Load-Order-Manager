@@ -1,0 +1,47 @@
+body.theme-tokyo-night {
+    --bg-primary: #1a1b26;
+    --bg-secondary: #24283b;
+    --bg-tertiary: #2f3549;
+    --bg-hover: #2f3549;
+    --bg-active: #3b4261;
+    --bg-selected: #2e3a5b;
+    --bg-disabled: #16161e;
+    
+    --border-primary: #3b4261;
+    --border-secondary: #414868;
+    --border-selected: #7aa2f7;
+    
+    --text-primary: #c0caf5;
+    --text-secondary: #a9b1d6;
+    --text-disabled: #565f89;
+    
+    --btn-bg: #24283b;
+    --btn-bg-hover: #2f3549;
+    --btn-bg-active: #3b4261;
+    --btn-primary-bg: #7aa2f7;
+    --btn-primary-bg-hover: #9d7cd8;
+    
+    --modal-bg: #24283b;
+    --modal-header-bg: #2f3549;
+    
+    --scrollbar-track: #1a1b26;
+    --scrollbar-thumb: #3b4261;
+    --scrollbar-thumb-hover: #414868;
+    
+    --bulk-actions-bg: #24283b;
+    --bulk-actions-border: #414868;
+    --bulk-actions-text: #c0caf5;
+    
+    --bg-selected-no-focus-dark: #2e3a5b;
+    --text-selected-no-focus-dark: #c0caf5;
+    
+    --select-bg: #24283b;
+    --select-option-bg: #24283b;
+    --input-bg: #24283b;
+    
+    --flag-new-color: #7aa2f7;
+    --flag-not-found-color: #f7768e;
+    --flag-symlink-color: #bb9af7;
+    --status-enabled-color: #9ece6a;
+    --status-disabled-color: #f7768e;
+}
