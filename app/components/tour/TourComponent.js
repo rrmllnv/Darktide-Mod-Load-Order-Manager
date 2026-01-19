@@ -92,17 +92,17 @@ export class TourComponent {
                 interactive: false
             },
             {
-                selector: '.search-panel.tour-step',
-                titleKey: 'tour.steps.search.title',
-                descriptionKey: 'tour.steps.search.description',
-                position: 'bottom',
-                interactive: false
-            },
-            {
                 selector: '#bulk-actions-panel.tour-step',
                 titleKey: 'tour.steps.bulkActions.title',
                 descriptionKey: 'tour.steps.bulkActions.description',
                 position: 'left',
+                interactive: false
+            },
+            {
+                selector: '.search-panel.tour-step',
+                titleKey: 'tour.steps.search.title',
+                descriptionKey: 'tour.steps.search.description',
+                position: 'bottom',
                 interactive: false
             },
             {
