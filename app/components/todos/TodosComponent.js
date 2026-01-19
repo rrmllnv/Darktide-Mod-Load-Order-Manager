@@ -119,15 +119,13 @@ export class TodosComponent {
                 
                 e.stopPropagation();
                 
-                if (todo.text.includes('\n')) {
-                    const hasLineBreaksClass = todoText.classList.contains('todo-text-line-breaks');
-                    
-                    if (hasLineBreaksClass) {
-                        todoText.classList.remove('todo-text-line-breaks');
-                    } else {
-                        this.collapseAllLineBreaks();
-                        todoText.classList.add('todo-text-line-breaks');
-                    }
+                const isActive = todoText.classList.contains('active');
+                if (isActive) {
+                    todoText.classList.remove('active');
+                } else {
+                    const allActiveTexts = todosList.querySelectorAll('.todo-text.active');
+                    allActiveTexts.forEach(text => text.classList.remove('active'));
+                    todoText.classList.add('active');
                 }
                 
                 const lineHeight = parseFloat(getComputedStyle(todoText).lineHeight) || 14;
@@ -557,32 +555,20 @@ export class TodosComponent {
         });
     }
     
-    collapseAllLineBreaks() {
-        const todosList = document.getElementById('todos-list');
-        if (!todosList) {
-            return;
-        }
-        
-        const allTodoTexts = todosList.querySelectorAll('.todo-text.todo-text-line-breaks');
-        allTodoTexts.forEach(textElement => {
-            textElement.classList.remove('todo-text-line-breaks');
-        });
-    }
-    
     renderTodos() {
         const todosList = document.getElementById('todos-list');
         if (!todosList) {
             return;
         }
         
-        const expandedLineBreaks = new Set();
-        const allTodoTexts = todosList.querySelectorAll('.todo-text.todo-text-line-breaks');
-        allTodoTexts.forEach(textElement => {
+        const activeTodoIds = new Set();
+        const allActiveTexts = todosList.querySelectorAll('.todo-text.active');
+        allActiveTexts.forEach(textElement => {
             const todoItem = textElement.closest('.todo-item');
             if (todoItem) {
                 const todoId = todoItem.getAttribute('data-todo-id');
                 if (todoId) {
-                    expandedLineBreaks.add(todoId);
+                    activeTodoIds.add(todoId);
                 }
             }
         });
@@ -705,8 +691,8 @@ export class TodosComponent {
                 
                 todosList.appendChild(todoItem);
                 
-                if (expandedLineBreaks.has(todo.id)) {
-                    todoText.classList.add('todo-text-line-breaks');
+                if (activeTodoIds.has(todo.id)) {
+                    todoText.classList.add('active');
                 }
                 
                 setTimeout(() => {
