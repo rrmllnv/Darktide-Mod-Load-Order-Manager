@@ -75,7 +75,7 @@
             "renameProfile": "Переименовать профиль",
             "deleteProfile": "Удалить профиль",
             "enterProfileName": "Введите имя профиля",
-            "profileNamePlaceholder": "Имя профиля..."
+            "profileNamePlaceholder": "Введите название..."
         },
         "modList": {
             "flagNew": "[НОВЫЙ]",

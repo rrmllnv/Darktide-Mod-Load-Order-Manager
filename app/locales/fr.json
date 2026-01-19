@@ -75,7 +75,7 @@
             "renameProfile": "Renommer le profil",
             "deleteProfile": "Supprimer le profil",
             "enterProfileName": "Entrez le nom du profil",
-            "profileNamePlaceholder": "Nom du profil..."
+            "profileNamePlaceholder": "Entrez le nom..."
         },
         "modList": {
             "flagNew": "[NOUVEAU]",

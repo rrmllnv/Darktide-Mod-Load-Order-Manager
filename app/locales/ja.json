@@ -75,7 +75,7 @@
             "renameProfile": "プロファイル名を変更",
             "deleteProfile": "プロファイルを削除",
             "enterProfileName": "プロファイル名を入力",
-            "profileNamePlaceholder": "プロファイル名..."
+            "profileNamePlaceholder": "名前を入力..."
         },
         "modList": {
             "flagNew": "[新規]",
