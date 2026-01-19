@@ -579,3 +579,41 @@ return {
     return { success: false, error: error.message };
   }
 });
+
+async function deleteDirectory(dirPath) {
+  try {
+    const entries = await fs.readdir(dirPath, { withFileTypes: true });
+    
+    for (const entry of entries) {
+      const fullPath = path.join(dirPath, entry.name);
+      if (entry.isDirectory()) {
+        await deleteDirectory(fullPath);
+      } else {
+        await fs.unlink(fullPath);
+      }
+    }
+    
+    await fs.rmdir(dirPath);
+  } catch (error) {
+    throw error;
+  }
+}
+
+ipcMain.handle('delete-folder', async (event, folderPath) => {
+  try {
+    if (!existsSync(folderPath)) {
+      return { success: false, error: 'Папка не существует' };
+    }
+    
+    const stats = statSync(folderPath);
+    if (!stats.isDirectory()) {
+      return { success: false, error: 'Указанный путь не является папкой' };
+    }
+    
+    await deleteDirectory(folderPath);
+    
+    return { success: true };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+});

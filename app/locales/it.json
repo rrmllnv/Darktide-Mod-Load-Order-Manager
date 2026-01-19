@@ -134,6 +134,17 @@
             "addMod": "Aggiungi mod",
             "addModFolder": "Aggiungi cartella mod",
             "launchDtkitPatch": "Avvia Darktide Mod Patcher"
+        },
+        "developer": {
+            "tools": "Strumenti sviluppatore",
+            "createMod": "Crea mod",
+            "enterModName": "Inserisci nome mod:",
+            "devView": "Modalità sviluppo",
+            "selectAll": "Seleziona tutto",
+            "scan": "Scansiona mod",
+            "copyMod": "Copia mod nella cartella mods del gioco",
+            "createSymlink": "Crea collegamento simbolico nella cartella mods del gioco",
+            "deleteModFolder": "Elimina cartella mod"
         }
     },
     "messages": {
@@ -214,7 +225,10 @@
             "copyModConfirm": "Copiare il mod nella cartella mods del gioco?\n\nDa: {sourcePath}\nA: {destPath}\n\nMod: {modName}",
             "createSymlinkConfirm": "Creare collegamento simbolico?\n\nDa: {targetPath}\nA: {linkPath}\n\nNome: {modName}",
             "symlinkCreated": "Collegamento simbolico creato con successo per il mod '{modName}'!",
-            "symlinkCreationError": "Impossibile creare il collegamento simbolico."
+            "symlinkCreationError": "Impossibile creare il collegamento simbolico.",
+            "deleteModFolderConfirm": "Eliminare la cartella del mod?\n\nMod: {modName}\nPercorso: {modPath}\n\nQuesta azione non può essere annullata!",
+            "modFolderDeleted": "Cartella del mod '{modName}' eliminata con successo!",
+            "modFolderDeleteError": "Impossibile eliminare la cartella del mod."
         }
     },
     "status": {

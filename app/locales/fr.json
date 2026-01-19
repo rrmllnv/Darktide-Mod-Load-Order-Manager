@@ -134,6 +134,17 @@
             "addMod": "Ajouter un mod",
             "addModFolder": "Ajouter un dossier de mod",
             "launchDtkitPatch": "Lancer Darktide Mod Patcher"
+        },
+        "developer": {
+            "tools": "Outils développeur",
+            "createMod": "Créer un mod",
+            "enterModName": "Entrez le nom du mod:",
+            "devView": "Mode développement",
+            "selectAll": "Tout sélectionner",
+            "scan": "Scanner les mods",
+            "copyMod": "Copier le mod dans le dossier des mods du jeu",
+            "createSymlink": "Créer un lien symbolique dans le dossier des mods du jeu",
+            "deleteModFolder": "Supprimer le dossier du mod"
         }
     },
     "messages": {
@@ -214,7 +225,10 @@
             "copyModConfirm": "Copier le mod dans le dossier des mods du jeu?\n\nDe: {sourcePath}\nVers: {destPath}\n\nMod: {modName}",
             "createSymlinkConfirm": "Créer un lien symbolique?\n\nDe: {targetPath}\nVers: {linkPath}\n\nNom: {modName}",
             "symlinkCreated": "Lien symbolique créé avec succès pour le mod '{modName}'!",
-            "symlinkCreationError": "Échec de la création du lien symbolique."
+            "symlinkCreationError": "Échec de la création du lien symbolique.",
+            "deleteModFolderConfirm": "Supprimer le dossier du mod?\n\nMod: {modName}\nChemin: {modPath}\n\nCette action ne peut pas être annulée!",
+            "modFolderDeleted": "Dossier du mod '{modName}' supprimé avec succès!",
+            "modFolderDeleteError": "Échec de la suppression du dossier du mod."
         }
     },
     "status": {

@@ -141,8 +141,9 @@
             "devView": "Режим разработки",
             "selectAll": "Выделить все",
             "scan": "Сканировать моды",
-            "copyMod": "Скопировать выбранный мод в папку модов игры",
-            "createSymlink": "Создать симлинк в папке модов игры"
+            "copyMod": "Скопировать мод в папке модов игры",
+            "createSymlink": "Создать симлинк в папке модов игры",
+            "deleteModFolder": "Удалить папку мода"
         }
     },
     "messages": {
@@ -223,7 +224,10 @@
             "copyModConfirm": "Скопировать мод в папку модов игры?\n\nИз: {sourcePath}\nВ: {destPath}\n\nМод: {modName}",
             "createSymlinkConfirm": "Создать символическую ссылку?\n\nИз: {targetPath}\nВ: {linkPath}\n\nИмя: {modName}",
             "symlinkCreated": "Символическая ссылка успешно создана для мода '{modName}'!",
-            "symlinkCreationError": "Не удалось создать символическую ссылку."
+            "symlinkCreationError": "Не удалось создать символическую ссылку.",
+            "deleteModFolderConfirm": "Удалить папку мода?\n\nМод: {modName}\nПуть: {modPath}\n\nЭто действие нельзя отменить!",
+            "modFolderDeleted": "Папка мода '{modName}' успешно удалена!",
+            "modFolderDeleteError": "Не удалось удалить папку мода."
         }
     },
     "status": {

@@ -99,10 +99,16 @@ class ModLoadOrderManager {
             settingsBtn: document.getElementById('settings-btn'),
             statusText: document.getElementById('status-text'),
             contextMenu: document.getElementById('mod-context-menu'),
+            contextMenuNormal: document.getElementById('context-menu-normal'),
+            contextMenuDeveloper: document.getElementById('context-menu-developer'),
             contextMenuEnable: document.getElementById('context-menu-enable'),
             contextMenuDisable: document.getElementById('context-menu-disable'),
             contextMenuCopy: document.getElementById('context-menu-copy'),
             contextMenuDelete: document.getElementById('context-menu-delete'),
+            contextMenuDevCopyMod: document.getElementById('context-menu-dev-copy-mod'),
+            contextMenuDevCreateSymlink: document.getElementById('context-menu-dev-create-symlink'),
+            contextMenuDevCopyName: document.getElementById('context-menu-dev-copy-name'),
+            contextMenuDevDeleteFolder: document.getElementById('context-menu-dev-delete-folder'),
             settingsDialog: document.getElementById('settings-dialog'),
             settingsThemeSelect: document.getElementById('settings-theme-select'),
             settingsLocaleSelect: document.getElementById('settings-locale-select'),
@@ -257,6 +263,44 @@ class ModLoadOrderManager {
                     const modName = this.contextMenuModName;
                     this.hideContextMenu();
                     await this.modListComponent.deleteMod(modName);
+                }
+            });
+        }
+        
+        if (this.elements.contextMenuDevCopyMod) {
+            this.elements.contextMenuDevCopyMod.addEventListener('click', async () => {
+                if (this.contextMenuModName && this.developerComponent) {
+                    this.selectedModName = this.contextMenuModName;
+                    this.hideContextMenu();
+                    await this.developerComponent.copySelectedMod();
+                }
+            });
+        }
+        
+        if (this.elements.contextMenuDevCreateSymlink) {
+            this.elements.contextMenuDevCreateSymlink.addEventListener('click', async () => {
+                if (this.contextMenuModName && this.developerComponent) {
+                    this.selectedModName = this.contextMenuModName;
+                    this.hideContextMenu();
+                    await this.developerComponent.createSymlinkForSelectedMod();
+                }
+            });
+        }
+        
+        if (this.elements.contextMenuDevCopyName) {
+            this.elements.contextMenuDevCopyName.addEventListener('click', () => {
+                if (this.contextMenuModName && this.modListComponent) {
+                    this.modListComponent.copyModName(this.contextMenuModName);
+                    this.hideContextMenu();
+                }
+            });
+        }
+        
+        if (this.elements.contextMenuDevDeleteFolder) {
+            this.elements.contextMenuDevDeleteFolder.addEventListener('click', async () => {
+                if (this.contextMenuModName && this.developerComponent) {
+                    this.hideContextMenu();
+                    await this.developerComponent.deleteModFolder(this.contextMenuModName);
                 }
             });
         }
@@ -554,25 +598,56 @@ class ModLoadOrderManager {
             return;
         }
         
-        if (this.elements.contextMenuEnable) {
-            this.elements.contextMenuEnable.style.display = modEntry.enabled ? 'none' : 'block';
-        }
+        const isDeveloperViewMode = this.userConfig && this.userConfig.developerViewMode;
         
-        if (this.elements.contextMenuDisable) {
-            this.elements.contextMenuDisable.style.display = modEntry.enabled ? 'block' : 'none';
-        }
-        
-        if (this.elements.contextMenuEnable && this.elements.contextMenuEnable.querySelector('span')) {
-            this.elements.contextMenuEnable.querySelector('span').textContent = this.t('ui.common.contextMenuEnable');
-        }
-        if (this.elements.contextMenuDisable && this.elements.contextMenuDisable.querySelector('span')) {
-            this.elements.contextMenuDisable.querySelector('span').textContent = this.t('ui.common.contextMenuDisable');
-        }
-        if (this.elements.contextMenuCopy && this.elements.contextMenuCopy.querySelector('span')) {
-            this.elements.contextMenuCopy.querySelector('span').textContent = this.t('ui.common.contextMenuCopyName');
-        }
-        if (this.elements.contextMenuDelete && this.elements.contextMenuDelete.querySelector('span')) {
-            this.elements.contextMenuDelete.querySelector('span').textContent = this.t('ui.common.contextMenuDelete');
+        if (isDeveloperViewMode) {
+            if (this.elements.contextMenuNormal) {
+                this.elements.contextMenuNormal.style.display = 'none';
+            }
+            if (this.elements.contextMenuDeveloper) {
+                this.elements.contextMenuDeveloper.style.display = 'block';
+            }
+            
+            if (this.elements.contextMenuDevCopyMod && this.elements.contextMenuDevCopyMod.querySelector('span')) {
+                this.elements.contextMenuDevCopyMod.querySelector('span').textContent = this.t('ui.developer.copyMod');
+            }
+            if (this.elements.contextMenuDevCreateSymlink && this.elements.contextMenuDevCreateSymlink.querySelector('span')) {
+                this.elements.contextMenuDevCreateSymlink.querySelector('span').textContent = this.t('ui.developer.createSymlink');
+            }
+            if (this.elements.contextMenuDevCopyName && this.elements.contextMenuDevCopyName.querySelector('span')) {
+                this.elements.contextMenuDevCopyName.querySelector('span').textContent = this.t('ui.common.contextMenuCopyName');
+            }
+            if (this.elements.contextMenuDevDeleteFolder && this.elements.contextMenuDevDeleteFolder.querySelector('span')) {
+                this.elements.contextMenuDevDeleteFolder.querySelector('span').textContent = this.t('ui.developer.deleteModFolder');
+            }
+        } else {
+            if (this.elements.contextMenuNormal) {
+                this.elements.contextMenuNormal.style.display = 'block';
+            }
+            if (this.elements.contextMenuDeveloper) {
+                this.elements.contextMenuDeveloper.style.display = 'none';
+            }
+            
+            if (this.elements.contextMenuEnable) {
+                this.elements.contextMenuEnable.style.display = modEntry.enabled ? 'none' : 'block';
+            }
+            
+            if (this.elements.contextMenuDisable) {
+                this.elements.contextMenuDisable.style.display = modEntry.enabled ? 'block' : 'none';
+            }
+            
+            if (this.elements.contextMenuEnable && this.elements.contextMenuEnable.querySelector('span')) {
+                this.elements.contextMenuEnable.querySelector('span').textContent = this.t('ui.common.contextMenuEnable');
+            }
+            if (this.elements.contextMenuDisable && this.elements.contextMenuDisable.querySelector('span')) {
+                this.elements.contextMenuDisable.querySelector('span').textContent = this.t('ui.common.contextMenuDisable');
+            }
+            if (this.elements.contextMenuCopy && this.elements.contextMenuCopy.querySelector('span')) {
+                this.elements.contextMenuCopy.querySelector('span').textContent = this.t('ui.common.contextMenuCopyName');
+            }
+            if (this.elements.contextMenuDelete && this.elements.contextMenuDelete.querySelector('span')) {
+                this.elements.contextMenuDelete.querySelector('span').textContent = this.t('ui.common.contextMenuDelete');
+            }
         }
         
         this.elements.contextMenu.style.left = `${x}px`;

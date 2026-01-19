@@ -194,11 +194,18 @@
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 10000;
     min-width: 180px;
+    max-width: 300px;
+    width: auto;
     overflow: hidden;
 }
 
 .context-menu.show {
     display: block;
+}
+
+.context-menu-group {
+    display: flex;
+    flex-direction: column;
 }
 
 .context-menu-item {
@@ -211,6 +218,9 @@
     font-size: 12px;
     transition: background-color 0.2s;
     color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .context-menu-item:hover {

@@ -134,6 +134,17 @@
             "addMod": "MODを追加",
             "addModFolder": "MODフォルダを追加",
             "launchDtkitPatch": "Darktide Mod Patcher を起動"
+        },
+        "developer": {
+            "tools": "開発者ツール",
+            "createMod": "MODを作成",
+            "enterModName": "MOD名を入力:",
+            "devView": "開発モード",
+            "selectAll": "すべて選択",
+            "scan": "MODをスキャン",
+            "copyMod": "ゲームMODフォルダ内のMODをコピー",
+            "createSymlink": "ゲームMODフォルダにシンボリックリンクを作成",
+            "deleteModFolder": "MODフォルダを削除"
         }
     },
     "messages": {
@@ -214,7 +225,10 @@
             "copyModConfirm": "MODをゲームMODフォルダにコピーしますか？\n\n元: {sourcePath}\n先: {destPath}\n\nMOD: {modName}",
             "createSymlinkConfirm": "シンボリックリンクを作成しますか？\n\n元: {targetPath}\n先: {linkPath}\n\n名前: {modName}",
             "symlinkCreated": "MOD '{modName}'のシンボリックリンクが正常に作成されました!",
-            "symlinkCreationError": "シンボリックリンクの作成に失敗しました。"
+            "symlinkCreationError": "シンボリックリンクの作成に失敗しました。",
+            "deleteModFolderConfirm": "MODフォルダを削除しますか？\n\nMOD: {modName}\nパス: {modPath}\n\nこの操作は元に戻せません!",
+            "modFolderDeleted": "MODフォルダ '{modName}'が正常に削除されました!",
+            "modFolderDeleteError": "MODフォルダの削除に失敗しました。"
         }
     },
     "status": {

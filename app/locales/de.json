@@ -134,6 +134,17 @@
             "addMod": "Mod hinzufügen",
             "addModFolder": "Mod-Ordner hinzufügen",
             "launchDtkitPatch": "Darktide Mod Patcher starten"
+        },
+        "developer": {
+            "tools": "Entwicklertools",
+            "createMod": "Mod erstellen",
+            "enterModName": "Mod-Name eingeben:",
+            "devView": "Entwicklermodus",
+            "selectAll": "Alle auswählen",
+            "scan": "Mods scannen",
+            "copyMod": "Mod im Spiel-Mods-Ordner kopieren",
+            "createSymlink": "Symbolischen Link im Spiel-Mods-Ordner erstellen",
+            "deleteModFolder": "Mod-Ordner löschen"
         }
     },
     "messages": {
@@ -214,7 +225,10 @@
             "copyModConfirm": "Mod in den Spiel-Mods-Ordner kopieren?\n\nVon: {sourcePath}\nNach: {destPath}\n\nMod: {modName}",
             "createSymlinkConfirm": "Symbolischen Link erstellen?\n\nVon: {targetPath}\nNach: {linkPath}\n\nName: {modName}",
             "symlinkCreated": "Symbolischer Link für Mod '{modName}' erfolgreich erstellt!",
-            "symlinkCreationError": "Fehler beim Erstellen des symbolischen Links."
+            "symlinkCreationError": "Fehler beim Erstellen des symbolischen Links.",
+            "deleteModFolderConfirm": "Mod-Ordner löschen?\n\nMod: {modName}\nPfad: {modPath}\n\nDiese Aktion kann nicht rückgängig gemacht werden!",
+            "modFolderDeleted": "Mod-Ordner '{modName}' erfolgreich gelöscht!",
+            "modFolderDeleteError": "Fehler beim Löschen des Mod-Ordners."
         }
     },
     "status": {

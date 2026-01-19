@@ -23,5 +23,6 @@ contextBridge.exposeInMainWorld('electronAPI', {
   launchDtkitPatch: (gameDir) => ipcRenderer.invoke('launch-dtkit-patch', gameDir),
   openFile: (filePath) => ipcRenderer.invoke('open-file', filePath),
   openFolder: (folderPath) => ipcRenderer.invoke('open-folder', folderPath),
-  createModStructure: (projectPath, modName) => ipcRenderer.invoke('create-mod-structure', projectPath, modName)
+  createModStructure: (projectPath, modName) => ipcRenderer.invoke('create-mod-structure', projectPath, modName),
+  deleteFolder: (folderPath) => ipcRenderer.invoke('delete-folder', folderPath)('create-mod-structure', projectPath, modName)
 });

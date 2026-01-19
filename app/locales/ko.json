@@ -134,6 +134,17 @@
             "addMod": "모드 추가",
             "addModFolder": "모드 폴더 추가",
             "launchDtkitPatch": "Darktide Mod Patcher 실행"
+        },
+        "developer": {
+            "tools": "개발자 도구",
+            "createMod": "모드 만들기",
+            "enterModName": "모드 이름 입력:",
+            "devView": "개발 모드",
+            "selectAll": "모두 선택",
+            "scan": "모드 스캔",
+            "copyMod": "게임 모드 폴더의 모드 복사",
+            "createSymlink": "게임 모드 폴더에 심볼릭 링크 만들기",
+            "deleteModFolder": "모드 폴더 삭제"
         }
     },
     "messages": {
@@ -214,7 +225,10 @@
             "copyModConfirm": "모드를 게임 모드 폴더로 복사하시겠습니까?\n\n출처: {sourcePath}\n대상: {destPath}\n\n모드: {modName}",
             "createSymlinkConfirm": "심볼릭 링크를 만들겠습니까?\n\n출처: {targetPath}\n대상: {linkPath}\n\n이름: {modName}",
             "symlinkCreated": "모드 '{modName}'의 심볼릭 링크가 성공적으로 생성되었습니다!",
-            "symlinkCreationError": "심볼릭 링크 생성에 실패했습니다."
+            "symlinkCreationError": "심볼릭 링크 생성에 실패했습니다.",
+            "deleteModFolderConfirm": "모드 폴더를 삭제하시겠습니까?\n\n모드: {modName}\n경로: {modPath}\n\n이 작업은 되돌릴 수 없습니다!",
+            "modFolderDeleted": "모드 폴더 '{modName}'이(가) 성공적으로 삭제되었습니다!",
+            "modFolderDeleteError": "모드 폴더 삭제에 실패했습니다."
         }
     },
     "status": {

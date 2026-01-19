@@ -134,6 +134,17 @@
             "addMod": "添加模组",
             "addModFolder": "添加模组文件夹",
             "launchDtkitPatch": "启动 Darktide Mod Patcher"
+        },
+        "developer": {
+            "tools": "开发者工具",
+            "createMod": "创建模组",
+            "enterModName": "输入模组名称:",
+            "devView": "开发模式",
+            "selectAll": "全选",
+            "scan": "扫描模组",
+            "copyMod": "在游戏模组文件夹中复制模组",
+            "createSymlink": "在游戏模组文件夹中创建符号链接",
+            "deleteModFolder": "删除模组文件夹"
         }
     },
     "messages": {
@@ -214,7 +225,10 @@
             "copyModConfirm": "将模组复制到游戏模组文件夹？\n\n从: {sourcePath}\n到: {destPath}\n\n模组: {modName}",
             "createSymlinkConfirm": "创建符号链接？\n\n从: {targetPath}\n到: {linkPath}\n\n名称: {modName}",
             "symlinkCreated": "模组 '{modName}' 的符号链接创建成功!",
-            "symlinkCreationError": "创建符号链接失败。"
+            "symlinkCreationError": "创建符号链接失败。",
+            "deleteModFolderConfirm": "删除模组文件夹？\n\n模组: {modName}\n路径: {modPath}\n\n此操作无法撤销!",
+            "modFolderDeleted": "模组文件夹 '{modName}' 删除成功!",
+            "modFolderDeleteError": "删除模组文件夹失败。"
         }
     },
     "status": {

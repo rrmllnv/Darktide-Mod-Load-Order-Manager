@@ -141,8 +141,9 @@
             "devView": "Dev View",
             "selectAll": "Select all",
             "scan": "Scan mods",
-            "copyMod": "Copy selected mod to game mods folder",
-            "createSymlink": "Create symlink in game mods folder"
+            "copyMod": "Copy mod in game mods folder",
+            "createSymlink": "Create symlink in game mods folder",
+            "deleteModFolder": "Delete mod folder"
         }
     },
     "messages": {
@@ -223,7 +224,10 @@
             "copyModConfirm": "Copy mod to game mods folder?\n\nFrom: {sourcePath}\nTo: {destPath}\n\nMod: {modName}",
             "createSymlinkConfirm": "Create symbolic link?\n\nFrom: {targetPath}\nTo: {linkPath}\n\nName: {modName}",
             "symlinkCreated": "Symbolic link created successfully for mod '{modName}'!",
-            "symlinkCreationError": "Failed to create symbolic link."
+            "symlinkCreationError": "Failed to create symbolic link.",
+            "deleteModFolderConfirm": "Delete mod folder?\n\nMod: {modName}\nPath: {modPath}\n\nThis action cannot be undone!",
+            "modFolderDeleted": "Mod folder '{modName}' deleted successfully!",
+            "modFolderDeleteError": "Failed to delete mod folder."
         }
     },
     "status": {
