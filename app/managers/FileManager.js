@@ -128,6 +128,10 @@ export class FileManager {
             this.app.modListComponent.updateModList();
             this.app.updateStatistics();
             
+            if (this.app.developerComponent && this.app.developerComponent.updateDeveloperView) {
+                this.app.developerComponent.updateDeveloperView();
+            }
+            
             if (this.app.profileComponent) {
                 await this.app.profileComponent.initProfilesDirectory();
             }

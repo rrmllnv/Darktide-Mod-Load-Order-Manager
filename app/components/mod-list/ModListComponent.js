@@ -1,10 +1,11 @@
 import { Sorter } from '../../utils/Sorter.js';
 
 class DragDropManager {
-    constructor(modEntries, modsListElement, onDropCallback) {
+    constructor(modEntries, modsListElement, onDropCallback, app) {
         this.modEntries = modEntries;
         this.modsListElement = modsListElement;
         this.onDropCallback = onDropCallback;
+        this.app = app;
         
         this.setupParentHandlers();
     }
@@ -39,6 +40,11 @@ class DragDropManager {
     }
     
     attachDragDrop(modItem, modEntry, index, currentSort) {
+        if (this.app && this.app.userConfig && this.app.userConfig.developerViewMode) {
+            modItem.draggable = false;
+            return;
+        }
+        
         if (currentSort === 'fileOrder') {
             modItem.draggable = true;
             modItem.setAttribute('data-mod-name', modEntry.name);
@@ -142,7 +148,8 @@ export class ModListComponent {
                 this.app.elements.modsList,
                 () => {
                     this.updateModList();
-                }
+                },
+                this.app
             );
         }
         
@@ -172,15 +179,6 @@ export class ModListComponent {
         if (this.app.elements.scanBtn) {
             this.app.elements.scanBtn.addEventListener('click', () => {
                 this.scanAndUpdate();
-            });
-        }
-        
-        if (this.app.elements.createSymlinkBtn) {
-            this.app.elements.createSymlinkBtn.addEventListener('click', () => {
-                if (this.app.elements.addModDropdown) {
-                    this.app.elements.addModDropdown.classList.remove('show');
-                }
-                this.createSymlinkForMod();
             });
         }
     }
@@ -403,27 +401,32 @@ export class ModListComponent {
             modItem.classList.add('selected');
         }
         
-        const checkbox = document.createElement('input');
-        checkbox.type = 'checkbox';
-        checkbox.checked = modEntry.enabled;
-        checkbox.addEventListener('change', () => {
-            modEntry.enabled = checkbox.checked;
-            this.onCheckboxChange(modEntry.name);
-        });
+        const isDeveloperViewMode = this.app && this.app.userConfig && this.app.userConfig.developerViewMode;
+        
+        let checkbox = null;
+        if (!isDeveloperViewMode) {
+            checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.checked = modEntry.enabled;
+            checkbox.addEventListener('change', () => {
+                modEntry.enabled = checkbox.checked;
+                this.onCheckboxChange(modEntry.name);
+            });
+        }
         
         const modName = document.createElement('span');
         modName.className = 'mod-name';
         modName.textContent = modEntry.name;
         
         let newLabel = null;
-        if (modEntry.isNew) {
+        if (!isDeveloperViewMode && modEntry.isNew) {
             newLabel = document.createElement('span');
             newLabel.className = 'mod-new-label';
             newLabel.textContent = this.t('ui.modList.flagNew');
         }
         
         let notFoundLabel = null;
-        if (modEntry.isNotFound) {
+        if (!isDeveloperViewMode && modEntry.isNotFound) {
             notFoundLabel = document.createElement('span');
             notFoundLabel.className = 'mod-not-found-label';
             notFoundLabel.textContent = this.t('ui.modList.flagNotFound');
@@ -436,12 +439,15 @@ export class ModListComponent {
             symlinkLabel.textContent = this.t('ui.modList.flagSymlink');
         }
         
-        const status = document.createElement('span');
-        status.className = `mod-status ${modEntry.enabled ? 'enabled' : 'disabled'}`;
-        status.textContent = modEntry.enabled ? '✓' : '✗';
+        let status = null;
+        if (!isDeveloperViewMode) {
+            status = document.createElement('span');
+            status.className = `mod-status ${modEntry.enabled ? 'enabled' : 'disabled'}`;
+            status.textContent = modEntry.enabled ? '✓' : '✗';
+        }
         
         modItem.addEventListener('click', (e) => {
-            if (e.target !== checkbox && !modItem.classList.contains('dragging')) {
+            if ((!checkbox || e.target !== checkbox) && !modItem.classList.contains('dragging')) {
                 const ctrlKey = e.ctrlKey || e.metaKey;
                 const shiftKey = e.shiftKey;
                 this.selectMod(modEntry.name, ctrlKey, shiftKey);
@@ -460,7 +466,9 @@ export class ModListComponent {
             this.dragDropManager.attachDragDrop(modItem, modEntry, index, currentSort);
         }
         
-        modItem.appendChild(checkbox);
+        if (checkbox) {
+            modItem.appendChild(checkbox);
+        }
         modItem.appendChild(modName);
         
         if (symlinkLabel) {
@@ -472,7 +480,9 @@ export class ModListComponent {
         if (newLabel) {
             modItem.appendChild(newLabel);
         }
-        modItem.appendChild(status);
+        if (status) {
+            modItem.appendChild(status);
+        }
         
         modEntry.checkbox = checkbox;
         modEntry.statusElement = status;
@@ -526,75 +536,6 @@ export class ModListComponent {
         
         if (this.app.uiManager && this.app.uiManager.showMessage) {
             this.app.uiManager.showMessage(this.t('messages.common.info'), message);
-        }
-    }
-    
-    async createSymlinkForMod() {
-        const modsDir = this.app.filePath.substring(0, this.app.filePath.lastIndexOf('\\'));
-        if (!modsDir) {
-            if (this.app.uiManager && this.app.uiManager.showMessage) {
-                await this.app.uiManager.showMessage(this.t('messages.common.error'), this.t('messages.modList.failedToDetermineModsDir'));
-            }
-            return;
-        }
-        
-        const result = await window.electronAPI.selectFolder('');
-        if (!result.success || result.canceled) {
-            return;
-        }
-        
-        const targetPath = result.folderPath;
-        
-        const targetExists = await window.electronAPI.fileExists(targetPath);
-        if (!targetExists) {
-            if (this.app.uiManager && this.app.uiManager.showMessage) {
-                await this.app.uiManager.showMessage(this.t('messages.common.error'), this.t('messages.modList.selectedFolderNotExists'));
-            }
-            return;
-        }
-        
-        const pathParts = targetPath.split('\\');
-        const defaultModName = pathParts[pathParts.length - 1];
-        
-        if (this.app.modalManager && this.app.modalManager.showModal) {
-            this.app.modalManager.showModal(this.t('ui.modList.enterModName'), defaultModName, async (modName) => {
-                if (!modName || !modName.trim()) {
-                    return;
-                }
-                
-                const cleanModName = modName.trim();
-                const linkPath = modsDir + '\\' + cleanModName;
-                
-                if (this.app.uiManager && this.app.uiManager.showConfirm) {
-                    const confirmed = await this.app.uiManager.showConfirm(this.t('messages.modList.createSymlinkConfirm', { targetPath, linkPath, modName: cleanModName }));
-                    if (!confirmed) {
-                        return;
-                    }
-                }
-                
-                try {
-                    const symlinkResult = await window.electronAPI.createSymlink(linkPath, targetPath);
-                    if (!symlinkResult.success) {
-                        if (this.app.uiManager && this.app.uiManager.showMessage) {
-                            await this.app.uiManager.showMessage(this.t('messages.common.error'), `${this.t('messages.modList.failedToCreateSymlink')}\n${symlinkResult.error}`);
-                        }
-                        return;
-                    }
-                    
-                    if (this.app.uiManager && this.app.uiManager.showMessage) {
-                        await this.app.uiManager.showMessage(this.t('messages.common.success'), this.t('messages.modList.symlinkCreatedSuccess', { linkPath, targetPath }));
-                    }
-                    if (this.app.setStatus) {
-                        this.app.setStatus(this.t('status.modList.symlinkCreated', { modName: cleanModName }));
-                    }
-                    
-                    await this.scanAndUpdate();
-                } catch (error) {
-                    if (this.app.uiManager && this.app.uiManager.showMessage) {
-                        await this.app.uiManager.showMessage(this.t('messages.common.error'), `${this.t('messages.modList.symlinkCreationError')}\n${error.message}`);
-                    }
-                }
-            });
         }
     }
     
@@ -763,13 +704,6 @@ export class ModListComponent {
         
         if (this.app.elements.bulkSelectDisabledBtn) {
             this.app.elements.bulkSelectDisabledBtn.title = this.t('ui.modList.selectDisabled');
-        }
-        
-        if (this.app.elements.createSymlinkBtn) {
-            const span = this.app.elements.createSymlinkBtn.querySelector('span');
-            if (span) {
-                span.textContent = this.t('ui.modList.createSymlink');
-            }
         }
     }
 }

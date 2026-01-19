@@ -200,6 +200,21 @@
             "symlinkCreationError": "创建符号链接时出错:",
             "symlinkCreatedSuccess": "符号链接创建成功!\n\n{linkPath} -> {targetPath}",
             "deleteModConfirm": "从列表中删除模组 '{modName}'？\n\n保存时模组将从文件中移除。"
+        },
+        "developer": {
+            "projectPathNotSet": "未设置项目路径。请在设置中指定项目路径。",
+            "invalidModName": "无效的模组名称。只允许英文字母、数字和下划线。名称必须以字母开头。",
+            "modCreated": "模组 '{modName}' 创建成功!\n\n路径: {modPath}",
+            "modCreationError": "创建模组结构失败。",
+            "noModSelected": "未选择模组。请先选择模组。",
+            "modNotFoundInProject": "在项目文件夹中找不到模组。",
+            "modLoadOrderFileNotLoaded": "未加载 mod_load_order.txt 文件。",
+            "modCopied": "模组 '{modName}' 已成功复制到游戏模组文件夹!",
+            "modCopyError": "无法将模组复制到游戏模组文件夹。",
+            "copyModConfirm": "将模组复制到游戏模组文件夹？\n\n从: {sourcePath}\n到: {destPath}\n\n模组: {modName}",
+            "createSymlinkConfirm": "创建符号链接？\n\n从: {targetPath}\n到: {linkPath}\n\n名称: {modName}",
+            "symlinkCreated": "模组 '{modName}' 的符号链接创建成功!",
+            "symlinkCreationError": "创建符号链接失败。"
         }
     },
     "status": {

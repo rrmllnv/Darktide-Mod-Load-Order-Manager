@@ -200,6 +200,21 @@
             "symlinkCreationError": "Fehler beim Erstellen des symbolischen Links:",
             "symlinkCreatedSuccess": "Symbolischer Link erfolgreich erstellt!\n\n{linkPath} -> {targetPath}",
             "deleteModConfirm": "Mod '{modName}' aus Liste löschen?\n\nMod wird beim Speichern aus der Datei entfernt."
+        },
+        "developer": {
+            "projectPathNotSet": "Projektpfad ist nicht festgelegt. Bitte geben Sie den Pfad zu Ihrem Projekt in den Einstellungen an.",
+            "invalidModName": "Ungültiger Mod-Name. Nur englische Buchstaben, Zahlen und Unterstriche sind erlaubt. Der Name muss mit einem Buchstaben beginnen.",
+            "modCreated": "Mod '{modName}' erfolgreich erstellt!\n\nPfad: {modPath}",
+            "modCreationError": "Fehler beim Erstellen der Mod-Struktur.",
+            "noModSelected": "Kein Mod ausgewählt. Bitte wählen Sie zuerst einen Mod aus.",
+            "modNotFoundInProject": "Mod im Projektordner nicht gefunden.",
+            "modLoadOrderFileNotLoaded": "Datei mod_load_order.txt wurde nicht geladen.",
+            "modCopied": "Mod '{modName}' erfolgreich in den Spiel-Mods-Ordner kopiert!",
+            "modCopyError": "Fehler beim Kopieren des Mods in den Spiel-Mods-Ordner.",
+            "copyModConfirm": "Mod in den Spiel-Mods-Ordner kopieren?\n\nVon: {sourcePath}\nNach: {destPath}\n\nMod: {modName}",
+            "createSymlinkConfirm": "Symbolischen Link erstellen?\n\nVon: {targetPath}\nNach: {linkPath}\n\nName: {modName}",
+            "symlinkCreated": "Symbolischer Link für Mod '{modName}' erfolgreich erstellt!",
+            "symlinkCreationError": "Fehler beim Erstellen des symbolischen Links."
         }
     },
     "status": {

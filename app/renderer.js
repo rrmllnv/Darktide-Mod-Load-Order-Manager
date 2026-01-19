@@ -85,7 +85,6 @@ class ModLoadOrderManager {
             hideNewModsCheckbox: document.getElementById('hide-new-mods-checkbox'),
             hideUnusedModsCheckbox: document.getElementById('hide-unused-mods-checkbox'),
             hideNotFoundModsCheckbox: document.getElementById('hide-not-found-mods-checkbox'),
-            createSymlinkBtn: document.getElementById('create-symlink-btn'),
             addModFolderBtn: document.getElementById('add-mod-folder-btn'),
             addModBtn: document.getElementById('add-mod-btn'),
             addModDropdown: document.getElementById('add-mod-dropdown'),

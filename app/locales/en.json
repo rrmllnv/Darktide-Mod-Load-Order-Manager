@@ -83,8 +83,7 @@
             "flagSymlink": "[SYMLINK]",
             "enterModName": "Enter mod name for symlink:",
             "selectEnabled": "Select all enabled",
-            "selectDisabled": "Select all disabled",
-            "createSymlink": "Create symlink"
+            "selectDisabled": "Select all disabled"
         },
         "search": {
             "search": "Search mod:",
@@ -138,7 +137,12 @@
         "developer": {
             "tools": "Developer tools",
             "createMod": "Create mod",
-            "enterModName": "Enter mod name:"
+            "enterModName": "Enter mod name:",
+            "devView": "Dev View",
+            "selectAll": "Select all",
+            "scan": "Scan mods",
+            "copyMod": "Copy selected mod to game mods folder",
+            "createSymlink": "Create symlink in game mods folder"
         }
     },
     "messages": {
@@ -210,7 +214,16 @@
             "projectPathNotSet": "Project path is not set. Please specify the path to your project in the settings.",
             "invalidModName": "Invalid mod name. Only English letters, numbers, and underscores are allowed. The name must start with a letter.",
             "modCreated": "Mod '{modName}' created successfully!\n\nPath: {modPath}",
-            "modCreationError": "Failed to create mod structure."
+            "modCreationError": "Failed to create mod structure.",
+            "noModSelected": "No mod selected. Please select a mod first.",
+            "modNotFoundInProject": "Mod not found in project folder.",
+            "modLoadOrderFileNotLoaded": "Mod load order file is not loaded.",
+            "modCopied": "Mod '{modName}' copied to game mods folder successfully!",
+            "modCopyError": "Failed to copy mod to game mods folder.",
+            "copyModConfirm": "Copy mod to game mods folder?\n\nFrom: {sourcePath}\nTo: {destPath}\n\nMod: {modName}",
+            "createSymlinkConfirm": "Create symbolic link?\n\nFrom: {targetPath}\nTo: {linkPath}\n\nName: {modName}",
+            "symlinkCreated": "Symbolic link created successfully for mod '{modName}'!",
+            "symlinkCreationError": "Failed to create symbolic link."
         }
     },
     "status": {

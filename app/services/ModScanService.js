@@ -9,19 +9,25 @@ export class ModScanService {
     
     async scanModsDirectory(modEntries, selectedModName) {
         try {
-            const modsDir = this.filePath.substring(0, this.filePath.lastIndexOf('\\'));
-            if (!modsDir) {
+            let scanDir = null;
+            const isDeveloperViewMode = this.app && this.app.userConfig && this.app.userConfig.developerViewMode && this.app.userConfig.projectPath;
+            
+            if (isDeveloperViewMode) {
+                scanDir = this.app.userConfig.projectPath;
+            } else {
+                scanDir = this.filePath ? this.filePath.substring(0, this.filePath.lastIndexOf('\\')) : null;
+            }
+            
+            if (!scanDir) {
                 return { added: 0, removed: 0, selectedModName };
             }
             
-            const exists = await window.electronAPI.fileExists(modsDir);
+            const exists = await window.electronAPI.fileExists(scanDir);
             if (!exists) {
                 return { added: 0, removed: 0, selectedModName };
             }
             
-            const existingModNames = new Set(modEntries.map(mod => mod.name));
-            
-            const result = await window.electronAPI.scanModsDirectory(modsDir);
+            const result = await window.electronAPI.scanModsDirectory(scanDir);
             if (!result.success) {
                 if (this.app && this.app.t) {
                     this.setStatus(this.app.t('status.common.scanWarning', { error: result.error }));
@@ -33,6 +39,34 @@ export class ModScanService {
             
             const fileSystemMods = new Set(result.mods);
             const symlinkMods = result.symlinks || new Map();
+            
+            if (isDeveloperViewMode) {
+                modEntries.length = 0;
+                
+                const baseIndex = 1000;
+                result.mods.sort().forEach((modName, idx) => {
+                    const isSymlink = symlinkMods.get(modName) || false;
+                    modEntries.push(new ModEntry(
+                        modName,
+                        false,
+                        `--${modName}`,
+                        false,
+                        baseIndex + idx,
+                        false,
+                        isSymlink
+                    ));
+                });
+                
+                return { 
+                    added: result.mods.length, 
+                    removed: 0, 
+                    deleted: 0,
+                    restored: 0,
+                    selectedModName: '' 
+                };
+            }
+            
+            const existingModNames = new Set(modEntries.map(mod => mod.name));
             
             const modsToRemove = [];
             let newSelectedModName = selectedModName;

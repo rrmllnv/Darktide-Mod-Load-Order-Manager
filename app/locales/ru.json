@@ -83,8 +83,7 @@
             "flagSymlink": "[СИМЛИНК]",
             "enterModName": "Введите имя мода для симлинка:",
             "selectEnabled": "Выделить все включенные",
-            "selectDisabled": "Выделить все выключенные",
-            "createSymlink": "Создать симлинк"
+            "selectDisabled": "Выделить все выключенные"
         },
         "search": {
             "search": "Поиск мода:",
@@ -138,7 +137,12 @@
         "developer": {
             "tools": "Инструменты разработчика",
             "createMod": "Создать мод",
-            "enterModName": "Введите название мода:"
+            "enterModName": "Введите название мода:",
+            "devView": "Режим разработки",
+            "selectAll": "Выделить все",
+            "scan": "Сканировать моды",
+            "copyMod": "Скопировать выбранный мод в папку модов игры",
+            "createSymlink": "Создать симлинк в папке модов игры"
         }
     },
     "messages": {
@@ -210,7 +214,16 @@
             "projectPathNotSet": "Путь к проекту не установлен. Пожалуйста, укажите путь к вашему проекту в настройках.",
             "invalidModName": "Недопустимое название мода. Разрешены только английские буквы, цифры и подчеркивание. Название должно начинаться с буквы.",
             "modCreated": "Мод '{modName}' успешно создан!\n\nПуть: {modPath}",
-            "modCreationError": "Не удалось создать структуру мода."
+            "modCreationError": "Не удалось создать структуру мода.",
+            "noModSelected": "Мод не выбран. Пожалуйста, сначала выберите мод.",
+            "modNotFoundInProject": "Мод не найден в папке проекта.",
+            "modLoadOrderFileNotLoaded": "Файл mod_load_order.txt не загружен.",
+            "modCopied": "Мод '{modName}' успешно скопирован в папку модов игры!",
+            "modCopyError": "Не удалось скопировать мод в папку модов игры.",
+            "copyModConfirm": "Скопировать мод в папку модов игры?\n\nИз: {sourcePath}\nВ: {destPath}\n\nМод: {modName}",
+            "createSymlinkConfirm": "Создать символическую ссылку?\n\nИз: {targetPath}\nВ: {linkPath}\n\nИмя: {modName}",
+            "symlinkCreated": "Символическая ссылка успешно создана для мода '{modName}'!",
+            "symlinkCreationError": "Не удалось создать символическую ссылку."
         }
     },
     "status": {

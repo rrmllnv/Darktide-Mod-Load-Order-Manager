@@ -8,13 +8,66 @@
 .expert-mode-frame {
     display: flex;
     align-items: center;
+    gap: 10px;
+    margin-left: auto;
+}
+
+.developer-view-switch {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.developer-view-switch input[type="checkbox"] {
+    display: none;
+}
+
+.switch-slider {
+    position: relative;
+    width: 40px;
+    height: 20px;
+    background-color: var(--bg-secondary, #555);
+    border-radius: 20px;
+    transition: background-color 0.3s;
+}
+
+.switch-slider::before {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    left: 2px;
+    top: 2px;
+    background-color: var(--text-primary, #fff);
+    border-radius: 50%;
+    transition: transform 0.3s;
+}
+
+.developer-view-switch input[type="checkbox"]:checked + .switch-slider {
+    background-color: var(--accent-color, #4CAF50);
+}
+
+.developer-view-switch input[type="checkbox"]:checked + .switch-slider::before {
+    transform: translateX(20px);
+}
+
+.switch-label {
+    font-size: 12px;
+    color: var(--text-primary);
+    white-space: nowrap;
+}
+
+#developer-view-btn.active {
+    background-color: var(--bg-selected);
+    color: var(--text-primary);
 }
 
 .bulk-actions-frame {
     display: flex;
     flex-direction: column;
     padding: 0;
-    margin-left: auto;
     color: var(--text-primary);
     background-color: transparent;
 }

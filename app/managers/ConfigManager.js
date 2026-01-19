@@ -19,7 +19,8 @@ export class ConfigManager {
             saveProfileSort: true,
             profilesListSize: 6,
             developerMode: false,
-            projectPath: ''
+            projectPath: '',
+            developerViewMode: false
         };
     }
     
