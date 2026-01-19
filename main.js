@@ -356,6 +356,177 @@ function getUserConfigPath() {
   return path.join(userDataDir, 'UserConfig.json');
 }
 
+async function getDirectorySize(dirPath) {
+  let totalSize = 0;
+  try {
+    const entries = await fs.readdir(dirPath, { withFileTypes: true });
+    for (const entry of entries) {
+      const entryPath = path.join(dirPath, entry.name);
+      if (entry.isDirectory()) {
+        totalSize += await getDirectorySize(entryPath);
+      } else {
+        const stats = await fs.stat(entryPath);
+        totalSize += stats.size;
+      }
+    }
+  } catch (error) {
+    console.error('Error calculating directory size:', error);
+  }
+  return totalSize;
+}
+
+function formatBytes(bytes) {
+  if (bytes === 0) return '0 Bytes';
+  const k = 1024;
+  const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+}
+
+ipcMain.handle('get-backups-directory', async (event) => {
+  try {
+    const userDataDir = app.getPath('userData');
+    const backupsDir = path.join(userDataDir, 'Backups', 'ProjectMods');
+    await fs.mkdir(backupsDir, { recursive: true });
+    return { success: true, path: backupsDir };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+});
+
+ipcMain.handle('create-backup', async (event, projectPath, modName) => {
+  try {
+    if (!projectPath || !modName) {
+      return { success: false, error: 'Project path and mod name are required' };
+    }
+
+    const userDataDir = app.getPath('userData');
+    const backupsDir = path.join(userDataDir, 'Backups', 'ProjectMods', modName);
+    await fs.mkdir(backupsDir, { recursive: true });
+
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    const versionName = `${year}-${month}-${day}_${hours}-${minutes}-${seconds}`;
+
+    const modPath = path.join(projectPath, modName);
+    const backupPath = path.join(backupsDir, versionName);
+
+    if (!existsSync(modPath)) {
+      return { success: false, error: 'Mod folder does not exist' };
+    }
+
+    const stats = statSync(modPath);
+    if (!stats.isDirectory()) {
+      return { success: false, error: 'Mod path is not a directory' };
+    }
+
+    await copyDirectory(modPath, backupPath);
+
+    return { success: true, versionName, backupPath };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+});
+
+ipcMain.handle('list-backups', async (event, modName) => {
+  try {
+    if (!modName) {
+      return { success: false, error: 'Mod name is required' };
+    }
+
+    const userDataDir = app.getPath('userData');
+    const modBackupsDir = path.join(userDataDir, 'Backups', 'ProjectMods', modName);
+
+    if (!existsSync(modBackupsDir)) {
+      return { success: true, backups: [] };
+    }
+
+    const entries = await fs.readdir(modBackupsDir, { withFileTypes: true });
+    const backups = [];
+
+    for (const entry of entries) {
+      if (entry.isDirectory()) {
+        const backupPath = path.join(modBackupsDir, entry.name);
+        const size = await getDirectorySize(backupPath);
+        const stats = await fs.stat(backupPath);
+        
+        backups.push({
+          versionName: entry.name,
+          path: backupPath,
+          size: size,
+          sizeFormatted: formatBytes(size),
+          created: stats.birthtime || stats.mtime
+        });
+      }
+    }
+
+    backups.sort((a, b) => {
+      return b.created.getTime() - a.created.getTime();
+    });
+
+    return { success: true, backups };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+});
+
+ipcMain.handle('restore-backup', async (event, projectPath, modName, versionName) => {
+  try {
+    if (!projectPath || !modName || !versionName) {
+      return { success: false, error: 'Project path, mod name and version name are required' };
+    }
+
+    const userDataDir = app.getPath('userData');
+    const backupPath = path.join(userDataDir, 'Backups', 'ProjectMods', modName, versionName);
+    const modPath = path.join(projectPath, modName);
+
+    if (!existsSync(backupPath)) {
+      return { success: false, error: 'Backup does not exist' };
+    }
+
+    const stats = statSync(backupPath);
+    if (!stats.isDirectory()) {
+      return { success: false, error: 'Backup path is not a directory' };
+    }
+
+    if (existsSync(modPath)) {
+      await fs.rm(modPath, { recursive: true, force: true });
+    }
+
+    await copyDirectory(backupPath, modPath);
+
+    return { success: true };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+});
+
+ipcMain.handle('delete-backup', async (event, modName, versionName) => {
+  try {
+    if (!modName || !versionName) {
+      return { success: false, error: 'Mod name and version name are required' };
+    }
+
+    const userDataDir = app.getPath('userData');
+    const backupPath = path.join(userDataDir, 'Backups', 'ProjectMods', modName, versionName);
+
+    if (!existsSync(backupPath)) {
+      return { success: false, error: 'Backup does not exist' };
+    }
+
+    await fs.rm(backupPath, { recursive: true, force: true });
+
+    return { success: true };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+});
+
 ipcMain.handle('load-user-config', async () => {
   try {
     const userConfigPath = getUserConfigPath();

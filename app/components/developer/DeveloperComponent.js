@@ -72,6 +72,27 @@ export class DeveloperComponent {
             });
         }
         
+        const devCreateBackupBtn = document.getElementById('dev-create-backup-btn');
+        if (devCreateBackupBtn) {
+            devCreateBackupBtn.addEventListener('click', async () => {
+                await this.createBackup();
+            });
+        }
+        
+        const devRestoreBackupBtn = document.getElementById('dev-restore-backup-btn');
+        if (devRestoreBackupBtn) {
+            devRestoreBackupBtn.addEventListener('click', async () => {
+                await this.showRestoreBackupDialog();
+            });
+        }
+        
+        const backupCancelBtn = document.getElementById('backup-cancel-btn');
+        if (backupCancelBtn) {
+            backupCancelBtn.addEventListener('click', () => {
+                this.hideBackupDialog();
+            });
+        }
+        
         const developerViewBtn = document.getElementById('developer-view-btn');
         if (developerViewBtn) {
             developerViewBtn.addEventListener('click', async () => {
@@ -317,6 +338,16 @@ export class DeveloperComponent {
         const devCreateSymlinkBtn = document.getElementById('dev-create-symlink-btn');
         if (devCreateSymlinkBtn) {
             devCreateSymlinkBtn.title = this.t('ui.developer.createSymlink');
+        }
+        
+        const devCreateBackupBtn = document.getElementById('dev-create-backup-btn');
+        if (devCreateBackupBtn) {
+            devCreateBackupBtn.title = this.t('ui.developer.createBackup');
+        }
+        
+        const devRestoreBackupBtn = document.getElementById('dev-restore-backup-btn');
+        if (devRestoreBackupBtn) {
+            devRestoreBackupBtn.title = this.t('ui.developer.restoreBackup');
         }
         
         const developerViewBtn = document.getElementById('developer-view-btn');
@@ -664,6 +695,309 @@ export class DeveloperComponent {
                 await this.app.uiManager.showMessage(
                     this.app.t('messages.common.error'),
                     `${this.app.t('messages.developer.modFolderDeleteError')}\n\n${errorMessage}\n\nМод: ${modName}\nПуть: ${errorPath}`
+                );
+            }
+        }
+    }
+    
+    async createBackup() {
+        if (!this.app.userConfig || !this.app.userConfig.developerMode) {
+            return;
+        }
+        
+        if (!this.app.selectedModName) {
+            if (this.app.uiManager && this.app.uiManager.showMessage) {
+                await this.app.uiManager.showMessage(
+                    this.app.t('messages.common.error'),
+                    this.app.t('messages.developer.noModSelected')
+                );
+            }
+            return;
+        }
+        
+        const projectPath = this.app.userConfig && this.app.userConfig.projectPath;
+        if (!projectPath || typeof projectPath !== 'string') {
+            if (this.app.uiManager && this.app.uiManager.showMessage) {
+                await this.app.uiManager.showMessage(
+                    this.app.t('messages.common.error'),
+                    this.app.t('messages.developer.projectPathNotSet')
+                );
+            }
+            return;
+        }
+        
+        const modName = this.app.selectedModName;
+        
+        if (this.app.uiManager && this.app.uiManager.showConfirm) {
+            const confirmed = await this.app.uiManager.showConfirm(
+                this.app.t('messages.developer.createBackupConfirm', { modName })
+            );
+            if (!confirmed) {
+                return;
+            }
+        }
+        
+        try {
+            const result = await window.electronAPI.createBackup(projectPath, modName);
+            if (result.success) {
+                if (this.app.uiManager && this.app.uiManager.showMessage) {
+                    await this.app.uiManager.showMessage(
+                        this.app.t('messages.common.success'),
+                        this.app.t('messages.developer.backupCreated', { modName, versionName: result.versionName })
+                    );
+                }
+            } else {
+                if (this.app.uiManager && this.app.uiManager.showMessage) {
+                    await this.app.uiManager.showMessage(
+                        this.app.t('messages.common.error'),
+                        result.error || this.app.t('messages.developer.backupCreationError')
+                    );
+                }
+            }
+        } catch (error) {
+            console.error('Error creating backup:', error);
+            if (this.app.uiManager && this.app.uiManager.showMessage) {
+                await this.app.uiManager.showMessage(
+                    this.app.t('messages.common.error'),
+                    error.message || String(error)
+                );
+            }
+        }
+    }
+    
+    async showRestoreBackupDialog(modName = null) {
+        if (!this.app.userConfig || !this.app.userConfig.developerMode) {
+            return;
+        }
+        
+        const selectedModName = modName || this.app.selectedModName;
+        
+        if (!selectedModName) {
+            if (this.app.uiManager && this.app.uiManager.showMessage) {
+                await this.app.uiManager.showMessage(
+                    this.app.t('messages.common.error'),
+                    this.app.t('messages.developer.noModSelected')
+                );
+            }
+            return;
+        }
+        
+        const modNameToUse = selectedModName;
+        
+        try {
+            const result = await window.electronAPI.listBackups(modNameToUse);
+            if (!result.success) {
+                if (this.app.uiManager && this.app.uiManager.showMessage) {
+                    await this.app.uiManager.showMessage(
+                        this.app.t('messages.common.error'),
+                        result.error || this.app.t('messages.developer.backupListError')
+                    );
+                }
+                return;
+            }
+            
+            const backups = result.backups || [];
+            if (backups.length === 0) {
+                if (this.app.uiManager && this.app.uiManager.showMessage) {
+                    await this.app.uiManager.showMessage(
+                        this.app.t('messages.common.info'),
+                        this.app.t('messages.developer.noBackupsFound', { modName: modNameToUse })
+                    );
+                }
+                return;
+            }
+            
+            this.showBackupDialog(modNameToUse, backups);
+        } catch (error) {
+            console.error('Error listing backups:', error);
+            if (this.app.uiManager && this.app.uiManager.showMessage) {
+                await this.app.uiManager.showMessage(
+                    this.app.t('messages.common.error'),
+                    error.message || String(error)
+                );
+            }
+        }
+    }
+    
+    showBackupDialog(modName, backups) {
+        const backupDialog = document.getElementById('backup-dialog');
+        const backupTitle = document.getElementById('backup-title');
+        const backupList = document.getElementById('backup-list');
+        const backupCancelBtn = document.getElementById('backup-cancel-btn');
+        
+        if (!backupDialog || !backupTitle || !backupList) {
+            return;
+        }
+        
+        backupTitle.textContent = this.app.t('ui.developer.restoreBackup') + ': ' + modName;
+        if (backupCancelBtn) {
+            backupCancelBtn.textContent = this.app.t('ui.common.cancel');
+        }
+        backupList.innerHTML = '';
+        
+        backups.forEach(backup => {
+            const backupItem = document.createElement('div');
+            backupItem.className = 'backup-item';
+            
+            const dateTime = backup.versionName.replace(/_/g, ' ').replace(/-/g, ':');
+            const formattedDate = dateTime.replace(/(\d{4}):(\d{2}):(\d{2}) (\d{2}):(\d{2}):(\d{2})/, '$1-$2-$3 $4:$5:$6');
+            
+            backupItem.innerHTML = `
+                <div class="backup-item-info">
+                    <div class="backup-item-date">${formattedDate}</div>
+                    <div class="backup-item-size">${backup.sizeFormatted}</div>
+                </div>
+                <div class="backup-item-actions">
+                    <button class="btn btn-primary backup-restore-btn" data-version="${backup.versionName}">
+                        ${this.app.t('ui.developer.restore')}
+                    </button>
+                    <button class="btn backup-delete-btn" data-version="${backup.versionName}">
+                        ${this.app.t('ui.developer.delete')}
+                    </button>
+                </div>
+            `;
+            
+            const restoreBtn = backupItem.querySelector('.backup-restore-btn');
+            restoreBtn.addEventListener('click', async () => {
+                await this.restoreBackup(modName, backup.versionName);
+            });
+            
+            const deleteBtn = backupItem.querySelector('.backup-delete-btn');
+            deleteBtn.addEventListener('click', async () => {
+                await this.deleteBackup(modName, backup.versionName);
+            });
+            
+            backupList.appendChild(backupItem);
+        });
+        
+        backupDialog.style.display = 'flex';
+        backupDialog.classList.add('show');
+    }
+    
+    hideBackupDialog() {
+        const backupDialog = document.getElementById('backup-dialog');
+        if (backupDialog) {
+            backupDialog.style.display = 'none';
+            backupDialog.classList.remove('show');
+        }
+    }
+    
+    async restoreBackup(modName, versionName) {
+        if (!this.app.userConfig || !this.app.userConfig.developerMode) {
+            return;
+        }
+        
+        const projectPath = this.app.userConfig && this.app.userConfig.projectPath;
+        if (!projectPath || typeof projectPath !== 'string') {
+            this.hideBackupDialog();
+            if (this.app.uiManager && this.app.uiManager.showMessage) {
+                await this.app.uiManager.showMessage(
+                    this.app.t('messages.common.error'),
+                    this.app.t('messages.developer.projectPathNotSet')
+                );
+            }
+            return;
+        }
+        
+        this.hideBackupDialog();
+        
+        if (this.app.uiManager && this.app.uiManager.showConfirm) {
+            const confirmed = await this.app.uiManager.showConfirm(
+                this.app.t('messages.developer.restoreBackupConfirm', { modName, versionName })
+            );
+            if (!confirmed) {
+                return;
+            }
+        }
+        
+        try {
+            const result = await window.electronAPI.restoreBackup(projectPath, modName, versionName);
+            if (result.success) {
+                this.hideBackupDialog();
+                
+                if (this.app.uiManager && this.app.uiManager.showMessage) {
+                    await this.app.uiManager.showMessage(
+                        this.app.t('messages.common.success'),
+                        this.app.t('messages.developer.backupRestored', { modName, versionName })
+                    );
+                }
+                
+                if (this.app.modScanService) {
+                    const scanResult = await this.app.modScanService.scanModsDirectory(this.app.modEntries, this.app.selectedModName);
+                    if (scanResult && this.app.modListComponent) {
+                        this.app.modListComponent.updateModList();
+                        if (this.app.updateStatistics) {
+                            this.app.updateStatistics();
+                        }
+                    }
+                }
+            } else {
+                if (this.app.uiManager && this.app.uiManager.showMessage) {
+                    await this.app.uiManager.showMessage(
+                        this.app.t('messages.common.error'),
+                        result.error || this.app.t('messages.developer.backupRestoreError')
+                    );
+                }
+            }
+        } catch (error) {
+            console.error('Error restoring backup:', error);
+            if (this.app.uiManager && this.app.uiManager.showMessage) {
+                await this.app.uiManager.showMessage(
+                    this.app.t('messages.common.error'),
+                    error.message || String(error)
+                );
+            }
+        }
+    }
+    
+    async deleteBackup(modName, versionName) {
+        if (!this.app.userConfig || !this.app.userConfig.developerMode) {
+            return;
+        }
+        
+        if (this.app.uiManager && this.app.uiManager.showConfirm) {
+            const confirmed = await this.app.uiManager.showConfirm(
+                this.app.t('messages.developer.deleteBackupConfirm', { modName, versionName })
+            );
+            if (!confirmed) {
+                return;
+            }
+        }
+        
+        try {
+            const result = await window.electronAPI.deleteBackup(modName, versionName);
+            if (result.success) {
+                this.app.selectedModName = modName;
+                
+                const listResult = await window.electronAPI.listBackups(modName);
+                const remainingBackups = listResult.success && listResult.backups ? listResult.backups.length : 0;
+                
+                if (this.app.uiManager && this.app.uiManager.showMessage) {
+                    await this.app.uiManager.showMessage(
+                        this.app.t('messages.common.success'),
+                        this.app.t('messages.developer.backupDeleted', { modName, versionName })
+                    );
+                }
+                
+                if (remainingBackups > 0) {
+                    await this.showRestoreBackupDialog();
+                } else {
+                    this.hideBackupDialog();
+                }
+            } else {
+                if (this.app.uiManager && this.app.uiManager.showMessage) {
+                    await this.app.uiManager.showMessage(
+                        this.app.t('messages.common.error'),
+                        result.error || this.app.t('messages.developer.backupDeleteError')
+                    );
+                }
+            }
+        } catch (error) {
+            console.error('Error deleting backup:', error);
+            if (this.app.uiManager && this.app.uiManager.showMessage) {
+                await this.app.uiManager.showMessage(
+                    this.app.t('messages.common.error'),
+                    error.message || String(error)
                 );
             }
         }

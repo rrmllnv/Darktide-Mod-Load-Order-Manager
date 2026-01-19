@@ -146,7 +146,11 @@
             "openProjectFolder": "프로젝트 폴더 열기",
             "copyMod": "모드를 게임 모드 폴더로 복사",
             "createSymlink": "게임 모드 폴더에 심볼릭 링크 만들기",
-            "deleteModFolder": "모드 폴더 삭제"
+            "deleteModFolder": "모드 폴더 삭제",
+            "createBackup": "백업 만들기",
+            "restoreBackup": "백업에서 복원",
+            "restore": "복원",
+            "delete": "삭제"
         }
     },
     "messages": {
@@ -230,7 +234,18 @@
             "symlinkCreationError": "심볼릭 링크 생성에 실패했습니다.",
             "deleteModFolderConfirm": "모드 폴더를 삭제하시겠습니까?\n\n모드: {modName}\n경로: {modPath}\n\n이 작업은 되돌릴 수 없습니다!",
             "modFolderDeleted": "모드 폴더 '{modName}'이(가) 성공적으로 삭제되었습니다!",
-            "modFolderDeleteError": "모드 폴더 삭제에 실패했습니다."
+            "modFolderDeleteError": "모드 폴더 삭제에 실패했습니다.",
+            "createBackupConfirm": "모드 '{modName}'의 백업을 생성하시겠습니까?",
+            "backupCreated": "모드 '{modName}'의 백업이 성공적으로 생성되었습니다!\n\n버전: {versionName}",
+            "backupCreationError": "백업 생성에 실패했습니다.",
+            "backupListError": "백업 목록을 가져오는데 실패했습니다.",
+            "noBackupsFound": "모드 '{modName}'에 대한 백업을 찾을 수 없습니다.",
+            "restoreBackupConfirm": "모드 '{modName}'을(를) 백업에서 복원하시겠습니까?\n\n버전: {versionName}\n\n현재 모드 버전이 교체됩니다.",
+            "backupRestored": "모드 '{modName}'이(가) 백업에서 성공적으로 복원되었습니다!\n\n버전: {versionName}",
+            "backupRestoreError": "백업에서 복원하는데 실패했습니다.",
+            "deleteBackupConfirm": "모드 '{modName}'의 백업을 삭제하시겠습니까?\n\n버전: {versionName}\n\n이 작업은 되돌릴 수 없습니다!",
+            "backupDeleted": "모드 '{modName}'의 백업이 성공적으로 삭제되었습니다!\n\n버전: {versionName}",
+            "backupDeleteError": "백업 삭제에 실패했습니다."
         }
     },
     "status": {

@@ -145,7 +145,11 @@
             "openProjectFolder": "Open project folder",
             "copyMod": "Copy mod to game mods folder",
             "createSymlink": "Create symlink in game mods folder",
-            "deleteModFolder": "Delete mod folder"
+            "deleteModFolder": "Delete mod folder",
+            "createBackup": "Create backup",
+            "restoreBackup": "Restore from backup",
+            "restore": "Restore",
+            "delete": "Delete"
         }
     },
     "messages": {
@@ -229,7 +233,18 @@
             "symlinkCreationError": "Failed to create symbolic link.",
             "deleteModFolderConfirm": "Delete mod folder?\n\nMod: {modName}\nPath: {modPath}\n\nThis action cannot be undone!",
             "modFolderDeleted": "Mod folder '{modName}' deleted successfully!",
-            "modFolderDeleteError": "Failed to delete mod folder."
+            "modFolderDeleteError": "Failed to delete mod folder.",
+            "createBackupConfirm": "Create backup of mod '{modName}'?",
+            "backupCreated": "Backup of mod '{modName}' created successfully!\n\nVersion: {versionName}",
+            "backupCreationError": "Failed to create backup.",
+            "backupListError": "Failed to get backup list.",
+            "noBackupsFound": "No backups found for mod '{modName}'.",
+            "restoreBackupConfirm": "Restore mod '{modName}' from backup?\n\nVersion: {versionName}\n\nCurrent mod version will be replaced.",
+            "backupRestored": "Mod '{modName}' restored successfully from backup!\n\nVersion: {versionName}",
+            "backupRestoreError": "Failed to restore from backup.",
+            "deleteBackupConfirm": "Delete backup of mod '{modName}'?\n\nVersion: {versionName}\n\nThis action cannot be undone!",
+            "backupDeleted": "Backup of mod '{modName}' deleted successfully!\n\nVersion: {versionName}",
+            "backupDeleteError": "Failed to delete backup."
         }
     },
     "status": {

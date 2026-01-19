@@ -146,7 +146,11 @@
             "openProjectFolder": "Abrir pasta do projeto",
             "copyMod": "Copiar mod para a pasta de mods do jogo",
             "createSymlink": "Criar link simbólico na pasta de mods do jogo",
-            "deleteModFolder": "Excluir pasta do mod"
+            "deleteModFolder": "Excluir pasta do mod",
+            "createBackup": "Criar backup",
+            "restoreBackup": "Restaurar do backup",
+            "restore": "Restaurar",
+            "delete": "Excluir"
         }
     },
     "messages": {
@@ -230,7 +234,18 @@
             "symlinkCreationError": "Falha ao criar link simbólico.",
             "deleteModFolderConfirm": "Excluir pasta do mod?\n\nMod: {modName}\nCaminho: {modPath}\n\nEsta ação não pode ser desfeita!",
             "modFolderDeleted": "Pasta do mod '{modName}' excluída com sucesso!",
-            "modFolderDeleteError": "Falha ao excluir pasta do mod."
+            "modFolderDeleteError": "Falha ao excluir pasta do mod.",
+            "createBackupConfirm": "Criar backup do mod '{modName}'?",
+            "backupCreated": "Backup do mod '{modName}' criado com sucesso!\n\nVersão: {versionName}",
+            "backupCreationError": "Falha ao criar backup.",
+            "backupListError": "Falha ao obter lista de backups.",
+            "noBackupsFound": "Nenhum backup encontrado para o mod '{modName}'.",
+            "restoreBackupConfirm": "Restaurar mod '{modName}' do backup?\n\nVersão: {versionName}\n\nA versão atual do mod será substituída.",
+            "backupRestored": "Mod '{modName}' restaurado com sucesso do backup!\n\nVersão: {versionName}",
+            "backupRestoreError": "Falha ao restaurar do backup.",
+            "deleteBackupConfirm": "Excluir backup do mod '{modName}'?\n\nVersão: {versionName}\n\nEsta ação não pode ser desfeita!",
+            "backupDeleted": "Backup do mod '{modName}' excluído com sucesso!\n\nVersão: {versionName}",
+            "backupDeleteError": "Falha ao excluir backup."
         }
     },
     "status": {

@@ -145,7 +145,11 @@
             "openProjectFolder": "Открыть папку проекта",
             "copyMod": "Скопировать мод в папку модов игры",
             "createSymlink": "Создать симлинк в папке модов игры",
-            "deleteModFolder": "Удалить папку мода"
+            "deleteModFolder": "Удалить папку мода",
+            "createBackup": "Создать бэкап",
+            "restoreBackup": "Восстановить из бэкапа",
+            "restore": "Восстановить",
+            "delete": "Удалить"
         }
     },
     "messages": {
@@ -229,7 +233,18 @@
             "symlinkCreationError": "Не удалось создать символическую ссылку.",
             "deleteModFolderConfirm": "Удалить папку мода?\n\nМод: {modName}\nПуть: {modPath}\n\nЭто действие нельзя отменить!",
             "modFolderDeleted": "Папка мода '{modName}' успешно удалена!",
-            "modFolderDeleteError": "Не удалось удалить папку мода."
+            "modFolderDeleteError": "Не удалось удалить папку мода.",
+            "createBackupConfirm": "Создать бэкап мода '{modName}'?",
+            "backupCreated": "Бэкап мода '{modName}' создан успешно!\n\nВерсия: {versionName}",
+            "backupCreationError": "Не удалось создать бэкап.",
+            "backupListError": "Не удалось получить список бэкапов.",
+            "noBackupsFound": "Бэкапы для мода '{modName}' не найдены.",
+            "restoreBackupConfirm": "Восстановить мод '{modName}' из бэкапа?\n\nВерсия: {versionName}\n\nТекущая версия мода будет заменена.",
+            "backupRestored": "Мод '{modName}' успешно восстановлен из бэкапа!\n\nВерсия: {versionName}",
+            "backupRestoreError": "Не удалось восстановить из бэкапа.",
+            "deleteBackupConfirm": "Удалить бэкап мода '{modName}'?\n\nВерсия: {versionName}\n\nЭто действие нельзя отменить!",
+            "backupDeleted": "Бэкап мода '{modName}' успешно удален!\n\nВерсия: {versionName}",
+            "backupDeleteError": "Не удалось удалить бэкап."
         }
     },
     "status": {

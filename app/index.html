@@ -115,6 +115,12 @@
                     <button id="dev-create-symlink-btn" class="btn-icon" title="Create symlink in game mods folder">
                         <i class="fas fa-link"></i>
                     </button>
+                    <button id="dev-create-backup-btn" class="btn-icon" title="Create backup">
+                        <i class="fas fa-save"></i>
+                    </button>
+                    <button id="dev-restore-backup-btn" class="btn-icon" title="Restore from backup">
+                        <i class="fas fa-undo"></i>
+                    </button>
                 </div>
             </div>
 
@@ -232,6 +238,20 @@
             <div class="modal-footer">
                 <button id="modal-ok-btn" class="btn btn-primary">Save</button>
                 <button id="modal-cancel-btn" class="btn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="backup-dialog" class="modal">
+        <div class="modal-content modal-content-backup">
+            <div class="modal-header">
+                <span id="backup-title" class="modal-title">Restore from backup</span>
+            </div>
+            <div class="modal-body">
+                <div id="backup-list" class="backup-list"></div>
+            </div>
+            <div class="modal-footer">
+                <button id="backup-cancel-btn" class="btn">Cancel</button>
             </div>
         </div>
     </div>

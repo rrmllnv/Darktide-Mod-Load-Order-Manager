@@ -146,7 +146,11 @@
             "openProjectFolder": "打开项目文件夹",
             "copyMod": "将模组复制到游戏模组文件夹",
             "createSymlink": "在游戏模组文件夹中创建符号链接",
-            "deleteModFolder": "删除模组文件夹"
+            "deleteModFolder": "删除模组文件夹",
+            "createBackup": "创建备份",
+            "restoreBackup": "从备份恢复",
+            "restore": "恢复",
+            "delete": "删除"
         }
     },
     "messages": {
@@ -230,7 +234,18 @@
             "symlinkCreationError": "创建符号链接失败。",
             "deleteModFolderConfirm": "删除模组文件夹？\n\n模组: {modName}\n路径: {modPath}\n\n此操作无法撤销!",
             "modFolderDeleted": "模组文件夹 '{modName}' 删除成功!",
-            "modFolderDeleteError": "删除模组文件夹失败。"
+            "modFolderDeleteError": "删除模组文件夹失败。",
+            "createBackupConfirm": "创建模组 '{modName}' 的备份?",
+            "backupCreated": "模组 '{modName}' 的备份创建成功!\n\n版本: {versionName}",
+            "backupCreationError": "创建备份失败。",
+            "backupListError": "获取备份列表失败。",
+            "noBackupsFound": "未找到模组 '{modName}' 的备份。",
+            "restoreBackupConfirm": "从备份恢复模组 '{modName}'?\n\n版本: {versionName}\n\n当前模组版本将被替换。",
+            "backupRestored": "模组 '{modName}' 从备份成功恢复!\n\n版本: {versionName}",
+            "backupRestoreError": "从备份恢复失败。",
+            "deleteBackupConfirm": "删除模组 '{modName}' 的备份?\n\n版本: {versionName}\n\n此操作无法撤销!",
+            "backupDeleted": "模组 '{modName}' 的备份删除成功!\n\n版本: {versionName}",
+            "backupDeleteError": "删除备份失败。"
         }
     },
     "status": {

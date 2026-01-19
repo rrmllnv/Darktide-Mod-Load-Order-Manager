@@ -146,7 +146,11 @@
             "openProjectFolder": "Ouvrir le dossier du projet",
             "copyMod": "Copier le mod dans le dossier des mods du jeu",
             "createSymlink": "Créer un lien symbolique dans le dossier des mods du jeu",
-            "deleteModFolder": "Supprimer le dossier du mod"
+            "deleteModFolder": "Supprimer le dossier du mod",
+            "createBackup": "Créer une sauvegarde",
+            "restoreBackup": "Restaurer depuis une sauvegarde",
+            "restore": "Restaurer",
+            "delete": "Supprimer"
         }
     },
     "messages": {
@@ -230,7 +234,18 @@
             "symlinkCreationError": "Échec de la création du lien symbolique.",
             "deleteModFolderConfirm": "Supprimer le dossier du mod?\n\nMod: {modName}\nChemin: {modPath}\n\nCette action ne peut pas être annulée!",
             "modFolderDeleted": "Dossier du mod '{modName}' supprimé avec succès!",
-            "modFolderDeleteError": "Échec de la suppression du dossier du mod."
+            "modFolderDeleteError": "Échec de la suppression du dossier du mod.",
+            "createBackupConfirm": "Créer une sauvegarde du mod '{modName}'?",
+            "backupCreated": "Sauvegarde du mod '{modName}' créée avec succès!\n\nVersion: {versionName}",
+            "backupCreationError": "Échec de la création de la sauvegarde.",
+            "backupListError": "Échec de la récupération de la liste des sauvegardes.",
+            "noBackupsFound": "Aucune sauvegarde trouvée pour le mod '{modName}'.",
+            "restoreBackupConfirm": "Restaurer le mod '{modName}' depuis une sauvegarde?\n\nVersion: {versionName}\n\nLa version actuelle du mod sera remplacée.",
+            "backupRestored": "Mod '{modName}' restauré avec succès depuis la sauvegarde!\n\nVersion: {versionName}",
+            "backupRestoreError": "Échec de la restauration depuis la sauvegarde.",
+            "deleteBackupConfirm": "Supprimer la sauvegarde du mod '{modName}'?\n\nVersion: {versionName}\n\nCette action ne peut pas être annulée!",
+            "backupDeleted": "Sauvegarde du mod '{modName}' supprimée avec succès!\n\nVersion: {versionName}",
+            "backupDeleteError": "Échec de la suppression de la sauvegarde."
         }
     },
     "status": {

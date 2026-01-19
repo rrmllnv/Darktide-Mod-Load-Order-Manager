@@ -146,7 +146,11 @@
             "openProjectFolder": "Apri cartella progetto",
             "copyMod": "Copia mod nella cartella mods del gioco",
             "createSymlink": "Crea collegamento simbolico nella cartella mods del gioco",
-            "deleteModFolder": "Elimina cartella mod"
+            "deleteModFolder": "Elimina cartella mod",
+            "createBackup": "Crea backup",
+            "restoreBackup": "Ripristina da backup",
+            "restore": "Ripristina",
+            "delete": "Elimina"
         }
     },
     "messages": {
@@ -230,7 +234,18 @@
             "symlinkCreationError": "Impossibile creare il collegamento simbolico.",
             "deleteModFolderConfirm": "Eliminare la cartella del mod?\n\nMod: {modName}\nPercorso: {modPath}\n\nQuesta azione non può essere annullata!",
             "modFolderDeleted": "Cartella del mod '{modName}' eliminata con successo!",
-            "modFolderDeleteError": "Impossibile eliminare la cartella del mod."
+            "modFolderDeleteError": "Impossibile eliminare la cartella del mod.",
+            "createBackupConfirm": "Creare backup del mod '{modName}'?",
+            "backupCreated": "Backup del mod '{modName}' creato con successo!\n\nVersione: {versionName}",
+            "backupCreationError": "Impossibile creare il backup.",
+            "backupListError": "Impossibile ottenere l'elenco dei backup.",
+            "noBackupsFound": "Nessun backup trovato per il mod '{modName}'.",
+            "restoreBackupConfirm": "Ripristinare il mod '{modName}' dal backup?\n\nVersione: {versionName}\n\nLa versione attuale del mod sarà sostituita.",
+            "backupRestored": "Mod '{modName}' ripristinato con successo dal backup!\n\nVersione: {versionName}",
+            "backupRestoreError": "Impossibile ripristinare dal backup.",
+            "deleteBackupConfirm": "Eliminare il backup del mod '{modName}'?\n\nVersione: {versionName}\n\nQuesta azione non può essere annullata!",
+            "backupDeleted": "Backup del mod '{modName}' eliminato con successo!\n\nVersione: {versionName}",
+            "backupDeleteError": "Impossibile eliminare il backup."
         }
     },
     "status": {

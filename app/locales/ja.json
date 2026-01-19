@@ -146,7 +146,11 @@
             "openProjectFolder": "プロジェクトフォルダを開く",
             "copyMod": "MODをゲームMODフォルダにコピー",
             "createSymlink": "ゲームMODフォルダにシンボリックリンクを作成",
-            "deleteModFolder": "MODフォルダを削除"
+            "deleteModFolder": "MODフォルダを削除",
+            "createBackup": "バックアップを作成",
+            "restoreBackup": "バックアップから復元",
+            "restore": "復元",
+            "delete": "削除"
         }
     },
     "messages": {
@@ -230,7 +234,18 @@
             "symlinkCreationError": "シンボリックリンクの作成に失敗しました。",
             "deleteModFolderConfirm": "MODフォルダを削除しますか？\n\nMOD: {modName}\nパス: {modPath}\n\nこの操作は元に戻せません!",
             "modFolderDeleted": "MODフォルダ '{modName}'が正常に削除されました!",
-            "modFolderDeleteError": "MODフォルダの削除に失敗しました。"
+            "modFolderDeleteError": "MODフォルダの削除に失敗しました。",
+            "createBackupConfirm": "MOD '{modName}'のバックアップを作成しますか?",
+            "backupCreated": "MOD '{modName}'のバックアップが正常に作成されました!\n\nバージョン: {versionName}",
+            "backupCreationError": "バックアップの作成に失敗しました。",
+            "backupListError": "バックアップリストの取得に失敗しました。",
+            "noBackupsFound": "MOD '{modName}'のバックアップが見つかりませんでした。",
+            "restoreBackupConfirm": "MOD '{modName}'をバックアップから復元しますか?\n\nバージョン: {versionName}\n\n現在のMODバージョンが置き換えられます。",
+            "backupRestored": "MOD '{modName}'がバックアップから正常に復元されました!\n\nバージョン: {versionName}",
+            "backupRestoreError": "バックアップからの復元に失敗しました。",
+            "deleteBackupConfirm": "MOD '{modName}'のバックアップを削除しますか?\n\nバージョン: {versionName}\n\nこの操作は元に戻せません!",
+            "backupDeleted": "MOD '{modName}'のバックアップが正常に削除されました!\n\nバージョン: {versionName}",
+            "backupDeleteError": "バックアップの削除に失敗しました。"
         }
     },
     "status": {

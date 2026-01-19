@@ -146,7 +146,11 @@
             "openProjectFolder": "Projektordner öffnen",
             "copyMod": "Mod in den Spiel-Mods-Ordner kopieren",
             "createSymlink": "Symbolischen Link im Spiel-Mods-Ordner erstellen",
-            "deleteModFolder": "Mod-Ordner löschen"
+            "deleteModFolder": "Mod-Ordner löschen",
+            "createBackup": "Backup erstellen",
+            "restoreBackup": "Aus Backup wiederherstellen",
+            "restore": "Wiederherstellen",
+            "delete": "Löschen"
         }
     },
     "messages": {
@@ -230,7 +234,18 @@
             "symlinkCreationError": "Fehler beim Erstellen des symbolischen Links.",
             "deleteModFolderConfirm": "Mod-Ordner löschen?\n\nMod: {modName}\nPfad: {modPath}\n\nDiese Aktion kann nicht rückgängig gemacht werden!",
             "modFolderDeleted": "Mod-Ordner '{modName}' erfolgreich gelöscht!",
-            "modFolderDeleteError": "Fehler beim Löschen des Mod-Ordners."
+            "modFolderDeleteError": "Fehler beim Löschen des Mod-Ordners.",
+            "createBackupConfirm": "Backup des Mods '{modName}' erstellen?",
+            "backupCreated": "Backup des Mods '{modName}' erfolgreich erstellt!\n\nVersion: {versionName}",
+            "backupCreationError": "Backup konnte nicht erstellt werden.",
+            "backupListError": "Backup-Liste konnte nicht abgerufen werden.",
+            "noBackupsFound": "Keine Backups für Mod '{modName}' gefunden.",
+            "restoreBackupConfirm": "Mod '{modName}' aus Backup wiederherstellen?\n\nVersion: {versionName}\n\nAktuelle Mod-Version wird ersetzt.",
+            "backupRestored": "Mod '{modName}' erfolgreich aus Backup wiederhergestellt!\n\nVersion: {versionName}",
+            "backupRestoreError": "Wiederherstellung aus Backup fehlgeschlagen.",
+            "deleteBackupConfirm": "Backup des Mods '{modName}' löschen?\n\nVersion: {versionName}\n\nDiese Aktion kann nicht rückgängig gemacht werden!",
+            "backupDeleted": "Backup des Mods '{modName}' erfolgreich gelöscht!\n\nVersion: {versionName}",
+            "backupDeleteError": "Backup konnte nicht gelöscht werden."
         }
     },
     "status": {
