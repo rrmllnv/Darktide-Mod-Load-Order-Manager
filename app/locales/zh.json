@@ -137,6 +137,15 @@
             "addModFolder": "添加模组文件夹",
             "launchDtkitPatch": "启动 Darktide Mod Patcher"
         },
+        "todos": {
+            "todos": "任务:",
+            "showOnlyActive": "仅显示活动",
+            "addNewTodo": "添加新任务...",
+            "noTodos": "无任务",
+            "edit": "编辑",
+            "delete": "删除",
+            "pleaseSelectMod": "请先选择一个模组"
+        },
         "developer": {
             "tools": "开发者工具",
             "createMod": "创建模组",
@@ -207,6 +216,12 @@
             "failedToRenameProfile": "无法重命名配置文件:",
             "failedToOverwriteProfile": "无法覆盖配置文件:",
             "failedToDeleteProfile": "无法删除配置文件:"
+        },
+        "todos": {
+            "confirmDelete": "您确定要删除此任务吗?",
+            "failedToAddTodo": "添加任务失败: {error}",
+            "failedToUpdateTodo": "更新任务失败: {error}",
+            "failedToDeleteTodo": "删除任务失败: {error}"
         },
         "modList": {
             "scanNewMods": "发现新模组:",

@@ -137,6 +137,15 @@
             "addModFolder": "Adicionar pasta de mod",
             "launchDtkitPatch": "Iniciar Darktide Mod Patcher"
         },
+        "todos": {
+            "todos": "Tarefas:",
+            "showOnlyActive": "Mostrar apenas ativas",
+            "addNewTodo": "Adicionar nova tarefa...",
+            "noTodos": "Sem tarefas",
+            "edit": "Editar",
+            "delete": "Excluir",
+            "pleaseSelectMod": "Por favor, selecione um mod primeiro"
+        },
         "developer": {
             "tools": "Ferramentas de desenvolvedor",
             "createMod": "Criar mod",
@@ -207,6 +216,12 @@
             "failedToRenameProfile": "Falha ao renomear perfil:",
             "failedToOverwriteProfile": "Falha ao sobrescrever perfil:",
             "failedToDeleteProfile": "Falha ao excluir perfil:"
+        },
+        "todos": {
+            "confirmDelete": "Tem certeza de que deseja excluir esta tarefa?",
+            "failedToAddTodo": "Falha ao adicionar tarefa: {error}",
+            "failedToUpdateTodo": "Falha ao atualizar tarefa: {error}",
+            "failedToDeleteTodo": "Falha ao excluir tarefa: {error}"
         },
         "modList": {
             "scanNewMods": "Novos mods encontrados:",

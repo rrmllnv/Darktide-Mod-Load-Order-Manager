@@ -136,6 +136,15 @@
             "addModFolder": "Add mod folder",
             "launchDtkitPatch": "Launch Darktide Mod Patcher"
         },
+        "todos": {
+            "todos": "Todos:",
+            "showOnlyActive": "Show only active",
+            "addNewTodo": "Add new todo...",
+            "noTodos": "No todos",
+            "edit": "Edit",
+            "delete": "Delete",
+            "pleaseSelectMod": "Please select a mod first"
+        },
         "developer": {
             "tools": "Developer tools",
             "createMod": "Create mod",
@@ -206,6 +215,12 @@
             "failedToRenameProfile": "Failed to rename profile:",
             "failedToOverwriteProfile": "Failed to overwrite profile:",
             "failedToDeleteProfile": "Failed to delete profile:"
+        },
+        "todos": {
+            "confirmDelete": "Are you sure you want to delete this task?",
+            "failedToAddTodo": "Failed to add todo: {error}",
+            "failedToUpdateTodo": "Failed to update todo: {error}",
+            "failedToDeleteTodo": "Failed to delete todo: {error}"
         },
         "modList": {
             "scanNewMods": "New mods found:",

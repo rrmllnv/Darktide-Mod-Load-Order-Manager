@@ -13,6 +13,24 @@ export class TodosComponent {
         await this.initTodosDirectory();
         this.bindEvents();
         await this.loadTodos();
+        this.updateLocalization();
+    }
+    
+    updateLocalization() {
+        const todosLabel = document.querySelector('.todos-frame .section-label');
+        if (todosLabel) {
+            todosLabel.textContent = this.t('ui.todos.todos');
+        }
+        
+        const filterLabel = document.querySelector('#todos-filter-active')?.parentElement?.querySelector('span');
+        if (filterLabel) {
+            filterLabel.textContent = this.t('ui.todos.showOnlyActive');
+        }
+        
+        const todosInput = document.getElementById('todos-input');
+        if (todosInput) {
+            todosInput.placeholder = this.t('ui.todos.addNewTodo');
+        }
     }
     
     t(key, params = {}) {
@@ -183,8 +201,8 @@ export class TodosComponent {
         
         if (!modName) {
             await this.app.uiManager.showMessage(
-                this.app.t('messages.common.error'),
-                'Please select a mod first'
+                this.t('messages.common.error'),
+                this.t('ui.todos.pleaseSelectMod')
             );
             return;
         }
@@ -205,14 +223,14 @@ export class TodosComponent {
                 await this.loadTodos();
             } else {
                 await this.app.uiManager.showMessage(
-                    this.app.t('messages.common.error'),
-                    `Failed to add todo: ${result.error}`
+                    this.t('messages.common.error'),
+                    this.t('messages.todos.failedToAddTodo', { error: result.error })
                 );
             }
         } catch (error) {
             await this.app.uiManager.showMessage(
-                this.app.t('messages.common.error'),
-                `Failed to add todo: ${error.message}`
+                this.t('messages.common.error'),
+                this.t('messages.todos.failedToAddTodo', { error: error.message })
             );
         }
     }
@@ -281,8 +299,8 @@ export class TodosComponent {
                 }
                 
                 await this.app.uiManager.showMessage(
-                    this.app.t('messages.common.error'),
-                    `Failed to update todo: ${result.error}`
+                    this.t('messages.common.error'),
+                    this.t('messages.todos.failedToUpdateTodo', { error: result.error })
                 );
             }
         } catch (error) {
@@ -306,8 +324,8 @@ export class TodosComponent {
             }
             
             await this.app.uiManager.showMessage(
-                this.app.t('messages.common.error'),
-                `Failed to update todo: ${error.message}`
+                this.t('messages.common.error'),
+                this.t('messages.todos.failedToUpdateTodo', { error: error.message })
             );
         }
     }
@@ -332,7 +350,7 @@ export class TodosComponent {
             return;
         }
         
-        const confirmed = await this.app.uiManager.showConfirm('Are you sure you want to delete this task?');
+        const confirmed = await this.app.uiManager.showConfirm(this.t('messages.todos.confirmDelete'));
         if (!confirmed) {
             return;
         }
@@ -343,14 +361,14 @@ export class TodosComponent {
                 await this.loadTodos();
             } else {
                 await this.app.uiManager.showMessage(
-                    this.app.t('messages.common.error'),
-                    `Failed to delete todo: ${result.error}`
+                    this.t('messages.common.error'),
+                    this.t('messages.todos.failedToDeleteTodo', { error: result.error })
                 );
             }
         } catch (error) {
             await this.app.uiManager.showMessage(
-                this.app.t('messages.common.error'),
-                `Failed to delete todo: ${error.message}`
+                this.t('messages.common.error'),
+                this.t('messages.todos.failedToDeleteTodo', { error: error.message })
             );
         }
     }
@@ -399,16 +417,16 @@ export class TodosComponent {
                 await this.loadTodos();
             } else {
                 await this.app.uiManager.showMessage(
-                    this.app.t('messages.common.error'),
-                    `Failed to update todo: ${result.error}`
+                    this.t('messages.common.error'),
+                    this.t('messages.todos.failedToUpdateTodo', { error: result.error })
                 );
                 this.editingTodoId = null;
                 this.renderTodos();
             }
         } catch (error) {
             await this.app.uiManager.showMessage(
-                this.app.t('messages.common.error'),
-                `Failed to update todo: ${error.message}`
+                this.t('messages.common.error'),
+                this.t('messages.todos.failedToUpdateTodo', { error: error.message })
             );
             this.editingTodoId = null;
             this.renderTodos();
@@ -470,7 +488,7 @@ export class TodosComponent {
         if (todosToShow.length === 0) {
             const emptyMessage = document.createElement('div');
             emptyMessage.className = 'todos-empty';
-            emptyMessage.textContent = 'No todos';
+            emptyMessage.textContent = this.t('ui.todos.noTodos');
             todosList.appendChild(emptyMessage);
             return;
         }
@@ -551,7 +569,7 @@ export class TodosComponent {
                 const todoEdit = document.createElement('div');
                 todoEdit.className = 'todo-edit';
                 todoEdit.innerHTML = '<i class="fas fa-edit"></i>';
-                todoEdit.title = 'Edit';
+                todoEdit.title = this.t('ui.todos.edit');
                 todoEdit.addEventListener('click', (e) => {
                     e.stopPropagation();
                     this.startEditing(todo.id);
@@ -560,7 +578,7 @@ export class TodosComponent {
                 const todoDelete = document.createElement('div');
                 todoDelete.className = 'todo-delete';
                 todoDelete.innerHTML = '<i class="fas fa-trash"></i>';
-                todoDelete.title = 'Delete';
+                todoDelete.title = this.t('ui.todos.delete');
                 todoDelete.addEventListener('click', (e) => {
                     e.stopPropagation();
                     this.deleteTodo(todo.id);

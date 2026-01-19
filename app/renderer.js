@@ -525,6 +525,10 @@ class ModLoadOrderManager {
             this.developerComponent.updateLocalization();
         }
         
+        if (this.todosComponent && this.todosComponent.updateLocalization) {
+            this.todosComponent.updateLocalization();
+        }
+        
         if (this.elements.modalOkBtn) this.elements.modalOkBtn.textContent = t('ui.common.save');
         if (this.elements.modalCancelBtn) this.elements.modalCancelBtn.textContent = t('ui.common.cancel');
         

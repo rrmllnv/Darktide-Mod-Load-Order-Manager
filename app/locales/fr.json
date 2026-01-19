@@ -137,6 +137,15 @@
             "addModFolder": "Ajouter un dossier de mod",
             "launchDtkitPatch": "Lancer Darktide Mod Patcher"
         },
+        "todos": {
+            "todos": "Tâches:",
+            "showOnlyActive": "Afficher uniquement les actives",
+            "addNewTodo": "Ajouter une nouvelle tâche...",
+            "noTodos": "Aucune tâche",
+            "edit": "Modifier",
+            "delete": "Supprimer",
+            "pleaseSelectMod": "Veuillez d'abord sélectionner un mod"
+        },
         "developer": {
             "tools": "Outils développeur",
             "createMod": "Créer un mod",
@@ -207,6 +216,12 @@
             "failedToRenameProfile": "Impossible de renommer le profil:",
             "failedToOverwriteProfile": "Impossible d'écraser le profil:",
             "failedToDeleteProfile": "Impossible de supprimer le profil:"
+        },
+        "todos": {
+            "confirmDelete": "Êtes-vous sûr de vouloir supprimer cette tâche?",
+            "failedToAddTodo": "Échec de l'ajout de la tâche: {error}",
+            "failedToUpdateTodo": "Échec de la mise à jour de la tâche: {error}",
+            "failedToDeleteTodo": "Échec de la suppression de la tâche: {error}"
         },
         "modList": {
             "scanNewMods": "Nouveaux mods trouvés:",

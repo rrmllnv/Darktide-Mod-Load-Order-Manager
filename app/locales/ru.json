@@ -136,6 +136,15 @@
             "addModFolder": "Добавить папку мода",
             "launchDtkitPatch": "Запустить Darktide Mod Patcher"
         },
+        "todos": {
+            "todos": "Задачи:",
+            "showOnlyActive": "Показывать только активные",
+            "addNewTodo": "Добавить новую задачу...",
+            "noTodos": "Нет задач",
+            "edit": "Редактировать",
+            "delete": "Удалить",
+            "pleaseSelectMod": "Пожалуйста, сначала выберите мод"
+        },
         "developer": {
             "tools": "Инструменты разработчика",
             "createMod": "Создать мод",
@@ -206,6 +215,12 @@
             "failedToRenameProfile": "Не удалось переименовать профиль:",
             "failedToOverwriteProfile": "Не удалось перезаписать профиль:",
             "failedToDeleteProfile": "Не удалось удалить профиль:"
+        },
+        "todos": {
+            "confirmDelete": "Вы уверены, что хотите удалить эту задачу?",
+            "failedToAddTodo": "Не удалось добавить задачу: {error}",
+            "failedToUpdateTodo": "Не удалось обновить задачу: {error}",
+            "failedToDeleteTodo": "Не удалось удалить задачу: {error}"
         },
         "modList": {
             "scanNewMods": "Найдено новых модов:",

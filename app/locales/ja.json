@@ -137,6 +137,15 @@
             "addModFolder": "MODフォルダを追加",
             "launchDtkitPatch": "Darktide Mod Patcher を起動"
         },
+        "todos": {
+            "todos": "タスク:",
+            "showOnlyActive": "アクティブのみ表示",
+            "addNewTodo": "新しいタスクを追加...",
+            "noTodos": "タスクなし",
+            "edit": "編集",
+            "delete": "削除",
+            "pleaseSelectMod": "まずMODを選択してください"
+        },
         "developer": {
             "tools": "開発者ツール",
             "createMod": "MODを作成",
@@ -207,6 +216,12 @@
             "failedToRenameProfile": "プロファイル名を変更できませんでした:",
             "failedToOverwriteProfile": "プロファイルを上書きできませんでした:",
             "failedToDeleteProfile": "プロファイルを削除できませんでした:"
+        },
+        "todos": {
+            "confirmDelete": "このタスクを削除してもよろしいですか?",
+            "failedToAddTodo": "タスクの追加に失敗しました: {error}",
+            "failedToUpdateTodo": "タスクの更新に失敗しました: {error}",
+            "failedToDeleteTodo": "タスクの削除に失敗しました: {error}"
         },
         "modList": {
             "scanNewMods": "新しいMODが見つかりました:",
