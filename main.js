@@ -582,19 +582,11 @@ return {
 
 async function deleteDirectory(dirPath) {
   try {
-    const entries = await fs.readdir(dirPath, { withFileTypes: true });
-    
-    for (const entry of entries) {
-      const fullPath = path.join(dirPath, entry.name);
-      if (entry.isDirectory()) {
-        await deleteDirectory(fullPath);
-      } else {
-        await fs.unlink(fullPath);
-      }
-    }
-    
-    await fs.rmdir(dirPath);
+    await fs.rm(dirPath, { recursive: true, force: true });
   } catch (error) {
+    if (error.code === 'ENOENT') {
+      return;
+    }
     throw error;
   }
 }
@@ -612,8 +604,27 @@ ipcMain.handle('delete-folder', async (event, folderPath) => {
     
     await deleteDirectory(folderPath);
     
+    // Если deleteDirectory не выбросила исключение, считаем удаление успешным
+    // Проверка existsSync может быть ненадежной из-за кэширования файловой системы
     return { success: true };
   } catch (error) {
-    return { success: false, error: error.message };
+    console.error('Error in delete-folder:', error);
+    
+    let errorMessage = error.message;
+    
+    // Если ошибка ENOENT, возможно папка уже была удалена - проверяем
+    if (error.code === 'ENOENT') {
+      if (!existsSync(folderPath)) {
+        return { success: true };
+      }
+    }
+    
+    if (error.code === 'EACCES' || error.code === 'EPERM') {
+      errorMessage = 'Нет прав доступа для удаления папки. Возможно, файлы открыты в другом приложении или требуются права администратора.';
+    } else if (error.code === 'EBUSY' || error.code === 'ENOTEMPTY') {
+      errorMessage = 'Папка или файлы внутри неё используются другим процессом. Закройте все программы, использующие эти файлы.';
+    }
+    
+    return { success: false, error: errorMessage };
   }
 });

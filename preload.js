@@ -24,5 +24,5 @@ contextBridge.exposeInMainWorld('electronAPI', {
   openFile: (filePath) => ipcRenderer.invoke('open-file', filePath),
   openFolder: (folderPath) => ipcRenderer.invoke('open-folder', folderPath),
   createModStructure: (projectPath, modName) => ipcRenderer.invoke('create-mod-structure', projectPath, modName),
-  deleteFolder: (folderPath) => ipcRenderer.invoke('delete-folder', folderPath)('create-mod-structure', projectPath, modName)
+  deleteFolder: (folderPath) => ipcRenderer.invoke('delete-folder', folderPath)
 });

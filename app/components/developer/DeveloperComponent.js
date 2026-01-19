@@ -188,7 +188,7 @@ export class DeveloperComponent {
         
         this.updateDeveloperView();
         
-        if (enabled && !this.app.userConfig.projectPath) {
+        if (enabled && (!this.app.userConfig || !this.app.userConfig.projectPath)) {
             if (this.app.uiManager && this.app.uiManager.showMessage) {
                 await this.app.uiManager.showMessage(
                     this.app.t('messages.common.error'),
@@ -508,11 +508,25 @@ export class DeveloperComponent {
     }
     
     async deleteModFolder(modName) {
+        let projectPath = null;
+        let modPath = null;
+        
+        if (!modName) {
+            if (this.app.uiManager && this.app.uiManager.showMessage) {
+                await this.app.uiManager.showMessage(
+                    this.app.t('messages.common.error'),
+                    this.app.t('messages.developer.noModSelected')
+                );
+            }
+            return;
+        }
+        
         if (!this.app.userConfig || !this.app.userConfig.developerMode) {
             return;
         }
         
-        if (!this.app.userConfig.projectPath) {
+        projectPath = this.app.userConfig && this.app.userConfig.projectPath;
+        if (!projectPath || typeof projectPath !== 'string') {
             if (this.app.uiManager && this.app.uiManager.showMessage) {
                 await this.app.uiManager.showMessage(
                     this.app.t('messages.common.error'),
@@ -522,13 +536,25 @@ export class DeveloperComponent {
             return;
         }
         
-        const modPath = `${this.app.userConfig.projectPath}\\${modName}`;
-        const modExists = await window.electronAPI.fileExists(modPath);
-        if (!modExists) {
+        if (!this.app.modEntries || !this.app.modEntries.find(m => m.name === modName)) {
             if (this.app.uiManager && this.app.uiManager.showMessage) {
                 await this.app.uiManager.showMessage(
                     this.app.t('messages.common.error'),
-                    this.app.t('messages.developer.modNotFoundInProject')
+                    `${this.app.t('messages.developer.modNotFoundInProject')}\n\nMod '${modName}' not found in current mod list.`
+                );
+            }
+            return;
+        }
+        
+        const normalizedProjectPath = projectPath.trim().replace(/[\/\\]+$/, '');
+        modPath = normalizedProjectPath + '\\' + modName;
+        const isDirectory = await window.electronAPI.checkIsDirectory(modPath);
+        
+        if (!isDirectory) {
+            if (this.app.uiManager && this.app.uiManager.showMessage) {
+                await this.app.uiManager.showMessage(
+                    this.app.t('messages.common.error'),
+                    `${this.app.t('messages.developer.modNotFoundInProject')}\n\nMod: ${modName}\nPath: ${modPath}`
                 );
             }
             return;
@@ -546,7 +572,9 @@ export class DeveloperComponent {
         try {
             const deleteResult = await window.electronAPI.deleteFolder(modPath);
             
-            if (deleteResult.success) {
+            console.log('Delete result:', deleteResult);
+            
+            if (deleteResult && deleteResult.success) {
                 if (this.app.uiManager && this.app.uiManager.showMessage) {
                     await this.app.uiManager.showMessage(
                         this.app.t('messages.common.success'),
@@ -571,19 +599,23 @@ export class DeveloperComponent {
                     }
                 }
             } else {
+                console.error('Delete folder error:', deleteResult.error);
                 if (this.app.uiManager && this.app.uiManager.showMessage) {
+                    const errorMessage = deleteResult.error || this.app.t('messages.developer.modFolderDeleteError');
                     await this.app.uiManager.showMessage(
                         this.app.t('messages.common.error'),
-                        deleteResult.error || this.app.t('messages.developer.modFolderDeleteError')
+                        `${this.app.t('messages.developer.modFolderDeleteError')}\n\n${errorMessage}\n\nМод: ${modName}\nПуть: ${modPath}`
                     );
                 }
             }
         } catch (error) {
             console.error('Error deleting mod folder:', error);
             if (this.app.uiManager && this.app.uiManager.showMessage) {
+                const errorMessage = error.message || String(error);
+                const errorPath = modPath || 'неизвестно';
                 await this.app.uiManager.showMessage(
                     this.app.t('messages.common.error'),
-                    error.message || this.app.t('messages.developer.modFolderDeleteError')
+                    `${this.app.t('messages.developer.modFolderDeleteError')}\n\n${errorMessage}\n\nМод: ${modName}\nПуть: ${errorPath}`
                 );
             }
         }

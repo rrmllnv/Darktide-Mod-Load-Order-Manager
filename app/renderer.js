@@ -298,9 +298,10 @@ class ModLoadOrderManager {
         
         if (this.elements.contextMenuDevDeleteFolder) {
             this.elements.contextMenuDevDeleteFolder.addEventListener('click', async () => {
-                if (this.contextMenuModName && this.developerComponent) {
+                const modName = this.contextMenuModName;
+                if (modName && this.developerComponent) {
                     this.hideContextMenu();
-                    await this.developerComponent.deleteModFolder(this.contextMenuModName);
+                    await this.developerComponent.deleteModFolder(modName);
                 }
             });
         }
@@ -318,12 +319,12 @@ class ModLoadOrderManager {
         if (this.tourComponent) {
             await this.tourComponent.init();
             if (this.tourComponent.shouldShowTour() && this.filePath) {
-                // Показываем приветственное окно перед началом тура
+
                 await this.uiManager.showMessage(
                     this.t('messages.common.welcome'),
                     this.t('messages.common.welcomeFileFound')
                 );
-                // После закрытия приветственного окна запускаем тур
+
                 setTimeout(() => {
                     this.tourComponent.startTour();
                 }, 300);
