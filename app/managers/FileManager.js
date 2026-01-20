@@ -109,7 +109,8 @@ export class FileManager {
         try {
             const parsed = await this.app.fileService.loadFile(this.app.filePath);
             this.app.headerLines = parsed.headerLines;
-            this.app.modEntries = parsed.modEntries;
+ 
+            this.app.gameModEntries = parsed.modEntries;
             
         if (this.app.modListComponent) {
             this.app.modListComponent.modEntries = this.app.modEntries;
@@ -117,7 +118,7 @@ export class FileManager {
             
             this.app.modScanService = new ModScanService(this.app.filePath, (msg) => this.app.setStatus(msg), this.app);
             
-            const scanResult = await this.app.modScanService.scanModsDirectory(this.app.modEntries, this.app.selectedModName);
+            const scanResult = await this.app.modScanService.scanGameModsDirectory(this.app.gameModEntries, this.app.selectedModName);
             this.app.selectedModName = scanResult.selectedModName;
             
         if (this.app.modListComponent) {
@@ -129,7 +130,8 @@ export class FileManager {
             this.app.updateStatistics();
             
             if (this.app.developerComponent && this.app.developerComponent.updateDeveloperView) {
-                this.app.developerComponent.updateDeveloperView();
+                const shouldScan = this.app.userConfig && this.app.userConfig.developerViewMode;
+                await this.app.developerComponent.updateDeveloperView(shouldScan);
             }
             
             if (this.app.profileComponent) {
@@ -169,11 +171,12 @@ export class FileManager {
         try {
             const currentSort = this.app.elements.sortSelect ? this.app.elements.sortSelect.value : null;
             let sortedModEntries = null;
-            if (currentSort && this.app.modEntries.length > 0) {
+            // Сохраняем только моды игры (gameModEntries), так как файл mod_load_order.txt относится к игре
+            if (currentSort && this.app.gameModEntries.length > 0) {
                 const { Sorter } = await import('../utils/Sorter.js');
-                sortedModEntries = Sorter.sortMods([...this.app.modEntries], currentSort);
+                sortedModEntries = Sorter.sortMods([...this.app.gameModEntries], currentSort);
             }
-            await this.app.fileService.saveFile(this.app.filePath, this.app.headerLines, this.app.modEntries, sortedModEntries);
+            await this.app.fileService.saveFile(this.app.filePath, this.app.headerLines, this.app.gameModEntries, sortedModEntries);
             
             await this.loadFile();
             

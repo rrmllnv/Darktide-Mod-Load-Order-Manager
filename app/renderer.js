@@ -25,9 +25,9 @@ class ModLoadOrderManager {
     constructor() {
         this.defaultPath = '';
         this.filePath = '';
-        
         this.headerLines = [];
-        this.modEntries = [];
+        this.gameModEntries = [];
+        this.projectModEntries = [];
         this.selectedModName = '';
         this.selectedModNames = new Set();
         this.lastSelectedModIndex = -1;
@@ -71,6 +71,20 @@ class ModLoadOrderManager {
         this.notificationComponent = new NotificationComponent(this);
         
         this.init();
+    }
+    
+    get modEntries() {
+        const isDeveloperViewMode = this.userConfig && this.userConfig.developerViewMode;
+        return isDeveloperViewMode ? this.projectModEntries : this.gameModEntries;
+    }
+    
+    set modEntries(value) {
+        const isDeveloperViewMode = this.userConfig && this.userConfig.developerViewMode;
+        if (isDeveloperViewMode) {
+            this.projectModEntries = Array.isArray(value) ? value : [];
+        } else {
+            this.gameModEntries = Array.isArray(value) ? value : [];
+        }
     }
     
     async init() {

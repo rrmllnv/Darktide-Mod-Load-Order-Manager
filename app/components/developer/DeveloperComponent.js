@@ -180,13 +180,14 @@ export class DeveloperComponent {
                         this.app.notificationComponent.show('success', this.app.t('messages.developer.modCreated', { modName, modPath: result.modPath }));
                     }
                     
-                    if (this.app.modScanService && this.app.modEntries) {
-                        const scanResult = await this.app.modScanService.scanModsDirectory(
-                            this.app.modEntries, 
+                    // После создания мода в проекте - сканируем папку проекта
+                    if (this.app.modScanService) {
+                        const scanResult = await this.app.modScanService.scanProjectModsDirectory(
+                            this.app.projectModEntries, 
                             this.app.selectedModName
                         );
                         
-                        const createdMod = this.app.modEntries.find(m => m.name === modName);
+                        const createdMod = this.app.projectModEntries.find(m => m.name === modName);
                         if (createdMod) {
                             createdMod.isNew = true;
                             this.app.selectedModName = modName;
@@ -195,7 +196,7 @@ export class DeveloperComponent {
                         }
                         
                         if (this.app.modListComponent) {
-                            this.app.modListComponent.modEntries = this.app.modEntries;
+                            this.app.modListComponent.modEntries = this.app.modEntries; // Используем геттер
                             this.app.modListComponent.updateModList();
                         }
                         
@@ -217,7 +218,7 @@ export class DeveloperComponent {
         });
     }
     
-    updateVisibility() {
+    async updateVisibility() {
         const expertModeFrame = document.querySelector('.expert-mode-frame');
         if (expertModeFrame) {
             if (this.app.userConfig && this.app.userConfig.developerMode) {
@@ -227,7 +228,9 @@ export class DeveloperComponent {
             }
         }
         
-        this.updateDeveloperView();
+        // При инициализации проверяем, нужно ли сканировать папку проекта
+        const shouldScan = this.app.userConfig && this.app.userConfig.developerViewMode && this.app.modScanService;
+        await this.updateDeveloperView(shouldScan);
     }
     
     async toggleDeveloperView(enabled) {
@@ -249,7 +252,7 @@ export class DeveloperComponent {
                 developerViewBtn.classList.remove('active');
                 this.app.userConfig.developerViewMode = false;
                 await this.app.configManager.saveUserConfig();
-                this.updateDeveloperView();
+                await this.updateDeveloperView();
                 return;
             }
         }
@@ -279,12 +282,19 @@ export class DeveloperComponent {
             }
         }
         
-        if (this.app.modScanService && this.app.modEntries) {
-            const scanResult = await this.app.modScanService.scanModsDirectory(this.app.modEntries, '');
+        if (this.app.modScanService) {
+            let scanResult;
+            if (enabled) {
+                // При включении режима разработчика - сканируем папку проекта
+                scanResult = await this.app.modScanService.scanProjectModsDirectory(this.app.projectModEntries, '');
+            } else {
+                // При выключении режима разработчика - сканируем папку модов игры
+                scanResult = await this.app.modScanService.scanGameModsDirectory(this.app.gameModEntries, '');
+            }
             this.app.selectedModName = scanResult.selectedModName;
             
             if (this.app.modListComponent) {
-                this.app.modListComponent.modEntries = this.app.modEntries;
+                this.app.modListComponent.modEntries = this.app.modEntries; // Используем геттер
                 this.app.modListComponent.updateModList();
             }
             
@@ -294,8 +304,27 @@ export class DeveloperComponent {
         }
     }
     
-    updateDeveloperView() {
+    async updateDeveloperView(shouldScan = false) {
         const isEnabled = this.app.userConfig && this.app.userConfig.developerViewMode;
+        
+        // Если режим разработчика включен и нужно сканировать (при инициализации или если projectModEntries пуст)
+        // Сканируем только если shouldScan = true (при инициализации) или если projectModEntries пуст
+        if (isEnabled && this.app.modScanService && this.app.userConfig.projectPath) {
+            const needsScan = shouldScan || this.app.projectModEntries.length === 0;
+            if (needsScan) {
+                const scanResult = await this.app.modScanService.scanProjectModsDirectory(this.app.projectModEntries, '');
+                this.app.selectedModName = scanResult.selectedModName;
+                
+                if (this.app.modListComponent) {
+                    this.app.modListComponent.modEntries = this.app.modEntries; // Используем геттер
+                    this.app.modListComponent.updateModList();
+                }
+                
+                if (this.app.updateStatistics) {
+                    this.app.updateStatistics();
+                }
+            }
+        }
         
         const buttonFrames = document.querySelectorAll('.button-frame');
         buttonFrames.forEach(frame => {
@@ -461,11 +490,21 @@ export class DeveloperComponent {
                 
                 const savedSelectedModName = this.app.selectedModName;
                 
-                if (this.app.modListComponent && this.app.modListComponent.scanAndUpdate) {
-                    await this.app.modListComponent.scanAndUpdate();
+                // После копирования мода в папку модов игры - сканируем папку модов игры
+                if (this.app.modScanService) {
+                    const scanResult = await this.app.modScanService.scanGameModsDirectory(this.app.gameModEntries, this.app.selectedModName);
+                    this.app.selectedModName = scanResult.selectedModName;
+                    
+                    if (this.app.modListComponent) {
+                        this.app.modListComponent.updateModList();
+                    }
+                    
+                    if (this.app.updateStatistics) {
+                        this.app.updateStatistics();
+                    }
                 }
                 
-                if (savedSelectedModName && this.app.modEntries.find(m => m.name === savedSelectedModName)) {
+                if (savedSelectedModName && this.app.gameModEntries.find(m => m.name === savedSelectedModName)) {
                     this.app.selectedModName = savedSelectedModName;
                     if (this.app.modListComponent) {
                         this.app.modListComponent.updateModList();
@@ -549,11 +588,21 @@ export class DeveloperComponent {
                 
                 const savedSelectedModName = this.app.selectedModName;
                 
-                if (this.app.modListComponent && this.app.modListComponent.scanAndUpdate) {
-                    await this.app.modListComponent.scanAndUpdate();
+                // После создания симлинка в папке модов игры - сканируем папку модов игры
+                if (this.app.modScanService) {
+                    const scanResult = await this.app.modScanService.scanGameModsDirectory(this.app.gameModEntries, this.app.selectedModName);
+                    this.app.selectedModName = scanResult.selectedModName;
+                    
+                    if (this.app.modListComponent) {
+                        this.app.modListComponent.updateModList();
+                    }
+                    
+                    if (this.app.updateStatistics) {
+                        this.app.updateStatistics();
+                    }
                 }
                 
-                if (savedSelectedModName && this.app.modEntries.find(m => m.name === savedSelectedModName)) {
+                if (savedSelectedModName && this.app.gameModEntries.find(m => m.name === savedSelectedModName)) {
                     this.app.selectedModName = savedSelectedModName;
                     if (this.app.modListComponent) {
                         this.app.modListComponent.updateModList();
@@ -895,15 +944,16 @@ export class DeveloperComponent {
                     this.app.notificationComponent.show('success', this.t('messages.developer.modFolderDeleted', { modName: savedModName }));
                 }
                 
-                if (this.app.modScanService && this.app.modEntries) {
-                    const scanResult = await this.app.modScanService.scanModsDirectory(
-                        this.app.modEntries, 
+                // После удаления мода из проекта - сканируем папку проекта
+                if (this.app.modScanService) {
+                    const scanResult = await this.app.modScanService.scanProjectModsDirectory(
+                        this.app.projectModEntries, 
                         this.app.selectedModName
                     );
                     this.app.selectedModName = scanResult.selectedModName;
                     
                     if (this.app.modListComponent) {
-                        this.app.modListComponent.modEntries = this.app.modEntries;
+                        this.app.modListComponent.modEntries = this.app.modEntries; // Используем геттер
                         this.app.modListComponent.updateModList();
                     }
                     
@@ -1261,9 +1311,11 @@ export class DeveloperComponent {
                     this.app.notificationComponent.show('success', this.app.t('messages.developer.backupRestored', { modName, versionName }));
                 }
                 
+                // После восстановления бэкапа мода проекта - сканируем папку проекта
                 if (this.app.modScanService) {
-                    const scanResult = await this.app.modScanService.scanModsDirectory(this.app.modEntries, this.app.selectedModName);
+                    const scanResult = await this.app.modScanService.scanProjectModsDirectory(this.app.projectModEntries, this.app.selectedModName);
                     if (scanResult && this.app.modListComponent) {
+                        this.app.modListComponent.modEntries = this.app.modEntries; // Используем геттер
                         this.app.modListComponent.updateModList();
                         if (this.app.updateStatistics) {
                             this.app.updateStatistics();
