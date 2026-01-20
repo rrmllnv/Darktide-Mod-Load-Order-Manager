@@ -92,9 +92,13 @@ export class BulkOperationsComponent {
         }
     }
     
-    bulkEnable() {
+    async bulkEnable() {
         const selected = Array.from(this.app.selectedModNames);
         if (selected.length === 0) {
+            await this.app.uiManager.showMessage(
+                this.t('messages.common.info'),
+                this.t('ui.common.noModsSelected')
+            );
             return;
         }
         
@@ -120,9 +124,13 @@ export class BulkOperationsComponent {
         }
     }
     
-    bulkDisable() {
+    async bulkDisable() {
         const selected = Array.from(this.app.selectedModNames);
         if (selected.length === 0) {
+            await this.app.uiManager.showMessage(
+                this.t('messages.common.info'),
+                this.t('ui.common.noModsSelected')
+            );
             return;
         }
         
@@ -151,6 +159,10 @@ export class BulkOperationsComponent {
     async bulkDelete() {
         const selected = Array.from(this.app.selectedModNames);
         if (selected.length === 0) {
+            await this.app.uiManager.showMessage(
+                this.t('messages.common.info'),
+                this.t('ui.common.noModsSelected')
+            );
             return;
         }
         
@@ -204,16 +216,7 @@ export class BulkOperationsComponent {
             }
         }
         
-        if (this.app.elements.bulkEnableBtn) {
-            this.app.elements.bulkEnableBtn.disabled = !hasSelection;
-        }
-        if (this.app.elements.bulkDisableBtn) {
-            this.app.elements.bulkDisableBtn.disabled = !hasSelection;
-        }
-        if (this.app.elements.bulkDeleteBtn) {
-            this.app.elements.bulkDeleteBtn.disabled = !hasSelection;
-        }
-        
+        // Кнопки всегда активны, при нажатии показывается модальное окно если нет выбранных модов
         if (hasSelection) {
             this.app.elements.bulkActionsPanel.classList.remove('disabled');
         } else {
