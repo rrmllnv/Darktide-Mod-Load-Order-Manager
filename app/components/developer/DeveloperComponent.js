@@ -790,15 +790,37 @@ export class DeveloperComponent {
                     );
                     
                     if (result.success) {
+                        const oldModName = selectedMod.name;
+                        const newModName = trimmedName;
+                        
+                        const modEntry = this.app.modEntries.find(m => m.name === oldModName);
+                        if (modEntry) {
+                            modEntry.name = newModName;
+                        }
+                        
+                        if (this.app.selectedModName === oldModName) {
+                            this.app.selectedModName = newModName;
+                        }
+                        
+                        if (this.app.selectedModNames.has(oldModName)) {
+                            this.app.selectedModNames.delete(oldModName);
+                            this.app.selectedModNames.add(newModName);
+                        }
+                        
+                        if (this.app.modListComponent) {
+                            this.app.modListComponent.modEntries = this.app.modEntries;
+                            this.app.modListComponent.updateModList();
+                        }
+                        
+                        if (this.app.updateStatistics) {
+                            this.app.updateStatistics();
+                        }
+                        
                         if (this.app.uiManager && this.app.uiManager.showMessage) {
                             await this.app.uiManager.showMessage(
                                 this.app.t('messages.common.success'),
-                                this.app.t('messages.developer.modRenamed', { oldName: selectedMod.name, newName: trimmedName })
+                                this.app.t('messages.developer.modRenamed', { oldName: oldModName, newName: newModName })
                             );
-                        }
-                        
-                        if (this.app.modListComponent && this.app.modListComponent.scanAndUpdate) {
-                            await this.app.modListComponent.scanAndUpdate();
                         }
                         
                         if (this.app.todosComponent && this.app.todosComponent.loadTodos) {
