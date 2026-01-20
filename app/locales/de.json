@@ -187,7 +187,7 @@
             "info": "Information",
             "welcome": "Willkommen",
             "fileSaved": "Datei erfolgreich gespeichert!",
-            "fileReloaded": "Datei neu geladen. Status aus Datei wiederhergestellt.",
+            "fileReloaded": "Datei neu geladen.\n\nStatus aus Datei wiederhergestellt.",
             "fileSavedStatus": "Datei gespeichert",
             "noModsToSave": "Keine Mods zum Speichern",
             "fileLoadError": "Datei konnte nicht geladen werden:",

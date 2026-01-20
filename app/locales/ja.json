@@ -187,7 +187,7 @@
             "info": "情報",
             "welcome": "ようこそ",
             "fileSaved": "ファイルが正常に保存されました！",
-            "fileReloaded": "ファイルを再読み込みしました。ファイルから状態を復元しました。",
+            "fileReloaded": "ファイルを再読み込みしました。\n\nファイルから状態を復元しました。",
             "fileSavedStatus": "ファイルが保存されました",
             "noModsToSave": "保存するMODがありません",
             "fileLoadError": "ファイルを読み込めませんでした:",

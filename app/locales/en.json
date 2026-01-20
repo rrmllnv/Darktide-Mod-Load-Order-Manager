@@ -187,7 +187,7 @@
             "info": "Information",
             "welcome": "Welcome",
             "fileSaved": "File saved successfully!",
-            "fileReloaded": "File reloaded. State restored from file.",
+            "fileReloaded": "File reloaded.\n\nState restored from file.",
             "fileSavedStatus": "File saved",
             "noModsToSave": "No mods to save",
             "fileLoadError": "Failed to load file:",

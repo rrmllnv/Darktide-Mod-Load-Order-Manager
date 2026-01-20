@@ -187,7 +187,7 @@
             "info": "Informação",
             "welcome": "Bem-vindo",
             "fileSaved": "Arquivo salvo com sucesso!",
-            "fileReloaded": "Arquivo recarregado. Estado restaurado do arquivo.",
+            "fileReloaded": "Arquivo recarregado.\n\nEstado restaurado do arquivo.",
             "fileSavedStatus": "Arquivo salvo",
             "noModsToSave": "Nenhum mod para salvar",
             "fileLoadError": "Falha ao carregar arquivo:",

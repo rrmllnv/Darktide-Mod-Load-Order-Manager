@@ -187,7 +187,7 @@
             "info": "Information",
             "welcome": "Bienvenue",
             "fileSaved": "Fichier enregistré avec succès!",
-            "fileReloaded": "Fichier rechargé. État restauré depuis le fichier.",
+            "fileReloaded": "Fichier rechargé.\n\nÉtat restauré depuis le fichier.",
             "fileSavedStatus": "Fichier enregistré",
             "noModsToSave": "Aucun mod à enregistrer",
             "fileLoadError": "Impossible de charger le fichier:",

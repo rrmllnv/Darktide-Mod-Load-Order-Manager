@@ -187,7 +187,7 @@
             "info": "정보",
             "welcome": "환영합니다",
             "fileSaved": "파일이 성공적으로 저장되었습니다!",
-            "fileReloaded": "파일을 다시 로드했습니다. 파일에서 상태를 복원했습니다.",
+            "fileReloaded": "파일을 다시 로드했습니다.\n\n파일에서 상태를 복원했습니다.",
             "fileSavedStatus": "파일 저장됨",
             "noModsToSave": "저장할 모드 없음",
             "fileLoadError": "파일을 로드할 수 없습니다:",
