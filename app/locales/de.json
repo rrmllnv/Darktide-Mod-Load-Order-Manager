@@ -328,7 +328,13 @@
             "modsDisabled": "Mods deaktiviert: {count}",
             "modsDeleted": "Mods gelöscht: {count}. Vergessen Sie nicht, die Datei zu speichern.",
             "scanWarning": "Warnung: Mod-Ordner konnte nicht gescannt werden: {error}",
-            "error": "Fehler: {error}"
+            "error": "Fehler: {error}",
+            "hideNewModsEnabled": "Ausblenden von Mods, die auf Hinzufügung warten, aktiviert",
+            "hideNewModsDisabled": "Ausblenden von Mods, die auf Hinzufügung warten, deaktiviert",
+            "hideNotFoundModsEnabled": "Ausblenden nicht gefundener Mods aktiviert",
+            "hideNotFoundModsDisabled": "Ausblenden nicht gefundener Mods deaktiviert",
+            "hideUnusedModsEnabled": "Ausblenden ungenutzter Mods aktiviert",
+            "hideUnusedModsDisabled": "Ausblenden ungenutzter Mods deaktiviert"
         },
         "modList": {
             "symlinkCreated": "Symbolischer Link erstellt: {modName}",

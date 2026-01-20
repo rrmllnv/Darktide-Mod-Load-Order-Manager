@@ -328,7 +328,13 @@
             "modsDisabled": "MOD無効: {count}",
             "modsDeleted": "MOD削除: {count}. ファイルを保存することを忘れないでください。",
             "scanWarning": "警告: MODフォルダをスキャンできませんでした: {error}",
-            "error": "エラー: {error}"
+            "error": "エラー: {error}",
+            "hideNewModsEnabled": "追加待ちのMODを非表示にする機能が有効になりました",
+            "hideNewModsDisabled": "追加待ちのMODを非表示にする機能が無効になりました",
+            "hideNotFoundModsEnabled": "見つからないMODを非表示にする機能が有効になりました",
+            "hideNotFoundModsDisabled": "見つからないMODを非表示にする機能が無効になりました",
+            "hideUnusedModsEnabled": "使用されていないMODを非表示にする機能が有効になりました",
+            "hideUnusedModsDisabled": "使用されていないMODを非表示にする機能が無効になりました"
         },
         "modList": {
             "symlinkCreated": "シンボリックリンク作成: {modName}",

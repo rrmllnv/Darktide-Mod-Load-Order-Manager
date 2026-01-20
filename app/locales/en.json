@@ -332,7 +332,13 @@
             "modsDisabled": "Mods disabled: {count}",
             "modsDeleted": "Mods deleted: {count}. Don't forget to save the file.",
             "scanWarning": "Warning: failed to scan mods folder: {error}",
-            "error": "Error: {error}"
+            "error": "Error: {error}",
+            "hideNewModsEnabled": "Hiding mods pending addition enabled",
+            "hideNewModsDisabled": "Hiding mods pending addition disabled",
+            "hideNotFoundModsEnabled": "Hiding not found mods enabled",
+            "hideNotFoundModsDisabled": "Hiding not found mods disabled",
+            "hideUnusedModsEnabled": "Hiding unused mods enabled",
+            "hideUnusedModsDisabled": "Hiding unused mods disabled"
         },
         "modList": {
             "symlinkCreated": "Symbolic link created: {modName}",

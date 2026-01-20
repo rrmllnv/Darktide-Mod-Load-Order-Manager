@@ -328,7 +328,13 @@
             "modsDisabled": "Mod disabilitati: {count}",
             "modsDeleted": "Mod eliminati: {count}. Non dimenticare di salvare il file.",
             "scanWarning": "Avviso: impossibile scansionare la cartella dei mod: {error}",
-            "error": "Errore: {error}"
+            "error": "Errore: {error}",
+            "hideNewModsEnabled": "Nascondere mod in attesa di aggiunta abilitato",
+            "hideNewModsDisabled": "Nascondere mod in attesa di aggiunta disabilitato",
+            "hideNotFoundModsEnabled": "Nascondere mod non trovati abilitato",
+            "hideNotFoundModsDisabled": "Nascondere mod non trovati disabilitato",
+            "hideUnusedModsEnabled": "Nascondere mod non utilizzati abilitato",
+            "hideUnusedModsDisabled": "Nascondere mod non utilizzati disabilitato"
         },
         "modList": {
             "symlinkCreated": "Collegamento simbolico creato: {modName}",

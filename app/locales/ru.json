@@ -332,7 +332,13 @@
             "modsDisabled": "Выключено модов: {count}",
             "modsDeleted": "Удалено модов: {count}. Не забудьте сохранить файл.",
             "scanWarning": "Предупреждение: не удалось просканировать папку модов: {error}",
-            "error": "Ошибка: {error}"
+            "error": "Ошибка: {error}",
+            "hideNewModsEnabled": "Скрытие модов ожидающих добавления включено",
+            "hideNewModsDisabled": "Скрытие модов ожидающих добавления выключено",
+            "hideNotFoundModsEnabled": "Скрытие не найденных модов включено",
+            "hideNotFoundModsDisabled": "Скрытие не найденных модов выключено",
+            "hideUnusedModsEnabled": "Скрытие не используемых модов включено",
+            "hideUnusedModsDisabled": "Скрытие не используемых модов выключено"
         },
         "modList": {
             "symlinkCreated": "Символическая ссылка создана: {modName}",

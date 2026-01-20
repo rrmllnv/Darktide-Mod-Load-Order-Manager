@@ -37,6 +37,12 @@ export class SearchComponent {
                 if (this.app.modListComponent) {
                     this.app.modListComponent.updateModList();
                 }
+                if (this.app.notificationComponent) {
+                    const message = this.app.hideNewMods 
+                        ? this.t('status.common.hideNewModsEnabled')
+                        : this.t('status.common.hideNewModsDisabled');
+                    this.app.notificationComponent.show('info', message);
+                }
             });
         }
         
@@ -49,6 +55,12 @@ export class SearchComponent {
                 if (this.app.modListComponent) {
                     this.app.modListComponent.updateModList();
                 }
+                if (this.app.notificationComponent) {
+                    const message = this.app.hideUnusedMods 
+                        ? this.t('status.common.hideUnusedModsEnabled')
+                        : this.t('status.common.hideUnusedModsDisabled');
+                    this.app.notificationComponent.show('info', message);
+                }
             });
         }
         
@@ -60,6 +72,12 @@ export class SearchComponent {
                 }
                 if (this.app.modListComponent) {
                     this.app.modListComponent.updateModList();
+                }
+                if (this.app.notificationComponent) {
+                    const message = this.app.hideNotFoundMods 
+                        ? this.t('status.common.hideNotFoundModsEnabled')
+                        : this.t('status.common.hideNotFoundModsDisabled');
+                    this.app.notificationComponent.show('info', message);
                 }
             });
         }
