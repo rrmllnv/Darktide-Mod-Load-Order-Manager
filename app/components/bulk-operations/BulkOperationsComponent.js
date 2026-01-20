@@ -135,6 +135,9 @@ export class BulkOperationsComponent {
         if (this.app.setStatus) {
             this.app.setStatus(this.app.t('status.common.modsEnabled', { count: selected.length }));
         }
+        if (this.app.notificationComponent) {
+            this.app.notificationComponent.show('success', this.app.t('status.common.modsEnabled', { count: selected.length }));
+        }
     }
     
     async bulkDisable() {
@@ -180,6 +183,9 @@ export class BulkOperationsComponent {
         if (this.app.setStatus) {
             this.app.setStatus(this.app.t('status.common.modsDisabled', { count: selected.length }));
         }
+        if (this.app.notificationComponent) {
+            this.app.notificationComponent.show('success', this.app.t('status.common.modsDisabled', { count: selected.length }));
+        }
     }
     
     async bulkDelete() {
@@ -215,6 +221,9 @@ export class BulkOperationsComponent {
         }
         if (this.app.setStatus) {
             this.app.setStatus(this.app.t('status.common.modsDeleted', { count: selected.length }));
+        }
+        if (this.app.notificationComponent) {
+            this.app.notificationComponent.show('success', this.app.t('status.common.modsDeleted', { count: selected.length }));
         }
     }
     
