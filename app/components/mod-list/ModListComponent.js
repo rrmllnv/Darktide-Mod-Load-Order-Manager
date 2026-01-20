@@ -682,6 +682,10 @@ export class ModListComponent {
         if (this.app.setStatus) {
             this.app.setStatus(this.t('status.modList.modDeleted', { modName }));
         }
+        
+        if (this.app.notificationComponent) {
+            this.app.notificationComponent.show('success', this.t('status.modList.modDeleted', { modName }));
+        }
     }
     
     async deleteModFolder(modName) {
