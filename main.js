@@ -960,13 +960,13 @@ ipcMain.handle('load-todos', async (event, todosDir, modName, options = {}) => {
       return { success: true, todos: [], total: 0 };
     }
     
+    const { offset = 0, limit } = options;
+    
     const content = await fs.readFile(todosPath, 'utf-8');
     const data = JSON.parse(content);
     
     let todos = Array.isArray(data) ? data : (data.todos || []);
     const total = todos.length;
-    
-    const { offset = 0, limit } = options;
     
     if (limit !== undefined) {
       todos = todos.slice(offset, offset + limit);

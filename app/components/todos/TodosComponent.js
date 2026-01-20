@@ -217,8 +217,27 @@ export class TodosComponent {
         
         if (modName) {
             this.currentModName = modName;
-            if (modChanged) {
-                await this.loadTodosLazy(modName, 0, this.lazyLoading.batchSize);
+            if (modChanged || scrollToTop) {
+                if (scrollToTop) {
+                    let offset = 0;
+                    let totalCount = 0;
+                    
+                    while (true) {
+                        await this.loadTodosLazy(modName, offset, this.lazyLoading.batchSize);
+                        
+                        if (this.lazyLoading.totalCount > 0 && totalCount === 0) {
+                            totalCount = this.lazyLoading.totalCount;
+                        }
+                        
+                        if (this.lazyLoading.loadedCount >= this.lazyLoading.totalCount || this.lazyLoading.loadedCount === 0) {
+                            break;
+                        }
+                        
+                        offset = this.lazyLoading.loadedCount;
+                    }
+                } else {
+                    await this.loadTodosLazy(modName, 0, this.lazyLoading.batchSize);
+                }
             } else {
                 const targetLimit = savedLoadedCount > 0 ? savedLoadedCount : this.lazyLoading.batchSize;
                 await this.loadTodosLazy(modName, 0, targetLimit);
@@ -226,7 +245,7 @@ export class TodosComponent {
             this.setupLazyLoading();
         } else {
             this.currentModName = null;
-            if (modChanged) {
+            if (modChanged || scrollToTop) {
                 await this.loadAllTodosLazy(0, this.lazyLoading.batchSize);
             } else {
                 const targetLimit = savedLoadedCount > 0 ? savedLoadedCount : this.lazyLoading.batchSize;
@@ -654,6 +673,8 @@ export class TodosComponent {
         try {
             const result = await window.electronAPI.deleteTodo(this.todosDir, modName, todoId);
             if (result.success) {
+                this.lazyLoading.loadedCount = 0;
+                this.lazyLoading.totalCount = 0;
                 await this.loadTodos();
             } else {
                 await this.app.uiManager.showMessage(
