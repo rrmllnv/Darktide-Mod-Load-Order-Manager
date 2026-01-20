@@ -93,7 +93,7 @@
             "search": "検索",
             "searchPlaceholder": "MOD名を入力...",
             "clear": "クリア",
-            "hideNewMods": "新しいMODを非表示",
+            "hideNewMods": "追加待ちのMODを非表示",
             "hideNotFoundMods": "見つからないMODを非表示",
             "hideUnusedMods": "使用されていないMODをすべて非表示"
         },

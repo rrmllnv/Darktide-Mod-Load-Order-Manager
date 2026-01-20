@@ -93,7 +93,7 @@
             "search": "Cerca",
             "searchPlaceholder": "Inserisci nome mod...",
             "clear": "Pulisci",
-            "hideNewMods": "Nascondi nuovi mod",
+            "hideNewMods": "Nascondi mod in attesa di aggiunta",
             "hideNotFoundMods": "Nascondi mod non trovati",
             "hideUnusedMods": "Nascondi tutti i mod non utilizzati"
         },

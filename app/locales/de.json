@@ -93,7 +93,7 @@
             "search": "Suchen",
             "searchPlaceholder": "Mod-Name eingeben...",
             "clear": "Löschen",
-            "hideNewMods": "Neue Mods ausblenden",
+            "hideNewMods": "Mods ausblenden, die auf Hinzufügung warten",
             "hideNotFoundMods": "Nicht gefundene Mods ausblenden",
             "hideUnusedMods": "Alle ungenutzten Mods ausblenden"
         },
