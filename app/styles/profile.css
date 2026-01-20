@@ -1,6 +1,7 @@
 .profiles-frame {
     margin-bottom: 10px;
     color: var(--text-primary);
+    background-color: var(--bg-primary);
 }
 
 .profiles-list {
