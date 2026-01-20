@@ -494,6 +494,14 @@ export class ProfileComponent {
         
         const profileName = this.selectedProfileName;
         
+        const confirmBeforeLoad = this.app.userConfig && this.app.userConfig.confirmBeforeLoadProfile !== undefined ? this.app.userConfig.confirmBeforeLoadProfile : true;
+        if (confirmBeforeLoad) {
+            const confirmed = await this.app.uiManager.showConfirm(this.t('messages.profile.loadProfileConfirm', { profileName }));
+            if (!confirmed) {
+                return;
+            }
+        }
+        
         try {
             const result = await window.electronAPI.loadProfile(this.profilesDir, profileName);
             if (!result.success) {
@@ -633,9 +641,12 @@ export class ProfileComponent {
         
         const profileName = this.selectedProfileName;
         
-        const confirmed = await this.app.uiManager.showConfirm(this.t('messages.profile.overwriteProfileConfirm', { profileName }));
-        if (!confirmed) {
-            return;
+        const confirmBeforeOverwrite = this.app.userConfig && this.app.userConfig.confirmBeforeOverwriteProfile !== undefined ? this.app.userConfig.confirmBeforeOverwriteProfile : true;
+        if (confirmBeforeOverwrite) {
+            const confirmed = await this.app.uiManager.showConfirm(this.t('messages.profile.overwriteProfileConfirm', { profileName }));
+            if (!confirmed) {
+                return;
+            }
         }
         
         try {
@@ -680,9 +691,12 @@ export class ProfileComponent {
         
         const profileName = this.selectedProfileName;
         
-        const confirmed = await this.app.uiManager.showConfirm(this.t('messages.profile.deleteProfileConfirm', { profileName }));
-        if (!confirmed) {
-            return;
+        const confirmBeforeDelete = this.app.userConfig && this.app.userConfig.confirmBeforeDeleteProfile !== undefined ? this.app.userConfig.confirmBeforeDeleteProfile : true;
+        if (confirmBeforeDelete) {
+            const confirmed = await this.app.uiManager.showConfirm(this.t('messages.profile.deleteProfileConfirm', { profileName }));
+            if (!confirmed) {
+                return;
+            }
         }
         
         try {

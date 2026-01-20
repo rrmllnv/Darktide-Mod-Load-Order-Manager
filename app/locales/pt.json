@@ -123,6 +123,9 @@
             "saveProfileHideNotFoundMods": "Ocultar mods não encontrados",
             "saveProfileHideUnusedMods": "Ocultar todos os mods não utilizados",
             "saveProfileSort": "Salvar ordem de classificação no perfil",
+            "confirmBeforeLoadProfile": "Confirmar antes de carregar o perfil",
+            "confirmBeforeOverwriteProfile": "Confirmar antes de sobrescrever o perfil",
+            "confirmBeforeDeleteProfile": "Confirmar antes de excluir o perfil",
             "profilesListSize": "Tamanho da lista de perfis:",
             "developerMode": "Ativar modo desenvolvedor",
             "projectPath": "Especifique o caminho para o seu projeto",
@@ -210,6 +213,7 @@
             "welcomeFileFound": "O arquivo mod_load_order.txt foi encontrado e carregado.\n\nVamos começar a nos familiarizar com o aplicativo."
         },
         "profile": {
+            "loadProfileConfirm": "Carregar o perfil '{profileName}'?",
             "overwriteProfileConfirm": "Sobrescrever o perfil '{profileName}' com o estado atual?",
             "deleteProfileConfirm": "Excluir o perfil '{profileName}'?",
             "enterNewProfileName": "Digite o novo nome para o perfil '{oldProfileName}':",

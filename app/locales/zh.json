@@ -123,6 +123,9 @@
             "saveProfileHideNotFoundMods": "隐藏未找到的模组",
             "saveProfileHideUnusedMods": "隐藏所有未使用的模组",
             "saveProfileSort": "在配置文件中保存排序顺序",
+            "confirmBeforeLoadProfile": "加载配置文件前确认",
+            "confirmBeforeOverwriteProfile": "覆盖配置文件前确认",
+            "confirmBeforeDeleteProfile": "删除配置文件前确认",
             "profilesListSize": "配置文件列表行数:",
             "developerMode": "启用开发者模式",
             "projectPath": "指定项目路径",
@@ -210,6 +213,7 @@
             "welcomeFileFound": "已找到并加载 mod_load_order.txt 文件。\n\n让我们开始熟悉应用程序。"
         },
         "profile": {
+            "loadProfileConfirm": "加载配置文件 '{profileName}'？",
             "overwriteProfileConfirm": "用当前状态覆盖配置文件 '{profileName}'？",
             "deleteProfileConfirm": "删除配置文件 '{profileName}'？",
             "enterNewProfileName": "输入配置文件 '{oldProfileName}' 的新名称:",

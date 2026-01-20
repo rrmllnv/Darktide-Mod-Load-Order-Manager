@@ -123,6 +123,9 @@
             "saveProfileHideNotFoundMods": "Hide not found mods",
             "saveProfileHideUnusedMods": "Hide all unused mods",
             "saveProfileSort": "Save sort order in profile",
+            "confirmBeforeLoadProfile": "Confirm before loading profile",
+            "confirmBeforeOverwriteProfile": "Confirm before overwriting profile",
+            "confirmBeforeDeleteProfile": "Confirm before deleting profile",
             "profilesListSize": "Profiles list size:",
             "developerMode": "Enable developer mode",
             "projectPath": "Specify the path to your project",
@@ -214,6 +217,7 @@
             "selectLanguageText": "Please select your preferred language:"
         },
         "profile": {
+            "loadProfileConfirm": "Load profile '{profileName}'?",
             "overwriteProfileConfirm": "Overwrite profile '{profileName}' with current state?",
             "deleteProfileConfirm": "Delete profile '{profileName}'?",
             "enterNewProfileName": "Enter new name for profile '{oldProfileName}':",

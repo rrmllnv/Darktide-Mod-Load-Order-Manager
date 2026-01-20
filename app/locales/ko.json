@@ -123,6 +123,9 @@
             "saveProfileHideNotFoundMods": "찾을 수 없는 모드 숨기기",
             "saveProfileHideUnusedMods": "사용하지 않는 모드 모두 숨기기",
             "saveProfileSort": "프로필에 정렬 순서 저장",
+            "confirmBeforeLoadProfile": "프로필 로드 전 확인",
+            "confirmBeforeOverwriteProfile": "프로필 덮어쓰기 전 확인",
+            "confirmBeforeDeleteProfile": "프로필 삭제 전 확인",
             "profilesListSize": "프로필 목록 행 수:",
             "developerMode": "개발자 모드 활성화",
             "projectPath": "프로젝트 경로를 지정하세요",
@@ -210,6 +213,7 @@
             "welcomeFileFound": "mod_load_order.txt 파일을 찾아 로드했습니다.\n\n애플리케이션에 익숙해지기 시작합시다."
         },
         "profile": {
+            "loadProfileConfirm": "프로필 '{profileName}'을(를) 로드하시겠습니까?",
             "overwriteProfileConfirm": "현재 상태로 프로필 '{profileName}'을(를) 덮어쓰시겠습니까?",
             "deleteProfileConfirm": "프로필 '{profileName}'을(를) 삭제하시겠습니까?",
             "enterNewProfileName": "프로필 '{oldProfileName}'의 새 이름 입력:",

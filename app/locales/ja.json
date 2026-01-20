@@ -123,6 +123,9 @@
             "saveProfileHideNotFoundMods": "見つからないMODを非表示",
             "saveProfileHideUnusedMods": "使用されていないMODをすべて非表示",
             "saveProfileSort": "プロフィールに並び順を保存",
+            "confirmBeforeLoadProfile": "プロファイル読み込み前に確認",
+            "confirmBeforeOverwriteProfile": "プロファイル上書き前に確認",
+            "confirmBeforeDeleteProfile": "プロファイル削除前に確認",
             "profilesListSize": "プロファイルリストの行数:",
             "developerMode": "開発者モードを有効にする",
             "projectPath": "プロジェクトのパスを指定してください",
@@ -210,6 +213,7 @@
             "welcomeFileFound": "mod_load_order.txt ファイルが見つかり、読み込まれました。\n\nアプリケーションに慣れ親しみましょう。"
         },
         "profile": {
+            "loadProfileConfirm": "プロファイル '{profileName}' を読み込みますか？",
             "overwriteProfileConfirm": "現在の状態でプロファイル '{profileName}' を上書きしますか？",
             "deleteProfileConfirm": "プロファイル '{profileName}' を削除しますか？",
             "enterNewProfileName": "プロファイル '{oldProfileName}' の新しい名前を入力:",

@@ -260,6 +260,21 @@ export class SettingsComponent {
             saveProfileSort.checked = this.app.userConfig.saveProfileSort !== undefined ? this.app.userConfig.saveProfileSort : true;
         }
         
+        const confirmBeforeLoadProfile = document.getElementById('settings-confirm-before-load-profile');
+        if (confirmBeforeLoadProfile) {
+            confirmBeforeLoadProfile.checked = this.app.userConfig.confirmBeforeLoadProfile !== undefined ? this.app.userConfig.confirmBeforeLoadProfile : true;
+        }
+        
+        const confirmBeforeOverwriteProfile = document.getElementById('settings-confirm-before-overwrite-profile');
+        if (confirmBeforeOverwriteProfile) {
+            confirmBeforeOverwriteProfile.checked = this.app.userConfig.confirmBeforeOverwriteProfile !== undefined ? this.app.userConfig.confirmBeforeOverwriteProfile : true;
+        }
+        
+        const confirmBeforeDeleteProfile = document.getElementById('settings-confirm-before-delete-profile');
+        if (confirmBeforeDeleteProfile) {
+            confirmBeforeDeleteProfile.checked = this.app.userConfig.confirmBeforeDeleteProfile !== undefined ? this.app.userConfig.confirmBeforeDeleteProfile : true;
+        }
+        
         const profilesListSize = document.getElementById('settings-profiles-list-size');
         if (profilesListSize) {
             profilesListSize.value = this.app.userConfig.profilesListSize !== undefined ? this.app.userConfig.profilesListSize : 6;
@@ -318,6 +333,21 @@ export class SettingsComponent {
         const saveProfileSort = document.getElementById('settings-save-profile-sort');
         if (saveProfileSort) {
             this.app.userConfig.saveProfileSort = saveProfileSort.checked;
+        }
+        
+        const confirmBeforeLoadProfile = document.getElementById('settings-confirm-before-load-profile');
+        if (confirmBeforeLoadProfile) {
+            this.app.userConfig.confirmBeforeLoadProfile = confirmBeforeLoadProfile.checked;
+        }
+        
+        const confirmBeforeOverwriteProfile = document.getElementById('settings-confirm-before-overwrite-profile');
+        if (confirmBeforeOverwriteProfile) {
+            this.app.userConfig.confirmBeforeOverwriteProfile = confirmBeforeOverwriteProfile.checked;
+        }
+        
+        const confirmBeforeDeleteProfile = document.getElementById('settings-confirm-before-delete-profile');
+        if (confirmBeforeDeleteProfile) {
+            this.app.userConfig.confirmBeforeDeleteProfile = confirmBeforeDeleteProfile.checked;
         }
         
         const profilesListSize = document.getElementById('settings-profiles-list-size');
@@ -461,6 +491,21 @@ export class SettingsComponent {
         const saveProfileSortLabel = document.getElementById('settings-save-profile-sort-label');
         if (saveProfileSortLabel) {
             saveProfileSortLabel.textContent = this.t('ui.settings.saveProfileSort');
+        }
+        
+        const confirmBeforeLoadProfileLabel = document.getElementById('settings-confirm-before-load-profile-label');
+        if (confirmBeforeLoadProfileLabel) {
+            confirmBeforeLoadProfileLabel.textContent = this.t('ui.settings.confirmBeforeLoadProfile');
+        }
+        
+        const confirmBeforeOverwriteProfileLabel = document.getElementById('settings-confirm-before-overwrite-profile-label');
+        if (confirmBeforeOverwriteProfileLabel) {
+            confirmBeforeOverwriteProfileLabel.textContent = this.t('ui.settings.confirmBeforeOverwriteProfile');
+        }
+        
+        const confirmBeforeDeleteProfileLabel = document.getElementById('settings-confirm-before-delete-profile-label');
+        if (confirmBeforeDeleteProfileLabel) {
+            confirmBeforeDeleteProfileLabel.textContent = this.t('ui.settings.confirmBeforeDeleteProfile');
         }
         
         const profilesListSizeLabel = document.getElementById('settings-profiles-list-size-label');

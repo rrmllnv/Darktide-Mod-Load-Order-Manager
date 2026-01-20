@@ -123,6 +123,9 @@
             "saveProfileHideNotFoundMods": "Скрыть не найденные моды",
             "saveProfileHideUnusedMods": "Скрыть все не используемые моды",
             "saveProfileSort": "Сохранять сортировку в профиль",
+            "confirmBeforeLoadProfile": "Подтверждать перед загрузкой профиля",
+            "confirmBeforeOverwriteProfile": "Подтверждать перед перезаписью профиля",
+            "confirmBeforeDeleteProfile": "Подтверждать перед удалением профиля",
             "profilesListSize": "Количество строк списка профилей:",
             "developerMode": "Включить режим разработчика",
             "projectPath": "Укажите путь до вашего проекта",
@@ -214,6 +217,7 @@
             "selectLanguageText": "Пожалуйста, выберите предпочитаемый язык:"
         },
         "profile": {
+            "loadProfileConfirm": "Загрузить профиль '{profileName}'?",
             "overwriteProfileConfirm": "Перезаписать профиль '{profileName}' текущим состоянием?",
             "deleteProfileConfirm": "Удалить профиль '{profileName}'?",
             "enterNewProfileName": "Введите новое имя для профиля '{oldProfileName}':",
