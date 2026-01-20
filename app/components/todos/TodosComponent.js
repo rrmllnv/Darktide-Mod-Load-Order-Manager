@@ -827,7 +827,7 @@ export class TodosComponent {
         
         todosToShow.forEach((todo, index) => {
             const todoModName = todo.modName || '';
-            const showModHeader = !isModSelected && todoModName && todoModName !== lastModName;
+            const showModHeader = todoModName && todoModName !== lastModName;
             
             if (showModHeader) {
                 const modHeader = document.createElement('div');
