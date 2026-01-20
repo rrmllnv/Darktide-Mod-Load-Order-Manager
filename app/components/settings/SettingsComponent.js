@@ -173,6 +173,13 @@ export class SettingsComponent {
             let shouldRestartTour = false;
             
             if (restartTourCheckbox && restartTourCheckbox.checked) {
+                // Проверяем и выключаем режим разработчика, если он включен
+                if (this.app.userConfig && this.app.userConfig.developerViewMode) {
+                    if (this.app.developerComponent && this.app.developerComponent.toggleDeveloperView) {
+                        await this.app.developerComponent.toggleDeveloperView(false);
+                    }
+                }
+                
                 if (!this.app.userConfig) {
                     this.app.userConfig = ConfigManager.getDefaultUserConfig();
                 }
