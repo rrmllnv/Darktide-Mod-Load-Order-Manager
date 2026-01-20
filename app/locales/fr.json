@@ -70,7 +70,7 @@
             "monokai": "Monokai"
         },
         "profile": {
-            "profiles": "Profils:",
+            "profiles": "Profils",
             "newProfile": "Nouveau profil",
             "loadProfile": "Charger le profil",
             "overwriteProfile": "Écraser le profil",

@@ -71,7 +71,7 @@
             "monokai": "Monokai"
         },
         "profile": {
-            "profiles": "Профили:",
+            "profiles": "Профили",
             "newProfile": "Новый профиль",
             "loadProfile": "Загрузить профиль",
             "overwriteProfile": "Перезаписать профиль",

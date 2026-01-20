@@ -71,7 +71,7 @@
             "monokai": "Monokai"
         },
         "profile": {
-            "profiles": "Profiles:",
+            "profiles": "Profiles",
             "newProfile": "New profile",
             "loadProfile": "Load profile",
             "overwriteProfile": "Overwrite profile",
