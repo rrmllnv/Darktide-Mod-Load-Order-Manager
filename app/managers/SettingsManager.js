@@ -23,6 +23,7 @@ export class SettingsManager {
     async applyLocale(locale) {
         await this.app.localeManager.loadLocale(locale);
         this.app.localeManager.setLocale(locale);
+        this.updateLocaleClass(locale);
         await this.app.applyLocalization();
         
         if (this.app.themeComponent) {
@@ -65,6 +66,24 @@ export class SettingsManager {
             if (this.app.fileOperationsComponent.updateLocalization) {
                 this.app.fileOperationsComponent.updateLocalization();
             }
+        }
+    }
+    
+    updateLocaleClass(locale) {
+        const body = document.body;
+        const html = document.documentElement;
+        
+        const localeClasses = ['locale-ru', 'locale-en', 'locale-de', 'locale-fr', 'locale-it', 'locale-pt', 'locale-ko', 'locale-zh', 'locale-ja'];
+        
+        localeClasses.forEach(cls => {
+            body.classList.remove(cls);
+            html.classList.remove(cls);
+        });
+        
+        if (locale) {
+            const localeClass = `locale-${locale}`;
+            body.classList.add(localeClass);
+            html.classList.add(localeClass);
         }
     }
     

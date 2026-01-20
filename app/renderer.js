@@ -155,6 +155,8 @@ class ModLoadOrderManager {
         }
         
         await this.localeManager.loadLocale(locale);
+        this.localeManager.setLocale(locale);
+        this.settingsManager.updateLocaleClass(locale);
         
         if (this.themeComponent) {
             await this.themeComponent.updateThemeSelectLabels();
