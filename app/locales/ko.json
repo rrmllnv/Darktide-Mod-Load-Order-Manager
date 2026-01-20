@@ -90,7 +90,8 @@
             "selectDisabled": "비활성화된 항목 모두 선택",
             "createSymlink": "심볼릭 링크 만들기",
             "files": "파일",
-            "folders": "폴더"
+            "folders": "폴더",
+            "dragToReorder": "드래그하여 순서 변경"
         },
         "search": {
             "search": "검색",

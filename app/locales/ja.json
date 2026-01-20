@@ -90,7 +90,8 @@
             "selectDisabled": "無効なものをすべて選択",
             "createSymlink": "シンボリックリンクを作成",
             "files": "ファイル",
-            "folders": "フォルダ"
+            "folders": "フォルダ",
+            "dragToReorder": "ドラッグして並び替え"
         },
         "search": {
             "search": "検索",

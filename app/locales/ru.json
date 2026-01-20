@@ -90,7 +90,8 @@
             "selectEnabled": "Выделить все включенные",
             "selectDisabled": "Выделить все выключенные",
             "files": "Файлы",
-            "folders": "Папки"
+            "folders": "Папки",
+            "dragToReorder": "Перетащите для изменения порядка"
         },
         "search": {
             "search": "Поиск",

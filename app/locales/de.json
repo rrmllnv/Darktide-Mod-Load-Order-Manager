@@ -90,7 +90,8 @@
             "selectDisabled": "Alle deaktivierten auswählen",
             "createSymlink": "Symlink erstellen",
             "files": "Dateien",
-            "folders": "Ordner"
+            "folders": "Ordner",
+            "dragToReorder": "Zum Sortieren ziehen"
         },
         "search": {
             "search": "Suchen",

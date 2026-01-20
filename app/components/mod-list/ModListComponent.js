@@ -502,7 +502,7 @@ export class ModListComponent {
         const modDrag = document.createElement('div');
         modDrag.className = 'mod-item-drag';
         modDrag.innerHTML = '<i class="fas fa-grip-vertical"></i>';
-        modDrag.title = this.t('ui.modList.dragToReorder') || this.t('ui.todos.dragToReorder') || 'Drag to reorder';
+        modDrag.title = this.t('ui.modList.dragToReorder');
         
         this.loadModInfo(modEntry, sizeElement, dateElement, filesCountElement);
         

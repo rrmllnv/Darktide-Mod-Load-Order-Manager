@@ -90,7 +90,8 @@
             "selectDisabled": "选择所有已禁用",
             "createSymlink": "创建符号链接",
             "files": "文件",
-            "folders": "文件夹"
+            "folders": "文件夹",
+            "dragToReorder": "拖拽以重新排序"
         },
         "search": {
             "search": "搜索",

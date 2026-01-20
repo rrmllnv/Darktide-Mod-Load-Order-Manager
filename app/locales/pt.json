@@ -90,7 +90,8 @@
             "selectDisabled": "Selecionar todos desativados",
             "createSymlink": "Criar link simbólico",
             "files": "Arquivos",
-            "folders": "Pastas"
+            "folders": "Pastas",
+            "dragToReorder": "Arrastar para reordenar"
         },
         "search": {
             "search": "Pesquisar",

@@ -90,7 +90,8 @@
             "selectEnabled": "Select all enabled",
             "selectDisabled": "Select all disabled",
             "files": "Files",
-            "folders": "Folders"
+            "folders": "Folders",
+            "dragToReorder": "Drag to reorder"
         },
         "search": {
             "search": "Search",

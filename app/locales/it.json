@@ -90,7 +90,8 @@
             "selectDisabled": "Seleziona tutti i disabilitati",
             "createSymlink": "Crea collegamento simbolico",
             "files": "File",
-            "folders": "Cartelle"
+            "folders": "Cartelle",
+            "dragToReorder": "Trascina per riordinare"
         },
         "search": {
             "search": "Cerca",
