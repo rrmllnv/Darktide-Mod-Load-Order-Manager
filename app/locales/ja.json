@@ -81,9 +81,9 @@
             "profileNamePlaceholder": "名前を入力..."
         },
         "modList": {
-            "flagNew": "[追加待ち]",
-            "flagNotFound": "[見つかりません]",
-            "flagSymlink": "[シンボリックリンク]",
+            "flagNew": "追加待ち",
+            "flagNotFound": "見つかりません",
+            "flagSymlink": "シンボリックリンク",
             "enterModName": "シンボリックリンクのMOD名を入力:",
             "selectEnabled": "有効なものをすべて選択",
             "selectDisabled": "無効なものをすべて選択",

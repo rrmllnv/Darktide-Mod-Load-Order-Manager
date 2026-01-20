@@ -82,9 +82,9 @@
             "profileNamePlaceholder": "Enter name..."
         },
         "modList": {
-            "flagNew": "[AWAITING ADDITION]",
-            "flagNotFound": "[NOT FOUND]",
-            "flagSymlink": "[SYMLINK]",
+            "flagNew": "Awaiting addition",
+            "flagNotFound": "Not found",
+            "flagSymlink": "Symlink",
             "enterModName": "Enter mod name for symlink:",
             "selectEnabled": "Select all enabled",
             "selectDisabled": "Select all disabled"

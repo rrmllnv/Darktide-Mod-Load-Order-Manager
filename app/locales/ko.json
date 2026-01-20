@@ -81,9 +81,9 @@
             "profileNamePlaceholder": "이름 입력..."
         },
         "modList": {
-            "flagNew": "[추가 대기 중]",
-            "flagNotFound": "[찾을 수 없음]",
-            "flagSymlink": "[심볼릭링크]",
+            "flagNew": "추가 대기 중",
+            "flagNotFound": "찾을 수 없음",
+            "flagSymlink": "심볼릭링크",
             "enterModName": "심볼릭 링크용 모드 이름 입력:",
             "selectEnabled": "활성화된 항목 모두 선택",
             "selectDisabled": "비활성화된 항목 모두 선택",

@@ -455,23 +455,26 @@ export class ModListComponent {
         
         let newLabel = null;
         if (!isDeveloperViewMode && modEntry.isNew) {
-            newLabel = document.createElement('span');
-            newLabel.className = 'mod-new-label';
-            newLabel.textContent = this.t('ui.modList.flagNew');
+            newLabel = document.createElement('i');
+            newLabel.className = 'mod-new-label fas fa-plus-circle';
+            newLabel.style.color = 'var(--flag-new-color)';
+            newLabel.title = this.t('ui.modList.flagNew');
         }
         
         let notFoundLabel = null;
         if (!isDeveloperViewMode && modEntry.isNotFound) {
-            notFoundLabel = document.createElement('span');
-            notFoundLabel.className = 'mod-not-found-label';
-            notFoundLabel.textContent = this.t('ui.modList.flagNotFound');
+            notFoundLabel = document.createElement('i');
+            notFoundLabel.className = 'mod-not-found-label fas fa-exclamation-triangle';
+            notFoundLabel.style.color = 'var(--flag-not-found-color)';
+            notFoundLabel.title = this.t('ui.modList.flagNotFound');
         }
         
         let symlinkLabel = null;
         if (modEntry.isSymlink) {
-            symlinkLabel = document.createElement('span');
-            symlinkLabel.className = 'mod-symlink-label';
-            symlinkLabel.textContent = this.t('ui.modList.flagSymlink');
+            symlinkLabel = document.createElement('i');
+            symlinkLabel.className = 'mod-symlink-label fas fa-link';
+            symlinkLabel.style.color = 'var(--flag-symlink-color)';
+            symlinkLabel.title = this.t('ui.modList.flagSymlink');
         }
         
         let sizeElement = null;

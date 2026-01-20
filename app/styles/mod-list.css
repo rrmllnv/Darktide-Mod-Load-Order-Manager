@@ -67,22 +67,19 @@
 
 .mod-new-label {
     color: var(--flag-new-color);
-    font-weight: bold;
-    font-size: 7pt;
+    font-size: 12px;
     margin-left: 5px;
 }
 
 .mod-not-found-label {
     color: var(--flag-not-found-color);
-    font-weight: bold;
-    font-size: 7pt;
+    font-size: 12px;
     margin-left: 5px;
 }
 
 .mod-symlink-label {
     color: var(--flag-symlink-color);
-    font-weight: bold;
-    font-size: 7pt;
+    font-size: 12px;
     margin-left: 5px;
 }
 

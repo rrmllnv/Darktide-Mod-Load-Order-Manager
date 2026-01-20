@@ -81,9 +81,9 @@
             "profileNamePlaceholder": "Entrez le nom..."
         },
         "modList": {
-            "flagNew": "[EN ATTENTE D'AJOUT]",
-            "flagNotFound": "[INTROUVABLE]",
-            "flagSymlink": "[SYMLINK]",
+            "flagNew": "En attente d'ajout",
+            "flagNotFound": "Introuvable",
+            "flagSymlink": "Symlink",
             "enterModName": "Entrez le nom du mod pour le lien symbolique:",
             "selectEnabled": "Sélectionner tous les activés",
             "selectDisabled": "Sélectionner tous les désactivés",

@@ -81,9 +81,9 @@
             "profileNamePlaceholder": "Namen eingeben..."
         },
         "modList": {
-            "flagNew": "[ERWARTET HINZUFÜGUNG]",
-            "flagNotFound": "[NICHT GEFUNDEN]",
-            "flagSymlink": "[SYMLINK]",
+            "flagNew": "Erwartet hinzufügung",
+            "flagNotFound": "Nicht gefunden",
+            "flagSymlink": "Symlink",
             "enterModName": "Mod-Name für Symlink eingeben:",
             "selectEnabled": "Alle aktivierten auswählen",
             "selectDisabled": "Alle deaktivierten auswählen",
