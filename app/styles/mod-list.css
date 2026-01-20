@@ -100,6 +100,15 @@
     margin-left: 10px;
 }
 
+.locale-ru .mod-date { width: 87px; }
+.locale-de .mod-date { width: 87px; }
+.locale-fr .mod-date { width: 90px; }
+.locale-it .mod-date { width: 150px; }
+.locale-pt .mod-date { width: 93px; }
+.locale-ko .mod-date { width: 120px; }
+.locale-zh .mod-date { width: 90px; }
+.locale-ja .mod-date { width: 90px; }
+
 .mod-files-count {
     font-size: 0.85em;
     color: var(--text-secondary);
