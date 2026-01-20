@@ -21,7 +21,7 @@
     flex-shrink: 0;
     border: 1px solid var(--switch-border, transparent);
     box-sizing: border-box;
-    box-shadow: 0 0 1px rgba(0, 0, 0, 0.5), 0 0 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 0 2px rgba(0, 0, 0, 0.15);
 }
 
 .switch-slider::before {
@@ -35,7 +35,7 @@
     border-radius: 50%;
     transition: transform 0.3s;
     box-sizing: border-box;
-    box-shadow: 0 0 1px rgba(0, 0, 0, 0.5), 0 0 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 0 2px rgba(0, 0, 0, 0.15);
 }
 
 .switch-container input[type="checkbox"]:checked + .switch-slider {
