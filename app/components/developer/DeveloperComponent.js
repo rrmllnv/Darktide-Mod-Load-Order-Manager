@@ -63,6 +63,13 @@ export class DeveloperComponent {
             });
         }
         
+        const devOpenConsoleLogsBtn = document.getElementById('dev-open-console-logs-btn');
+        if (devOpenConsoleLogsBtn) {
+            devOpenConsoleLogsBtn.addEventListener('click', async () => {
+                await this.openConsoleLogs();
+            });
+        }
+        
         const devCopyModBtn = document.getElementById('dev-copy-mod-btn');
         if (devCopyModBtn) {
             devCopyModBtn.addEventListener('click', async () => {
@@ -344,6 +351,11 @@ export class DeveloperComponent {
             devOpenProjectFolderBtn.title = this.t('ui.developer.openProjectFolder');
         }
         
+        const devOpenConsoleLogsBtn = document.getElementById('dev-open-console-logs-btn');
+        if (devOpenConsoleLogsBtn) {
+            devOpenConsoleLogsBtn.title = this.t('ui.developer.openConsoleLogs');
+        }
+        
         const devCopyModBtn = document.getElementById('dev-copy-mod-btn');
         if (devCopyModBtn) {
             devCopyModBtn.title = this.t('ui.developer.copyMod');
@@ -591,6 +603,42 @@ export class DeveloperComponent {
             }
         } catch (error) {
             console.error('Error opening project folder:', error);
+            if (this.app.uiManager && this.app.uiManager.showMessage) {
+                await this.app.uiManager.showMessage(
+                    this.app.t('messages.common.error'),
+                    error.message || String(error)
+                );
+            }
+        }
+    }
+    
+    async openConsoleLogs() {
+        if (!this.app.userConfig || !this.app.userConfig.developerMode) {
+            return;
+        }
+        
+        try {
+            const result = await window.electronAPI.getConsoleLogsPath();
+            if (result.success && result.path) {
+                const openResult = await window.electronAPI.openFolder(result.path);
+                if (!openResult.success && openResult.error) {
+                    if (this.app.uiManager && this.app.uiManager.showMessage) {
+                        await this.app.uiManager.showMessage(
+                            this.app.t('messages.common.error'),
+                            openResult.error
+                        );
+                    }
+                }
+            } else {
+                if (this.app.uiManager && this.app.uiManager.showMessage) {
+                    await this.app.uiManager.showMessage(
+                        this.app.t('messages.common.error'),
+                        result.error || this.app.t('messages.developer.consoleLogsPathError')
+                    );
+                }
+            }
+        } catch (error) {
+            console.error('Error opening console logs:', error);
             if (this.app.uiManager && this.app.uiManager.showMessage) {
                 await this.app.uiManager.showMessage(
                     this.app.t('messages.common.error'),

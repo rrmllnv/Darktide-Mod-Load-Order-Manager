@@ -1129,3 +1129,17 @@ ipcMain.handle('delete-todo', async (event, todosDir, modName, todoId) => {
     return { success: false, error: error.message };
   }
 });
+
+ipcMain.handle('get-console-logs-path', async (event) => {
+  try {
+    if (process.platform === 'win32') {
+      const appDataPath = app.getPath('appData');
+      const consoleLogsPath = path.join(appDataPath, 'Fatshark', 'Darktide', 'console_logs');
+      return { success: true, path: consoleLogsPath };
+    } else {
+      return { success: false, error: 'This feature is only available on Windows' };
+    }
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+});
