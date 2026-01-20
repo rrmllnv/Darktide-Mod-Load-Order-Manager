@@ -45,8 +45,8 @@
     --status-enabled-color: #4ade80;
     --status-disabled-color: #ff6b6b;
     
-    --switch-bg-off: #d0d0d0;
-    --switch-bg-on: #0078d4;
-    --switch-border: #b0b0b0;
-    --switch-border-on: #0063b1;
+    --switch-bg-off: #c8c8c8;
+    --switch-bg-on: #90caf9;
+    --switch-border: #b8b8b8;
+    --switch-border-on: #64b5f6;
 }
