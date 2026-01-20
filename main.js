@@ -1143,3 +1143,109 @@ ipcMain.handle('get-console-logs-path', async (event) => {
     return { success: false, error: error.message };
   }
 });
+
+ipcMain.handle('rename-mod', async (event, projectPath, oldName, newName, todosDir) => {
+  try {
+    if (!projectPath || !oldName || !newName) {
+      return { success: false, error: 'Project path, old name and new name are required' };
+    }
+    
+    const oldModPath = path.join(projectPath, oldName);
+    const newModPath = path.join(projectPath, newName);
+    
+    if (!existsSync(oldModPath)) {
+      return { success: false, error: 'Old mod folder does not exist' };
+    }
+    
+    if (existsSync(newModPath)) {
+      return { success: false, error: 'New mod folder already exists' };
+    }
+    
+    const stats = statSync(oldModPath);
+    if (!stats.isDirectory()) {
+      return { success: false, error: 'Old mod path is not a directory' };
+    }
+    
+    const oldModFile = path.join(oldModPath, `${oldName}.mod`);
+    const newModFile = path.join(oldModPath, `${newName}.mod`);
+    
+    const oldScriptsModPath = path.join(oldModPath, 'scripts', 'mods', oldName);
+    const newScriptsModPath = path.join(oldModPath, 'scripts', 'mods', newName);
+    
+    const oldDataFile = path.join(oldScriptsModPath, `${oldName}_data.lua`);
+    const newDataFile = path.join(oldScriptsModPath, `${newName}_data.lua`);
+    const oldLocalizationFile = path.join(oldScriptsModPath, `${oldName}_localization.lua`);
+    const newLocalizationFile = path.join(oldScriptsModPath, `${newName}_localization.lua`);
+    const oldMainFile = path.join(oldScriptsModPath, `${oldName}.lua`);
+    const newMainFile = path.join(oldScriptsModPath, `${newName}.lua`);
+    
+    if (existsSync(oldModFile)) {
+      let modContent = await fs.readFile(oldModFile, 'utf-8');
+      modContent = modContent.replace(new RegExp(oldName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'), newName);
+      await fs.writeFile(oldModFile, modContent, 'utf-8');
+      await fs.rename(oldModFile, newModFile);
+    }
+    
+    if (existsSync(oldScriptsModPath)) {
+      if (existsSync(oldDataFile)) {
+        let dataContent = await fs.readFile(oldDataFile, 'utf-8');
+        dataContent = dataContent.replace(new RegExp(oldName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'), newName);
+        await fs.writeFile(oldDataFile, dataContent, 'utf-8');
+        await fs.rename(oldDataFile, newDataFile);
+      }
+      if (existsSync(oldLocalizationFile)) {
+        let localizationContent = await fs.readFile(oldLocalizationFile, 'utf-8');
+        localizationContent = localizationContent.replace(new RegExp(oldName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'), newName);
+        await fs.writeFile(oldLocalizationFile, localizationContent, 'utf-8');
+        await fs.rename(oldLocalizationFile, newLocalizationFile);
+      }
+      if (existsSync(oldMainFile)) {
+        let mainContent = await fs.readFile(oldMainFile, 'utf-8');
+        mainContent = mainContent.replace(new RegExp(oldName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'), newName);
+        await fs.writeFile(oldMainFile, mainContent, 'utf-8');
+        await fs.rename(oldMainFile, newMainFile);
+      }
+      await fs.rename(oldScriptsModPath, newScriptsModPath);
+    }
+    
+    await fs.rename(oldModPath, newModPath);
+    
+    const userDataDir = app.getPath('userData');
+    const oldBackupsDir = path.join(userDataDir, 'Backups', 'ProjectMods', oldName);
+    const newBackupsDir = path.join(userDataDir, 'Backups', 'ProjectMods', newName);
+    
+    if (existsSync(oldBackupsDir)) {
+      const metadata = await loadBackupsMetadata(oldName);
+      const oldMetadataPath = getBackupsMetadataPath(oldName);
+      await fs.rename(oldBackupsDir, newBackupsDir);
+      await saveBackupsMetadata(newName, metadata);
+      if (existsSync(oldMetadataPath)) {
+        await fs.unlink(oldMetadataPath);
+      }
+    }
+    
+    if (todosDir && typeof todosDir === 'string') {
+      const oldTodosFile = path.join(todosDir, `${oldName}.json`);
+      const newTodosFile = path.join(todosDir, `${newName}.json`);
+      
+      if (existsSync(oldTodosFile)) {
+        let todosContent = await fs.readFile(oldTodosFile, 'utf-8');
+        const todosData = JSON.parse(todosContent);
+        const todos = Array.isArray(todosData) ? todosData : (todosData.todos || []);
+        
+        todos.forEach(todo => {
+          if (todo.modName === oldName) {
+            todo.modName = newName;
+          }
+        });
+        
+        await fs.writeFile(newTodosFile, JSON.stringify(todos, null, 2), 'utf-8');
+        await fs.unlink(oldTodosFile);
+      }
+    }
+    
+    return { success: true };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+});

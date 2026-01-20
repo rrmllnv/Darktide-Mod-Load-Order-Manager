@@ -70,6 +70,13 @@ export class DeveloperComponent {
             });
         }
         
+        const devRenameModBtn = document.getElementById('dev-rename-mod-btn');
+        if (devRenameModBtn) {
+            devRenameModBtn.addEventListener('click', async () => {
+                await this.renameSelectedMod();
+            });
+        }
+        
         const devCopyModBtn = document.getElementById('dev-copy-mod-btn');
         if (devCopyModBtn) {
             devCopyModBtn.addEventListener('click', async () => {
@@ -354,6 +361,11 @@ export class DeveloperComponent {
         const devOpenConsoleLogsBtn = document.getElementById('dev-open-console-logs-btn');
         if (devOpenConsoleLogsBtn) {
             devOpenConsoleLogsBtn.title = this.t('ui.developer.openConsoleLogs');
+        }
+        
+        const devRenameModBtn = document.getElementById('dev-rename-mod-btn');
+        if (devRenameModBtn) {
+            devRenameModBtn.title = this.t('ui.developer.renameMod');
         }
         
         const devCopyModBtn = document.getElementById('dev-copy-mod-btn');
@@ -646,6 +658,145 @@ export class DeveloperComponent {
                 );
             }
         }
+    }
+    
+    async renameSelectedMod() {
+        if (!this.app.userConfig || !this.app.userConfig.developerMode) {
+            return;
+        }
+        
+        if (!this.app.userConfig.projectPath) {
+            if (this.app.uiManager && this.app.uiManager.showMessage) {
+                await this.app.uiManager.showMessage(
+                    this.app.t('messages.common.error'),
+                    this.app.t('messages.developer.projectPathNotSet')
+                );
+            }
+            return;
+        }
+        
+        if (!this.app.selectedModName || !this.app.modEntries) {
+            if (this.app.uiManager && this.app.uiManager.showMessage) {
+                await this.app.uiManager.showMessage(
+                    this.app.t('messages.common.error'),
+                    this.app.t('messages.developer.noModSelected')
+                );
+            }
+            return;
+        }
+        
+        const selectedMod = this.app.modEntries.find(m => m.name === this.app.selectedModName);
+        if (!selectedMod) {
+            return;
+        }
+        
+        const sourcePath = `${this.app.userConfig.projectPath}\\${selectedMod.name}`;
+        const sourceExists = await window.electronAPI.fileExists(sourcePath);
+        if (!sourceExists) {
+            if (this.app.uiManager && this.app.uiManager.showMessage) {
+                await this.app.uiManager.showMessage(
+                    this.app.t('messages.common.error'),
+                    this.app.t('messages.developer.modNotFoundInProject')
+                );
+            }
+            return;
+        }
+        
+        if (!this.app.modalManager) {
+            return;
+        }
+        
+        this.app.modalManager.showModal(
+            this.t('messages.developer.renameModTitle'),
+            selectedMod.name,
+            async (newName) => {
+                if (!newName || newName.trim() === '') {
+                    return;
+                }
+                
+                const trimmedName = newName.trim();
+                
+                if (trimmedName === selectedMod.name) {
+                    return;
+                }
+                
+                const nameRegex = /^[A-Za-z][A-Za-z0-9_]*$/;
+                if (!nameRegex.test(trimmedName)) {
+                    if (this.app.uiManager && this.app.uiManager.showMessage) {
+                        await this.app.uiManager.showMessage(
+                            this.app.t('messages.common.error'),
+                            this.app.t('messages.developer.invalidModName')
+                        );
+                    }
+                    return;
+                }
+                
+                const newModPath = `${this.app.userConfig.projectPath}\\${trimmedName}`;
+                const newModExists = await window.electronAPI.fileExists(newModPath);
+                if (newModExists) {
+                    if (this.app.uiManager && this.app.uiManager.showMessage) {
+                        await this.app.uiManager.showMessage(
+                            this.app.t('messages.common.error'),
+                            this.app.t('messages.developer.modNameAlreadyExists', { modName: trimmedName })
+                        );
+                    }
+                    return;
+                }
+                
+                if (this.app.uiManager && this.app.uiManager.showConfirm) {
+                    const confirmed = await this.app.uiManager.showConfirm(
+                        this.app.t('messages.developer.renameModConfirm', { oldName: selectedMod.name, newName: trimmedName })
+                    );
+                    if (!confirmed) {
+                        return;
+                    }
+                }
+                
+                try {
+                    const todosDirResult = await window.electronAPI.getTodosDirectory();
+                    const todosDir = todosDirResult && todosDirResult.success ? todosDirResult.path : null;
+                    const result = await window.electronAPI.renameMod(
+                        this.app.userConfig.projectPath,
+                        selectedMod.name,
+                        trimmedName,
+                        todosDir
+                    );
+                    
+                    if (result.success) {
+                        if (this.app.uiManager && this.app.uiManager.showMessage) {
+                            await this.app.uiManager.showMessage(
+                                this.app.t('messages.common.success'),
+                                this.app.t('messages.developer.modRenamed', { oldName: selectedMod.name, newName: trimmedName })
+                            );
+                        }
+                        
+                        if (this.app.modListComponent && this.app.modListComponent.scanAndUpdate) {
+                            await this.app.modListComponent.scanAndUpdate();
+                        }
+                        
+                        if (this.app.todosComponent && this.app.todosComponent.loadTodos) {
+                            await this.app.todosComponent.loadTodos();
+                        }
+                    } else {
+                        if (this.app.uiManager && this.app.uiManager.showMessage) {
+                            await this.app.uiManager.showMessage(
+                                this.app.t('messages.common.error'),
+                                result.error || this.app.t('messages.developer.modRenameError')
+                            );
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error renaming mod:', error);
+                    if (this.app.uiManager && this.app.uiManager.showMessage) {
+                        await this.app.uiManager.showMessage(
+                            this.app.t('messages.common.error'),
+                            error.message || this.app.t('messages.developer.modRenameError')
+                        );
+                    }
+                }
+            },
+            selectedMod.name
+        );
     }
     
     async deleteModFolder(modName) {
