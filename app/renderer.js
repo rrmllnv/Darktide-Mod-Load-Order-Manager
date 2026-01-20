@@ -219,7 +219,12 @@ class ModLoadOrderManager {
             }
             
             if (!e.target.closest('.mod-item') && !e.target.closest('#mods-list')) {
-                if (!e.target.closest('#bulk-actions-panel') && !e.target.closest('.btn-icon') && !e.target.closest('.todos-frame')) {
+                const isBulkActions = e.target.closest('#bulk-actions-panel');
+                const isTodosFrame = e.target.closest('.todos-frame');
+                const isDeveloperViewBtn = e.target.closest('#developer-view-btn');
+                const isOtherBtnIcon = e.target.closest('.btn-icon') && !isDeveloperViewBtn;
+                
+                if (!isBulkActions && !isOtherBtnIcon && !isTodosFrame) {
                     this.modListComponent.clearSelection();
                 }
             }

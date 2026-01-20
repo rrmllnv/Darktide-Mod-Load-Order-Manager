@@ -752,17 +752,36 @@ export class TodosComponent {
         
         const allTodoTexts = todosList.querySelectorAll('.todo-text');
         allTodoTexts.forEach(textElement => {
-            if (!textElement.classList.contains('todo-text-collapsed')) {
-                const todoItem = textElement.closest('.todo-item');
-                if (todoItem) {
-                    const todoId = todoItem.getAttribute('data-todo-id');
-                    if (todoId) {
+            const todoItem = textElement.closest('.todo-item');
+            if (todoItem) {
+                const todoId = todoItem.getAttribute('data-todo-id');
+                if (todoId) {
+                    const lineHeight = parseFloat(getComputedStyle(textElement).lineHeight) || 14;
+                    const maxHeight = lineHeight * 3;
+                    const needsCollapse = textElement.scrollHeight > maxHeight;
+                    
+                    if (needsCollapse && !textElement.classList.contains('todo-text-collapsed')) {
                         this.expandedTodos.delete(todoId);
                         textElement.classList.add('todo-text-collapsed');
                     }
                 }
             }
         });
+    }
+    
+    resetTodosCollapse() {
+        const todosList = document.getElementById('todos-list');
+        if (!todosList) {
+            return;
+        }
+        
+        const allTodoTexts = todosList.querySelectorAll('.todo-text');
+        allTodoTexts.forEach(textElement => {
+            textElement.classList.remove('active');
+        });
+        
+        this.expandedTodos.clear();
+        this.collapseAllTodos();
     }
     
     renderTodos() {

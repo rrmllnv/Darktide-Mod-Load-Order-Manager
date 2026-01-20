@@ -245,6 +245,10 @@ export class DeveloperComponent {
             this.app.modListComponent.clearSelection();
         }
         
+        if (this.app.todosComponent) {
+            this.app.todosComponent.resetTodosCollapse();
+        }
+        
         if (enabled) {
             this.app.modEntries = [];
         } else {
