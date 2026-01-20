@@ -358,13 +358,20 @@ function getUserConfigPath() {
 
 async function getDirectorySize(dirPath) {
   let totalSize = 0;
+  let fileCount = 0;
+  let dirCount = 0;
   try {
     const entries = await fs.readdir(dirPath, { withFileTypes: true });
     for (const entry of entries) {
       const entryPath = path.join(dirPath, entry.name);
       if (entry.isDirectory()) {
-        totalSize += await getDirectorySize(entryPath);
+        dirCount++;
+        const subResult = await getDirectorySize(entryPath);
+        totalSize += subResult.size;
+        fileCount += subResult.fileCount;
+        dirCount += subResult.dirCount;
       } else {
+        fileCount++;
         const stats = await fs.stat(entryPath);
         totalSize += stats.size;
       }
@@ -372,7 +379,7 @@ async function getDirectorySize(dirPath) {
   } catch (error) {
     console.error('Error calculating directory size:', error);
   }
-  return totalSize;
+  return { size: totalSize, fileCount, dirCount };
 }
 
 function formatBytes(bytes) {
@@ -557,14 +564,14 @@ ipcMain.handle('list-backups', async (event, modName) => {
     for (const entry of entries) {
       if (entry.isDirectory()) {
         const backupPath = path.join(modBackupsDir, entry.name);
-        const size = await getDirectorySize(backupPath);
+        const sizeResult = await getDirectorySize(backupPath);
         const stats = await fs.stat(backupPath);
         const backupMeta = metadata[entry.name] || {};
         
         backups.push({
           versionName: entry.name,
           path: backupPath,
-          size: size,
+          size: sizeResult.size,
           sizeFormatted: formatBytes(size),
           created: stats.birthtime || stats.mtime,
           comment: backupMeta.comment || ''
@@ -1375,14 +1382,16 @@ ipcMain.handle('get-directory-size', async (event, dirPath) => {
       return { success: false, error: 'Directory does not exist' };
     }
     
-    const size = await getDirectorySize(dirPath);
+    const result = await getDirectorySize(dirPath);
     const stats = statSync(dirPath);
     const createdDate = stats.birthtime || stats.mtime;
     
     return { 
       success: true, 
-      size, 
-      sizeFormatted: formatBytes(size),
+      size: result.size, 
+      sizeFormatted: formatBytes(result.size),
+      fileCount: result.fileCount,
+      dirCount: result.dirCount,
       createdDate: createdDate.toISOString()
     };
   } catch (error) {

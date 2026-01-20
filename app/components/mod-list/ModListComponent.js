@@ -283,7 +283,7 @@ export class ModListComponent {
     onCheckboxChange(modName) {
         const modEntry = this._modEntries.find(m => m.name === modName);
         if (modEntry) {
-            this.loadModInfo(modEntry, modEntry.sizeElement, modEntry.dateElement);
+            this.loadModInfo(modEntry, modEntry.sizeElement, modEntry.dateElement, modEntry.filesCountElement);
         }
         
         if (this.app.updateStatistics) {
@@ -392,7 +392,7 @@ export class ModListComponent {
             if (modEntry.checkbox) {
                 modEntry.checkbox.checked = true;
             }
-            this.loadModInfo(modEntry, modEntry.sizeElement, modEntry.dateElement);
+            this.loadModInfo(modEntry, modEntry.sizeElement, modEntry.dateElement, modEntry.filesCountElement);
         });
         const searchText = this.app.searchComponent ? this.app.searchComponent.getSearchText() : '';
         this.updateModList(searchText);
@@ -408,7 +408,7 @@ export class ModListComponent {
             if (modEntry.checkbox) {
                 modEntry.checkbox.checked = false;
             }
-            this.loadModInfo(modEntry, modEntry.sizeElement, modEntry.dateElement);
+            this.loadModInfo(modEntry, modEntry.sizeElement, modEntry.dateElement, modEntry.filesCountElement);
         });
         const searchText = this.app.searchComponent ? this.app.searchComponent.getSearchText() : '';
         this.updateModList(searchText);
@@ -486,7 +486,12 @@ export class ModListComponent {
         dateElement.className = 'mod-date';
         dateElement.textContent = '...';
         
-        this.loadModInfo(modEntry, sizeElement, dateElement);
+        let filesCountElement = null;
+        filesCountElement = document.createElement('span');
+        filesCountElement.className = 'mod-files-count';
+        filesCountElement.textContent = '...';
+        
+        this.loadModInfo(modEntry, sizeElement, dateElement, filesCountElement);
         
         modItem.addEventListener('click', (e) => {
             if ((!checkboxContainer || !checkboxContainer.contains(e.target)) && !modItem.classList.contains('dragging')) {
@@ -528,6 +533,9 @@ export class ModListComponent {
         if (dateElement) {
             modItem.appendChild(dateElement);
         }
+        if (filesCountElement) {
+            modItem.appendChild(filesCountElement);
+        }
         
             modEntry.checkbox = checkbox;
             if (checkboxContainer) {
@@ -535,12 +543,13 @@ export class ModListComponent {
             }
         modEntry.sizeElement = sizeElement;
         modEntry.dateElement = dateElement;
+        modEntry.filesCountElement = filesCountElement;
         modEntry.modItem = modItem;
         
         return modItem;
     }
     
-    async loadModInfo(modEntry, sizeElement, dateElement) {
+    async loadModInfo(modEntry, sizeElement, dateElement, filesCountElement) {
         if (!modEntry) {
             return;
         }
@@ -563,6 +572,9 @@ export class ModListComponent {
                 if (dateElement) {
                     dateElement.textContent = '';
                 }
+                if (filesCountElement) {
+                    filesCountElement.innerHTML = '';
+                }
                 return;
             }
             
@@ -584,12 +596,22 @@ export class ModListComponent {
                 } else if (dateElement) {
                     dateElement.textContent = '';
                 }
+                if (filesCountElement && (result.fileCount !== undefined || result.dirCount !== undefined)) {
+                    const fileCount = result.fileCount || 0;
+                    const dirCount = result.dirCount || 0;
+                    filesCountElement.innerHTML = `<span class="mod-files-count-item"><i class="fas fa-file"></i> ${fileCount}</span><span class="mod-files-count-item"><i class="fas fa-folder"></i> ${dirCount}</span>`;
+                } else if (filesCountElement) {
+                    filesCountElement.innerHTML = '';
+                }
             } else {
                 if (sizeElement) {
                     sizeElement.textContent = '';
                 }
                 if (dateElement) {
                     dateElement.textContent = '';
+                }
+                if (filesCountElement) {
+                    filesCountElement.innerHTML = '';
                 }
             }
         } catch (error) {
@@ -599,6 +621,9 @@ export class ModListComponent {
             }
             if (dateElement) {
                 dateElement.textContent = '';
+            }
+            if (filesCountElement) {
+                filesCountElement.innerHTML = '';
             }
         }
     }
@@ -658,7 +683,7 @@ export class ModListComponent {
             if (modEntry.checkbox) {
                 modEntry.checkbox.checked = true;
             }
-            this.loadModInfo(modEntry, modEntry.sizeElement, modEntry.dateElement);
+            this.loadModInfo(modEntry, modEntry.sizeElement, modEntry.dateElement, modEntry.filesCountElement);
             if (this.app.updateStatistics) {
                 this.app.updateStatistics();
             }
@@ -676,7 +701,7 @@ export class ModListComponent {
             if (modEntry.checkbox) {
                 modEntry.checkbox.checked = false;
             }
-            this.loadModInfo(modEntry, modEntry.sizeElement, modEntry.dateElement);
+            this.loadModInfo(modEntry, modEntry.sizeElement, modEntry.dateElement, modEntry.filesCountElement);
             if (this.app.updateStatistics) {
                 this.app.updateStatistics();
             }
