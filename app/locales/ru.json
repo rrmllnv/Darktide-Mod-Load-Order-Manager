@@ -256,6 +256,9 @@
             "allModsAlreadyDisabled": "Все выбранные моды уже выключены"
         },
         "modList": {
+            "allModsEnabled": "Все моды включены",
+            "allModsDisabled": "Все моды выключены",
+            "scanCompleted": "Сканирование папки завершено",
             "scanNewMods": "Найдено новых модов:",
             "scanRemovedMods": "Удалено не найденных модов:",
             "scanDeletedMods": "Помечено как не найденные:",

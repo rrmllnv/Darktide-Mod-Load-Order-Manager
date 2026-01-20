@@ -256,6 +256,9 @@
             "allModsAlreadyDisabled": "All selected mods are already disabled"
         },
         "modList": {
+            "allModsEnabled": "All mods enabled",
+            "allModsDisabled": "All mods disabled",
+            "scanCompleted": "Folder scan completed",
             "scanNewMods": "New mods found:",
             "scanRemovedMods": "Mods not found removed:",
             "scanDeletedMods": "Marked as not found:",

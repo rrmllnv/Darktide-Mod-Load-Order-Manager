@@ -252,6 +252,9 @@
             "allModsAlreadyDisabled": "所有选中的模组已禁用"
         },
         "modList": {
+            "allModsEnabled": "所有模组已启用",
+            "allModsDisabled": "所有模组已禁用",
+            "scanCompleted": "文件夹扫描完成",
             "scanNewMods": "发现新模组:",
             "scanRemovedMods": "未找到的模组已移除:",
             "scanDeletedMods": "标记为未找到:",

@@ -252,6 +252,9 @@
             "allModsAlreadyDisabled": "選択されたすべてのMODは既に無効です"
         },
         "modList": {
+            "allModsEnabled": "すべてのMODが有効になりました",
+            "allModsDisabled": "すべてのMODが無効になりました",
+            "scanCompleted": "フォルダスキャンが完了しました",
             "scanNewMods": "新しいMODが見つかりました:",
             "scanRemovedMods": "見つからないMODが削除されました:",
             "scanDeletedMods": "見つからないとしてマークされました:",

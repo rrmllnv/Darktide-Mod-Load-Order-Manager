@@ -387,6 +387,10 @@ export class ModListComponent {
         });
         const searchText = this.app.searchComponent ? this.app.searchComponent.getSearchText() : '';
         this.updateModList(searchText);
+        
+        if (this.app.notificationComponent) {
+            this.app.notificationComponent.show('success', this.t('messages.modList.allModsEnabled'));
+        }
     }
     
     disableAll() {
@@ -402,6 +406,10 @@ export class ModListComponent {
         });
         const searchText = this.app.searchComponent ? this.app.searchComponent.getSearchText() : '';
         this.updateModList(searchText);
+        
+        if (this.app.notificationComponent) {
+            this.app.notificationComponent.show('success', this.t('messages.modList.allModsDisabled'));
+        }
     }
     
     createModItem(modEntry, selectedModName, currentSort, index, isSelected = false) {
@@ -557,8 +565,8 @@ export class ModListComponent {
             message = this.t('messages.modList.scanNoChanges');
         }
         
-        if (this.app.uiManager && this.app.uiManager.showMessage) {
-            this.app.uiManager.showMessage(this.t('messages.common.info'), message);
+        if (this.app.notificationComponent) {
+            this.app.notificationComponent.show('info', message);
         }
     }
     

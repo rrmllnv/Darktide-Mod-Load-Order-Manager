@@ -252,6 +252,9 @@
             "allModsAlreadyDisabled": "선택된 모든 모드가 이미 비활성화되어 있습니다"
         },
         "modList": {
+            "allModsEnabled": "모든 모드 활성화됨",
+            "allModsDisabled": "모든 모드 비활성화됨",
+            "scanCompleted": "폴더 스캔 완료",
             "scanNewMods": "새 모드 발견:",
             "scanRemovedMods": "찾을 수 없는 모드 제거됨:",
             "scanDeletedMods": "찾을 수 없음으로 표시됨:",

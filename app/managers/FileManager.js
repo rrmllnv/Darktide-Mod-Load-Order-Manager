@@ -191,6 +191,10 @@ export class FileManager {
         if (confirmed) {
             await this.loadFile();
             this.app.setStatus(this.app.t('messages.common.fileReloaded'));
+            
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('success', this.app.t('messages.common.fileReloaded'));
+            }
         }
     }
     

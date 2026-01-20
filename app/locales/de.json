@@ -252,6 +252,9 @@
             "allModsAlreadyDisabled": "Alle ausgewählten Mods sind bereits deaktiviert"
         },
         "modList": {
+            "allModsEnabled": "Alle Mods aktiviert",
+            "allModsDisabled": "Alle Mods deaktiviert",
+            "scanCompleted": "Ordnerscan abgeschlossen",
             "scanNewMods": "Neue Mods gefunden:",
             "scanRemovedMods": "Nicht gefundene Mods entfernt:",
             "scanDeletedMods": "Als nicht gefunden markiert:",

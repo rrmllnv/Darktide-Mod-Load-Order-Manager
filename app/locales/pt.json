@@ -252,6 +252,9 @@
             "allModsAlreadyDisabled": "Todos os mods selecionados já estão desabilitados"
         },
         "modList": {
+            "allModsEnabled": "Todos os mods ativados",
+            "allModsDisabled": "Todos os mods desativados",
+            "scanCompleted": "Varredura de pasta concluída",
             "scanNewMods": "Novos mods encontrados:",
             "scanRemovedMods": "Mods não encontrados removidos:",
             "scanDeletedMods": "Marcados como não encontrados:",
