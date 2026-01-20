@@ -15,7 +15,7 @@
 .mod-item {
     display: flex;
     align-items: center;
-    padding: 5px;
+    padding: 5px 18px 5px 5px;
     margin: 2px 0;
     border-radius: 3px;
     cursor: pointer;
@@ -24,6 +24,7 @@
     box-sizing: border-box;
     border: 2px solid var(--bg-secondary);
     color: var(--text-primary);
+    position: relative;
 }
 
 .mod-item:hover {
@@ -120,6 +121,7 @@
     align-items: center;
     justify-content: flex-end;
     gap: 5px;
+    position: relative;
 }
 
 .mod-files-count-item {
@@ -132,6 +134,36 @@
 
 .mod-files-count-item i {
     font-size: 10px;
+}
+
+.mod-item-drag {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 14px;
+    height: 14px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    cursor: grab;
+    font-size: 12px;
+    opacity: 0.6;
+    z-index: 1;
+}
+
+.mod-item:hover .mod-item-drag {
+    display: flex;
+}
+
+.mod-item-drag:active {
+    cursor: grabbing;
+}
+
+.mod-item-drag:hover {
+    color: var(--text-primary);
+    opacity: 1;
 }
 
 .canvas-frame::-webkit-scrollbar {

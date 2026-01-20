@@ -499,6 +499,11 @@ export class ModListComponent {
         filesCountElement.className = 'mod-files-count';
         filesCountElement.textContent = '...';
         
+        const modDrag = document.createElement('div');
+        modDrag.className = 'mod-item-drag';
+        modDrag.innerHTML = '<i class="fas fa-grip-vertical"></i>';
+        modDrag.title = this.t('ui.modList.dragToReorder') || this.t('ui.todos.dragToReorder') || 'Drag to reorder';
+        
         this.loadModInfo(modEntry, sizeElement, dateElement, filesCountElement);
         
         modItem.addEventListener('click', (e) => {
@@ -556,6 +561,10 @@ export class ModListComponent {
         } else if (filesCountElement) {
             filesCountElement.style.display = 'none';
             modItem.appendChild(filesCountElement);
+        }
+        
+        if (currentSort === 'fileOrder') {
+            modItem.appendChild(modDrag);
         }
         
             modEntry.checkbox = checkbox;
