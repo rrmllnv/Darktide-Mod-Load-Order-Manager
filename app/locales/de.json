@@ -87,7 +87,9 @@
             "enterModName": "Mod-Name für Symlink eingeben:",
             "selectEnabled": "Alle aktivierten auswählen",
             "selectDisabled": "Alle deaktivierten auswählen",
-            "createSymlink": "Symlink erstellen"
+            "createSymlink": "Symlink erstellen",
+            "files": "Dateien",
+            "folders": "Ordner"
         },
         "search": {
             "search": "Suchen",

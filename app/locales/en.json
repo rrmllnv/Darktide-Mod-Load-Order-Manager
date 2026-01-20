@@ -87,7 +87,9 @@
             "flagSymlink": "Symlink",
             "enterModName": "Enter mod name for symlink:",
             "selectEnabled": "Select all enabled",
-            "selectDisabled": "Select all disabled"
+            "selectDisabled": "Select all disabled",
+            "files": "Files",
+            "folders": "Folders"
         },
         "search": {
             "search": "Search",

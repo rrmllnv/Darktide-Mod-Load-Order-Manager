@@ -87,7 +87,9 @@
             "enterModName": "シンボリックリンクのMOD名を入力:",
             "selectEnabled": "有効なものをすべて選択",
             "selectDisabled": "無効なものをすべて選択",
-            "createSymlink": "シンボリックリンクを作成"
+            "createSymlink": "シンボリックリンクを作成",
+            "files": "ファイル",
+            "folders": "フォルダ"
         },
         "search": {
             "search": "検索",

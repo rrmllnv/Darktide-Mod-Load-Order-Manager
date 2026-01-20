@@ -87,7 +87,9 @@
             "enterModName": "심볼릭 링크용 모드 이름 입력:",
             "selectEnabled": "활성화된 항목 모두 선택",
             "selectDisabled": "비활성화된 항목 모두 선택",
-            "createSymlink": "심볼릭 링크 만들기"
+            "createSymlink": "심볼릭 링크 만들기",
+            "files": "파일",
+            "folders": "폴더"
         },
         "search": {
             "search": "검색",

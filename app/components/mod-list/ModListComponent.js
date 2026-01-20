@@ -599,7 +599,9 @@ export class ModListComponent {
                 if (filesCountElement && (result.fileCount !== undefined || result.dirCount !== undefined)) {
                     const fileCount = result.fileCount || 0;
                     const dirCount = result.dirCount || 0;
-                    filesCountElement.innerHTML = `<span class="mod-files-count-item"><i class="fas fa-file"></i> ${fileCount}</span><span class="mod-files-count-item"><i class="fas fa-folder"></i> ${dirCount}</span>`;
+                    const filesLabel = this.t('ui.modList.files');
+                    const foldersLabel = this.t('ui.modList.folders');
+                    filesCountElement.innerHTML = `<span class="mod-files-count-item" title="${filesLabel}"><i class="fas fa-file"></i> ${fileCount}</span><span class="mod-files-count-item" title="${foldersLabel}"><i class="fas fa-folder"></i> ${dirCount}</span>`;
                 } else if (filesCountElement) {
                     filesCountElement.innerHTML = '';
                 }

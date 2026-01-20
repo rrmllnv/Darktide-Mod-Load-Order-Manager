@@ -87,7 +87,9 @@
             "enterModName": "输入符号链接的模组名称:",
             "selectEnabled": "选择所有已启用",
             "selectDisabled": "选择所有已禁用",
-            "createSymlink": "创建符号链接"
+            "createSymlink": "创建符号链接",
+            "files": "文件",
+            "folders": "文件夹"
         },
         "search": {
             "search": "搜索",

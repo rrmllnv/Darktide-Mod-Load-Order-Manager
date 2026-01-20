@@ -87,7 +87,9 @@
             "enterModName": "Entrez le nom du mod pour le lien symbolique:",
             "selectEnabled": "Sélectionner tous les activés",
             "selectDisabled": "Sélectionner tous les désactivés",
-            "createSymlink": "Créer un lien symbolique"
+            "createSymlink": "Créer un lien symbolique",
+            "files": "Fichiers",
+            "folders": "Dossiers"
         },
         "search": {
             "search": "Rechercher",

@@ -87,7 +87,9 @@
             "flagSymlink": "Симлинк",
             "enterModName": "Введите имя мода для симлинка:",
             "selectEnabled": "Выделить все включенные",
-            "selectDisabled": "Выделить все выключенные"
+            "selectDisabled": "Выделить все выключенные",
+            "files": "Файлы",
+            "folders": "Папки"
         },
         "search": {
             "search": "Поиск",

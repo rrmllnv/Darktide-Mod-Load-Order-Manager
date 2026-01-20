@@ -87,7 +87,9 @@
             "enterModName": "Inserisci nome mod per collegamento simbolico:",
             "selectEnabled": "Seleziona tutti gli abilitati",
             "selectDisabled": "Seleziona tutti i disabilitati",
-            "createSymlink": "Crea collegamento simbolico"
+            "createSymlink": "Crea collegamento simbolico",
+            "files": "File",
+            "folders": "Cartelle"
         },
         "search": {
             "search": "Cerca",

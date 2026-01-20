@@ -87,7 +87,9 @@
             "enterModName": "Digite o nome do mod para link simbólico:",
             "selectEnabled": "Selecionar todos ativados",
             "selectDisabled": "Selecionar todos desativados",
-            "createSymlink": "Criar link simbólico"
+            "createSymlink": "Criar link simbólico",
+            "files": "Arquivos",
+            "folders": "Pastas"
         },
         "search": {
             "search": "Pesquisar",
