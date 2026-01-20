@@ -89,7 +89,7 @@
             "selectDisabled": "Select all disabled"
         },
         "search": {
-            "search": "Search mod:",
+            "search": "Search",
             "searchPlaceholder": "Enter mod name...",
             "clear": "Clear",
             "hideNewMods": "Hide new mods",

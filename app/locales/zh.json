@@ -89,7 +89,7 @@
             "createSymlink": "创建符号链接"
         },
         "search": {
-            "search": "搜索模组:",
+            "search": "搜索",
             "searchPlaceholder": "输入模组名称...",
             "clear": "清除",
             "hideNewMods": "隐藏新模组",

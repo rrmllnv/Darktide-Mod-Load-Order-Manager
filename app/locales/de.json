@@ -89,7 +89,7 @@
             "createSymlink": "Symlink erstellen"
         },
         "search": {
-            "search": "Mod suchen:",
+            "search": "Suchen",
             "searchPlaceholder": "Mod-Name eingeben...",
             "clear": "Löschen",
             "hideNewMods": "Neue Mods ausblenden",

@@ -89,7 +89,7 @@
             "createSymlink": "シンボリックリンクを作成"
         },
         "search": {
-            "search": "MODを検索:",
+            "search": "検索",
             "searchPlaceholder": "MOD名を入力...",
             "clear": "クリア",
             "hideNewMods": "新しいMODを非表示",

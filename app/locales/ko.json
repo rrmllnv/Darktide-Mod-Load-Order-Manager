@@ -89,7 +89,7 @@
             "createSymlink": "심볼릭 링크 만들기"
         },
         "search": {
-            "search": "모드 검색:",
+            "search": "검색",
             "searchPlaceholder": "모드 이름 입력...",
             "clear": "지우기",
             "hideNewMods": "새 모드 숨기기",

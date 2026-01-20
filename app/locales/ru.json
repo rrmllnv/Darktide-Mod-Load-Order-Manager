@@ -89,7 +89,7 @@
             "selectDisabled": "Выделить все выключенные"
         },
         "search": {
-            "search": "Поиск мода:",
+            "search": "Поиск",
             "searchPlaceholder": "Введите название мода...",
             "clear": "Очистить",
             "hideNewMods": "Скрыть новые моды",

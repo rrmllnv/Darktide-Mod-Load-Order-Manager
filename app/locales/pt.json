@@ -89,7 +89,7 @@
             "createSymlink": "Criar link simbólico"
         },
         "search": {
-            "search": "Pesquisar mod:",
+            "search": "Pesquisar",
             "searchPlaceholder": "Digite o nome do mod...",
             "clear": "Limpar",
             "hideNewMods": "Ocultar novos mods",
