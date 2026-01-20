@@ -185,11 +185,13 @@ export class DeveloperComponent {
                             this.app.modEntries, 
                             this.app.selectedModName
                         );
-                        this.app.selectedModName = scanResult.selectedModName;
                         
                         const createdMod = this.app.modEntries.find(m => m.name === modName);
                         if (createdMod) {
                             createdMod.isNew = true;
+                            this.app.selectedModName = modName;
+                        } else {
+                            this.app.selectedModName = scanResult.selectedModName;
                         }
                         
                         if (this.app.modListComponent) {
