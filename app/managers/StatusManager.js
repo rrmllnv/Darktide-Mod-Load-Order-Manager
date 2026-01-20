@@ -12,27 +12,45 @@ export class StatusManager {
     
     updateStatistics(modEntries, selectedModNames = null) {
         const total = modEntries.length;
-        const enabled = modEntries.filter(m => m.enabled).length;
-        const disabled = total - enabled;
         const newModsCount = modEntries.filter(m => m.isNew).length;
         const notFoundCount = modEntries.filter(m => m.isNotFound).length;
         const selectedCount = selectedModNames ? selectedModNames.size : 0;
         
-        let statsText = this.app.t('status.common.total', { total, enabled, disabled });
+        const isDeveloperViewMode = this.app && this.app.userConfig && this.app.userConfig.developerViewMode;
         
-        const parts = [];
-        if (newModsCount > 0) {
-            parts.push(this.app.t('status.common.newMods', { count: newModsCount }));
-        }
-        if (notFoundCount > 0) {
-            parts.push(this.app.t('status.common.notFoundMods', { count: notFoundCount }));
-        }
-        if (selectedCount > 0) {
-            parts.push(this.app.t('status.common.selectedMods', { count: selectedCount }));
-        }
+        let statsText;
         
-        if (parts.length > 0) {
-            statsText += ' | ' + parts.join(' | ');
+        if (isDeveloperViewMode) {
+            statsText = this.app.t('status.common.developerTotal', { total });
+            
+            const parts = [];
+            if (selectedCount > 0) {
+                parts.push(this.app.t('status.common.selectedMods', { count: selectedCount }));
+            }
+            
+            if (parts.length > 0) {
+                statsText += ' | ' + parts.join(' | ');
+            }
+        } else {
+            const enabled = modEntries.filter(m => m.enabled).length;
+            const disabled = total - enabled;
+            
+            statsText = this.app.t('status.common.total', { total, enabled, disabled });
+            
+            const parts = [];
+            if (newModsCount > 0) {
+                parts.push(this.app.t('status.common.newMods', { count: newModsCount }));
+            }
+            if (notFoundCount > 0) {
+                parts.push(this.app.t('status.common.notFoundMods', { count: notFoundCount }));
+            }
+            if (selectedCount > 0) {
+                parts.push(this.app.t('status.common.selectedMods', { count: selectedCount }));
+            }
+            
+            if (parts.length > 0) {
+                statsText += ' | ' + parts.join(' | ');
+            }
         }
         
         this.setStatus(statsText);

@@ -349,6 +349,7 @@
         "common": {
             "total": "Total: {total} | Habilitado: {enabled} | Desabilitado: {disabled}",
             "totalWithNew": "Total: {total} | Habilitado: {enabled} | Desabilitado: {disabled} | Novo: {newModsCount}",
+            "developerTotal": "Mods no total: {total}",
             "newMods": "Novo: {count}",
             "notFoundMods": "Não encontrado: {count}",
             "selectedMods": "Selecionado: {count}",

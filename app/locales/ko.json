@@ -349,6 +349,7 @@
         "common": {
             "total": "전체: {total} | 활성화: {enabled} | 비활성화: {disabled}",
             "totalWithNew": "전체: {total} | 활성화: {enabled} | 비활성화: {disabled} | 신규: {newModsCount}",
+            "developerTotal": "전체 모드: {total}",
             "newMods": "신규: {count}",
             "notFoundMods": "찾을 수 없음: {count}",
             "selectedMods": "선택됨: {count}",

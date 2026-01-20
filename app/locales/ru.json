@@ -353,6 +353,7 @@
         "common": {
             "total": "Всего: {total} | Включено: {enabled} | Выключено: {disabled}",
             "totalWithNew": "Всего: {total} | Включено: {enabled} | Выключено: {disabled} | Новых: {newModsCount}",
+            "developerTotal": "Всего модов: {total}",
             "newMods": "Новых: {count}",
             "notFoundMods": "Не найдено: {count}",
             "selectedMods": "Выделено: {count}",

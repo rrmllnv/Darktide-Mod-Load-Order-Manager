@@ -353,6 +353,7 @@
         "common": {
             "total": "Total: {total} | Enabled: {enabled} | Disabled: {disabled}",
             "totalWithNew": "Total: {total} | Enabled: {enabled} | Disabled: {disabled} | New: {newModsCount}",
+            "developerTotal": "Total mods: {total}",
             "newMods": "New: {count}",
             "notFoundMods": "Not found: {count}",
             "selectedMods": "Selected: {count}",

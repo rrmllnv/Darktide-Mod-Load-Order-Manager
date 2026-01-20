@@ -349,6 +349,7 @@
         "common": {
             "total": "总计: {total} | 已启用: {enabled} | 已禁用: {disabled}",
             "totalWithNew": "总计: {total} | 已启用: {enabled} | 已禁用: {disabled} | 新增: {newModsCount}",
+            "developerTotal": "模组总数: {total}",
             "newMods": "新增: {count}",
             "notFoundMods": "未找到: {count}",
             "selectedMods": "已选择: {count}",
