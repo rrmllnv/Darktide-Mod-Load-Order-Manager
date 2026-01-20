@@ -1032,7 +1032,7 @@ ipcMain.handle('add-todo', async (event, todosDir, modName, todo) => {
     }
     
     todo.modName = modName;
-    todos.push(todo);
+    todos.unshift(todo);
     
     await fs.writeFile(todosPath, JSON.stringify(todos, null, 2), 'utf-8');
     
