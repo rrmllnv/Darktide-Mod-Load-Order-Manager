@@ -1038,6 +1038,41 @@ ipcMain.handle('get-todos-directory', async (event) => {
   }
 });
 
+async function safeReadTodosFile(todosPath) {
+  try {
+    if (!existsSync(todosPath)) {
+      return { success: true, todos: [] };
+    }
+    
+    const content = await fs.readFile(todosPath, 'utf-8');
+    
+    if (!content || !content.trim()) {
+      console.warn(`Todos file ${path.basename(todosPath)} is empty, resetting to empty array`);
+      await fs.writeFile(todosPath, '[]', 'utf-8');
+      return { success: true, todos: [] };
+    }
+    
+    try {
+      const data = JSON.parse(content);
+      const todos = Array.isArray(data) ? data : (data.todos || []);
+      return { success: true, todos };
+    } catch (parseError) {
+      console.error(`Error parsing todos file ${path.basename(todosPath)}:`, parseError);
+      console.warn(`Attempting to fix corrupted file ${path.basename(todosPath)}`);
+      try {
+        await fs.writeFile(todosPath, '[]', 'utf-8');
+        console.log(`Fixed corrupted file ${path.basename(todosPath)} by resetting to empty array`);
+        return { success: true, todos: [] };
+      } catch (fixError) {
+        console.error(`Failed to fix file ${path.basename(todosPath)}:`, fixError);
+        return { success: false, error: `Corrupted JSON file: ${parseError.message}` };
+      }
+    }
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+}
+
 ipcMain.handle('load-todos', async (event, todosDir, modName, options = {}) => {
   try {
     if (!modName) {
@@ -1045,17 +1080,14 @@ ipcMain.handle('load-todos', async (event, todosDir, modName, options = {}) => {
     }
     
     const todosPath = path.join(todosDir, `${modName}.json`);
-    
-    if (!existsSync(todosPath)) {
-      return { success: true, todos: [], total: 0 };
-    }
-    
     const { offset = 0, limit } = options;
     
-    const content = await fs.readFile(todosPath, 'utf-8');
-    const data = JSON.parse(content);
+    const readResult = await safeReadTodosFile(todosPath);
+    if (!readResult.success) {
+      return readResult;
+    }
     
-    let todos = Array.isArray(data) ? data : (data.todos || []);
+    let todos = readResult.todos;
     const total = todos.length;
     
     if (limit !== undefined) {
@@ -1082,10 +1114,13 @@ ipcMain.handle('load-all-todos', async (event, todosDir) => {
     for (const file of jsonFiles) {
       try {
         const filePath = path.join(todosDir, file);
-        const content = await fs.readFile(filePath, 'utf-8');
-        const data = JSON.parse(content);
+        const readResult = await safeReadTodosFile(filePath);
         
-        const todos = Array.isArray(data) ? data : (data.todos || []);
+        if (!readResult.success) {
+          continue;
+        }
+        
+        const todos = readResult.todos;
         
         todos.forEach(todo => {
           if (!todo.modName) {
@@ -1117,16 +1152,8 @@ ipcMain.handle('add-todo', async (event, todosDir, modName, todo) => {
     
     const todosPath = path.join(todosDir, `${modName}.json`);
     
-    let todos = [];
-    if (existsSync(todosPath)) {
-      try {
-        const content = await fs.readFile(todosPath, 'utf-8');
-        const data = JSON.parse(content);
-        todos = Array.isArray(data) ? data : (data.todos || []);
-      } catch (error) {
-        console.error('Error reading existing todos:', error);
-      }
-    }
+    const readResult = await safeReadTodosFile(todosPath);
+    let todos = readResult.success ? readResult.todos : [];
     
     todo.modName = modName;
     todos.unshift(todo);
@@ -1151,13 +1178,12 @@ ipcMain.handle('update-todo', async (event, todosDir, modName, todoId, updatedTo
     
     const todosPath = path.join(todosDir, `${modName}.json`);
     
-    if (!existsSync(todosPath)) {
-      return { success: false, error: 'Todos file not found' };
+    const readResult = await safeReadTodosFile(todosPath);
+    if (!readResult.success) {
+      return readResult;
     }
     
-    const content = await fs.readFile(todosPath, 'utf-8');
-    const data = JSON.parse(content);
-    let todos = Array.isArray(data) ? data : (data.todos || []);
+    let todos = readResult.todos;
     
     const index = todos.findIndex(t => t.id === todoId);
     if (index === -1) {
@@ -1202,13 +1228,12 @@ ipcMain.handle('delete-todo', async (event, todosDir, modName, todoId) => {
     
     const todosPath = path.join(todosDir, `${modName}.json`);
     
-    if (!existsSync(todosPath)) {
-      return { success: false, error: 'Todos file not found' };
+    const readResult = await safeReadTodosFile(todosPath);
+    if (!readResult.success) {
+      return readResult;
     }
     
-    const content = await fs.readFile(todosPath, 'utf-8');
-    const data = JSON.parse(content);
-    let todos = Array.isArray(data) ? data : (data.todos || []);
+    let todos = readResult.todos;
     
     todos = todos.filter(t => t.id !== todoId);
     
@@ -1316,18 +1341,21 @@ ipcMain.handle('rename-mod', async (event, projectPath, oldName, newName, todosD
       const newTodosFile = path.join(todosDir, `${newName}.json`);
       
       if (existsSync(oldTodosFile)) {
-        let todosContent = await fs.readFile(oldTodosFile, 'utf-8');
-        const todosData = JSON.parse(todosContent);
-        const todos = Array.isArray(todosData) ? todosData : (todosData.todos || []);
-        
-        todos.forEach(todo => {
-          if (todo.modName === oldName) {
-            todo.modName = newName;
-          }
-        });
-        
-        await fs.writeFile(newTodosFile, JSON.stringify(todos, null, 2), 'utf-8');
-        await fs.unlink(oldTodosFile);
+        const readResult = await safeReadTodosFile(oldTodosFile);
+        if (!readResult.success) {
+          console.error(`Error reading todos file for rename: ${readResult.error}`);
+        } else {
+          const todos = readResult.todos;
+          
+          todos.forEach(todo => {
+            if (todo.modName === oldName) {
+              todo.modName = newName;
+            }
+          });
+          
+          await fs.writeFile(newTodosFile, JSON.stringify(todos, null, 2), 'utf-8');
+          await fs.unlink(oldTodosFile);
+        }
       }
     }
     

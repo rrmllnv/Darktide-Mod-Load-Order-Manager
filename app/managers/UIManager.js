@@ -53,10 +53,16 @@ export class UIManager {
             this.app.elements.messageOkBtn.parentNode.replaceChild(newOkBtn, this.app.elements.messageOkBtn);
             this.app.elements.messageOkBtn = newOkBtn;
             
-            const handleOk = () => {
+            const handleOk = (e) => {
+                if (e) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                }
                 this.app.elements.messageDialog.classList.remove('show');
                 this.app.elements.messageOkBtn.removeEventListener('click', handleOk);
-                resolve();
+                setTimeout(() => {
+                    resolve();
+                }, 0);
             };
             
             this.app.elements.messageOkBtn.addEventListener('click', handleOk);
@@ -79,24 +85,36 @@ export class UIManager {
             const yesBtn = document.getElementById('confirm-yes-btn');
             const noBtn = document.getElementById('confirm-no-btn');
             
-            const handleYes = () => {
+            const handleYes = (e) => {
+                if (e) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                }
                 this.app.elements.messageDialog.classList.remove('show');
                 const saveText = this.app.t('ui.common.save');
                 footer.innerHTML = `<button id="message-ok-btn" class="btn btn-primary">${saveText}</button>`;
                 this.app.elements.messageOkBtn = document.getElementById('message-ok-btn');
                 yesBtn.removeEventListener('click', handleYes);
                 noBtn.removeEventListener('click', handleNo);
-                resolve(true);
+                setTimeout(() => {
+                    resolve(true);
+                }, 0);
             };
             
-            const handleNo = () => {
+            const handleNo = (e) => {
+                if (e) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                }
                 this.app.elements.messageDialog.classList.remove('show');
                 const saveText = this.app.t('ui.common.save');
                 footer.innerHTML = `<button id="message-ok-btn" class="btn btn-primary">${saveText}</button>`;
                 this.app.elements.messageOkBtn = document.getElementById('message-ok-btn');
                 yesBtn.removeEventListener('click', handleYes);
                 noBtn.removeEventListener('click', handleNo);
-                resolve(false);
+                setTimeout(() => {
+                    resolve(false);
+                }, 0);
             };
             
             yesBtn.addEventListener('click', handleYes);

@@ -207,12 +207,31 @@ class ModLoadOrderManager {
         this.initPanelResizer();
         
         document.addEventListener('click', (e) => {
-            if (e.target.closest('#input-dialog') || 
-                e.target.closest('.modal') || 
-                e.target.closest('.modal-content') ||
-                e.target.closest('.modal-body') ||
-                e.target.closest('.modal-footer') ||
-                e.target.closest('.modal-header')) {
+            const target = e.target;
+            const isModal = target.classList.contains('modal') || target.closest('.modal');
+            const isModalContent = target.closest('.modal-content');
+            const isModalBody = target.closest('.modal-body');
+            const isModalFooter = target.closest('.modal-footer');
+            const isModalHeader = target.closest('.modal-header');
+            const isInputDialog = target.closest('#input-dialog');
+            const isMessageDialog = target.closest('#message-dialog');
+            const isConfirmCheckboxesDialog = target.closest('#confirm-checkboxes-dialog');
+            const isBackupDialog = target.closest('#backup-dialog');
+            const isLanguageDialog = target.closest('#language-selection-dialog');
+            const isModalButton = target.closest('.modal-footer button') || 
+                                 target.closest('.modal-header button') ||
+                                 target.closest('#message-ok-btn') ||
+                                 target.closest('#confirm-yes-btn') ||
+                                 target.closest('#confirm-no-btn') ||
+                                 target.closest('#confirm-checkboxes-yes-btn') ||
+                                 target.closest('#confirm-checkboxes-no-btn');
+            
+            const anyModalOpen = document.querySelector('.modal.show');
+            
+            if (isModal || isModalContent || isModalBody || 
+                isModalFooter || isModalHeader || isInputDialog ||
+                isMessageDialog || isConfirmCheckboxesDialog || 
+                isBackupDialog || isLanguageDialog || isModalButton || anyModalOpen) {
                 return;
             }
             
@@ -221,8 +240,13 @@ class ModLoadOrderManager {
                 const isTodosFrame = e.target.closest('.todos-frame');
                 const isDeveloperViewBtn = e.target.closest('#developer-view-btn');
                 const isOtherBtnIcon = e.target.closest('.btn-icon') && !isDeveloperViewBtn;
+                const isTodoAction = e.target.closest('.todo-actions') || 
+                                    e.target.closest('.todo-edit') || 
+                                    e.target.closest('.todo-delete') ||
+                                    e.target.closest('.todo-checkbox') ||
+                                    e.target.closest('.todo-item');
                 
-                if (!isBulkActions && !isOtherBtnIcon && !isTodosFrame) {
+                if (!isBulkActions && !isOtherBtnIcon && !isTodosFrame && !isTodoAction) {
                     this.modListComponent.clearSelection();
                 }
             }
