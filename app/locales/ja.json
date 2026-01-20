@@ -93,6 +93,7 @@
             "search": "検索",
             "searchPlaceholder": "MOD名を入力...",
             "clear": "クリア",
+            "hideSymlinks": "シンボリックリンクを非表示",
             "hideNewMods": "追加待ちのMODを非表示",
             "hideNotFoundMods": "見つからないMODを非表示",
             "hideUnusedMods": "使用されていないMODをすべて非表示"
@@ -336,6 +337,8 @@
             "modsDeleted": "MOD削除: {count}. ファイルを保存することを忘れないでください。",
             "scanWarning": "警告: MODフォルダをスキャンできませんでした: {error}",
             "error": "エラー: {error}",
+            "hideSymlinksEnabled": "シンボリックリンクを非表示にする機能が有効になりました",
+            "hideSymlinksDisabled": "シンボリックリンクを非表示にする機能が無効になりました",
             "hideNewModsEnabled": "追加待ちのMODを非表示にする機能が有効になりました",
             "hideNewModsDisabled": "追加待ちのMODを非表示にする機能が無効になりました",
             "hideNotFoundModsEnabled": "見つからないMODを非表示にする機能が有効になりました",

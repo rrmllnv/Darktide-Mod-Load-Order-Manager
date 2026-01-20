@@ -93,6 +93,7 @@
             "search": "Suchen",
             "searchPlaceholder": "Mod-Name eingeben...",
             "clear": "Löschen",
+            "hideSymlinks": "Symlinks ausblenden",
             "hideNewMods": "Mods ausblenden, die auf Hinzufügung warten",
             "hideNotFoundMods": "Nicht gefundene Mods ausblenden",
             "hideUnusedMods": "Alle ungenutzten Mods ausblenden"
@@ -336,6 +337,8 @@
             "modsDeleted": "Mods gelöscht: {count}. Vergessen Sie nicht, die Datei zu speichern.",
             "scanWarning": "Warnung: Mod-Ordner konnte nicht gescannt werden: {error}",
             "error": "Fehler: {error}",
+            "hideSymlinksEnabled": "Ausblenden von Symlinks aktiviert",
+            "hideSymlinksDisabled": "Ausblenden von Symlinks deaktiviert",
             "hideNewModsEnabled": "Ausblenden von Mods, die auf Hinzufügung warten, aktiviert",
             "hideNewModsDisabled": "Ausblenden von Mods, die auf Hinzufügung warten, deaktiviert",
             "hideNotFoundModsEnabled": "Ausblenden nicht gefundener Mods aktiviert",

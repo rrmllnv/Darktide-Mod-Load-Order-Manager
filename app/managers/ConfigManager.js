@@ -9,6 +9,7 @@ export class ConfigManager {
             theme: '',
             locale: 'en',
             localeSelected: false,
+            hideSymlinks: false,
             hideNewMods: false,
             hideNotFoundMods: false,
             hideUnusedMods: false,
@@ -50,6 +51,7 @@ export class ConfigManager {
             }
             
             this.app.userConfig.fileUrlModLoadOrder = this.app.filePath || '';
+            this.app.userConfig.hideSymlinks = this.app.hideSymlinks;
             this.app.userConfig.hideNewMods = this.app.hideNewMods;
             this.app.userConfig.hideNotFoundMods = this.app.hideNotFoundMods;
             this.app.userConfig.hideUnusedMods = this.app.hideUnusedMods;

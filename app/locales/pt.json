@@ -93,6 +93,7 @@
             "search": "Pesquisar",
             "searchPlaceholder": "Digite o nome do mod...",
             "clear": "Limpar",
+            "hideSymlinks": "Ocultar symlinks",
             "hideNewMods": "Ocultar mods aguardando adição",
             "hideNotFoundMods": "Ocultar mods não encontrados",
             "hideUnusedMods": "Ocultar todos os mods não utilizados"
@@ -336,6 +337,8 @@
             "modsDeleted": "Mods excluídos: {count}. Não se esqueça de salvar o arquivo.",
             "scanWarning": "Aviso: falha ao escanear a pasta de mods: {error}",
             "error": "Erro: {error}",
+            "hideSymlinksEnabled": "Ocultar symlinks ativado",
+            "hideSymlinksDisabled": "Ocultar symlinks desativado",
             "hideNewModsEnabled": "Ocultar mods aguardando adição ativado",
             "hideNewModsDisabled": "Ocultar mods aguardando adição desativado",
             "hideNotFoundModsEnabled": "Ocultar mods não encontrados ativado",

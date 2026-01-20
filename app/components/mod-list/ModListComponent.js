@@ -206,6 +206,7 @@ export class ModListComponent {
             filterText = this.app.searchComponent ? this.app.searchComponent.getSearchText() : '';
         }
         
+        const hideSymlinks = this.app.hideSymlinks || false;
         const hideNewMods = this.app.hideNewMods || false;
         const hideUnusedMods = this.app.hideUnusedMods || false;
         const hideNotFoundMods = this.app.hideNotFoundMods || false;
@@ -232,6 +233,10 @@ export class ModListComponent {
             );
         } else {
             filtered = [...this._modEntries].filter(mod => mod && mod.name);
+        }
+        
+        if (hideSymlinks) {
+            filtered = filtered.filter(mod => !mod.isSymlink);
         }
         
         if (hideNewMods) {

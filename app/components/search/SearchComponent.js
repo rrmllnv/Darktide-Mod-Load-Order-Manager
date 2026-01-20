@@ -28,6 +28,24 @@ export class SearchComponent {
             });
         }
         
+        if (this.app.elements.hideSymlinksCheckbox) {
+            this.app.elements.hideSymlinksCheckbox.addEventListener('change', () => {
+                this.app.hideSymlinks = this.app.elements.hideSymlinksCheckbox.checked;
+                if (this.app.configManager) {
+                    this.app.configManager.saveUserConfig();
+                }
+                if (this.app.modListComponent) {
+                    this.app.modListComponent.updateModList();
+                }
+                if (this.app.notificationComponent) {
+                    const message = this.app.hideSymlinks 
+                        ? this.t('status.common.hideSymlinksEnabled')
+                        : this.t('status.common.hideSymlinksDisabled');
+                    this.app.notificationComponent.show('info', message);
+                }
+            });
+        }
+        
         if (this.app.elements.hideNewModsCheckbox) {
             this.app.elements.hideNewModsCheckbox.addEventListener('change', () => {
                 this.app.hideNewMods = this.app.elements.hideNewModsCheckbox.checked;
@@ -115,6 +133,13 @@ export class SearchComponent {
             return;
         }
         
+        if (this.app.userConfig.hideSymlinks !== undefined) {
+            this.app.hideSymlinks = this.app.userConfig.hideSymlinks;
+            if (this.app.elements.hideSymlinksCheckbox) {
+                this.app.elements.hideSymlinksCheckbox.checked = this.app.hideSymlinks;
+            }
+        }
+        
         if (this.app.userConfig.hideNewMods !== undefined) {
             this.app.hideNewMods = this.app.userConfig.hideNewMods;
             if (this.app.elements.hideNewModsCheckbox) {
@@ -149,6 +174,11 @@ export class SearchComponent {
         
         if (this.app.elements.clearSearchBtn) {
             this.app.elements.clearSearchBtn.title = this.t('ui.search.clear');
+        }
+        
+        const hideSymlinksLabel = document.querySelector('#hide-symlinks-checkbox')?.parentElement?.querySelector('.switch-label');
+        if (hideSymlinksLabel) {
+            hideSymlinksLabel.textContent = this.t('ui.search.hideSymlinks');
         }
         
         const hideNewModsLabel = document.querySelector('#hide-new-mods-checkbox')?.parentElement?.querySelector('.switch-label');

@@ -34,6 +34,7 @@ class ModLoadOrderManager {
         this.hideNewMods = false;
         this.hideUnusedMods = false;
         this.hideNotFoundMods = false;
+        this.hideSymlinks = false;
         
         this.savedState = null;
         this.profilesDir = null;
@@ -86,6 +87,7 @@ class ModLoadOrderManager {
             modsList: document.getElementById('mods-list'),
             searchInput: document.getElementById('search-input'),
             clearSearchBtn: document.getElementById('clear-search-btn'),
+            hideSymlinksCheckbox: document.getElementById('hide-symlinks-checkbox'),
             hideNewModsCheckbox: document.getElementById('hide-new-mods-checkbox'),
             hideUnusedModsCheckbox: document.getElementById('hide-unused-mods-checkbox'),
             hideNotFoundModsCheckbox: document.getElementById('hide-not-found-mods-checkbox'),

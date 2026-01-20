@@ -93,6 +93,7 @@
             "search": "Cerca",
             "searchPlaceholder": "Inserisci nome mod...",
             "clear": "Pulisci",
+            "hideSymlinks": "Nascondi symlink",
             "hideNewMods": "Nascondi mod in attesa di aggiunta",
             "hideNotFoundMods": "Nascondi mod non trovati",
             "hideUnusedMods": "Nascondi tutti i mod non utilizzati"
@@ -336,6 +337,8 @@
             "modsDeleted": "Mod eliminati: {count}. Non dimenticare di salvare il file.",
             "scanWarning": "Avviso: impossibile scansionare la cartella dei mod: {error}",
             "error": "Errore: {error}",
+            "hideSymlinksEnabled": "Nascondere symlink abilitato",
+            "hideSymlinksDisabled": "Nascondere symlink disabilitato",
             "hideNewModsEnabled": "Nascondere mod in attesa di aggiunta abilitato",
             "hideNewModsDisabled": "Nascondere mod in attesa di aggiunta disabilitato",
             "hideNotFoundModsEnabled": "Nascondere mod non trovati abilitato",

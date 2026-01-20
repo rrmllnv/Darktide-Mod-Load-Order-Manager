@@ -93,6 +93,7 @@
             "search": "Поиск",
             "searchPlaceholder": "Введите название мода...",
             "clear": "Очистить",
+            "hideSymlinks": "Скрыть симлинки",
             "hideNewMods": "Скрыть моды ожидающие добавления",
             "hideNotFoundMods": "Скрыть не найденные моды",
             "hideUnusedMods": "Скрыть все не используемые моды"
@@ -340,6 +341,8 @@
             "modsDeleted": "Удалено модов: {count}. Не забудьте сохранить файл.",
             "scanWarning": "Предупреждение: не удалось просканировать папку модов: {error}",
             "error": "Ошибка: {error}",
+            "hideSymlinksEnabled": "Скрытие симлинков включено",
+            "hideSymlinksDisabled": "Скрытие симлинков выключено",
             "hideNewModsEnabled": "Скрытие модов ожидающих добавления включено",
             "hideNewModsDisabled": "Скрытие модов ожидающих добавления выключено",
             "hideNotFoundModsEnabled": "Скрытие не найденных модов включено",
