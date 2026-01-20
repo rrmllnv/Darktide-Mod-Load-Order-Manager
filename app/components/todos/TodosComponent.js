@@ -144,29 +144,19 @@ export class TodosComponent {
                 e.stopPropagation();
                 
                 const isActive = todoText.classList.contains('active');
-                if (isActive) {
+                const isExpanded = this.expandedTodos.has(todo.id);
+                
+                if (isActive && isExpanded) {
                     todoText.classList.remove('active');
+                    this.expandedTodos.delete(todo.id);
+                    todoText.classList.add('todo-text-collapsed');
                 } else {
+                    this.collapseAllTodos();
                     const allActiveTexts = todosList.querySelectorAll('.todo-text.active');
                     allActiveTexts.forEach(text => text.classList.remove('active'));
                     todoText.classList.add('active');
-                }
-                
-                const lineHeight = parseFloat(getComputedStyle(todoText).lineHeight) || 14;
-                const maxHeight = lineHeight * 3;
-                const needsCollapse = todoText.scrollHeight > maxHeight;
-                
-                if (needsCollapse) {
-                    const wasCollapsed = todoText.classList.contains('todo-text-collapsed');
-                    
-                    if (wasCollapsed) {
-                        this.collapseAllTodos();
-                        this.expandedTodos.add(todo.id);
-                        todoText.classList.remove('todo-text-collapsed');
-                    } else {
-                        this.expandedTodos.delete(todo.id);
-                        todoText.classList.add('todo-text-collapsed');
-                    }
+                    this.expandedTodos.add(todo.id);
+                    todoText.classList.remove('todo-text-collapsed');
                 }
             });
             
@@ -192,7 +182,7 @@ export class TodosComponent {
         }
     }
     
-    async loadTodos() {
+    async loadTodos(scrollToTop = false) {
         if (!this.todosDir) {
             await this.initTodosDirectory();
         }
@@ -207,7 +197,7 @@ export class TodosComponent {
         let savedLoadedCount = this.lazyLoading.loadedCount;
         const previousModName = this.currentModName;
         
-        if (todosList) {
+        if (todosList && !scrollToTop) {
             savedScrollTop = todosList.scrollTop;
             
             const firstVisibleItem = Array.from(todosList.querySelectorAll('.todo-item')).find(item => {
@@ -248,7 +238,7 @@ export class TodosComponent {
         this.renderTodos();
         
         if (todosList) {
-            if (modChanged) {
+            if (scrollToTop || modChanged) {
                 requestAnimationFrame(() => {
                     todosList.scrollTop = 0;
                 });
@@ -526,7 +516,7 @@ export class TodosComponent {
             if (result.success) {
                 todosInput.value = '';
                 todosInput.style.height = 'auto';
-                await this.loadTodos();
+                await this.loadTodos(true);
             } else {
                 await this.app.uiManager.showMessage(
                     this.t('messages.common.error'),
@@ -755,15 +745,8 @@ export class TodosComponent {
             const todoItem = textElement.closest('.todo-item');
             if (todoItem) {
                 const todoId = todoItem.getAttribute('data-todo-id');
-                if (todoId) {
-                    const lineHeight = parseFloat(getComputedStyle(textElement).lineHeight) || 14;
-                    const maxHeight = lineHeight * 3;
-                    const needsCollapse = textElement.scrollHeight > maxHeight;
-                    
-                    if (needsCollapse && !textElement.classList.contains('todo-text-collapsed')) {
-                        this.expandedTodos.delete(todoId);
-                        textElement.classList.add('todo-text-collapsed');
-                    }
+                if (todoId && !this.expandedTodos.has(todoId)) {
+                    textElement.classList.add('todo-text-collapsed');
                 }
             }
         });
@@ -940,21 +923,16 @@ export class TodosComponent {
                     todoText.classList.add('active');
                 }
                 
+                const isExpanded = this.expandedTodos.has(todo.id);
+                if (isExpanded) {
+                    todoText.classList.remove('todo-text-collapsed');
+                } else {
+                    todoText.classList.add('todo-text-collapsed');
+                }
+                
                 if (modName) {
                     this.attachDragDrop(todoItem, todo, index);
                 }
-                
-                setTimeout(() => {
-                    const lineHeight = parseFloat(getComputedStyle(todoText).lineHeight) || 14;
-                    const maxHeight = lineHeight * 3;
-                    const needsCollapse = todoText.scrollHeight > maxHeight;
-                    
-                    const isExpanded = this.expandedTodos.has(todo.id);
-                    
-                    if (needsCollapse && !isExpanded) {
-                        todoText.classList.add('todo-text-collapsed');
-                    }
-                }, 0);
             }
         });
     }
