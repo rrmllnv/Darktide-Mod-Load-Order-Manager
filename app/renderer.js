@@ -332,14 +332,15 @@ class ModLoadOrderManager {
         
         if (this.elements.contextMenuOpenFolder) {
             this.elements.contextMenuOpenFolder.addEventListener('click', async () => {
-                if (this.contextMenuModName && this.app.filePath) {
+                // Обычное меню - открывает папку мода из папки модов игры
+                if (this.contextMenuModName && this.filePath) {
                     const modName = this.contextMenuModName;
-                    const modsDir = this.app.filePath.substring(0, this.app.filePath.lastIndexOf('\\'));
+                    const modsDir = this.filePath.substring(0, this.filePath.lastIndexOf('\\'));
                     const modPath = `${modsDir}\\${modName}`;
                     this.hideContextMenu();
                     const result = await window.electronAPI.openFolder(modPath);
-                    if (!result.success && this.app.notificationComponent) {
-                        this.app.notificationComponent.show('error', result.error || this.app.t('messages.common.failedToOpenFolder'));
+                    if (!result.success && this.notificationComponent) {
+                        this.notificationComponent.show('error', result.error || this.t('messages.common.failedToOpenFolder'));
                     }
                 }
             });
