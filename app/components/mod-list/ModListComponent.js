@@ -277,9 +277,10 @@ export class ModListComponent {
     
     onCheckboxChange(modName) {
         const modEntry = this._modEntries.find(m => m.name === modName);
-        if (modEntry && modEntry.statusElement) {
-            modEntry.statusElement.textContent = modEntry.enabled ? '✓' : '✗';
-            modEntry.statusElement.className = `mod-status ${modEntry.enabled ? 'enabled' : 'disabled'}`;
+        if (modEntry) {
+            if (modEntry.sizeElement) {
+                this.loadModSize(modEntry, modEntry.sizeElement);
+            }
         }
         
         if (this.app.updateStatistics) {
@@ -388,9 +389,8 @@ export class ModListComponent {
             if (modEntry.checkbox) {
                 modEntry.checkbox.checked = true;
             }
-            if (modEntry.statusElement) {
-                modEntry.statusElement.textContent = '✓';
-                modEntry.statusElement.className = 'mod-status enabled';
+            if (modEntry.sizeElement) {
+                this.loadModSize(modEntry, modEntry.sizeElement);
             }
         });
         const searchText = this.app.searchComponent ? this.app.searchComponent.getSearchText() : '';
@@ -407,9 +407,8 @@ export class ModListComponent {
             if (modEntry.checkbox) {
                 modEntry.checkbox.checked = false;
             }
-            if (modEntry.statusElement) {
-                modEntry.statusElement.textContent = '✗';
-                modEntry.statusElement.className = 'mod-status disabled';
+            if (modEntry.sizeElement) {
+                this.loadModSize(modEntry, modEntry.sizeElement);
             }
         });
         const searchText = this.app.searchComponent ? this.app.searchComponent.getSearchText() : '';
@@ -475,11 +474,13 @@ export class ModListComponent {
             symlinkLabel.textContent = this.t('ui.modList.flagSymlink');
         }
         
-        let status = null;
+        let sizeElement = null;
         if (!isDeveloperViewMode) {
-            status = document.createElement('span');
-            status.className = `mod-status ${modEntry.enabled ? 'enabled' : 'disabled'}`;
-            status.textContent = modEntry.enabled ? '✓' : '✗';
+            sizeElement = document.createElement('span');
+            sizeElement.className = 'mod-size';
+            sizeElement.textContent = '...';
+            
+            this.loadModSize(modEntry, sizeElement);
         }
         
         modItem.addEventListener('click', (e) => {
@@ -516,18 +517,51 @@ export class ModListComponent {
         if (newLabel) {
             modItem.appendChild(newLabel);
         }
-        if (status) {
-            modItem.appendChild(status);
+        if (sizeElement) {
+            modItem.appendChild(sizeElement);
         }
         
             modEntry.checkbox = checkbox;
             if (checkboxContainer) {
                 modEntry.checkboxContainer = checkboxContainer;
             }
-        modEntry.statusElement = status;
+        modEntry.sizeElement = sizeElement;
         modEntry.modItem = modItem;
         
         return modItem;
+    }
+    
+    async loadModSize(modEntry, sizeElement) {
+        if (!sizeElement || !modEntry) {
+            return;
+        }
+        
+        try {
+            let modPath = null;
+            const isDeveloperViewMode = this.app && this.app.userConfig && this.app.userConfig.developerViewMode;
+            
+            if (isDeveloperViewMode && this.app.userConfig.projectPath) {
+                modPath = `${this.app.userConfig.projectPath}\\${modEntry.name}`;
+            } else if (this.app.filePath) {
+                const modsDir = this.app.filePath.substring(0, this.app.filePath.lastIndexOf('\\'));
+                modPath = `${modsDir}\\${modEntry.name}`;
+            }
+            
+            if (!modPath) {
+                sizeElement.textContent = '';
+                return;
+            }
+            
+            const result = await window.electronAPI.getDirectorySize(modPath);
+            if (result.success) {
+                sizeElement.textContent = result.sizeFormatted;
+            } else {
+                sizeElement.textContent = '';
+            }
+        } catch (error) {
+            console.error('Error loading mod size:', error);
+            sizeElement.textContent = '';
+        }
     }
     
     async scanAndUpdate() {
@@ -585,9 +619,8 @@ export class ModListComponent {
             if (modEntry.checkbox) {
                 modEntry.checkbox.checked = true;
             }
-            if (modEntry.statusElement) {
-                modEntry.statusElement.textContent = '✓';
-                modEntry.statusElement.className = 'mod-status enabled';
+            if (modEntry.sizeElement) {
+                this.loadModSize(modEntry, modEntry.sizeElement);
             }
             if (this.app.updateStatistics) {
                 this.app.updateStatistics();
@@ -606,9 +639,8 @@ export class ModListComponent {
             if (modEntry.checkbox) {
                 modEntry.checkbox.checked = false;
             }
-            if (modEntry.statusElement) {
-                modEntry.statusElement.textContent = '✗';
-                modEntry.statusElement.className = 'mod-status disabled';
+            if (modEntry.sizeElement) {
+                this.loadModSize(modEntry, modEntry.sizeElement);
             }
             if (this.app.updateStatistics) {
                 this.app.updateStatistics();

@@ -45,5 +45,6 @@ contextBridge.exposeInMainWorld('electronAPI', {
   checkModHasBackups: (modName) => ipcRenderer.invoke('check-mod-has-backups', modName),
   checkModHasTodos: (modName) => ipcRenderer.invoke('check-mod-has-todos', modName),
   deleteModBackups: (modName) => ipcRenderer.invoke('delete-mod-backups', modName),
-  deleteModTodos: (modName) => ipcRenderer.invoke('delete-mod-todos', modName)
+  deleteModTodos: (modName) => ipcRenderer.invoke('delete-mod-todos', modName),
+  getDirectorySize: (dirPath) => ipcRenderer.invoke('get-directory-size', dirPath)
 });

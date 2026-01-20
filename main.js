@@ -1364,3 +1364,20 @@ ipcMain.handle('rename-mod', async (event, projectPath, oldName, newName, todosD
     return { success: false, error: error.message };
   }
 });
+
+ipcMain.handle('get-directory-size', async (event, dirPath) => {
+  try {
+    if (!dirPath) {
+      return { success: false, error: 'Directory path is required' };
+    }
+    
+    if (!existsSync(dirPath)) {
+      return { success: false, error: 'Directory does not exist' };
+    }
+    
+    const size = await getDirectorySize(dirPath);
+    return { success: true, size, sizeFormatted: formatBytes(size) };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+});
