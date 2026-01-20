@@ -284,6 +284,8 @@
             "modNotFoundInProject": "Mod introuvable dans le dossier du projet.",
             "modLoadOrderFileNotLoaded": "Fichier mod_load_order.txt non chargé.",
             "consoleLogsPathError": "Impossible d'obtenir le chemin des journaux de la console.",
+            "projectFolderOpened": "Dossier du projet ouvert",
+            "consoleLogsOpened": "Dossier des journaux de la console ouvert",
             "renameModTitle": "Renommer le mod",
             "renameModPrompt": "Entrez le nouveau nom pour le mod '{modName}':",
             "renameModConfirm": "Renommer le mod '{oldName}' en '{newName}'?\n\nCela renommera le dossier du mod, les fichiers et les chemins.",

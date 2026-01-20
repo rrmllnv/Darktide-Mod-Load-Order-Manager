@@ -284,6 +284,8 @@
             "modNotFoundInProject": "Mod non trovato nella cartella del progetto.",
             "modLoadOrderFileNotLoaded": "File mod_load_order.txt non caricato.",
             "consoleLogsPathError": "Impossibile ottenere il percorso dei log della console.",
+            "projectFolderOpened": "Cartella del progetto aperta",
+            "consoleLogsOpened": "Cartella dei log della console aperta",
             "renameModTitle": "Rinomina mod",
             "renameModPrompt": "Inserisci il nuovo nome per il mod '{modName}':",
             "renameModConfirm": "Rinominare il mod '{oldName}' in '{newName}'?\n\nQuesto rinominerà la cartella del mod, i file e i percorsi.",

@@ -288,6 +288,8 @@
             "modNotFoundInProject": "Мод не найден в папке проекта.",
             "modLoadOrderFileNotLoaded": "Файл mod_load_order.txt не загружен.",
             "consoleLogsPathError": "Не удалось получить путь к консольным логам.",
+            "projectFolderOpened": "Папка проекта открыта",
+            "consoleLogsOpened": "Папка с консольными логами открыта",
             "renameModTitle": "Переименовать мод",
             "renameModPrompt": "Введите новое имя для мода '{modName}':",
             "renameModConfirm": "Переименовать мод '{oldName}' в '{newName}'?\n\nЭто переименует папку мода, файлы и пути.",

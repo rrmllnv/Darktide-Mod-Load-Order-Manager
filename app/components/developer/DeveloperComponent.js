@@ -145,11 +145,8 @@ export class DeveloperComponent {
         }
         
         if (!this.app.userConfig.projectPath) {
-            if (this.app.uiManager && this.app.uiManager.showMessage) {
-                await this.app.uiManager.showMessage(
-                    this.app.t('messages.common.error'),
-                    this.app.t('messages.developer.projectPathNotSet')
-                );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('error', this.app.t('messages.developer.projectPathNotSet'));
             }
             return;
         }
@@ -166,11 +163,8 @@ export class DeveloperComponent {
             modName = modName.trim();
             
             if (!/^[A-Za-z][A-Za-z0-9_]*$/.test(modName)) {
-                if (this.app.uiManager && this.app.uiManager.showMessage) {
-                    await this.app.uiManager.showMessage(
-                        this.app.t('messages.common.error'),
-                        this.app.t('messages.developer.invalidModName')
-                    );
+                if (this.app.notificationComponent) {
+                    this.app.notificationComponent.show('error', this.app.t('messages.developer.invalidModName'));
                 }
                 return;
             }
@@ -182,11 +176,8 @@ export class DeveloperComponent {
                 );
                 
                 if (result.success) {
-                    if (this.app.uiManager && this.app.uiManager.showMessage) {
-                        await this.app.uiManager.showMessage(
-                            this.app.t('messages.common.success'),
-                            this.app.t('messages.developer.modCreated', { modName, modPath: result.modPath })
-                        );
+                    if (this.app.notificationComponent) {
+                        this.app.notificationComponent.show('success', this.app.t('messages.developer.modCreated', { modName, modPath: result.modPath }));
                     }
                     
                     if (this.app.modScanService && this.app.modEntries) {
@@ -211,20 +202,14 @@ export class DeveloperComponent {
                         }
                     }
                 } else {
-                    if (this.app.uiManager && this.app.uiManager.showMessage) {
-                        await this.app.uiManager.showMessage(
-                            this.app.t('messages.common.error'),
-                            result.error || this.app.t('messages.developer.modCreationError')
-                        );
+                    if (this.app.notificationComponent) {
+                        this.app.notificationComponent.show('error', result.error || this.app.t('messages.developer.modCreationError'));
                     }
                 }
             } catch (error) {
                 console.error('Error creating mod:', error);
-                if (this.app.uiManager && this.app.uiManager.showMessage) {
-                    await this.app.uiManager.showMessage(
-                        this.app.t('messages.common.error'),
-                        error.message || this.app.t('messages.developer.modCreationError')
-                    );
+                if (this.app.notificationComponent) {
+                    this.app.notificationComponent.show('error', error.message || this.app.t('messages.developer.modCreationError'));
                 }
             }
         });
@@ -254,11 +239,8 @@ export class DeveloperComponent {
         this.updateDeveloperView();
         
         if (enabled && (!this.app.userConfig || !this.app.userConfig.projectPath)) {
-            if (this.app.uiManager && this.app.uiManager.showMessage) {
-                await this.app.uiManager.showMessage(
-                    this.app.t('messages.common.error'),
-                    this.app.t('messages.developer.projectPathNotSet')
-                );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('error', this.app.t('messages.developer.projectPathNotSet'));
             }
             const developerViewBtn = document.getElementById('developer-view-btn');
             if (developerViewBtn) {
@@ -418,11 +400,8 @@ export class DeveloperComponent {
         }
         
         if (!this.app.userConfig.projectPath) {
-            if (this.app.uiManager && this.app.uiManager.showMessage) {
-                await this.app.uiManager.showMessage(
-                    this.app.t('messages.common.error'),
-                    this.app.t('messages.developer.projectPathNotSet')
-                );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('error', this.app.t('messages.developer.projectPathNotSet'));
             }
             return;
         }
@@ -430,11 +409,8 @@ export class DeveloperComponent {
         this.validateAndClearSelectedMod();
         
         if (!this.app.selectedModName || !this.app.modEntries) {
-            if (this.app.uiManager && this.app.uiManager.showMessage) {
-                await this.app.uiManager.showMessage(
-                    this.app.t('messages.common.error'),
-                    this.app.t('messages.developer.noModSelected')
-                );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('error', this.app.t('messages.developer.noModSelected'));
             }
             return;
         }
@@ -448,21 +424,15 @@ export class DeveloperComponent {
         const sourcePath = `${this.app.userConfig.projectPath}\\${selectedMod.name}`;
         const sourceExists = await window.electronAPI.fileExists(sourcePath);
         if (!sourceExists) {
-            if (this.app.uiManager && this.app.uiManager.showMessage) {
-                await this.app.uiManager.showMessage(
-                    this.app.t('messages.common.error'),
-                    this.app.t('messages.developer.modNotFoundInProject')
-                );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('error', this.app.t('messages.developer.modNotFoundInProject'));
             }
             return;
         }
         
         if (!this.app.filePath) {
-            if (this.app.uiManager && this.app.uiManager.showMessage) {
-                await this.app.uiManager.showMessage(
-                    this.app.t('messages.common.error'),
-                    this.app.t('messages.developer.modLoadOrderFileNotLoaded')
-                );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('error', this.app.t('messages.developer.modLoadOrderFileNotLoaded'));
             }
             return;
         }
@@ -483,31 +453,22 @@ export class DeveloperComponent {
             const copyResult = await window.electronAPI.copyFolderToMods(sourcePath, modsDir);
             
             if (copyResult.success) {
-                if (this.app.uiManager && this.app.uiManager.showMessage) {
-                    await this.app.uiManager.showMessage(
-                        this.app.t('messages.common.success'),
-                        this.app.t('messages.developer.modCopied', { modName: selectedMod.name })
-                    );
+                if (this.app.notificationComponent) {
+                    this.app.notificationComponent.show('success', this.app.t('messages.developer.modCopied', { modName: selectedMod.name }));
                 }
                 
                 if (this.app.modListComponent && this.app.modListComponent.scanAndUpdate) {
                     await this.app.modListComponent.scanAndUpdate();
                 }
             } else {
-                if (this.app.uiManager && this.app.uiManager.showMessage) {
-                    await this.app.uiManager.showMessage(
-                        this.app.t('messages.common.error'),
-                        copyResult.error || this.app.t('messages.developer.modCopyError')
-                    );
+                if (this.app.notificationComponent) {
+                    this.app.notificationComponent.show('error', copyResult.error || this.app.t('messages.developer.modCopyError'));
                 }
             }
         } catch (error) {
             console.error('Error copying mod:', error);
-            if (this.app.uiManager && this.app.uiManager.showMessage) {
-                await this.app.uiManager.showMessage(
-                    this.app.t('messages.common.error'),
-                    error.message || this.app.t('messages.developer.modCopyError')
-                );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('error', error.message || this.app.t('messages.developer.modCopyError'));
             }
         }
     }
@@ -518,11 +479,8 @@ export class DeveloperComponent {
         }
         
         if (!this.app.userConfig.projectPath) {
-            if (this.app.uiManager && this.app.uiManager.showMessage) {
-                await this.app.uiManager.showMessage(
-                    this.app.t('messages.common.error'),
-                    this.app.t('messages.developer.projectPathNotSet')
-                );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('error', this.app.t('messages.developer.projectPathNotSet'));
             }
             return;
         }
@@ -530,11 +488,8 @@ export class DeveloperComponent {
         this.validateAndClearSelectedMod();
         
         if (!this.app.selectedModName || !this.app.modEntries) {
-            if (this.app.uiManager && this.app.uiManager.showMessage) {
-                await this.app.uiManager.showMessage(
-                    this.app.t('messages.common.error'),
-                    this.app.t('messages.developer.noModSelected')
-                );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('error', this.app.t('messages.developer.noModSelected'));
             }
             return;
         }
@@ -548,21 +503,15 @@ export class DeveloperComponent {
         const targetPath = `${this.app.userConfig.projectPath}\\${selectedMod.name}`;
         const targetExists = await window.electronAPI.fileExists(targetPath);
         if (!targetExists) {
-            if (this.app.uiManager && this.app.uiManager.showMessage) {
-                await this.app.uiManager.showMessage(
-                    this.app.t('messages.common.error'),
-                    this.app.t('messages.developer.modNotFoundInProject')
-                );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('error', this.app.t('messages.developer.modNotFoundInProject'));
             }
             return;
         }
         
         if (!this.app.filePath) {
-            if (this.app.uiManager && this.app.uiManager.showMessage) {
-                await this.app.uiManager.showMessage(
-                    this.app.t('messages.common.error'),
-                    this.app.t('messages.developer.modLoadOrderFileNotLoaded')
-                );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('error', this.app.t('messages.developer.modLoadOrderFileNotLoaded'));
             }
             return;
         }
@@ -583,31 +532,22 @@ export class DeveloperComponent {
             const symlinkResult = await window.electronAPI.createSymlink(linkPath, targetPath);
             
             if (symlinkResult.success) {
-                if (this.app.uiManager && this.app.uiManager.showMessage) {
-                    await this.app.uiManager.showMessage(
-                        this.app.t('messages.common.success'),
-                        this.app.t('messages.developer.symlinkCreated', { modName: selectedMod.name })
-                    );
+                if (this.app.notificationComponent) {
+                    this.app.notificationComponent.show('success', this.app.t('messages.developer.symlinkCreated', { modName: selectedMod.name }));
                 }
                 
                 if (this.app.modListComponent && this.app.modListComponent.scanAndUpdate) {
                     await this.app.modListComponent.scanAndUpdate();
                 }
             } else {
-                if (this.app.uiManager && this.app.uiManager.showMessage) {
-                    await this.app.uiManager.showMessage(
-                        this.app.t('messages.common.error'),
-                        symlinkResult.error || this.app.t('messages.developer.symlinkCreationError')
-                    );
+                if (this.app.notificationComponent) {
+                    this.app.notificationComponent.show('error', symlinkResult.error || this.app.t('messages.developer.symlinkCreationError'));
                 }
             }
         } catch (error) {
             console.error('Error creating symlink:', error);
-            if (this.app.uiManager && this.app.uiManager.showMessage) {
-                await this.app.uiManager.showMessage(
-                    this.app.t('messages.common.error'),
-                    error.message || this.app.t('messages.developer.symlinkCreationError')
-                );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('error', error.message || this.app.t('messages.developer.symlinkCreationError'));
             }
         }
     }
@@ -618,32 +558,27 @@ export class DeveloperComponent {
         }
         
         if (!this.app.userConfig.projectPath) {
-            if (this.app.uiManager && this.app.uiManager.showMessage) {
-                await this.app.uiManager.showMessage(
-                    this.app.t('messages.common.error'),
-                    this.app.t('messages.developer.projectPathNotSet')
-                );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('error', this.app.t('messages.developer.projectPathNotSet'));
             }
             return;
         }
         
         try {
             const result = await window.electronAPI.openFolder(this.app.userConfig.projectPath);
-            if (!result.success && result.error) {
-                if (this.app.uiManager && this.app.uiManager.showMessage) {
-                    await this.app.uiManager.showMessage(
-                        this.app.t('messages.common.error'),
-                        result.error
-                    );
+            if (result.success) {
+                if (this.app.notificationComponent) {
+                    this.app.notificationComponent.show('success', this.t('messages.developer.projectFolderOpened'));
+                }
+            } else if (result.error) {
+                if (this.app.notificationComponent) {
+                    this.app.notificationComponent.show('error', result.error);
                 }
             }
         } catch (error) {
             console.error('Error opening project folder:', error);
-            if (this.app.uiManager && this.app.uiManager.showMessage) {
-                await this.app.uiManager.showMessage(
-                    this.app.t('messages.common.error'),
-                    error.message || String(error)
-                );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('error', error.message || String(error));
             }
         }
     }
@@ -657,29 +592,24 @@ export class DeveloperComponent {
             const result = await window.electronAPI.getConsoleLogsPath();
             if (result.success && result.path) {
                 const openResult = await window.electronAPI.openFolder(result.path);
-                if (!openResult.success && openResult.error) {
-                    if (this.app.uiManager && this.app.uiManager.showMessage) {
-                        await this.app.uiManager.showMessage(
-                            this.app.t('messages.common.error'),
-                            openResult.error
-                        );
+                if (openResult.success) {
+                    if (this.app.notificationComponent) {
+                        this.app.notificationComponent.show('success', this.t('messages.developer.consoleLogsOpened'));
+                    }
+                } else if (openResult.error) {
+                    if (this.app.notificationComponent) {
+                        this.app.notificationComponent.show('error', openResult.error);
                     }
                 }
             } else {
-                if (this.app.uiManager && this.app.uiManager.showMessage) {
-                    await this.app.uiManager.showMessage(
-                        this.app.t('messages.common.error'),
-                        result.error || this.app.t('messages.developer.consoleLogsPathError')
-                    );
+                if (this.app.notificationComponent) {
+                    this.app.notificationComponent.show('error', result.error || this.app.t('messages.developer.consoleLogsPathError'));
                 }
             }
         } catch (error) {
             console.error('Error opening console logs:', error);
-            if (this.app.uiManager && this.app.uiManager.showMessage) {
-                await this.app.uiManager.showMessage(
-                    this.app.t('messages.common.error'),
-                    error.message || String(error)
-                );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('error', error.message || String(error));
             }
         }
     }
@@ -690,11 +620,8 @@ export class DeveloperComponent {
         }
         
         if (!this.app.userConfig.projectPath) {
-            if (this.app.uiManager && this.app.uiManager.showMessage) {
-                await this.app.uiManager.showMessage(
-                    this.app.t('messages.common.error'),
-                    this.app.t('messages.developer.projectPathNotSet')
-                );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('error', this.app.t('messages.developer.projectPathNotSet'));
             }
             return;
         }
@@ -702,11 +629,8 @@ export class DeveloperComponent {
         this.validateAndClearSelectedMod();
         
         if (!this.app.selectedModName || !this.app.modEntries) {
-            if (this.app.uiManager && this.app.uiManager.showMessage) {
-                await this.app.uiManager.showMessage(
-                    this.app.t('messages.common.error'),
-                    this.app.t('messages.developer.noModSelected')
-                );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('error', this.app.t('messages.developer.noModSelected'));
             }
             return;
         }
@@ -720,11 +644,8 @@ export class DeveloperComponent {
         const sourcePath = `${this.app.userConfig.projectPath}\\${selectedMod.name}`;
         const sourceExists = await window.electronAPI.fileExists(sourcePath);
         if (!sourceExists) {
-            if (this.app.uiManager && this.app.uiManager.showMessage) {
-                await this.app.uiManager.showMessage(
-                    this.app.t('messages.common.error'),
-                    this.app.t('messages.developer.modNotFoundInProject')
-                );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('error', this.app.t('messages.developer.modNotFoundInProject'));
             }
             return;
         }
@@ -749,11 +670,8 @@ export class DeveloperComponent {
                 
                 const nameRegex = /^[A-Za-z][A-Za-z0-9_]*$/;
                 if (!nameRegex.test(trimmedName)) {
-                    if (this.app.uiManager && this.app.uiManager.showMessage) {
-                        await this.app.uiManager.showMessage(
-                            this.app.t('messages.common.error'),
-                            this.app.t('messages.developer.invalidModName')
-                        );
+                    if (this.app.notificationComponent) {
+                        this.app.notificationComponent.show('error', this.app.t('messages.developer.invalidModName'));
                     }
                     return;
                 }
@@ -761,11 +679,8 @@ export class DeveloperComponent {
                 const newModPath = `${this.app.userConfig.projectPath}\\${trimmedName}`;
                 const newModExists = await window.electronAPI.fileExists(newModPath);
                 if (newModExists) {
-                    if (this.app.uiManager && this.app.uiManager.showMessage) {
-                        await this.app.uiManager.showMessage(
-                            this.app.t('messages.common.error'),
-                            this.app.t('messages.developer.modNameAlreadyExists', { modName: trimmedName })
-                        );
+                    if (this.app.notificationComponent) {
+                        this.app.notificationComponent.show('error', this.app.t('messages.developer.modNameAlreadyExists', { modName: trimmedName }));
                     }
                     return;
                 }
@@ -816,31 +731,22 @@ export class DeveloperComponent {
                             this.app.updateStatistics();
                         }
                         
-                        if (this.app.uiManager && this.app.uiManager.showMessage) {
-                            await this.app.uiManager.showMessage(
-                                this.app.t('messages.common.success'),
-                                this.app.t('messages.developer.modRenamed', { oldName: oldModName, newName: newModName })
-                            );
+                        if (this.app.notificationComponent) {
+                            this.app.notificationComponent.show('success', this.app.t('messages.developer.modRenamed', { oldName: oldModName, newName: newModName }));
                         }
                         
                         if (this.app.todosComponent && this.app.todosComponent.loadTodos) {
                             await this.app.todosComponent.loadTodos();
                         }
                     } else {
-                        if (this.app.uiManager && this.app.uiManager.showMessage) {
-                            await this.app.uiManager.showMessage(
-                                this.app.t('messages.common.error'),
-                                result.error || this.app.t('messages.developer.modRenameError')
-                            );
+                        if (this.app.notificationComponent) {
+                            this.app.notificationComponent.show('error', result.error || this.app.t('messages.developer.modRenameError'));
                         }
                     }
                 } catch (error) {
                     console.error('Error renaming mod:', error);
-                    if (this.app.uiManager && this.app.uiManager.showMessage) {
-                        await this.app.uiManager.showMessage(
-                            this.app.t('messages.common.error'),
-                            error.message || this.app.t('messages.developer.modRenameError')
-                        );
+                    if (this.app.notificationComponent) {
+                        this.app.notificationComponent.show('error', error.message || this.app.t('messages.developer.modRenameError'));
                     }
                 }
             },
@@ -1014,22 +920,16 @@ export class DeveloperComponent {
         this.validateAndClearSelectedMod();
         
         if (!this.app.selectedModName) {
-            if (this.app.uiManager && this.app.uiManager.showMessage) {
-                await this.app.uiManager.showMessage(
-                    this.app.t('messages.common.error'),
-                    this.app.t('messages.developer.noModSelected')
-                );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('error', this.app.t('messages.developer.noModSelected'));
             }
             return;
         }
         
         const projectPath = this.app.userConfig && this.app.userConfig.projectPath;
         if (!projectPath || typeof projectPath !== 'string') {
-            if (this.app.uiManager && this.app.uiManager.showMessage) {
-                await this.app.uiManager.showMessage(
-                    this.app.t('messages.common.error'),
-                    this.app.t('messages.developer.projectPathNotSet')
-                );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('error', this.app.t('messages.developer.projectPathNotSet'));
             }
             return;
         }
@@ -1061,27 +961,18 @@ export class DeveloperComponent {
         try {
             const result = await window.electronAPI.createBackup(projectPath, modName, comment);
             if (result.success) {
-                if (this.app.uiManager && this.app.uiManager.showMessage) {
-                    await this.app.uiManager.showMessage(
-                        this.app.t('messages.common.success'),
-                        this.app.t('messages.developer.backupCreated', { modName, versionName: result.versionName })
-                    );
+                if (this.app.notificationComponent) {
+                    this.app.notificationComponent.show('success', this.app.t('messages.developer.backupCreated', { modName, versionName: result.versionName }));
                 }
             } else {
-                if (this.app.uiManager && this.app.uiManager.showMessage) {
-                    await this.app.uiManager.showMessage(
-                        this.app.t('messages.common.error'),
-                        result.error || this.app.t('messages.developer.backupCreationError')
-                    );
+                if (this.app.notificationComponent) {
+                    this.app.notificationComponent.show('error', result.error || this.app.t('messages.developer.backupCreationError'));
                 }
             }
         } catch (error) {
             console.error('Error creating backup:', error);
-            if (this.app.uiManager && this.app.uiManager.showMessage) {
-                await this.app.uiManager.showMessage(
-                    this.app.t('messages.common.error'),
-                    error.message || String(error)
-                );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('error', error.message || String(error));
             }
         }
     }
@@ -1107,22 +998,16 @@ export class DeveloperComponent {
         try {
             const result = await window.electronAPI.listBackups(modNameToUse);
             if (!result.success) {
-                if (this.app.uiManager && this.app.uiManager.showMessage) {
-                    await this.app.uiManager.showMessage(
-                        this.app.t('messages.common.error'),
-                        result.error || this.app.t('messages.developer.backupListError')
-                    );
+                if (this.app.notificationComponent) {
+                    this.app.notificationComponent.show('error', result.error || this.app.t('messages.developer.backupListError'));
                 }
                 return;
             }
             
             const backups = result.backups || [];
             if (backups.length === 0) {
-                if (this.app.uiManager && this.app.uiManager.showMessage) {
-                    await this.app.uiManager.showMessage(
-                        this.app.t('messages.common.info'),
-                        this.app.t('messages.developer.noBackupsFound', { modName: modNameToUse })
-                    );
+                if (this.app.notificationComponent) {
+                    this.app.notificationComponent.show('info', this.app.t('messages.developer.noBackupsFound', { modName: modNameToUse }));
                 }
                 return;
             }
@@ -1130,11 +1015,8 @@ export class DeveloperComponent {
             this.showBackupDialog(modNameToUse, backups);
         } catch (error) {
             console.error('Error listing backups:', error);
-            if (this.app.uiManager && this.app.uiManager.showMessage) {
-                await this.app.uiManager.showMessage(
-                    this.app.t('messages.common.error'),
-                    error.message || String(error)
-                );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('error', error.message || String(error));
             }
         }
     }
@@ -1143,22 +1025,16 @@ export class DeveloperComponent {
         try {
             const result = await window.electronAPI.listModsWithBackups();
             if (!result.success) {
-                if (this.app.uiManager && this.app.uiManager.showMessage) {
-                    await this.app.uiManager.showMessage(
-                        this.app.t('messages.common.error'),
-                        result.error || this.app.t('messages.developer.backupListError')
-                    );
+                if (this.app.notificationComponent) {
+                    this.app.notificationComponent.show('error', result.error || this.app.t('messages.developer.backupListError'));
                 }
                 return;
             }
             
             const mods = result.mods || [];
             if (mods.length === 0) {
-                if (this.app.uiManager && this.app.uiManager.showMessage) {
-                    await this.app.uiManager.showMessage(
-                        this.app.t('messages.common.info'),
-                        this.app.t('messages.developer.noModsWithBackups')
-                    );
+                if (this.app.notificationComponent) {
+                    this.app.notificationComponent.show('info', this.app.t('messages.developer.noModsWithBackups'));
                 }
                 return;
             }
@@ -1166,11 +1042,8 @@ export class DeveloperComponent {
             this.showModsWithBackupsDialogContent(mods);
         } catch (error) {
             console.error('Error listing mods with backups:', error);
-            if (this.app.uiManager && this.app.uiManager.showMessage) {
-                await this.app.uiManager.showMessage(
-                    this.app.t('messages.common.error'),
-                    error.message || String(error)
-                );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('error', error.message || String(error));
             }
         }
     }
@@ -1342,11 +1215,8 @@ export class DeveloperComponent {
         const projectPath = this.app.userConfig && this.app.userConfig.projectPath;
         if (!projectPath || typeof projectPath !== 'string') {
             this.hideBackupDialog();
-            if (this.app.uiManager && this.app.uiManager.showMessage) {
-                await this.app.uiManager.showMessage(
-                    this.app.t('messages.common.error'),
-                    this.app.t('messages.developer.projectPathNotSet')
-                );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('error', this.app.t('messages.developer.projectPathNotSet'));
             }
             return;
         }
@@ -1367,11 +1237,8 @@ export class DeveloperComponent {
             if (result.success) {
                 this.hideBackupDialog();
                 
-                if (this.app.uiManager && this.app.uiManager.showMessage) {
-                    await this.app.uiManager.showMessage(
-                        this.app.t('messages.common.success'),
-                        this.app.t('messages.developer.backupRestored', { modName, versionName })
-                    );
+                if (this.app.notificationComponent) {
+                    this.app.notificationComponent.show('success', this.app.t('messages.developer.backupRestored', { modName, versionName }));
                 }
                 
                 if (this.app.modScanService) {
@@ -1384,20 +1251,14 @@ export class DeveloperComponent {
                     }
                 }
             } else {
-                if (this.app.uiManager && this.app.uiManager.showMessage) {
-                    await this.app.uiManager.showMessage(
-                        this.app.t('messages.common.error'),
-                        result.error || this.app.t('messages.developer.backupRestoreError')
-                    );
+                if (this.app.notificationComponent) {
+                    this.app.notificationComponent.show('error', result.error || this.app.t('messages.developer.backupRestoreError'));
                 }
             }
         } catch (error) {
             console.error('Error restoring backup:', error);
-            if (this.app.uiManager && this.app.uiManager.showMessage) {
-                await this.app.uiManager.showMessage(
-                    this.app.t('messages.common.error'),
-                    error.message || String(error)
-                );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('error', error.message || String(error));
             }
         }
     }
@@ -1422,11 +1283,8 @@ export class DeveloperComponent {
                 const listResult = await window.electronAPI.listBackups(modName);
                 const remainingBackups = listResult.success && listResult.backups ? listResult.backups.length : 0;
                 
-                if (this.app.uiManager && this.app.uiManager.showMessage) {
-                    await this.app.uiManager.showMessage(
-                        this.app.t('messages.common.success'),
-                        this.app.t('messages.developer.backupDeleted', { modName, versionName })
-                    );
+                if (this.app.notificationComponent) {
+                    this.app.notificationComponent.show('success', this.app.t('messages.developer.backupDeleted', { modName, versionName }));
                 }
                 
                 if (remainingBackups > 0) {
@@ -1441,20 +1299,14 @@ export class DeveloperComponent {
                     this.hideBackupDialog(false);
                 }
             } else {
-                if (this.app.uiManager && this.app.uiManager.showMessage) {
-                    await this.app.uiManager.showMessage(
-                        this.app.t('messages.common.error'),
-                        result.error || this.app.t('messages.developer.backupDeleteError')
-                    );
+                if (this.app.notificationComponent) {
+                    this.app.notificationComponent.show('error', result.error || this.app.t('messages.developer.backupDeleteError'));
                 }
             }
         } catch (error) {
             console.error('Error deleting backup:', error);
-            if (this.app.uiManager && this.app.uiManager.showMessage) {
-                await this.app.uiManager.showMessage(
-                    this.app.t('messages.common.error'),
-                    error.message || String(error)
-                );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('error', error.message || String(error));
             }
         }
     }
@@ -1487,20 +1339,14 @@ export class DeveloperComponent {
             if (result.success) {
                 await this.showRestoreBackupDialog(modName);
             } else {
-                if (this.app.uiManager && this.app.uiManager.showMessage) {
-                    await this.app.uiManager.showMessage(
-                        this.app.t('messages.common.error'),
-                        result.error || this.app.t('messages.developer.backupCommentUpdateError')
-                    );
+                if (this.app.notificationComponent) {
+                    this.app.notificationComponent.show('error', result.error || this.app.t('messages.developer.backupCommentUpdateError'));
                 }
             }
         } catch (error) {
             console.error('Error updating backup comment:', error);
-            if (this.app.uiManager && this.app.uiManager.showMessage) {
-                await this.app.uiManager.showMessage(
-                    this.app.t('messages.common.error'),
-                    error.message || String(error)
-                );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('error', error.message || String(error));
             }
         }
     }

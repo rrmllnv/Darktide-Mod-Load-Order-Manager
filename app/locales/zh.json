@@ -284,6 +284,8 @@
             "modNotFoundInProject": "在项目文件夹中找不到模组。",
             "modLoadOrderFileNotLoaded": "未加载 mod_load_order.txt 文件。",
             "consoleLogsPathError": "无法获取控制台日志路径。",
+            "projectFolderOpened": "项目文件夹已打开",
+            "consoleLogsOpened": "控制台日志文件夹已打开",
             "renameModTitle": "重命名模组",
             "renameModPrompt": "输入模组 '{modName}' 的新名称:",
             "renameModConfirm": "将模组 '{oldName}' 重命名为 '{newName}'?\n\n这将重命名模组文件夹、文件和路径。",

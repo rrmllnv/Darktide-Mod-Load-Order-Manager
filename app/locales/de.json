@@ -284,6 +284,8 @@
             "modNotFoundInProject": "Mod im Projektordner nicht gefunden.",
             "modLoadOrderFileNotLoaded": "Datei mod_load_order.txt wurde nicht geladen.",
             "consoleLogsPathError": "Konsolenprotokoll-Pfad konnte nicht abgerufen werden.",
+            "projectFolderOpened": "Projektordner geöffnet",
+            "consoleLogsOpened": "Konsolenprotokoll-Ordner geöffnet",
             "renameModTitle": "Mod umbenennen",
             "renameModPrompt": "Geben Sie den neuen Namen für Mod '{modName}' ein:",
             "renameModConfirm": "Mod '{oldName}' in '{newName}' umbenennen?\n\nDies benennt den Mod-Ordner, Dateien und Pfade um.",

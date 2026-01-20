@@ -288,6 +288,8 @@
             "modNotFoundInProject": "Mod not found in project folder.",
             "modLoadOrderFileNotLoaded": "Mod load order file is not loaded.",
             "consoleLogsPathError": "Failed to get console logs path.",
+            "projectFolderOpened": "Project folder opened",
+            "consoleLogsOpened": "Console logs folder opened",
             "renameModTitle": "Rename mod",
             "renameModPrompt": "Enter new name for mod '{modName}':",
             "renameModConfirm": "Rename mod '{oldName}' to '{newName}'?\n\nThis will rename the mod folder, files, and paths.",
