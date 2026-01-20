@@ -44,4 +44,9 @@ body.theme-blue-light {
     --flag-symlink-color: #b794f6;
     --status-enabled-color: #4ade80;
     --status-disabled-color: #ff6b6b;
+    
+    --switch-bg-off: #404040;
+    --switch-bg-on: #ff8c42;
+    --switch-border: #505050;
+    --switch-border-on: #ff7a28;
 }

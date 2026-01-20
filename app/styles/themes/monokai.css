@@ -44,4 +44,9 @@ body.theme-monokai {
     --flag-symlink-color: #ae81ff;
     --status-enabled-color: #a6e22e;
     --status-disabled-color: #f92672;
+    
+    --switch-bg-off: #49483e;
+    --switch-bg-on: #a6e22e;
+    --switch-border: #75715e;
+    --switch-border-on: #b8e63e;
 }

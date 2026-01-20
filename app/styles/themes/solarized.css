@@ -44,4 +44,9 @@ body.theme-solarized {
     --flag-symlink-color: #6c71c4;
     --status-enabled-color: #859900;
     --status-disabled-color: #dc322f;
+    
+    --switch-bg-off: #657b83;
+    --switch-bg-on: #2aa198;
+    --switch-border: #839496;
+    --switch-border-on: #268bd2;
 }

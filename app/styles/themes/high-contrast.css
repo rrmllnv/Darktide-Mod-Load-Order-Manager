@@ -44,4 +44,9 @@ body.theme-high-contrast {
     --flag-symlink-color: #ff00ff;
     --status-enabled-color: #00ff00;
     --status-disabled-color: #ff0000;
+    
+    --switch-bg-off: #333333;
+    --switch-bg-on: #00ff00;
+    --switch-border: #ffffff;
+    --switch-border-on: #00ffff;
 }

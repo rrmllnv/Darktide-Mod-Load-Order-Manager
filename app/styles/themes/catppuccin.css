@@ -44,4 +44,9 @@ body.theme-catppuccin {
     --flag-symlink-color: #cba6f7;
     --status-enabled-color: #a6e3a1;
     --status-disabled-color: #f38ba8;
+    
+    --switch-bg-off: #45475a;
+    --switch-bg-on: #1e66f5;
+    --switch-border: #585b70;
+    --switch-border-on: #89b4fa;
 }

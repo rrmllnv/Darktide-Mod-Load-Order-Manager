@@ -44,4 +44,9 @@ body.theme-github-dark {
     --flag-symlink-color: #bc8cff;
     --status-enabled-color: #3fb950;
     --status-disabled-color: #f85149;
+    
+    --switch-bg-off: #30363d;
+    --switch-bg-on: #238636;
+    --switch-border: #484f58;
+    --switch-border-on: #2ea043;
 }

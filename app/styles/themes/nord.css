@@ -44,4 +44,9 @@ body.theme-nord {
     --flag-symlink-color: #b48ead;
     --status-enabled-color: #a3be8c;
     --status-disabled-color: #bf616a;
+    
+    --switch-bg-off: #4c566a;
+    --switch-bg-on: #5e81ac;
+    --switch-border: #88c0d0;
+    --switch-border-on: #81a1c1;
 }

@@ -44,4 +44,9 @@ body.theme-gruvbox {
     --flag-symlink-color: #b16286;
     --status-enabled-color: #b8bb26;
     --status-disabled-color: #fb4934;
+    
+    --switch-bg-off: #504945;
+    --switch-bg-on: #458588;
+    --switch-border: #665c54;
+    --switch-border-on: #83a598;
 }

@@ -44,4 +44,9 @@ body.theme-tokyo-night {
     --flag-symlink-color: #bb9af7;
     --status-enabled-color: #9ece6a;
     --status-disabled-color: #f7768e;
+    
+    --switch-bg-off: #2f3549;
+    --switch-bg-on: #7aa2f7;
+    --switch-border: #414868;
+    --switch-border-on: #9d7cd8;
 }

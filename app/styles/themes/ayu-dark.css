@@ -44,4 +44,9 @@ body.theme-ayu-dark {
     --flag-symlink-color: #d2a6ff;
     --status-enabled-color: #95e6cb;
     --status-disabled-color: #ff6578;
+    
+    --switch-bg-off: #2d3139;
+    --switch-bg-on: #39bae6;
+    --switch-border: #4d5159;
+    --switch-border-on: #59c2ff;
 }

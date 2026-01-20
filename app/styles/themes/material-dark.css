@@ -44,4 +44,9 @@ body.theme-material-dark {
     --flag-symlink-color: #ba68c8;
     --status-enabled-color: #81c784;
     --status-disabled-color: #e57373;
+    
+    --switch-bg-off: #424242;
+    --switch-bg-on: #1976d2;
+    --switch-border: #616161;
+    --switch-border-on: #64b5f6;
 }

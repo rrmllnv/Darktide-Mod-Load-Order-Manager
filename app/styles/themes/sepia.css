@@ -44,4 +44,9 @@ body.theme-sepia {
     --flag-symlink-color: #9c6bff;
     --status-enabled-color: #388e3c;
     --status-disabled-color: #d32f2f;
+    
+    --switch-bg-off: #c9b99d;
+    --switch-bg-on: #8b6914;
+    --switch-border: #a68b6b;
+    --switch-border-on: #6d4e0f;
 }
