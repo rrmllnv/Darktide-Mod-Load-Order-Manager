@@ -37,6 +37,7 @@ body.theme-catppuccin {
     
     --select-bg: #313244;
     --select-option-bg: #313244;
+    --select-option-selected-text: #cdd6f4;
     --input-bg: #313244;
     
     --flag-new-color: #89b4fa;

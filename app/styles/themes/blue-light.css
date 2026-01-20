@@ -37,6 +37,7 @@ body.theme-blue-light {
     
     --select-bg: #252525;
     --select-option-bg: #252525;
+    --select-option-selected-text: #ffebcd;
     --input-bg: #252525;
     
     --flag-new-color: #6ba3ff;

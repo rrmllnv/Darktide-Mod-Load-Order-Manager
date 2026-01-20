@@ -37,6 +37,7 @@ body.theme-dracula {
     
     --select-bg: #44475a;
     --select-option-bg: #44475a;
+    --select-option-selected-text: #f8f8f2;
     --input-bg: #44475a;
     
     --flag-new-color: #8be9fd;

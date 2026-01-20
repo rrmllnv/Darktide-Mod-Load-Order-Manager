@@ -37,6 +37,7 @@ body.theme-github-dark {
     
     --select-bg: #161b22;
     --select-option-bg: #161b22;
+    --select-option-selected-text: #c9d1d9;
     --input-bg: #161b22;
     
     --flag-new-color: #58a6ff;

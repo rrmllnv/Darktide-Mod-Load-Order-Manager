@@ -28,19 +28,19 @@
 
 .profiles-list option:checked {
     background-color: var(--bg-selected) !important;
-    color: var(--text-primary) !important;
+    color: var(--select-option-selected-text, var(--text-primary)) !important;
     box-shadow: 0 0 0 100px var(--bg-selected) inset !important;
 }
 
 .profiles-list:focus option:checked {
     background-color: var(--bg-selected) !important;
-    color: var(--text-primary) !important;
+    color: var(--select-option-selected-text, var(--text-primary)) !important;
     box-shadow: 0 0 0 100px var(--bg-selected) inset !important;
 }
 
 .profiles-list:not(:focus) option:checked {
     background-color: var(--bg-selected) !important;
-    color: var(--text-primary) !important;
+    color: var(--select-option-selected-text, var(--text-primary)) !important;
     box-shadow: 0 0 0 100px var(--bg-selected) inset !important;
 }
 

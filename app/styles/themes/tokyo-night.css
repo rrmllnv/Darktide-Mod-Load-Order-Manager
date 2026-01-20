@@ -37,6 +37,7 @@ body.theme-tokyo-night {
     
     --select-bg: #24283b;
     --select-option-bg: #24283b;
+    --select-option-selected-text: #c0caf5;
     --input-bg: #24283b;
     
     --flag-new-color: #7aa2f7;

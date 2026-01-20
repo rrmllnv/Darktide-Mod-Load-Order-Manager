@@ -37,6 +37,7 @@ body.theme-ayu-dark {
     
     --select-bg: #1f2329;
     --select-option-bg: #1f2329;
+    --select-option-selected-text: #e6e1cf;
     --input-bg: #1f2329;
     
     --flag-new-color: #59c2ff;

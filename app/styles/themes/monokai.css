@@ -37,6 +37,7 @@ body.theme-monokai {
     
     --select-bg: #3e3d32;
     --select-option-bg: #3e3d32;
+    --select-option-selected-text: #f8f8f2;
     --input-bg: #3e3d32;
     
     --flag-new-color: #66d9ef;

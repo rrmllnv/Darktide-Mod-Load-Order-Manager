@@ -37,6 +37,7 @@ body.theme-gruvbox {
     
     --select-bg: #3c3836;
     --select-option-bg: #3c3836;
+    --select-option-selected-text: #ebdbb2;
     --input-bg: #3c3836;
     
     --flag-new-color: #83a598;

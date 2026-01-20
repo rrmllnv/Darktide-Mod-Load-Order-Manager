@@ -37,6 +37,7 @@ body.theme-nord {
     
     --select-bg: #3b4252;
     --select-option-bg: #3b4252;
+    --select-option-selected-text: #eceff4;
     --input-bg: #3b4252;
     
     --flag-new-color: #81a1c1;

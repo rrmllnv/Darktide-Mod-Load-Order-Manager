@@ -37,6 +37,7 @@ body.theme-oled-dark {
     
     --select-bg: #000000;
     --select-option-bg: #000000;
+    --select-option-selected-text: #ffffff;
     --input-bg: #000000;
     
     --flag-new-color: #6ba3ff;

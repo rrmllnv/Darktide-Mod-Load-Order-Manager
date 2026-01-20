@@ -37,6 +37,7 @@ body.theme-sepia {
     
     --select-bg: #faf8f3;
     --select-option-bg: #faf8f3;
+    --select-option-selected-text: #3e2723;
     --input-bg: #faf8f3;
     
     --flag-new-color: #4a7cff;

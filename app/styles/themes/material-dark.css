@@ -37,6 +37,7 @@ body.theme-material-dark {
     
     --select-bg: #303030;
     --select-option-bg: #303030;
+    --select-option-selected-text: #ffffff;
     --input-bg: #303030;
     
     --flag-new-color: #64b5f6;
