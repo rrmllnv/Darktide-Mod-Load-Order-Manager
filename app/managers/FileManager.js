@@ -7,7 +7,7 @@ export class FileManager {
     
     async browseFile() {
         if (this.app.tourComponent && this.app.tourComponent.isActive && this.app.tourComponent.isBrowseTour) {
-            this.app.tourComponent.endTour();
+            this.app.tourComponent.endTour(true);
         }
         
         const result = await window.electronAPI.selectFile(this.app.filePath);

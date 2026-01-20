@@ -112,6 +112,9 @@
     cursor: pointer;
     font-size: 14px;
     transition: background-color 0.2s;
+    pointer-events: auto !important;
+    position: relative;
+    z-index: 10003;
 }
 
 .tour-btn:hover:not(:disabled) {

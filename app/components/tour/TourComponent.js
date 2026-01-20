@@ -133,21 +133,40 @@ export class TourComponent {
     
     bindEvents() {
         if (this.elements.tourNextBtn) {
-            this.elements.tourNextBtn.addEventListener('click', () => this.nextStep());
+            const newNextBtn = this.elements.tourNextBtn.cloneNode(true);
+            this.elements.tourNextBtn.parentNode.replaceChild(newNextBtn, this.elements.tourNextBtn);
+            this.elements.tourNextBtn = newNextBtn;
+            this.elements.tourNextBtn.addEventListener('click', () => {
+                this.nextStep();
+            });
         }
         
         if (this.elements.tourPrevBtn) {
-            this.elements.tourPrevBtn.addEventListener('click', () => this.prevStep());
+            const newPrevBtn = this.elements.tourPrevBtn.cloneNode(true);
+            this.elements.tourPrevBtn.parentNode.replaceChild(newPrevBtn, this.elements.tourPrevBtn);
+            this.elements.tourPrevBtn = newPrevBtn;
+            this.elements.tourPrevBtn.addEventListener('click', () => {
+                this.prevStep();
+            });
         }
         
         if (this.elements.tourSkipBtn) {
-            this.elements.tourSkipBtn.addEventListener('click', () => this.skipTour());
+            const newSkipBtn = this.elements.tourSkipBtn.cloneNode(true);
+            this.elements.tourSkipBtn.parentNode.replaceChild(newSkipBtn, this.elements.tourSkipBtn);
+            this.elements.tourSkipBtn = newSkipBtn;
+            this.elements.tourSkipBtn.addEventListener('click', () => {
+                this.skipTour();
+            });
         }
     }
     
     async startTour() {
         if (this.isActive) {
             return;
+        }
+        
+        if (!this.elements || !this.elements.tourOverlay) {
+            await this.init();
         }
         
         this.isActive = true;
@@ -211,7 +230,7 @@ export class TourComponent {
         this.positionTooltip(rect, step.position, 0);
         
         const handleFinish = () => {
-            this.endTour();
+            this.endTour(true);
         };
         
         if (this.elements.tourNextBtn) {
@@ -233,7 +252,7 @@ export class TourComponent {
     
     async showStep(stepIndex) {
         if (stepIndex < 0 || stepIndex >= this.steps.length) {
-            this.endTour();
+            this.endTour(false);
             return;
         }
         
@@ -250,7 +269,7 @@ export class TourComponent {
             if (stepIndex < this.steps.length - 1) {
                 this.showStep(stepIndex + 1);
             } else {
-                this.endTour();
+                this.endTour(false);
             }
             return;
         }
@@ -377,30 +396,58 @@ export class TourComponent {
         if (this.elements.tourPrevBtn) {
             this.elements.tourPrevBtn.disabled = stepIndex === 0;
             this.elements.tourPrevBtn.style.display = stepIndex === 0 ? 'none' : 'inline-block';
-            this.elements.tourPrevBtn.textContent = this.t('tour.previous');
+            // Не изменяем textContent, чтобы не потерять обработчики
+            if (this.elements.tourPrevBtn.textContent !== this.t('tour.previous')) {
+                const newPrevBtn = this.elements.tourPrevBtn.cloneNode(true);
+                newPrevBtn.textContent = this.t('tour.previous');
+                this.elements.tourPrevBtn.parentNode.replaceChild(newPrevBtn, this.elements.tourPrevBtn);
+                this.elements.tourPrevBtn = newPrevBtn;
+                this.elements.tourPrevBtn.addEventListener('click', () => {
+                    this.prevStep();
+                });
+            }
         }
         
         if (this.elements.tourNextBtn) {
             const isLastStep = stepIndex === this.steps.length - 1;
-            this.elements.tourNextBtn.textContent = isLastStep 
-                ? this.t('tour.finish') 
-                : this.t('tour.next');
+            const newText = isLastStep ? this.t('tour.finish') : this.t('tour.next');
+            // Не изменяем textContent, чтобы не потерять обработчики
+            if (this.elements.tourNextBtn.textContent !== newText) {
+                const newNextBtn = this.elements.tourNextBtn.cloneNode(true);
+                newNextBtn.textContent = newText;
+                this.elements.tourNextBtn.parentNode.replaceChild(newNextBtn, this.elements.tourNextBtn);
+                this.elements.tourNextBtn = newNextBtn;
+                this.elements.tourNextBtn.addEventListener('click', () => {
+                    this.nextStep();
+                });
+            }
         }
         
         if (this.elements.tourSkipBtn) {
-            this.elements.tourSkipBtn.textContent = this.t('tour.skip');
+            // Не изменяем textContent, чтобы не потерять обработчики
+            const skipText = this.t('tour.skip');
+            if (this.elements.tourSkipBtn.textContent !== skipText) {
+                const newSkipBtn = this.elements.tourSkipBtn.cloneNode(true);
+                newSkipBtn.textContent = skipText;
+                this.elements.tourSkipBtn.parentNode.replaceChild(newSkipBtn, this.elements.tourSkipBtn);
+                this.elements.tourSkipBtn = newSkipBtn;
+                this.elements.tourSkipBtn.addEventListener('click', () => {
+                    this.skipTour();
+                });
+            }
         }
     }
     
-    nextStep() {
+    async nextStep() {
         if (!this.isActive) {
             return;
         }
         
-        if (this.currentStep < this.steps.length - 1) {
-            this.showStep(this.currentStep + 1);
+        const nextStepIndex = this.currentStep + 1;
+        if (nextStepIndex < this.steps.length) {
+            await this.showStep(nextStepIndex);
         } else {
-            this.endTour();
+            this.endTour(true);
         }
     }
     
@@ -411,10 +458,10 @@ export class TourComponent {
     }
     
     skipTour() {
-        this.endTour();
+        this.endTour(true);
     }
     
-    endTour() {
+    endTour(saveFlags = true) {
         this.isActive = false;
         this.elements.tourOverlay.classList.remove('show');
         this.elements.tourTooltip.classList.remove('show');
@@ -436,13 +483,17 @@ export class TourComponent {
             this.currentHighlightedElement = null;
         }
         
-        const wasBrowseTour = this.isBrowseTour;
-        this.isBrowseTour = false;
-        
-        if (wasBrowseTour) {
-            this.saveBrowseTourCompleted();
+        if (saveFlags) {
+            const wasBrowseTour = this.isBrowseTour;
+            this.isBrowseTour = false;
+            
+            if (wasBrowseTour) {
+                this.saveBrowseTourCompleted();
+            } else {
+                this.saveTourCompleted();
+            }
         } else {
-            this.saveTourCompleted();
+            this.isBrowseTour = false;
         }
     }
     
@@ -454,7 +505,6 @@ export class TourComponent {
             
             this.app.userConfig.tourCompleted = true;
             
-            // Если полный тур завершен, то краткий тур тоже считается завершенным
             if (!this.app.userConfig.browseTourCompleted) {
                 this.app.userConfig.browseTourCompleted = true;
             }
