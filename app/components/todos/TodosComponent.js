@@ -691,8 +691,40 @@ export class TodosComponent {
     }
     
     startEditing(todoId) {
+        const todosList = document.getElementById('todos-list');
+        let savedScrollTop = 0;
+        let savedFirstVisibleId = null;
+        
+        if (todosList) {
+            savedScrollTop = todosList.scrollTop;
+            
+            const firstVisibleItem = Array.from(todosList.querySelectorAll('.todo-item')).find(item => {
+                const rect = item.getBoundingClientRect();
+                const listRect = todosList.getBoundingClientRect();
+                return rect.top >= listRect.top && rect.top <= listRect.bottom;
+            });
+            if (firstVisibleItem) {
+                savedFirstVisibleId = firstVisibleItem.getAttribute('data-todo-id');
+            }
+        }
+        
         this.editingTodoId = todoId;
         this.renderTodos();
+        
+        if (todosList && savedFirstVisibleId) {
+            requestAnimationFrame(() => {
+                const targetItem = todosList.querySelector(`[data-todo-id="${savedFirstVisibleId}"]`);
+                if (targetItem) {
+                    targetItem.scrollIntoView({ behavior: 'auto', block: 'start' });
+                } else if (savedScrollTop > 0 && savedScrollTop < todosList.scrollHeight) {
+                    todosList.scrollTop = savedScrollTop;
+                }
+            });
+        } else if (todosList && savedScrollTop > 0 && savedScrollTop < todosList.scrollHeight) {
+            requestAnimationFrame(() => {
+                todosList.scrollTop = savedScrollTop;
+            });
+        }
     }
     
     async saveEdit(todoId, newText) {
@@ -727,11 +759,43 @@ export class TodosComponent {
         
         todo.text = newText.trim();
         
+        const todosList = document.getElementById('todos-list');
+        let savedScrollTop = 0;
+        let savedFirstVisibleId = null;
+        
+        if (todosList) {
+            savedScrollTop = todosList.scrollTop;
+            
+            const firstVisibleItem = Array.from(todosList.querySelectorAll('.todo-item')).find(item => {
+                const rect = item.getBoundingClientRect();
+                const listRect = todosList.getBoundingClientRect();
+                return rect.top >= listRect.top && rect.top <= listRect.bottom;
+            });
+            if (firstVisibleItem) {
+                savedFirstVisibleId = firstVisibleItem.getAttribute('data-todo-id');
+            }
+        }
+        
         try {
             const result = await window.electronAPI.updateTodo(this.todosDir, modName, todoId, todo);
             if (result.success) {
                 this.editingTodoId = null;
                 await this.loadTodos();
+                
+                if (todosList && savedFirstVisibleId) {
+                    requestAnimationFrame(() => {
+                        const targetItem = todosList.querySelector(`[data-todo-id="${savedFirstVisibleId}"]`);
+                        if (targetItem) {
+                            targetItem.scrollIntoView({ behavior: 'auto', block: 'start' });
+                        } else if (savedScrollTop > 0 && savedScrollTop < todosList.scrollHeight) {
+                            todosList.scrollTop = savedScrollTop;
+                        }
+                    });
+                } else if (todosList && savedScrollTop > 0 && savedScrollTop < todosList.scrollHeight) {
+                    requestAnimationFrame(() => {
+                        todosList.scrollTop = savedScrollTop;
+                    });
+                }
             } else {
                 await this.app.uiManager.showMessage(
                     this.t('messages.common.error'),
