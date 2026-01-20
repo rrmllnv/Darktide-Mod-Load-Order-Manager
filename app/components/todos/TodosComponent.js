@@ -929,14 +929,6 @@ export class TodosComponent {
                 const modHeaderActions = document.createElement('div');
                 modHeaderActions.className = 'todo-mod-header-actions';
                 
-                const reopenAllBtn = document.createElement('button');
-                reopenAllBtn.className = 'todo-mod-action-btn';
-                reopenAllBtn.setAttribute('data-action', 'reopen-all');
-                reopenAllBtn.setAttribute('data-mod-name', todoModName);
-                reopenAllBtn.title = this.t('ui.todos.reopenAll');
-                reopenAllBtn.innerHTML = '<i class="fas fa-redo"></i>';
-                modHeaderActions.appendChild(reopenAllBtn);
-                
                 const completeAllBtn = document.createElement('button');
                 completeAllBtn.className = 'todo-mod-action-btn';
                 completeAllBtn.setAttribute('data-action', 'complete-all');
@@ -944,6 +936,14 @@ export class TodosComponent {
                 completeAllBtn.title = this.t('ui.todos.completeAll');
                 completeAllBtn.innerHTML = '<i class="fas fa-check-double"></i>';
                 modHeaderActions.appendChild(completeAllBtn);
+
+                const reopenAllBtn = document.createElement('button');
+                reopenAllBtn.className = 'todo-mod-action-btn';
+                reopenAllBtn.setAttribute('data-action', 'reopen-all');
+                reopenAllBtn.setAttribute('data-mod-name', todoModName);
+                reopenAllBtn.title = this.t('ui.todos.reopenAll');
+                reopenAllBtn.innerHTML = '<i class="fas fa-redo"></i>';
+                modHeaderActions.appendChild(reopenAllBtn);
                 
                 const deleteAllBtn = document.createElement('button');
                 deleteAllBtn.className = 'todo-mod-action-btn';
