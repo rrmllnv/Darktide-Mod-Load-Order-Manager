@@ -289,6 +289,14 @@ export class ModListComponent {
         if (this.app.selectedModName === modName) {
             this.selectMod(modName);
         }
+        
+        if (this.app.notificationComponent && modEntry) {
+            if (modEntry.enabled) {
+                this.app.notificationComponent.show('success', this.t('status.modList.modEnabled', { modName }));
+            } else {
+                this.app.notificationComponent.show('success', this.t('status.modList.modDisabled', { modName }));
+            }
+        }
     }
     
     selectMod(modName, ctrlKey = false, shiftKey = false) {
