@@ -33,7 +33,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
   deleteBackup: (modName, versionName) => ipcRenderer.invoke('delete-backup', modName, versionName),
   updateBackupComment: (modName, versionName, comment) => ipcRenderer.invoke('update-backup-comment', modName, versionName, comment),
   getTodosDirectory: () => ipcRenderer.invoke('get-todos-directory'),
-  loadTodos: (todosDir, modName) => ipcRenderer.invoke('load-todos', todosDir, modName),
+  loadTodos: (todosDir, modName, options) => ipcRenderer.invoke('load-todos', todosDir, modName, options),
   loadAllTodos: (todosDir) => ipcRenderer.invoke('load-all-todos', todosDir),
   addTodo: (todosDir, modName, todo) => ipcRenderer.invoke('add-todo', todosDir, modName, todo),
   updateTodo: (todosDir, modName, todoId, updatedTodo) => ipcRenderer.invoke('update-todo', todosDir, modName, todoId, updatedTodo),

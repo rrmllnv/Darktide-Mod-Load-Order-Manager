@@ -948,7 +948,7 @@ ipcMain.handle('get-todos-directory', async (event) => {
   }
 });
 
-ipcMain.handle('load-todos', async (event, todosDir, modName) => {
+ipcMain.handle('load-todos', async (event, todosDir, modName, options = {}) => {
   try {
     if (!modName) {
       return { success: false, error: 'Mod name is required' };
@@ -957,15 +957,22 @@ ipcMain.handle('load-todos', async (event, todosDir, modName) => {
     const todosPath = path.join(todosDir, `${modName}.json`);
     
     if (!existsSync(todosPath)) {
-      return { success: true, todos: [] };
+      return { success: true, todos: [], total: 0 };
     }
     
     const content = await fs.readFile(todosPath, 'utf-8');
     const data = JSON.parse(content);
     
-    const todos = Array.isArray(data) ? data : (data.todos || []);
+    let todos = Array.isArray(data) ? data : (data.todos || []);
+    const total = todos.length;
     
-    return { success: true, todos };
+    const { offset = 0, limit } = options;
+    
+    if (limit !== undefined) {
+      todos = todos.slice(offset, offset + limit);
+    }
+    
+    return { success: true, todos, total };
   } catch (error) {
     return { success: false, error: error.message };
   }

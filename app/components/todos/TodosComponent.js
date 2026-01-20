@@ -3,10 +3,18 @@ export class TodosComponent {
         this.app = app;
         this.todosDir = null;
         this.todos = [];
+        this.allTodos = [];
         this.currentModName = null;
         this.showOnlyActive = false;
         this.editingTodoId = null;
         this.expandedTodos = new Set();
+        
+        this.lazyLoading = {
+            loadedCount: 0,
+            totalCount: 0,
+            isLoading: false,
+            batchSize: 50
+        };
     }
     
     async init() {
@@ -199,29 +207,82 @@ export class TodosComponent {
         
         if (modName) {
             this.currentModName = modName;
-            try {
-                const result = await window.electronAPI.loadTodos(this.todosDir, modName);
-                if (result.success) {
-                    this.todos = (result.todos || []).map(todo => ({
-                        ...todo,
-                        modName: todo.modName || modName
-                    }));
-                } else {
-                    this.todos = [];
-                }
-            } catch (error) {
-                console.error('Error loading todos:', error);
-                this.todos = [];
-            }
+            await this.loadTodosLazy(modName, 0, this.lazyLoading.batchSize);
+            this.setupLazyLoading();
         } else {
             this.currentModName = null;
-            try {
+            await this.loadAllTodosLazy(0, this.lazyLoading.batchSize);
+            this.setupLazyLoading();
+        }
+        
+        this.renderTodos();
+    }
+    
+    async loadTodosLazy(modName, offset = 0, limit = 100) {
+        if (this.lazyLoading.isLoading) {
+            return;
+        }
+        
+        this.lazyLoading.isLoading = true;
+        
+        try {
+            const result = await window.electronAPI.loadTodos(this.todosDir, modName, { offset, limit });
+            if (result.success) {
+                const newTodos = (result.todos || []).map(todo => ({
+                    ...todo,
+                    modName: todo.modName || modName
+                }));
+                
+                if (offset === 0) {
+                    this.allTodos = [];
+                    this.todos = [];
+                    this.lazyLoading.loadedCount = 0;
+                }
+                
+                this.allTodos.push(...newTodos);
+                this.todos = [...this.allTodos];
+                this.lazyLoading.totalCount = result.total || this.allTodos.length;
+                this.lazyLoading.loadedCount = this.allTodos.length;
+            } else {
+                if (offset === 0) {
+                    this.todos = [];
+                    this.allTodos = [];
+                    this.lazyLoading.loadedCount = 0;
+                    this.lazyLoading.totalCount = 0;
+                }
+            }
+        } catch (error) {
+            console.error('Error loading todos:', error);
+            if (offset === 0) {
+                this.todos = [];
+                this.allTodos = [];
+                this.lazyLoading.loadedCount = 0;
+                this.lazyLoading.totalCount = 0;
+            }
+        } finally {
+            this.lazyLoading.isLoading = false;
+        }
+    }
+    
+    async loadAllTodosLazy(offset = 0, limit = 100) {
+        if (this.lazyLoading.isLoading && offset > 0) {
+            return;
+        }
+        
+        if (offset === 0) {
+            this.lazyLoading.isLoading = true;
+        }
+        
+        try {
+            if (offset === 0) {
                 const result = await window.electronAPI.loadAllTodos(this.todosDir);
                 if (result.success) {
                     const allTodos = result.allTodos || [];
                     const groupByMod = this.app.userConfig && this.app.userConfig.todosGroupByMod !== undefined 
                         ? this.app.userConfig.todosGroupByMod 
                         : true;
+                    
+                    let processedTodos = [];
                     
                     if (groupByMod) {
                         const todosByMod = {};
@@ -250,30 +311,82 @@ export class TodosComponent {
                             return dateB - dateA;
                         });
                         
-                        this.todos = [];
                         for (const modName of sortedMods) {
-                            this.todos.push(...todosByMod[modName]);
-                            if (this.todos.length >= 10) {
-                                this.todos = this.todos.slice(0, 10);
-                                break;
-                            }
+                            processedTodos.push(...todosByMod[modName]);
                         }
                     } else {
-                        this.todos = allTodos.sort((a, b) => {
+                        processedTodos = allTodos.sort((a, b) => {
                             const dateA = new Date(a.created || 0);
                             const dateB = new Date(b.created || 0);
                             return dateB - dateA;
                         });
-                        
-                        this.todos = this.todos.slice(0, 10);
                     }
+                    
+                    this.allTodos = processedTodos;
+                    this.lazyLoading.totalCount = processedTodos.length;
                 } else {
-                    this.todos = [];
+                    this.allTodos = [];
+                    this.lazyLoading.totalCount = 0;
                 }
-            } catch (error) {
-                console.error('Error loading all todos:', error);
-                this.todos = [];
             }
+            
+            const todosToAdd = this.allTodos.slice(offset, offset + limit);
+            this.todos = this.allTodos.slice(0, offset + todosToAdd.length);
+            this.lazyLoading.loadedCount = this.todos.length;
+        } catch (error) {
+            console.error('Error loading all todos:', error);
+            if (offset === 0) {
+                this.todos = [];
+                this.allTodos = [];
+                this.lazyLoading.loadedCount = 0;
+                this.lazyLoading.totalCount = 0;
+            }
+        } finally {
+            if (offset === 0) {
+                this.lazyLoading.isLoading = false;
+            }
+        }
+    }
+    
+    setupLazyLoading() {
+        const todosList = document.getElementById('todos-list');
+        if (!todosList) {
+            return;
+        }
+        
+        const handleScroll = () => {
+            const scrollTop = todosList.scrollTop;
+            const scrollHeight = todosList.scrollHeight;
+            const clientHeight = todosList.clientHeight;
+            
+            if (scrollTop + clientHeight >= scrollHeight - 100) {
+                this.loadMoreTodos();
+            }
+        };
+        
+        const oldHandler = todosList._lazyLoadingScrollHandler;
+        if (oldHandler) {
+            todosList.removeEventListener('scroll', oldHandler);
+        }
+        
+        todosList.addEventListener('scroll', handleScroll);
+        todosList._lazyLoadingScrollHandler = handleScroll;
+    }
+    
+    async loadMoreTodos() {
+        if (this.lazyLoading.isLoading || 
+            this.lazyLoading.loadedCount >= this.lazyLoading.totalCount) {
+            return;
+        }
+        
+        const modName = this.app.selectedModName || '';
+        
+        if (modName) {
+            const offset = this.lazyLoading.loadedCount;
+            await this.loadTodosLazy(modName, offset, this.lazyLoading.batchSize);
+        } else {
+            const offset = this.lazyLoading.loadedCount;
+            await this.loadAllTodosLazy(offset, this.lazyLoading.batchSize);
         }
         
         this.renderTodos();
