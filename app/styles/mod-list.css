@@ -54,9 +54,9 @@
     height: 28px;
 }
 
-.mod-item input[type="checkbox"] {
+.mod-switch-container {
     margin-right: 5px;
-    accent-color: var(--btn-primary-bg);
+    flex-shrink: 0;
 }
 
 .mod-name {

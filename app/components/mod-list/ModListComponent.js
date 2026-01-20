@@ -413,8 +413,12 @@ export class ModListComponent {
         
         const isDeveloperViewMode = this.app && this.app.userConfig && this.app.userConfig.developerViewMode;
         
+        let checkboxContainer = null;
         let checkbox = null;
         if (!isDeveloperViewMode) {
+            checkboxContainer = document.createElement('label');
+            checkboxContainer.className = 'mod-switch-container switch-container';
+            
             checkbox = document.createElement('input');
             checkbox.type = 'checkbox';
             checkbox.checked = modEntry.enabled;
@@ -422,6 +426,12 @@ export class ModListComponent {
                 modEntry.enabled = checkbox.checked;
                 this.onCheckboxChange(modEntry.name);
             });
+            
+            const switchSlider = document.createElement('span');
+            switchSlider.className = 'switch-slider';
+            
+            checkboxContainer.appendChild(checkbox);
+            checkboxContainer.appendChild(switchSlider);
         }
         
         const modName = document.createElement('span');
@@ -457,7 +467,7 @@ export class ModListComponent {
         }
         
         modItem.addEventListener('click', (e) => {
-            if ((!checkbox || e.target !== checkbox) && !modItem.classList.contains('dragging')) {
+            if ((!checkboxContainer || !checkboxContainer.contains(e.target)) && !modItem.classList.contains('dragging')) {
                 const ctrlKey = e.ctrlKey || e.metaKey;
                 const shiftKey = e.shiftKey;
                 this.selectMod(modEntry.name, ctrlKey, shiftKey);
@@ -476,8 +486,8 @@ export class ModListComponent {
             this.dragDropManager.attachDragDrop(modItem, modEntry, index, currentSort);
         }
         
-        if (checkbox) {
-            modItem.appendChild(checkbox);
+        if (checkboxContainer) {
+            modItem.appendChild(checkboxContainer);
         }
         modItem.appendChild(modName);
         
@@ -494,7 +504,10 @@ export class ModListComponent {
             modItem.appendChild(status);
         }
         
-        modEntry.checkbox = checkbox;
+            modEntry.checkbox = checkbox;
+            if (checkboxContainer) {
+                modEntry.checkboxContainer = checkboxContainer;
+            }
         modEntry.statusElement = status;
         modEntry.modItem = modItem;
         
