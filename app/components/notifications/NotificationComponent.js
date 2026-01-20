@@ -4,7 +4,7 @@ export class NotificationComponent {
         this.container = null;
         this.notifications = new Map();
         this.notificationIdCounter = 0;
-        this.defaultDuration = 3000;
+        this.defaultDuration = 5000;
     }
     
     async init() {
