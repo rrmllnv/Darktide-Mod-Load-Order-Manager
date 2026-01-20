@@ -111,6 +111,12 @@ export class TodosComponent {
                     this.app.configManager.saveUserConfig();
                 }
                 this.renderTodos();
+                if (this.app.notificationComponent) {
+                    const message = this.showOnlyActive
+                        ? this.t('status.common.showOnlyActiveTodosEnabled')
+                        : this.t('status.common.showOnlyActiveTodosDisabled');
+                    this.app.notificationComponent.show('info', message);
+                }
             });
         }
         

@@ -345,7 +345,9 @@
             "hideNotFoundModsEnabled": "Hiding not found mods enabled",
             "hideNotFoundModsDisabled": "Hiding not found mods disabled",
             "hideUnusedModsEnabled": "Hiding unused mods enabled",
-            "hideUnusedModsDisabled": "Hiding unused mods disabled"
+            "hideUnusedModsDisabled": "Hiding unused mods disabled",
+            "showOnlyActiveTodosEnabled": "Show only active tasks enabled",
+            "showOnlyActiveTodosDisabled": "Show only active tasks disabled"
         },
         "modList": {
             "symlinkCreated": "Symbolic link created: {modName}",

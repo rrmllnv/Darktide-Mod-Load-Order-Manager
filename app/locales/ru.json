@@ -345,7 +345,9 @@
             "hideNotFoundModsEnabled": "Скрытие не найденных модов включено",
             "hideNotFoundModsDisabled": "Скрытие не найденных модов выключено",
             "hideUnusedModsEnabled": "Скрытие не используемых модов включено",
-            "hideUnusedModsDisabled": "Скрытие не используемых модов выключено"
+            "hideUnusedModsDisabled": "Скрытие не используемых модов выключено",
+            "showOnlyActiveTodosEnabled": "Показывать только активные задачи включено",
+            "showOnlyActiveTodosDisabled": "Показывать только активные задачи выключено"
         },
         "modList": {
             "symlinkCreated": "Символическая ссылка создана: {modName}",

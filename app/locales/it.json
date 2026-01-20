@@ -341,7 +341,9 @@
             "hideNotFoundModsEnabled": "Nascondere mod non trovati abilitato",
             "hideNotFoundModsDisabled": "Nascondere mod non trovati disabilitato",
             "hideUnusedModsEnabled": "Nascondere mod non utilizzati abilitato",
-            "hideUnusedModsDisabled": "Nascondere mod non utilizzati disabilitato"
+            "hideUnusedModsDisabled": "Nascondere mod non utilizzati disabilitato",
+            "showOnlyActiveTodosEnabled": "Mostra solo attività attive abilitato",
+            "showOnlyActiveTodosDisabled": "Mostra solo attività attive disabilitato"
         },
         "modList": {
             "symlinkCreated": "Collegamento simbolico creato: {modName}",

@@ -341,7 +341,9 @@
             "hideNotFoundModsEnabled": "찾을 수 없는 모드 숨기기 활성화됨",
             "hideNotFoundModsDisabled": "찾을 수 없는 모드 숨기기 비활성화됨",
             "hideUnusedModsEnabled": "사용하지 않는 모드 숨기기 활성화됨",
-            "hideUnusedModsDisabled": "사용하지 않는 모드 숨기기 비활성화됨"
+            "hideUnusedModsDisabled": "사용하지 않는 모드 숨기기 비활성화됨",
+            "showOnlyActiveTodosEnabled": "활성 작업만 표시 활성화됨",
+            "showOnlyActiveTodosDisabled": "활성 작업만 표시 비활성화됨"
         },
         "modList": {
             "symlinkCreated": "심볼릭 링크 생성: {modName}",

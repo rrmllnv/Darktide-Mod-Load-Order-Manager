@@ -341,7 +341,9 @@
             "hideNotFoundModsEnabled": "見つからないMODを非表示にする機能が有効になりました",
             "hideNotFoundModsDisabled": "見つからないMODを非表示にする機能が無効になりました",
             "hideUnusedModsEnabled": "使用されていないMODを非表示にする機能が有効になりました",
-            "hideUnusedModsDisabled": "使用されていないMODを非表示にする機能が無効になりました"
+            "hideUnusedModsDisabled": "使用されていないMODを非表示にする機能が無効になりました",
+            "showOnlyActiveTodosEnabled": "アクティブなタスクのみ表示が有効になりました",
+            "showOnlyActiveTodosDisabled": "アクティブなタスクのみ表示が無効になりました"
         },
         "modList": {
             "symlinkCreated": "シンボリックリンク作成: {modName}",

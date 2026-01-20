@@ -341,7 +341,9 @@
             "hideNotFoundModsEnabled": "Ausblenden nicht gefundener Mods aktiviert",
             "hideNotFoundModsDisabled": "Ausblenden nicht gefundener Mods deaktiviert",
             "hideUnusedModsEnabled": "Ausblenden ungenutzter Mods aktiviert",
-            "hideUnusedModsDisabled": "Ausblenden ungenutzter Mods deaktiviert"
+            "hideUnusedModsDisabled": "Ausblenden ungenutzter Mods deaktiviert",
+            "showOnlyActiveTodosEnabled": "Nur aktive Aufgaben anzeigen aktiviert",
+            "showOnlyActiveTodosDisabled": "Nur aktive Aufgaben anzeigen deaktiviert"
         },
         "modList": {
             "symlinkCreated": "Symbolischer Link erstellt: {modName}",

@@ -341,7 +341,9 @@
             "hideNotFoundModsEnabled": "Ocultar mods não encontrados ativado",
             "hideNotFoundModsDisabled": "Ocultar mods não encontrados desativado",
             "hideUnusedModsEnabled": "Ocultar mods não utilizados ativado",
-            "hideUnusedModsDisabled": "Ocultar mods não utilizados desativado"
+            "hideUnusedModsDisabled": "Ocultar mods não utilizados desativado",
+            "showOnlyActiveTodosEnabled": "Mostrar apenas tarefas ativas ativado",
+            "showOnlyActiveTodosDisabled": "Mostrar apenas tarefas ativas desativado"
         },
         "modList": {
             "symlinkCreated": "Link simbólico criado: {modName}",

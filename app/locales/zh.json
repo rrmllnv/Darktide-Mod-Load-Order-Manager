@@ -341,7 +341,9 @@
             "hideNotFoundModsEnabled": "隐藏未找到的模组已启用",
             "hideNotFoundModsDisabled": "隐藏未找到的模组已禁用",
             "hideUnusedModsEnabled": "隐藏未使用的模组已启用",
-            "hideUnusedModsDisabled": "隐藏未使用的模组已禁用"
+            "hideUnusedModsDisabled": "隐藏未使用的模组已禁用",
+            "showOnlyActiveTodosEnabled": "仅显示活动任务已启用",
+            "showOnlyActiveTodosDisabled": "仅显示活动任务已禁用"
         },
         "modList": {
             "symlinkCreated": "符号链接已创建: {modName}",
