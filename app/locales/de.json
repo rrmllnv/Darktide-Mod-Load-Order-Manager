@@ -126,7 +126,7 @@
             "developerMode": "Entwicklermodus aktivieren",
             "projectPath": "Geben Sie den Pfad zu Ihrem Projekt an",
             "todosSection": "Aufgaben",
-            "todosGroupByMod": "Mod-Aufgaben in allgemeiner Liste gruppieren",
+            "todosGroupByMod": "Mod-Aufgaben gruppieren, neue und alte in allgemeiner Liste anzeigen",
             "save": "Speichern",
             "cancel": "Abbrechen"
         },

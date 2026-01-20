@@ -126,7 +126,7 @@
             "developerMode": "開発者モードを有効にする",
             "projectPath": "プロジェクトのパスを指定してください",
             "todosSection": "タスク",
-            "todosGroupByMod": "一般リストでMODタスクをグループ化",
+            "todosGroupByMod": "MODタスクをグループ化、一般リストで新しいものと古いものを表示",
             "save": "保存",
             "cancel": "キャンセル"
         },

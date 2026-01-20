@@ -126,7 +126,7 @@
             "developerMode": "Activer le mode développeur",
             "projectPath": "Spécifiez le chemin vers votre projet",
             "todosSection": "Tâches",
-            "todosGroupByMod": "Grouper les tâches du mod dans la liste générale",
+            "todosGroupByMod": "Grouper les tâches du mod, afficher nouvelles et anciennes dans la liste générale",
             "save": "Enregistrer",
             "cancel": "Annuler"
         },

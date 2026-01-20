@@ -126,7 +126,7 @@
             "developerMode": "Abilita modalità sviluppatore",
             "projectPath": "Specifica il percorso del tuo progetto",
             "todosSection": "Attività",
-            "todosGroupByMod": "Raggruppa le attività del mod nell'elenco generale",
+            "todosGroupByMod": "Raggruppa le attività del mod, mostra nuove e vecchie nell'elenco generale",
             "save": "Salva",
             "cancel": "Annulla"
         },
