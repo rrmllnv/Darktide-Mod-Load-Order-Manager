@@ -21,6 +21,24 @@ export class DeveloperComponent {
         return this.app.t(key, params);
     }
     
+    validateAndClearSelectedMod() {
+        if (this.app.selectedModName) {
+            const modEntry = this.app.modEntries && this.app.modEntries.find(m => m.name === this.app.selectedModName);
+            if (!modEntry) {
+                this.app.selectedModName = '';
+                return false;
+            }
+            const isSelectedInUI = this.app.selectedModNames.has(this.app.selectedModName) || 
+                                   (this.app.modListComponent && modEntry.modItem && modEntry.modItem.classList.contains('selected'));
+            if (!isSelectedInUI) {
+                this.app.selectedModName = '';
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
+    
     bindEvents() {
         const devSelectAllBtn = document.getElementById('dev-select-all-btn');
         if (devSelectAllBtn) {
@@ -409,6 +427,8 @@ export class DeveloperComponent {
             return;
         }
         
+        this.validateAndClearSelectedMod();
+        
         if (!this.app.selectedModName || !this.app.modEntries) {
             if (this.app.uiManager && this.app.uiManager.showMessage) {
                 await this.app.uiManager.showMessage(
@@ -421,6 +441,7 @@ export class DeveloperComponent {
         
         const selectedMod = this.app.modEntries.find(m => m.name === this.app.selectedModName);
         if (!selectedMod) {
+            this.app.selectedModName = '';
             return;
         }
         
@@ -506,6 +527,8 @@ export class DeveloperComponent {
             return;
         }
         
+        this.validateAndClearSelectedMod();
+        
         if (!this.app.selectedModName || !this.app.modEntries) {
             if (this.app.uiManager && this.app.uiManager.showMessage) {
                 await this.app.uiManager.showMessage(
@@ -518,6 +541,7 @@ export class DeveloperComponent {
         
         const selectedMod = this.app.modEntries.find(m => m.name === this.app.selectedModName);
         if (!selectedMod) {
+            this.app.selectedModName = '';
             return;
         }
         
@@ -675,6 +699,8 @@ export class DeveloperComponent {
             return;
         }
         
+        this.validateAndClearSelectedMod();
+        
         if (!this.app.selectedModName || !this.app.modEntries) {
             if (this.app.uiManager && this.app.uiManager.showMessage) {
                 await this.app.uiManager.showMessage(
@@ -687,6 +713,7 @@ export class DeveloperComponent {
         
         const selectedMod = this.app.modEntries.find(m => m.name === this.app.selectedModName);
         if (!selectedMod) {
+            this.app.selectedModName = '';
             return;
         }
         
@@ -983,6 +1010,8 @@ export class DeveloperComponent {
             return;
         }
         
+        this.validateAndClearSelectedMod();
+        
         if (!this.app.selectedModName) {
             if (this.app.uiManager && this.app.uiManager.showMessage) {
                 await this.app.uiManager.showMessage(
@@ -1061,7 +1090,11 @@ export class DeveloperComponent {
             return;
         }
         
-        const selectedModName = modName || this.app.selectedModName;
+        if (!modName) {
+            this.validateAndClearSelectedMod();
+        }
+        
+        let selectedModName = modName || this.app.selectedModName;
         
         if (!selectedModName) {
             await this.showModsWithBackupsDialog();
@@ -1284,11 +1317,19 @@ export class DeveloperComponent {
         backupDialog.classList.add('show');
     }
     
-    hideBackupDialog() {
+    hideBackupDialog(clearSelectedMod = true) {
         const backupDialog = document.getElementById('backup-dialog');
         if (backupDialog) {
             backupDialog.style.display = 'none';
             backupDialog.classList.remove('show');
+            
+            if (clearSelectedMod && this.app.selectedModName) {
+                const modEntry = this.app.modEntries && this.app.modEntries.find(m => m.name === this.app.selectedModName);
+                const isSelectedInUI = modEntry && (this.app.selectedModNames.has(this.app.selectedModName) || (modEntry.modItem && modEntry.modItem.classList.contains('selected')));
+                if (!isSelectedInUI) {
+                    this.app.selectedModName = '';
+                }
+            }
         }
     }
     
@@ -1377,8 +1418,6 @@ export class DeveloperComponent {
         try {
             const result = await window.electronAPI.deleteBackup(modName, versionName);
             if (result.success) {
-                this.app.selectedModName = modName;
-                
                 const listResult = await window.electronAPI.listBackups(modName);
                 const remainingBackups = listResult.success && listResult.backups ? listResult.backups.length : 0;
                 
@@ -1390,9 +1429,15 @@ export class DeveloperComponent {
                 }
                 
                 if (remainingBackups > 0) {
-                    await this.showRestoreBackupDialog();
+                    this.app.selectedModName = modName;
+                    await this.showRestoreBackupDialog(modName);
                 } else {
-                    this.hideBackupDialog();
+                    const modEntry = this.app.modEntries && this.app.modEntries.find(m => m.name === modName);
+                    const isSelectedInUI = modEntry && (this.app.selectedModNames.has(modName) || (modEntry.modItem && modEntry.modItem.classList.contains('selected')));
+                    if (!isSelectedInUI) {
+                        this.app.selectedModName = '';
+                    }
+                    this.hideBackupDialog(false);
                 }
             } else {
                 if (this.app.uiManager && this.app.uiManager.showMessage) {
