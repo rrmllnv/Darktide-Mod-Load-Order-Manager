@@ -205,23 +205,14 @@ ipcMain.handle('scan-mods-directory', async (event, modsDir) => {
 ipcMain.handle('get-profiles-directory', async (event, modsDir) => {
   try {
     const userDataDir = app.getPath('userData');
-    const profilesDir = path.join(userDataDir, 'profiles');
+    const profilesDir = path.join(userDataDir, 'Profiles');
     await fs.mkdir(profilesDir, { recursive: true });
     return { success: true, path: profilesDir };
   } catch (error) {
   }
 
   try {
-    if (modsDir) {
-      const profilesDir = path.join(modsDir, 'ModLoadOrderManager_profiles');
-      await fs.mkdir(profilesDir, { recursive: true });
-      return { success: true, path: profilesDir };
-    }
-  } catch (error) {
-  }
-
-  try {
-    const profilesDir = path.join(__dirname, 'profiles');
+    const profilesDir = path.join(__dirname, 'Profiles');
     await fs.mkdir(profilesDir, { recursive: true });
     return { success: true, path: profilesDir };
   } catch (error2) {
