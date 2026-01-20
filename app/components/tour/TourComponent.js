@@ -116,7 +116,7 @@ export class TourComponent {
                 selector: '#save-btn.tour-step',
                 titleKey: 'tour.steps.save.title',
                 descriptionKey: 'tour.steps.save.description',
-                position: 'top',
+                position: 'bottom',
                 interactive: false
             }
         ];

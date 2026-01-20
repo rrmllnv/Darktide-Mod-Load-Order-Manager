@@ -37,6 +37,18 @@
     margin-right: 10px;
 }
 
+.save-expert-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto;
+}
+
+.button-frame #save-btn {
+    min-height: 35px;
+    padding: 8px 15px;
+}
+
 .header-label {
     font-weight: bold;
     font-size: 10pt;

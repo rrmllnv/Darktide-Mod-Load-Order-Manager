@@ -51,6 +51,9 @@
         <button id="open-mods-folder-btn" class="btn-icon" title="Open mods folder" style="display: none;">
             <i class="fas fa-folder-open"></i>
         </button>
+        <button id="settings-btn" class="btn-icon" title="Settings">
+            <i class="fas fa-cog"></i>
+        </button>
     </div>
 
     <div class="main-container">
@@ -165,10 +168,17 @@
                         <span id="bulk-selection-count">0 mods selected</span>
                     </div>
                 </div>
-                <div class="expert-mode-frame">
-                    <button id="developer-view-btn" class="btn-icon" title="Dev View">
-                        <i class="fas fa-code"></i>
-                    </button>
+
+                <div class="save-expert-group">
+                    <div class="button-frame">
+                        <button id="save-btn" class="btn btn-primary tour-step">Save</button>
+                    </div>
+                    
+                    <div class="expert-mode-frame">
+                        <button id="developer-view-btn" class="btn-icon" title="Dev View">
+                            <i class="fas fa-code"></i>
+                        </button>
+                    </div>
                 </div>
                 
             </div>
@@ -250,13 +260,6 @@
                 <div id="todos-list" class="todos-list"></div>
             </div>
         </div>
-    </div>
-
-    <div class="save-frame">
-        <button id="settings-btn" class="btn-icon" title="Settings">
-            <i class="fas fa-cog"></i>
-        </button>
-        <button id="save-btn" class="btn btn-primary tour-step">Save</button>
     </div>
 
     <div id="notifications-container" class="notifications-container"></div>

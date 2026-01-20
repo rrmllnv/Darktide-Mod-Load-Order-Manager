@@ -9,7 +9,6 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-left: auto;
 }
 
 #developer-view-btn.active {
