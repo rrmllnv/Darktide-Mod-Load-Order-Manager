@@ -585,7 +585,20 @@ export class ModListComponent {
                 }
                 if (dateElement && result.createdDate) {
                     const date = new Date(result.createdDate);
-                    const formattedDate = date.toLocaleString('ru-RU', {
+                    const currentLocale = this.app.localeManager?.getCurrentLocale() || this.app.userConfig?.locale || 'en';
+                    const localeMap = {
+                        'ru': 'ru-RU',
+                        'en': 'en-US',
+                        'de': 'de-DE',
+                        'fr': 'fr-FR',
+                        'it': 'it-IT',
+                        'pt': 'pt-PT',
+                        'ko': 'ko-KR',
+                        'zh': 'zh-CN',
+                        'ja': 'ja-JP'
+                    };
+                    const locale = localeMap[currentLocale] || currentLocale;
+                    const formattedDate = date.toLocaleString(locale, {
                         year: 'numeric',
                         month: '2-digit',
                         day: '2-digit',
