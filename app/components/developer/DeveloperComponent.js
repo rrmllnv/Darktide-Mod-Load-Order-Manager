@@ -457,8 +457,17 @@ export class DeveloperComponent {
                     this.app.notificationComponent.show('success', this.app.t('messages.developer.modCopied', { modName: selectedMod.name }));
                 }
                 
+                const savedSelectedModName = this.app.selectedModName;
+                
                 if (this.app.modListComponent && this.app.modListComponent.scanAndUpdate) {
                     await this.app.modListComponent.scanAndUpdate();
+                }
+                
+                if (savedSelectedModName && this.app.modEntries.find(m => m.name === savedSelectedModName)) {
+                    this.app.selectedModName = savedSelectedModName;
+                    if (this.app.modListComponent) {
+                        this.app.modListComponent.updateModList();
+                    }
                 }
             } else {
                 if (this.app.notificationComponent) {
@@ -536,8 +545,17 @@ export class DeveloperComponent {
                     this.app.notificationComponent.show('success', this.app.t('messages.developer.symlinkCreated', { modName: selectedMod.name }));
                 }
                 
+                const savedSelectedModName = this.app.selectedModName;
+                
                 if (this.app.modListComponent && this.app.modListComponent.scanAndUpdate) {
                     await this.app.modListComponent.scanAndUpdate();
+                }
+                
+                if (savedSelectedModName && this.app.modEntries.find(m => m.name === savedSelectedModName)) {
+                    this.app.selectedModName = savedSelectedModName;
+                    if (this.app.modListComponent) {
+                        this.app.modListComponent.updateModList();
+                    }
                 }
             } else {
                 if (this.app.notificationComponent) {
