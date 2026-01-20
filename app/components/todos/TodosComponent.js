@@ -8,6 +8,7 @@ export class TodosComponent {
         this.showOnlyActive = false;
         this.editingTodoId = null;
         this.expandedTodos = new Set();
+        this.savingTodoId = null;
         
         this.lazyLoading = {
             loadedCount: 0,
@@ -741,6 +742,10 @@ export class TodosComponent {
     }
     
     async saveEdit(todoId, newText) {
+        if (this.savingTodoId === todoId) {
+            return;
+        }
+        
         if (!newText || !newText.trim()) {
             this.editingTodoId = null;
             this.renderTodos();
@@ -770,6 +775,7 @@ export class TodosComponent {
             return;
         }
         
+        this.savingTodoId = todoId;
         todo.text = newText.trim();
         
         const todosList = document.getElementById('todos-list');
@@ -826,6 +832,8 @@ export class TodosComponent {
             }
             this.editingTodoId = null;
             this.renderTodos();
+        } finally {
+            this.savingTodoId = null;
         }
     }
     
@@ -970,16 +978,28 @@ export class TodosComponent {
                 editInput.value = todo.text;
                 editInput.rows = 1;
                 
+                let isSaving = false;
+                
                 editInput.addEventListener('keydown', (e) => {
                     if (e.key === 'Enter' && !e.shiftKey) {
                         e.preventDefault();
-                        this.saveEdit(todo.id, editInput.value);
+                        if (!isSaving) {
+                            isSaving = true;
+                            this.saveEdit(todo.id, editInput.value).finally(() => {
+                                isSaving = false;
+                            });
+                        }
                     } else if (e.key === 'Escape') {
                         this.cancelEdit();
                     }
                 });
                 editInput.addEventListener('blur', () => {
-                    this.saveEdit(todo.id, editInput.value);
+                    if (!isSaving) {
+                        isSaving = true;
+                        this.saveEdit(todo.id, editInput.value).finally(() => {
+                            isSaving = false;
+                        });
+                    }
                 });
                 
                 todoItem.appendChild(editInput);
