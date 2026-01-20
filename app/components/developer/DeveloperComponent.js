@@ -568,7 +568,7 @@ export class DeveloperComponent {
             const result = await window.electronAPI.openFolder(this.app.userConfig.projectPath);
             if (result.success) {
                 if (this.app.notificationComponent) {
-                    this.app.notificationComponent.show('success', this.t('messages.developer.projectFolderOpened'));
+                    this.app.notificationComponent.show('info', this.t('messages.developer.projectFolderOpened'));
                 }
             } else if (result.error) {
                 if (this.app.notificationComponent) {
@@ -594,7 +594,7 @@ export class DeveloperComponent {
                 const openResult = await window.electronAPI.openFolder(result.path);
                 if (openResult.success) {
                     if (this.app.notificationComponent) {
-                        this.app.notificationComponent.show('success', this.t('messages.developer.consoleLogsOpened'));
+                        this.app.notificationComponent.show('info', this.t('messages.developer.consoleLogsOpened'));
                     }
                 } else if (openResult.error) {
                     if (this.app.notificationComponent) {
