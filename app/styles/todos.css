@@ -25,14 +25,13 @@
 .todos-filter-label {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 8px;
     font-size: 10pt;
     color: var(--text-primary);
-    cursor: pointer;
 }
 
-.todos-filter-label input[type="checkbox"] {
-    cursor: pointer;
+.todos-filter-label .switch-label {
+    font-size: 10pt;
 }
 
 .todos-input-wrapper {

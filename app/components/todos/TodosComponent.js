@@ -41,7 +41,7 @@ export class TodosComponent {
             todosLabel.textContent = this.t('ui.todos.todos');
         }
         
-        const filterLabel = document.querySelector('#todos-filter-active')?.parentElement?.querySelector('span');
+        const filterLabel = document.querySelector('#todos-filter-active')?.parentElement?.querySelector('.switch-label');
         if (filterLabel) {
             filterLabel.textContent = this.t('ui.todos.showOnlyActive');
         }
