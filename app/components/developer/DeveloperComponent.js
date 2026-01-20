@@ -1162,6 +1162,7 @@ export class DeveloperComponent {
             </div>
             <div id="backup-mods-list" class="backup-mods-list"></div>
         `;
+        backupList.classList.remove('backup-list-has-items');
         
         const modsList = document.getElementById('backup-mods-list');
         const searchInput = document.getElementById('backup-mod-search');
@@ -1231,6 +1232,7 @@ export class DeveloperComponent {
             backupCancelBtn.textContent = this.app.t('ui.common.cancel');
         }
         backupList.innerHTML = '';
+        backupList.classList.add('backup-list-has-items');
         
         backups.forEach(backup => {
             const backupItem = document.createElement('div');
