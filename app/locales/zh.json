@@ -247,6 +247,10 @@
             "profilesListSizeMinError": "最小值: {min}",
             "profilesListSizeMaxError": "最大值: {max}"
         },
+        "bulkOperations": {
+            "allModsAlreadyEnabled": "所有选中的模组已启用",
+            "allModsAlreadyDisabled": "所有选中的模组已禁用"
+        },
         "modList": {
             "scanNewMods": "发现新模组:",
             "scanRemovedMods": "未找到的模组已移除:",

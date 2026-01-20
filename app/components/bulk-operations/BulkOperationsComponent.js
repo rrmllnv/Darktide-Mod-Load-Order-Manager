@@ -102,6 +102,19 @@ export class BulkOperationsComponent {
             return;
         }
         
+        // Проверяем, все ли моды уже включены
+        const allAlreadyEnabled = selected.every(modName => {
+            const modEntry = this.app.modEntries.find(m => m.name === modName);
+            return modEntry && modEntry.enabled;
+        });
+        
+        if (allAlreadyEnabled) {
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('info', this.t('messages.bulkOperations.allModsAlreadyEnabled'));
+            }
+            return;
+        }
+        
         selected.forEach(modName => {
             const modEntry = this.app.modEntries.find(m => m.name === modName);
             if (modEntry) {
@@ -131,6 +144,19 @@ export class BulkOperationsComponent {
                 this.t('messages.common.info'),
                 this.t('ui.common.noModsSelected')
             );
+            return;
+        }
+        
+        // Проверяем, все ли моды уже выключены
+        const allAlreadyDisabled = selected.every(modName => {
+            const modEntry = this.app.modEntries.find(m => m.name === modName);
+            return modEntry && !modEntry.enabled;
+        });
+        
+        if (allAlreadyDisabled) {
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('info', this.t('messages.bulkOperations.allModsAlreadyDisabled'));
+            }
             return;
         }
         

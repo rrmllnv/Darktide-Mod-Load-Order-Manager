@@ -247,6 +247,10 @@
             "profilesListSizeMinError": "Valor mínimo: {min}",
             "profilesListSizeMaxError": "Valor máximo: {max}"
         },
+        "bulkOperations": {
+            "allModsAlreadyEnabled": "Todos os mods selecionados já estão habilitados",
+            "allModsAlreadyDisabled": "Todos os mods selecionados já estão desabilitados"
+        },
         "modList": {
             "scanNewMods": "Novos mods encontrados:",
             "scanRemovedMods": "Mods não encontrados removidos:",
