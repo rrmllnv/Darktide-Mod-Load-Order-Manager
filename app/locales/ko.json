@@ -144,7 +144,7 @@
             "launchDtkitPatch": "Darktide Mod Patcher 실행"
         },
         "todos": {
-            "todos": "할 일:",
+            "todos": "할 일",
             "showOnlyActive": "활성만 표시",
             "addNewTodo": "새 할 일 추가...",
             "noTodos": "할 일 없음",

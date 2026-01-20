@@ -144,7 +144,7 @@
             "launchDtkitPatch": "Darktide Mod Patcher を起動"
         },
         "todos": {
-            "todos": "タスク:",
+            "todos": "タスク",
             "showOnlyActive": "アクティブのみ表示",
             "addNewTodo": "新しいタスクを追加...",
             "noTodos": "タスクなし",

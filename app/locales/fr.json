@@ -144,7 +144,7 @@
             "launchDtkitPatch": "Lancer Darktide Mod Patcher"
         },
         "todos": {
-            "todos": "Tâches:",
+            "todos": "Tâches",
             "showOnlyActive": "Afficher uniquement les actives",
             "addNewTodo": "Ajouter une nouvelle tâche...",
             "noTodos": "Aucune tâche",

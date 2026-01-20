@@ -144,7 +144,7 @@
             "launchDtkitPatch": "启动 Darktide Mod Patcher"
         },
         "todos": {
-            "todos": "任务:",
+            "todos": "任务",
             "showOnlyActive": "仅显示活动",
             "addNewTodo": "添加新任务...",
             "noTodos": "无任务",

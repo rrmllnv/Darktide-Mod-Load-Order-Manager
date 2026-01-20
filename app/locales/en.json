@@ -144,7 +144,7 @@
             "launchDtkitPatch": "Launch Darktide Mod Patcher"
         },
         "todos": {
-            "todos": "Todos:",
+            "todos": "Todos",
             "showOnlyActive": "Show only active",
             "addNewTodo": "Add new todo...",
             "noTodos": "No todos",
