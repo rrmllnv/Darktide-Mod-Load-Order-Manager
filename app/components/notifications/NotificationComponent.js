@@ -58,7 +58,7 @@ export class NotificationComponent {
         const { id, type, message, duration, closable } = notificationData;
         
         const notification = this.createNotification(id, type, message, closable);
-        this.container.appendChild(notification.element);
+        // Элемент уже добавлен в DOM в createNotification
         
         this.notifications.set(id, {
             element: notification.element,
@@ -91,16 +91,31 @@ export class NotificationComponent {
         const icon = this.getIcon(type);
         const typeLabel = this.getTypeLabel(type);
         
+        // Создаем структуру через innerHTML (безопасно, так как иконки и тип контролируются нами)
         notification.innerHTML = `
             <div class="notification-content">
                 <div class="notification-icon">${icon}</div>
                 <div class="notification-text">
-                    <div class="notification-type">${typeLabel}</div>
-                    <div class="notification-message">${message}</div>
+                    <div class="notification-type"></div>
+                    <div class="notification-message"></div>
                 </div>
                 ${closable ? '<button class="notification-close" aria-label="Close">&times;</button>' : ''}
             </div>
         `;
+        
+        // ВАЖНО: Сначала добавляем в DOM (как в диалогах), потом устанавливаем textContent
+        // Это может влиять на обработку переносов строк браузером
+        this.container.appendChild(notification);
+        
+        // Устанавливаем текст через textContent для безопасности (защита от XSS)
+        const typeElement = notification.querySelector('.notification-type');
+        const messageElement = notification.querySelector('.notification-message');
+        if (typeElement) {
+            typeElement.textContent = typeLabel;
+        }
+        if (messageElement) {
+            messageElement.textContent = message;
+        }
         
         const closeButton = notification.querySelector('.notification-close');
         if (closeButton) {
