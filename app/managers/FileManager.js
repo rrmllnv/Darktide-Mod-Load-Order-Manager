@@ -175,14 +175,18 @@ export class FileManager {
             }
             await this.app.fileService.saveFile(this.app.filePath, this.app.headerLines, this.app.modEntries, sortedModEntries);
             
-            await this.app.uiManager.showMessage(this.app.t('messages.common.success'), this.app.t('messages.common.fileSaved'));
             this.app.setStatus(this.app.t('messages.common.fileSavedStatus'));
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('success', this.app.t('messages.common.fileSaved'));
+            }
             
             await this.loadFile();
             
         } catch (error) {
-            await this.app.uiManager.showMessage(this.app.t('messages.common.error'), `${this.app.t('messages.common.fileSaveError')}\n${error.message}`);
             this.app.setStatus(`${this.app.t('messages.common.saveError')} ${error.message}`);
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('error', `${this.app.t('messages.common.fileSaveError')}\n${error.message}`);
+            }
         }
     }
     
