@@ -41,5 +41,9 @@ contextBridge.exposeInMainWorld('electronAPI', {
   updateTodosFile: (todosDir, modName, todos) => ipcRenderer.invoke('update-todos-file', todosDir, modName, todos),
   copyModFolderToClipboard: (folderPath) => ipcRenderer.invoke('copy-mod-folder-to-clipboard', folderPath),
   getConsoleLogsPath: () => ipcRenderer.invoke('get-console-logs-path'),
-  renameMod: (projectPath, oldName, newName, todosDir) => ipcRenderer.invoke('rename-mod', projectPath, oldName, newName, todosDir)
+  renameMod: (projectPath, oldName, newName, todosDir) => ipcRenderer.invoke('rename-mod', projectPath, oldName, newName, todosDir),
+  checkModHasBackups: (modName) => ipcRenderer.invoke('check-mod-has-backups', modName),
+  checkModHasTodos: (modName) => ipcRenderer.invoke('check-mod-has-todos', modName),
+  deleteModBackups: (modName) => ipcRenderer.invoke('delete-mod-backups', modName),
+  deleteModTodos: (modName) => ipcRenderer.invoke('delete-mod-todos', modName)
 });

@@ -19,7 +19,18 @@ export class UIManager {
             
             const buttonText = this.app.t('ui.common.close');
             
+            const body = this.app.elements.messageDialog.querySelector('.modal-body');
             const footer = this.app.elements.messageDialog.querySelector('.modal-footer');
+            
+            if (body) {
+                body.innerHTML = '<div id="message-text" class="message-text"></div>';
+            }
+            
+            const messageTextElement = document.getElementById('message-text');
+            if (messageTextElement) {
+                this.app.elements.messageText = messageTextElement;
+            }
+            
             if (!footer.querySelector('#message-ok-btn')) {
                 footer.innerHTML = `<button id="message-ok-btn" class="btn btn-primary">${buttonText}</button>`;
                 this.app.elements.messageOkBtn = document.getElementById('message-ok-btn');
@@ -31,7 +42,11 @@ export class UIManager {
             }
             
             this.app.elements.messageTitle.textContent = title || this.app.t('ui.common.message');
-            this.app.elements.messageText.textContent = message;
+            if (this.app.elements.messageText) {
+                this.app.elements.messageText.textContent = message;
+            } else if (messageTextElement) {
+                messageTextElement.textContent = message;
+            }
             this.app.elements.messageDialog.classList.add('show');
             
             const newOkBtn = this.app.elements.messageOkBtn.cloneNode(true);
@@ -82,6 +97,75 @@ export class UIManager {
                 yesBtn.removeEventListener('click', handleYes);
                 noBtn.removeEventListener('click', handleNo);
                 resolve(false);
+            };
+            
+            yesBtn.addEventListener('click', handleYes);
+            noBtn.addEventListener('click', handleNo);
+        });
+    }
+    
+    showConfirmWithCheckboxes(message, checkboxes) {
+        return new Promise((resolve) => {
+            this.app.elements.messageTitle.textContent = this.app.t('ui.common.confirmation');
+            
+            const body = this.app.elements.messageDialog.querySelector('.modal-body');
+            const footer = this.app.elements.messageDialog.querySelector('.modal-footer');
+            
+            let messageHtml = `<div class="message-text">${message}</div>`;
+            messageHtml += '<div class="confirm-checkboxes">';
+            
+            const checkboxStates = {};
+            checkboxes.forEach((checkbox, index) => {
+                const checkboxId = `confirm-checkbox-${index}`;
+                checkboxStates[checkboxId] = { key: checkbox.key, checked: false };
+                messageHtml += `
+                    <label class="confirm-checkbox-label">
+                        <input type="checkbox" id="${checkboxId}" class="confirm-checkbox">
+                        <span>${checkbox.label}</span>
+                    </label>
+                `;
+            });
+            
+            messageHtml += '</div>';
+            body.innerHTML = messageHtml;
+            
+            footer.innerHTML = `
+                <button id="confirm-yes-btn" class="btn btn-primary">${this.app.t('ui.common.delete')}</button>
+                <button id="confirm-no-btn" class="btn">${this.app.t('ui.common.cancel')}</button>
+            `;
+            
+            this.app.elements.messageDialog.classList.add('show');
+            
+            const yesBtn = document.getElementById('confirm-yes-btn');
+            const noBtn = document.getElementById('confirm-no-btn');
+            
+            const handleYes = () => {
+                const result = {};
+                checkboxes.forEach((checkbox, index) => {
+                    const checkboxId = `confirm-checkbox-${index}`;
+                    const checkboxElement = document.getElementById(checkboxId);
+                    result[checkbox.key] = checkboxElement ? checkboxElement.checked : false;
+                });
+                
+                this.app.elements.messageDialog.classList.remove('show');
+                body.innerHTML = '<div id="message-text" class="message-text"></div>';
+                const saveText = this.app.t('ui.common.save');
+                footer.innerHTML = `<button id="message-ok-btn" class="btn btn-primary">${saveText}</button>`;
+                this.app.elements.messageOkBtn = document.getElementById('message-ok-btn');
+                yesBtn.removeEventListener('click', handleYes);
+                noBtn.removeEventListener('click', handleNo);
+                resolve(result);
+            };
+            
+            const handleNo = () => {
+                this.app.elements.messageDialog.classList.remove('show');
+                body.innerHTML = '<div id="message-text" class="message-text"></div>';
+                const saveText = this.app.t('ui.common.save');
+                footer.innerHTML = `<button id="message-ok-btn" class="btn btn-primary">${saveText}</button>`;
+                this.app.elements.messageOkBtn = document.getElementById('message-ok-btn');
+                yesBtn.removeEventListener('click', handleYes);
+                noBtn.removeEventListener('click', handleNo);
+                resolve(null);
             };
             
             yesBtn.addEventListener('click', handleYes);

@@ -937,6 +937,96 @@ ipcMain.handle('delete-folder', async (event, folderPath) => {
   }
 });
 
+ipcMain.handle('check-mod-has-backups', async (event, modName) => {
+  try {
+    if (!modName) {
+      return { success: false, error: 'Mod name is required' };
+    }
+    
+    const userDataDir = app.getPath('userData');
+    const modBackupsDir = path.join(userDataDir, 'Backups', 'ProjectMods', modName);
+    
+    if (!existsSync(modBackupsDir)) {
+      return { success: true, hasBackups: false, count: 0 };
+    }
+    
+    const entries = await fs.readdir(modBackupsDir, { withFileTypes: true });
+    const backupDirs = entries.filter(e => e.isDirectory());
+    
+    return { success: true, hasBackups: backupDirs.length > 0, count: backupDirs.length };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+});
+
+ipcMain.handle('check-mod-has-todos', async (event, modName) => {
+  try {
+    if (!modName) {
+      return { success: false, error: 'Mod name is required' };
+    }
+    
+    const userDataDir = app.getPath('userData');
+    const todosDir = path.join(userDataDir, 'Todos');
+    const todosPath = path.join(todosDir, `${modName}.json`);
+    
+    if (!existsSync(todosPath)) {
+      return { success: true, hasTodos: false, count: 0 };
+    }
+    
+    const content = await fs.readFile(todosPath, 'utf-8');
+    const data = JSON.parse(content);
+    const todos = Array.isArray(data) ? data : (data.todos || []);
+    
+    return { success: true, hasTodos: todos.length > 0, count: todos.length };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+});
+
+ipcMain.handle('delete-mod-backups', async (event, modName) => {
+  try {
+    if (!modName) {
+      return { success: false, error: 'Mod name is required' };
+    }
+    
+    const userDataDir = app.getPath('userData');
+    const modBackupsDir = path.join(userDataDir, 'Backups', 'ProjectMods', modName);
+    const metadataPath = getBackupsMetadataPath(modName);
+    
+    if (existsSync(modBackupsDir)) {
+      await deleteDirectory(modBackupsDir);
+    }
+    
+    if (existsSync(metadataPath)) {
+      await fs.unlink(metadataPath);
+    }
+    
+    return { success: true };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+});
+
+ipcMain.handle('delete-mod-todos', async (event, modName) => {
+  try {
+    if (!modName) {
+      return { success: false, error: 'Mod name is required' };
+    }
+    
+    const userDataDir = app.getPath('userData');
+    const todosDir = path.join(userDataDir, 'Todos');
+    const todosPath = path.join(todosDir, `${modName}.json`);
+    
+    if (existsSync(todosPath)) {
+      await fs.unlink(todosPath);
+    }
+    
+    return { success: true };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+});
+
 ipcMain.handle('get-todos-directory', async (event) => {
   try {
     const userDataDir = app.getPath('userData');

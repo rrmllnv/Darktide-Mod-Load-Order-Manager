@@ -800,6 +800,7 @@ export class DeveloperComponent {
     }
     
     async deleteModFolder(modName) {
+        const savedModName = modName;
         let projectPath = null;
         let modPath = null;
         
@@ -852,26 +853,86 @@ export class DeveloperComponent {
             return;
         }
         
-        if (this.app.uiManager && this.app.uiManager.showConfirm) {
-            const confirmed = await this.app.uiManager.showConfirm(
-                this.app.t('messages.developer.deleteModFolderConfirm', { modName, modPath })
-            );
-            if (!confirmed) {
-                return;
+        const backupsResult = await window.electronAPI.checkModHasBackups(modName);
+        const todosResult = await window.electronAPI.checkModHasTodos(modName);
+        
+        const hasBackups = backupsResult.success && backupsResult.hasBackups;
+        const hasTodos = todosResult.success && todosResult.hasTodos;
+        const backupsCount = backupsResult.success ? backupsResult.count : 0;
+        const todosCount = todosResult.success ? todosResult.count : 0;
+        
+        let deleteBackups = false;
+        let deleteTodos = false;
+        
+        if (hasBackups || hasTodos) {
+            const checkboxes = [];
+            if (hasBackups) {
+                checkboxes.push({
+                    key: 'deleteBackups',
+                    label: this.app.t('messages.developer.deleteModBackups', { count: backupsCount })
+                });
+            }
+            if (hasTodos) {
+                checkboxes.push({
+                    key: 'deleteTodos',
+                    label: this.app.t('messages.developer.deleteModTodos', { count: todosCount })
+                });
+            }
+            
+            if (this.app.uiManager && this.app.uiManager.showConfirmWithCheckboxes) {
+                const result = await this.app.uiManager.showConfirmWithCheckboxes(
+                    this.app.t('messages.developer.deleteModFolderConfirm', { modName, modPath }),
+                    checkboxes
+                );
+                if (!result) {
+                    return;
+                }
+                deleteBackups = result.deleteBackups || false;
+                deleteTodos = result.deleteTodos || false;
+            } else if (this.app.uiManager && this.app.uiManager.showConfirm) {
+                const confirmed = await this.app.uiManager.showConfirm(
+                    this.app.t('messages.developer.deleteModFolderConfirm', { modName, modPath })
+                );
+                if (!confirmed) {
+                    return;
+                }
+            }
+        } else {
+            if (this.app.uiManager && this.app.uiManager.showConfirm) {
+                const confirmed = await this.app.uiManager.showConfirm(
+                    this.app.t('messages.developer.deleteModFolderConfirm', { modName, modPath })
+                );
+                if (!confirmed) {
+                    return;
+                }
             }
         }
         
         try {
+            if (deleteBackups) {
+                const deleteBackupsResult = await window.electronAPI.deleteModBackups(modName);
+                if (!deleteBackupsResult.success) {
+                    console.error('Error deleting mod backups:', deleteBackupsResult.error);
+                }
+            }
+            
+            if (deleteTodos) {
+                const deleteTodosResult = await window.electronAPI.deleteModTodos(modName);
+                if (!deleteTodosResult.success) {
+                    console.error('Error deleting mod todos:', deleteTodosResult.error);
+                }
+            }
+            
             const deleteResult = await window.electronAPI.deleteFolder(modPath);
             
             console.log('Delete result:', deleteResult);
             
             if (deleteResult && deleteResult.success) {
                 if (this.app.uiManager && this.app.uiManager.showMessage) {
-                    await this.app.uiManager.showMessage(
-                        this.app.t('messages.common.success'),
-                        this.app.t('messages.developer.modFolderDeleted', { modName })
-                    );
+                    const successTitle = this.t('messages.common.success');
+                    const successMessage = this.t('messages.developer.modFolderDeleted', { modName: savedModName });
+                    
+                    await this.app.uiManager.showMessage(successTitle, successMessage);
                 }
                 
                 if (this.app.modScanService && this.app.modEntries) {
@@ -889,6 +950,10 @@ export class DeveloperComponent {
                     if (this.app.updateStatistics) {
                         this.app.updateStatistics();
                     }
+                }
+                
+                if (this.app.todosComponent && this.app.todosComponent.loadTodos) {
+                    await this.app.todosComponent.loadTodos();
                 }
             } else {
                 console.error('Delete folder error:', deleteResult.error);
