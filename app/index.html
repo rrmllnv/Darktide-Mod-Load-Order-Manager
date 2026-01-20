@@ -423,22 +423,39 @@
                     </div>
                     <div class="settings-content-section" id="settings-section-modList">
                         <div class="settings-section">
-                            <label class="settings-label">
-                                <input type="checkbox" id="settings-show-mod-size" />
-                                <span id="settings-show-mod-size-label">Display folder size</span>
-                            </label>
+                            <label class="settings-label" id="settings-folder-properties-label">Folder properties:</label>
+                            <div class="settings-checkbox-group">
+                                <label class="settings-label">
+                                    <input type="checkbox" id="settings-show-mod-size" />
+                                    <span id="settings-show-mod-size-label">Display folder size</span>
+                                </label>
+                                <label class="settings-label">
+                                    <input type="checkbox" id="settings-show-mod-date" />
+                                    <span id="settings-show-mod-date-label">Display folder creation date</span>
+                                </label>
+                                <label class="settings-label">
+                                    <input type="checkbox" id="settings-show-mod-files-count" />
+                                    <span id="settings-show-mod-files-count-label">Display files and folders count</span>
+                                </label>
+                            </div>
                         </div>
+                        <div class="settings-separator"></div>
                         <div class="settings-section">
-                            <label class="settings-label">
-                                <input type="checkbox" id="settings-show-mod-date" />
-                                <span id="settings-show-mod-date-label">Display folder creation date</span>
-                            </label>
-                        </div>
-                        <div class="settings-section">
-                            <label class="settings-label">
-                                <input type="checkbox" id="settings-show-mod-files-count" />
-                                <span id="settings-show-mod-files-count-label">Display files and folders count</span>
-                            </label>
+                            <label class="settings-label" id="settings-display-flags-label">Display flags:</label>
+                            <div class="settings-checkbox-group">
+                                <label class="settings-label">
+                                    <input type="checkbox" id="settings-show-mod-symlink-flag" />
+                                    <span id="settings-show-mod-symlink-flag-label">Display symlink flag</span>
+                                </label>
+                                <label class="settings-label">
+                                    <input type="checkbox" id="settings-show-mod-new-flag" />
+                                    <span id="settings-show-mod-new-flag-label">Display awaiting addition flag</span>
+                                </label>
+                                <label class="settings-label">
+                                    <input type="checkbox" id="settings-show-mod-not-found-flag" />
+                                    <span id="settings-show-mod-not-found-flag-label">Display not found flag</span>
+                                </label>
+                            </div>
                         </div>
                     </div>
                     <div class="settings-content-section" id="settings-section-search">

@@ -20,6 +20,9 @@ export class ConfigManager {
             showModSize: true,
             showModDate: true,
             showModFilesCount: true,
+            showModSymlinkFlag: true,
+            showModNewFlag: true,
+            showModNotFoundFlag: true,
             tourCompleted: false,
             browseTourCompleted: false,
             saveProfileHideNewMods: true,
@@ -83,6 +86,15 @@ export class ConfigManager {
             }
             if (this.app.userConfig.showModFilesCount !== undefined) {
                 this.app.userConfig.showModFilesCount = this.app.userConfig.showModFilesCount;
+            }
+            if (this.app.userConfig.showModSymlinkFlag !== undefined) {
+                this.app.userConfig.showModSymlinkFlag = this.app.userConfig.showModSymlinkFlag;
+            }
+            if (this.app.userConfig.showModNewFlag !== undefined) {
+                this.app.userConfig.showModNewFlag = this.app.userConfig.showModNewFlag;
+            }
+            if (this.app.userConfig.showModNotFoundFlag !== undefined) {
+                this.app.userConfig.showModNotFoundFlag = this.app.userConfig.showModNotFoundFlag;
             }
             if (this.app.todosShowOnlyActive !== undefined) {
                 this.app.userConfig.todosShowOnlyActive = this.app.todosShowOnlyActive;

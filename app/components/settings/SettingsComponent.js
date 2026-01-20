@@ -351,6 +351,21 @@ export class SettingsComponent {
         if (showModFilesCount) {
             showModFilesCount.checked = this.app.userConfig.showModFilesCount !== undefined ? this.app.userConfig.showModFilesCount : true;
         }
+        
+        const showModSymlinkFlag = document.getElementById('settings-show-mod-symlink-flag');
+        if (showModSymlinkFlag) {
+            showModSymlinkFlag.checked = this.app.userConfig.showModSymlinkFlag !== undefined ? this.app.userConfig.showModSymlinkFlag : true;
+        }
+        
+        const showModNewFlag = document.getElementById('settings-show-mod-new-flag');
+        if (showModNewFlag) {
+            showModNewFlag.checked = this.app.userConfig.showModNewFlag !== undefined ? this.app.userConfig.showModNewFlag : true;
+        }
+        
+        const showModNotFoundFlag = document.getElementById('settings-show-mod-not-found-flag');
+        if (showModNotFoundFlag) {
+            showModNotFoundFlag.checked = this.app.userConfig.showModNotFoundFlag !== undefined ? this.app.userConfig.showModNotFoundFlag : true;
+        }
     }
     
     saveSettingsFromForm() {
@@ -434,6 +449,21 @@ export class SettingsComponent {
         const showModFilesCount = document.getElementById('settings-show-mod-files-count');
         if (showModFilesCount) {
             this.app.userConfig.showModFilesCount = showModFilesCount.checked;
+        }
+        
+        const showModSymlinkFlag = document.getElementById('settings-show-mod-symlink-flag');
+        if (showModSymlinkFlag) {
+            this.app.userConfig.showModSymlinkFlag = showModSymlinkFlag.checked;
+        }
+        
+        const showModNewFlag = document.getElementById('settings-show-mod-new-flag');
+        if (showModNewFlag) {
+            this.app.userConfig.showModNewFlag = showModNewFlag.checked;
+        }
+        
+        const showModNotFoundFlag = document.getElementById('settings-show-mod-not-found-flag');
+        if (showModNotFoundFlag) {
+            this.app.userConfig.showModNotFoundFlag = showModNotFoundFlag.checked;
         }
         
         const profilesListSize = document.getElementById('settings-profiles-list-size');
@@ -579,6 +609,31 @@ export class SettingsComponent {
         const settingsShowModFilesCountLabel = document.getElementById('settings-show-mod-files-count-label');
         if (settingsShowModFilesCountLabel) {
             settingsShowModFilesCountLabel.textContent = this.t('ui.settings.showModFilesCount');
+        }
+        
+        const settingsShowModSymlinkFlagLabel = document.getElementById('settings-show-mod-symlink-flag-label');
+        if (settingsShowModSymlinkFlagLabel) {
+            settingsShowModSymlinkFlagLabel.textContent = this.t('ui.settings.showModSymlinkFlag');
+        }
+        
+        const settingsShowModNewFlagLabel = document.getElementById('settings-show-mod-new-flag-label');
+        if (settingsShowModNewFlagLabel) {
+            settingsShowModNewFlagLabel.textContent = this.t('ui.settings.showModNewFlag');
+        }
+        
+        const settingsShowModNotFoundFlagLabel = document.getElementById('settings-show-mod-not-found-flag-label');
+        if (settingsShowModNotFoundFlagLabel) {
+            settingsShowModNotFoundFlagLabel.textContent = this.t('ui.settings.showModNotFoundFlag');
+        }
+        
+        const settingsFolderPropertiesLabel = document.getElementById('settings-folder-properties-label');
+        if (settingsFolderPropertiesLabel) {
+            settingsFolderPropertiesLabel.textContent = this.t('ui.settings.folderProperties');
+        }
+        
+        const settingsDisplayFlagsLabel = document.getElementById('settings-display-flags-label');
+        if (settingsDisplayFlagsLabel) {
+            settingsDisplayFlagsLabel.textContent = this.t('ui.settings.displayFlags');
         }
         
         if (this.app.elements.settingsOkBtn) {

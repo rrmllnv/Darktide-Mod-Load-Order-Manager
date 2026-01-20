@@ -452,8 +452,12 @@ export class ModListComponent {
         modName.className = 'mod-name';
         modName.textContent = modEntry.name;
         
+        const showModSymlinkFlag = this.app.userConfig?.showModSymlinkFlag !== undefined ? this.app.userConfig.showModSymlinkFlag : true;
+        const showModNewFlag = this.app.userConfig?.showModNewFlag !== undefined ? this.app.userConfig.showModNewFlag : true;
+        const showModNotFoundFlag = this.app.userConfig?.showModNotFoundFlag !== undefined ? this.app.userConfig.showModNotFoundFlag : true;
+        
         let newLabel = null;
-        if (!isDeveloperViewMode && modEntry.isNew) {
+        if (!isDeveloperViewMode && modEntry.isNew && showModNewFlag) {
             newLabel = document.createElement('i');
             newLabel.className = 'mod-new-label fas fa-plus-circle';
             newLabel.style.color = 'var(--flag-new-color)';
@@ -461,7 +465,7 @@ export class ModListComponent {
         }
         
         let notFoundLabel = null;
-        if (!isDeveloperViewMode && modEntry.isNotFound) {
+        if (!isDeveloperViewMode && modEntry.isNotFound && showModNotFoundFlag) {
             notFoundLabel = document.createElement('i');
             notFoundLabel.className = 'mod-not-found-label fas fa-exclamation-triangle';
             notFoundLabel.style.color = 'var(--flag-not-found-color)';
@@ -469,7 +473,7 @@ export class ModListComponent {
         }
         
         let symlinkLabel = null;
-        if (modEntry.isSymlink) {
+        if (modEntry.isSymlink && showModSymlinkFlag) {
             symlinkLabel = document.createElement('i');
             symlinkLabel.className = 'mod-symlink-label fas fa-link';
             symlinkLabel.style.color = 'var(--flag-symlink-color)';
