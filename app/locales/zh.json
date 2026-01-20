@@ -187,7 +187,7 @@
             "info": "信息",
             "welcome": "欢迎",
             "fileSaved": "文件保存成功！",
-            "fileReloaded": "文件已重新加载。\n\n状态已从文件恢复。",
+            "fileReloaded": "文件已重新加载。\n状态已从文件恢复。",
             "fileSavedStatus": "文件已保存",
             "noModsToSave": "没有要保存的模组",
             "fileLoadError": "无法加载文件:",
