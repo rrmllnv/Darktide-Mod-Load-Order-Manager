@@ -282,6 +282,9 @@ export class TodosComponent {
                         ? this.app.userConfig.todosGroupByMod 
                         : true;
                     
+                    const searchText = this.app.searchComponent ? this.app.searchComponent.getSearchText() : '';
+                    const searchLower = searchText.trim().toLowerCase();
+                    
                     let processedTodos = [];
                     
                     if (groupByMod) {
@@ -303,7 +306,7 @@ export class TodosComponent {
                             });
                         });
                         
-                        const sortedMods = Object.keys(todosByMod).sort((a, b) => {
+                        let sortedMods = Object.keys(todosByMod).sort((a, b) => {
                             const todosA = todosByMod[a];
                             const todosB = todosByMod[b];
                             const dateA = todosA.length > 0 ? new Date(todosA[0].created || 0) : 0;
@@ -311,11 +314,26 @@ export class TodosComponent {
                             return dateB - dateA;
                         });
                         
+                        if (searchLower) {
+                            sortedMods = sortedMods.filter(modName => 
+                                modName.toLowerCase().includes(searchLower)
+                            );
+                        }
+                        
                         for (const modName of sortedMods) {
                             processedTodos.push(...todosByMod[modName]);
                         }
                     } else {
-                        processedTodos = allTodos.sort((a, b) => {
+                        let filteredTodos = allTodos;
+                        
+                        if (searchLower) {
+                            filteredTodos = allTodos.filter(todo => {
+                                const modName = (todo.modName || '').toLowerCase();
+                                return modName.includes(searchLower);
+                            });
+                        }
+                        
+                        processedTodos = filteredTodos.sort((a, b) => {
                             const dateA = new Date(a.created || 0);
                             const dateB = new Date(b.created || 0);
                             return dateB - dateA;

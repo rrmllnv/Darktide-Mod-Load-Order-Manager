@@ -70,6 +70,10 @@ export class SearchComponent {
             const searchText = this.app.elements.searchInput ? this.app.elements.searchInput.value : '';
             this.app.modListComponent.updateModList(searchText);
         }
+        
+        if (this.app.todosComponent && !this.app.selectedModName) {
+            this.app.todosComponent.loadTodos();
+        }
     }
     
     clearSearch() {
@@ -78,6 +82,9 @@ export class SearchComponent {
         }
         if (this.app.modListComponent) {
             this.app.modListComponent.updateModList();
+        }
+        if (this.app.todosComponent && !this.app.selectedModName) {
+            this.app.todosComponent.loadTodos();
         }
     }
     
