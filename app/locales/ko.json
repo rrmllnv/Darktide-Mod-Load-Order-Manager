@@ -78,7 +78,8 @@
             "renameProfile": "프로필 이름 변경",
             "deleteProfile": "프로필 삭제",
             "enterProfileName": "프로필 이름 입력",
-            "profileNamePlaceholder": "이름 입력..."
+            "profileNamePlaceholder": "이름 입력...",
+            "dragToReorder": "드래그하여 순서 변경"
         },
         "modList": {
             "flagNew": "추가 대기 중",

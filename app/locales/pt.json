@@ -78,7 +78,8 @@
             "renameProfile": "Renomear perfil",
             "deleteProfile": "Excluir perfil",
             "enterProfileName": "Digite o nome do perfil",
-            "profileNamePlaceholder": "Digite o nome..."
+            "profileNamePlaceholder": "Digite o nome...",
+            "dragToReorder": "Arrastar para reordenar"
         },
         "modList": {
             "flagNew": "Aguardando adição",

@@ -79,7 +79,8 @@
             "renameProfile": "Переименовать профиль",
             "deleteProfile": "Удалить профиль",
             "enterProfileName": "Введите имя профиля",
-            "profileNamePlaceholder": "Введите название..."
+            "profileNamePlaceholder": "Введите название...",
+            "dragToReorder": "Перетащите для изменения порядка"
         },
         "modList": {
             "flagNew": "Ожидает добавления",

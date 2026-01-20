@@ -78,7 +78,8 @@
             "renameProfile": "プロファイル名を変更",
             "deleteProfile": "プロファイルを削除",
             "enterProfileName": "プロファイル名を入力",
-            "profileNamePlaceholder": "名前を入力..."
+            "profileNamePlaceholder": "名前を入力...",
+            "dragToReorder": "ドラッグして並び替え"
         },
         "modList": {
             "flagNew": "追加待ち",

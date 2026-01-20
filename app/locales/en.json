@@ -79,7 +79,8 @@
             "renameProfile": "Rename profile",
             "deleteProfile": "Delete profile",
             "enterProfileName": "Enter profile name",
-            "profileNamePlaceholder": "Enter name..."
+            "profileNamePlaceholder": "Enter name...",
+            "dragToReorder": "Drag to reorder"
         },
         "modList": {
             "flagNew": "Awaiting addition",

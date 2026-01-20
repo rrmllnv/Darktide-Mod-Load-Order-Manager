@@ -30,6 +30,44 @@
     border-top: 2px solid var(--select-option-bg);
     border-left: 0;
     border-right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.custom-select-item-text {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.custom-select-item-drag {
+    width: 14px;
+    height: 14px;
+    min-width: 14px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    cursor: grab;
+    font-size: 12px;
+    flex-shrink: 0;
+    opacity: 0.6;
+    margin-left: 5px;
+}
+
+.custom-select-item:hover .custom-select-item-drag {
+    display: flex;
+}
+
+.custom-select-item-drag:active {
+    cursor: grabbing;
+}
+
+.custom-select-item-drag:hover {
+    color: var(--text-primary);
+    opacity: 1;
 }
 
 .custom-select-item:hover {

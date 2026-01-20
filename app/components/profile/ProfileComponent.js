@@ -496,8 +496,19 @@ export class ProfileComponent {
                     const item = document.createElement('li');
                     item.className = 'custom-select-item';
                     item.dataset.value = profileName;
-                    item.textContent = profileName;
                     item.draggable = true;
+                    
+                    const itemText = document.createElement('span');
+                    itemText.className = 'custom-select-item-text';
+                    itemText.textContent = profileName;
+                    
+                    const itemDrag = document.createElement('div');
+                    itemDrag.className = 'custom-select-item-drag';
+                    itemDrag.innerHTML = '<i class="fas fa-grip-vertical"></i>';
+                    itemDrag.title = this.t('ui.profile.dragToReorder') || this.t('ui.todos.dragToReorder') || 'Drag to reorder';
+                    
+                    item.appendChild(itemText);
+                    item.appendChild(itemDrag);
                     list.appendChild(item);
                     this.attachDragDrop(item, profileName);
                 });
