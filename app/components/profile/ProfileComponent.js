@@ -20,15 +20,9 @@ export class ProfileComponent {
         
         const size = this.app.userConfig?.profilesListSize || 6;
         
-        // Вычисляем высоту списка
-        // font-size: 8pt (0.667em), line-height по умолчанию ≈ 1.2-1.5
-        // padding каждого элемента: 5px сверху и снизу = 10px на элемент
-        // Высота одного элемента = line-height * font-size + padding-top + padding-bottom
-        // Для font-size 8pt (≈10.67px) и line-height 1.5: 10.67 * 1.5 = 16px
-        // С padding: 16px + 10px = 26px на элемент
-        // Но лучше использовать em для line-height и px для padding
-        // Высота = size * (1.5em + 10px), где 1.5em - это line-height
-        const height = `calc(${size} * 1.5em + ${size * 10}px)`;
+        // padding: 5px сверху + 7px снизу = 12px, border-top: 2px
+        // Итого на элемент: 1.5em (line-height) + 12px (padding) + 2px (border-top) = 1.5em + 14px
+        const height = `calc(${size} * 1.5em + ${size * 14}px)`;
         list.style.maxHeight = height;
         list.style.minHeight = height;
     }
@@ -190,6 +184,97 @@ export class ProfileComponent {
                 item.classList.remove('selected');
             }
         });
+    }
+    
+    attachDragDrop(item, profileName) {
+        const list = this.app.elements.profilesList?.querySelector('.custom-select-list');
+        if (!list) return;
+        
+        item.addEventListener('dragstart', (e) => {
+            item.classList.add('dragging');
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/plain', profileName);
+        });
+        
+        item.addEventListener('dragend', (e) => {
+            item.classList.remove('dragging');
+            list.querySelectorAll('.custom-select-item.drag-over').forEach(i => {
+                i.classList.remove('drag-over');
+            });
+        });
+        
+        item.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+            
+            const draggingItem = list.querySelector('.custom-select-item.dragging');
+            if (draggingItem && draggingItem !== item) {
+                const allItems = Array.from(list.querySelectorAll('.custom-select-item'));
+                const draggingIndex = allItems.indexOf(draggingItem);
+                const currentIndex = allItems.indexOf(item);
+                
+                allItems.forEach(i => i.classList.remove('drag-over'));
+                
+                if (draggingIndex !== currentIndex) {
+                    item.classList.add('drag-over');
+                }
+            }
+        });
+        
+        item.addEventListener('dragleave', (e) => {
+            item.classList.remove('drag-over');
+        });
+        
+        item.addEventListener('drop', async (e) => {
+            e.preventDefault();
+            item.classList.remove('drag-over');
+            
+            const draggedProfileName = e.dataTransfer.getData('text/plain');
+            if (!draggedProfileName || draggedProfileName === profileName) {
+                return;
+            }
+            
+            const allItems = Array.from(list.querySelectorAll('.custom-select-item'));
+            const draggedItem = allItems.find(i => i.dataset.value === draggedProfileName);
+            const targetItem = allItems.find(i => i.dataset.value === profileName);
+            
+            if (!draggedItem || !targetItem) {
+                return;
+            }
+            
+            const draggedIndex = allItems.indexOf(draggedItem);
+            const targetIndex = allItems.indexOf(targetItem);
+            
+            if (draggedIndex === -1 || targetIndex === -1 || draggedIndex === targetIndex) {
+                return;
+            }
+            
+            if (draggedIndex < targetIndex) {
+                targetItem.parentNode.insertBefore(draggedItem, targetItem.nextSibling);
+            } else {
+                targetItem.parentNode.insertBefore(draggedItem, targetItem);
+            }
+            
+            await this.updateProfilesOrder();
+        });
+    }
+    
+    async updateProfilesOrder() {
+        const list = this.app.elements.profilesList?.querySelector('.custom-select-list');
+        if (!list) return;
+        
+        const domOrder = Array.from(list.querySelectorAll('.custom-select-item'))
+            .map(i => i.dataset.value)
+            .filter(name => name);
+        
+        if (!this.app.userConfig) {
+            this.app.userConfig = {};
+        }
+        this.app.userConfig.profilesOrder = domOrder;
+        
+        if (this.app.configManager && this.app.configManager.saveUserConfig) {
+            await this.app.configManager.saveUserConfig();
+        }
     }
     
     async updateLocalization() {
@@ -397,15 +482,27 @@ export class ProfileComponent {
         try {
             const result = await window.electronAPI.listProfiles(this.profilesDir);
             if (result.success) {
-                result.profiles.forEach(profileName => {
+                let profiles = result.profiles;
+                
+                const savedOrder = this.app.userConfig?.profilesOrder || [];
+                if (savedOrder.length > 0) {
+                    const savedOrderSet = new Set(savedOrder);
+                    const savedProfiles = savedOrder.filter(name => profiles.includes(name));
+                    const newProfiles = profiles.filter(name => !savedOrderSet.has(name));
+                    profiles = [...savedProfiles, ...newProfiles];
+                }
+                
+                profiles.forEach(profileName => {
                     const item = document.createElement('li');
                     item.className = 'custom-select-item';
                     item.dataset.value = profileName;
                     item.textContent = profileName;
+                    item.draggable = true;
                     list.appendChild(item);
+                    this.attachDragDrop(item, profileName);
                 });
                 
-                if (previouslySelectedProfile && result.profiles.includes(previouslySelectedProfile)) {
+                if (previouslySelectedProfile && profiles.includes(previouslySelectedProfile)) {
                     this.selectedProfileName = previouslySelectedProfile;
                     this.app.selectedProfileName = previouslySelectedProfile;
                 } else {
@@ -462,6 +559,7 @@ export class ProfileComponent {
                 }
                 
                 await this.refreshProfilesList();
+                await this.updateProfilesOrder();
                 if (this.app.notificationComponent) {
                     this.app.notificationComponent.show('success', this.t('messages.profile.profileSaved', { profileName: cleanName }));
                 }
@@ -708,7 +806,17 @@ export class ProfileComponent {
                 return;
             }
             
+            if (!this.app.userConfig) {
+                this.app.userConfig = {};
+            }
+            if (this.app.userConfig.profilesOrder) {
+                const index = this.app.userConfig.profilesOrder.indexOf(profileName);
+                if (index !== -1) {
+                    this.app.userConfig.profilesOrder.splice(index, 1);
+                }
+            }
             await this.refreshProfilesList();
+            await this.updateProfilesOrder();
             if (this.app.notificationComponent) {
                 this.app.notificationComponent.show('success', this.t('messages.profile.profileDeleted', { profileName }));
             }

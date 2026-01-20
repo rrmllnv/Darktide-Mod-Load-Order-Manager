@@ -30,6 +30,7 @@ export class ConfigManager {
             saveProfileHideUnusedMods: true,
             saveProfileSort: true,
             profilesListSize: 6,
+            profilesOrder: [],
             developerMode: false,
             projectPath: '',
             developerViewMode: false,
@@ -104,6 +105,9 @@ export class ConfigManager {
             }
             if (this.app.rightPanelWidth !== undefined) {
                 this.app.userConfig.rightPanelWidth = this.app.rightPanelWidth;
+            }
+            if (this.app.userConfig.profilesOrder !== undefined) {
+                this.app.userConfig.profilesOrder = this.app.userConfig.profilesOrder;
             }
             
             const result = await window.electronAPI.saveUserConfig(this.app.userConfig);
