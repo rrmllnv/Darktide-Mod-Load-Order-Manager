@@ -348,7 +348,6 @@
     "status": {
         "common": {
             "total": "合計: {total} | 有効: {enabled} | 無効: {disabled}",
-            "totalWithNew": "合計: {total} | 有効: {enabled} | 無効: {disabled} | 新規: {newModsCount}",
             "developerTotal": "MOD合計: {total}",
             "newMods": "新規: {count}",
             "notFoundMods": "見つかりません: {count}",

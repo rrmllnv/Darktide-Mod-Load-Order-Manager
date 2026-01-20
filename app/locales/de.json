@@ -348,7 +348,6 @@
     "status": {
         "common": {
             "total": "Gesamt: {total} | Aktiviert: {enabled} | Deaktiviert: {disabled}",
-            "totalWithNew": "Gesamt: {total} | Aktiviert: {enabled} | Deaktiviert: {disabled} | Neu: {newModsCount}",
             "developerTotal": "Mods gesamt: {total}",
             "newMods": "Neu: {count}",
             "notFoundMods": "Nicht gefunden: {count}",
