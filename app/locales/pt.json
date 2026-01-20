@@ -243,6 +243,10 @@
             "deletedAll": "Tarefas excluídas: {count}",
             "noTodos": "Nenhuma tarefa"
         },
+        "settings": {
+            "profilesListSizeMinError": "Valor mínimo: {min}",
+            "profilesListSizeMaxError": "Valor máximo: {max}"
+        },
         "modList": {
             "scanNewMods": "Novos mods encontrados:",
             "scanRemovedMods": "Mods não encontrados removidos:",

@@ -243,6 +243,10 @@
             "deletedAll": "Attività eliminate: {count}",
             "noTodos": "Nessuna attività"
         },
+        "settings": {
+            "profilesListSizeMinError": "Valore minimo: {min}",
+            "profilesListSizeMaxError": "Valore massimo: {max}"
+        },
         "modList": {
             "scanNewMods": "Nuovi mod trovati:",
             "scanRemovedMods": "Mod non trovati rimossi:",

@@ -243,6 +243,10 @@
             "deletedAll": "삭제된 작업: {count}",
             "noTodos": "작업 없음"
         },
+        "settings": {
+            "profilesListSizeMinError": "최소값: {min}",
+            "profilesListSizeMaxError": "최대값: {max}"
+        },
         "modList": {
             "scanNewMods": "새 모드 발견:",
             "scanRemovedMods": "찾을 수 없는 모드 제거됨:",

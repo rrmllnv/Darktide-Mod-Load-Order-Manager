@@ -243,6 +243,10 @@
             "deletedAll": "削除されたタスク: {count}",
             "noTodos": "タスクなし"
         },
+        "settings": {
+            "profilesListSizeMinError": "最小値: {min}",
+            "profilesListSizeMaxError": "最大値: {max}"
+        },
         "modList": {
             "scanNewMods": "新しいMODが見つかりました:",
             "scanRemovedMods": "見つからないMODが削除されました:",

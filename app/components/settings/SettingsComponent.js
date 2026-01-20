@@ -23,6 +23,62 @@ export class SettingsComponent {
                 this.openSettings();
             });
         }
+        
+        // Валидация размера списка профилей
+        const profilesListSizeInput = document.getElementById('settings-profiles-list-size');
+        if (profilesListSizeInput) {
+            profilesListSizeInput.addEventListener('input', (e) => {
+                this.validateProfilesListSize(e.target);
+            });
+            
+            profilesListSizeInput.addEventListener('blur', (e) => {
+                this.validateProfilesListSize(e.target, true);
+            });
+        }
+    }
+    
+    validateProfilesListSize(input, onBlur = false) {
+        if (!input) return;
+        
+        const errorElement = document.getElementById('settings-profiles-list-size-error');
+        const value = parseInt(input.value, 10);
+        
+        if (isNaN(value) || value < 3) {
+            input.classList.add('settings-input-invalid');
+            if (errorElement) {
+                errorElement.textContent = this.t('messages.settings.profilesListSizeMinError', { min: 3 });
+                errorElement.style.display = 'block';
+            }
+            
+            // При потере фокуса автоматически исправляем значение
+            if (onBlur && value < 3) {
+                input.value = 3;
+                input.classList.remove('settings-input-invalid');
+                if (errorElement) {
+                    errorElement.style.display = 'none';
+                }
+            }
+        } else if (value > 20) {
+            input.classList.add('settings-input-invalid');
+            if (errorElement) {
+                errorElement.textContent = this.t('messages.settings.profilesListSizeMaxError', { max: 20 });
+                errorElement.style.display = 'block';
+            }
+            
+            // При потере фокуса автоматически исправляем значение
+            if (onBlur) {
+                input.value = 20;
+                input.classList.remove('settings-input-invalid');
+                if (errorElement) {
+                    errorElement.style.display = 'none';
+                }
+            }
+        } else {
+            input.classList.remove('settings-input-invalid');
+            if (errorElement) {
+                errorElement.style.display = 'none';
+            }
+        }
     }
     
     bindSectionSwitchers() {
@@ -207,6 +263,12 @@ export class SettingsComponent {
         const profilesListSize = document.getElementById('settings-profiles-list-size');
         if (profilesListSize) {
             profilesListSize.value = this.app.userConfig.profilesListSize !== undefined ? this.app.userConfig.profilesListSize : 6;
+            // Сбрасываем состояние ошибки при загрузке
+            profilesListSize.classList.remove('settings-input-invalid');
+            const errorElement = document.getElementById('settings-profiles-list-size-error');
+            if (errorElement) {
+                errorElement.style.display = 'none';
+            }
         }
         
         const developerMode = document.getElementById('settings-developer-mode-checkbox');

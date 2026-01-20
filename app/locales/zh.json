@@ -243,6 +243,10 @@
             "deletedAll": "已删除的任务: {count}",
             "noTodos": "无任务"
         },
+        "settings": {
+            "profilesListSizeMinError": "最小值: {min}",
+            "profilesListSizeMaxError": "最大值: {max}"
+        },
         "modList": {
             "scanNewMods": "发现新模组:",
             "scanRemovedMods": "未找到的模组已移除:",

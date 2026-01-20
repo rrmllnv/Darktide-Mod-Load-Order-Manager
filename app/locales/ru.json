@@ -247,6 +247,10 @@
             "deletedAll": "Удалено задач: {count}",
             "noTodos": "Нет задач"
         },
+        "settings": {
+            "profilesListSizeMinError": "Минимальное значение: {min}",
+            "profilesListSizeMaxError": "Максимальное значение: {max}"
+        },
         "modList": {
             "scanNewMods": "Найдено новых модов:",
             "scanRemovedMods": "Удалено не найденных модов:",

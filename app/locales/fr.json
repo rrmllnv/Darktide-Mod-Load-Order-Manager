@@ -243,6 +243,10 @@
             "deletedAll": "Tâches supprimées: {count}",
             "noTodos": "Aucune tâche"
         },
+        "settings": {
+            "profilesListSizeMinError": "Valeur minimale: {min}",
+            "profilesListSizeMaxError": "Valeur maximale: {max}"
+        },
         "modList": {
             "scanNewMods": "Nouveaux mods trouvés:",
             "scanRemovedMods": "Mods non trouvés supprimés:",

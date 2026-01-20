@@ -76,6 +76,11 @@
     color: var(--text-primary);
 }
 
+.settings-input-wrapper {
+    position: relative;
+    width: 100%;
+}
+
 .settings-input {
     width: 100%;
     padding: 8px;
@@ -85,6 +90,19 @@
     box-sizing: border-box;
     background-color: var(--input-bg);
     color: var(--text-primary);
+    transition: border-color 0.2s;
+}
+
+.settings-input-invalid {
+    border-color: var(--flag-not-found-color, #ff6b6b) !important;
+}
+
+.settings-input-error {
+    display: block;
+    margin-top: 4px;
+    font-size: 11px;
+    color: var(--flag-not-found-color, #ff6b6b);
+    line-height: 1.2;
 }
 
 .settings-label input[type="checkbox"] {
