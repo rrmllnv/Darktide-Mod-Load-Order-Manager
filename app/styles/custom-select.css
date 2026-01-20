@@ -74,7 +74,7 @@
 }
 
 .custom-select-item[draggable="true"] {
-    cursor: move;
+    cursor: pointer;
 }
 
 .custom-select-item.dragging {
