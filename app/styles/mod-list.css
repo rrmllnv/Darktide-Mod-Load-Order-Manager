@@ -36,7 +36,7 @@
 }
 
 .mod-item[draggable="true"] {
-    cursor: move;
+    cursor: pointer;
 }
 
 .mod-item.dragging {
