@@ -106,38 +106,38 @@ export class UIManager {
     
     showConfirmWithCheckboxes(message, checkboxes) {
         return new Promise((resolve) => {
-            this.app.elements.messageTitle.textContent = this.app.t('ui.common.confirmation');
+            const dialog = document.getElementById('confirm-checkboxes-dialog');
+            const title = document.getElementById('confirm-checkboxes-title');
+            const messageElement = document.getElementById('confirm-checkboxes-message');
+            const checkboxesList = document.getElementById('confirm-checkboxes-list');
+            const yesBtn = document.getElementById('confirm-checkboxes-yes-btn');
+            const noBtn = document.getElementById('confirm-checkboxes-no-btn');
             
-            const body = this.app.elements.messageDialog.querySelector('.modal-body');
-            const footer = this.app.elements.messageDialog.querySelector('.modal-footer');
+            if (!dialog || !title || !messageElement || !checkboxesList || !yesBtn || !noBtn) {
+                console.error('Confirm checkboxes dialog elements not found');
+                resolve(null);
+                return;
+            }
             
-            let messageHtml = `<div class="message-text">${message}</div>`;
-            messageHtml += '<div class="confirm-checkboxes">';
+            title.textContent = this.app.t('ui.common.confirmation');
+            messageElement.textContent = message;
             
-            const checkboxStates = {};
+            checkboxesList.innerHTML = '';
             checkboxes.forEach((checkbox, index) => {
                 const checkboxId = `confirm-checkbox-${index}`;
-                checkboxStates[checkboxId] = { key: checkbox.key, checked: false };
-                messageHtml += `
-                    <label class="confirm-checkbox-label">
-                        <input type="checkbox" id="${checkboxId}" class="confirm-checkbox">
-                        <span>${checkbox.label}</span>
-                    </label>
+                const label = document.createElement('label');
+                label.className = 'confirm-checkbox-label';
+                label.innerHTML = `
+                    <input type="checkbox" id="${checkboxId}" class="confirm-checkbox">
+                    <span>${checkbox.label}</span>
                 `;
+                checkboxesList.appendChild(label);
             });
             
-            messageHtml += '</div>';
-            body.innerHTML = messageHtml;
+            yesBtn.textContent = this.app.t('ui.common.delete');
+            noBtn.textContent = this.app.t('ui.common.cancel');
             
-            footer.innerHTML = `
-                <button id="confirm-yes-btn" class="btn btn-primary">${this.app.t('ui.common.delete')}</button>
-                <button id="confirm-no-btn" class="btn">${this.app.t('ui.common.cancel')}</button>
-            `;
-            
-            this.app.elements.messageDialog.classList.add('show');
-            
-            const yesBtn = document.getElementById('confirm-yes-btn');
-            const noBtn = document.getElementById('confirm-no-btn');
+            dialog.classList.add('show');
             
             const handleYes = () => {
                 const result = {};
@@ -147,22 +147,14 @@ export class UIManager {
                     result[checkbox.key] = checkboxElement ? checkboxElement.checked : false;
                 });
                 
-                this.app.elements.messageDialog.classList.remove('show');
-                body.innerHTML = '<div id="message-text" class="message-text"></div>';
-                const saveText = this.app.t('ui.common.save');
-                footer.innerHTML = `<button id="message-ok-btn" class="btn btn-primary">${saveText}</button>`;
-                this.app.elements.messageOkBtn = document.getElementById('message-ok-btn');
+                dialog.classList.remove('show');
                 yesBtn.removeEventListener('click', handleYes);
                 noBtn.removeEventListener('click', handleNo);
                 resolve(result);
             };
             
             const handleNo = () => {
-                this.app.elements.messageDialog.classList.remove('show');
-                body.innerHTML = '<div id="message-text" class="message-text"></div>';
-                const saveText = this.app.t('ui.common.save');
-                footer.innerHTML = `<button id="message-ok-btn" class="btn btn-primary">${saveText}</button>`;
-                this.app.elements.messageOkBtn = document.getElementById('message-ok-btn');
+                dialog.classList.remove('show');
                 yesBtn.removeEventListener('click', handleYes);
                 noBtn.removeEventListener('click', handleNo);
                 resolve(null);
