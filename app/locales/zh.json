@@ -377,5 +377,13 @@
                 "description": "对模组进行更改后，点击保存将它们写入 mod_load_order.txt 文件。不要忘记保存您的更改！"
             }
         }
+    },
+    "notifications": {
+        "types": {
+            "success": "成功",
+            "error": "错误",
+            "warning": "警告",
+            "info": "信息"
+        }
     }
 }

@@ -19,6 +19,7 @@ import { FileOperationsComponent } from './components/file-operations/FileOperat
 import { TourComponent } from './components/tour/TourComponent.js';
 import { DeveloperComponent } from './components/developer/DeveloperComponent.js';
 import { TodosComponent } from './components/todos/TodosComponent.js';
+import { NotificationComponent } from './components/notifications/NotificationComponent.js';
 
 class ModLoadOrderManager {
     constructor() {
@@ -66,6 +67,7 @@ class ModLoadOrderManager {
         this.tourComponent = new TourComponent(this);
         this.developerComponent = new DeveloperComponent(this);
         this.todosComponent = new TodosComponent(this);
+        this.notificationComponent = new NotificationComponent(this);
         
         this.init();
     }
@@ -171,6 +173,10 @@ class ModLoadOrderManager {
         
         if (this.profileComponent) {
             await this.profileComponent.init();
+        }
+        
+        if (this.notificationComponent) {
+            await this.notificationComponent.init();
         }
         
         this.modScanService = new ModScanService(this.filePath, (msg) => this.setStatus(msg), this);

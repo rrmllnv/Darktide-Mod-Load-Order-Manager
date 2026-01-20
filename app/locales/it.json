@@ -377,5 +377,13 @@
                 "description": "Dopo aver apportato modifiche ai tuoi mod, fai clic su Salva per scriverle nel file mod_load_order.txt. Non dimenticare di salvare le modifiche!"
             }
         }
+    },
+    "notifications": {
+        "types": {
+            "success": "Successo",
+            "error": "Errore",
+            "warning": "Avviso",
+            "info": "Informazione"
+        }
     }
 }

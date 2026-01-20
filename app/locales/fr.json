@@ -377,5 +377,13 @@
                 "description": "Après avoir apporté des modifications à vos mods, cliquez sur Enregistrer pour les écrire dans le fichier mod_load_order.txt. N'oubliez pas d'enregistrer vos modifications!"
             }
         }
+    },
+    "notifications": {
+        "types": {
+            "success": "Succès",
+            "error": "Erreur",
+            "warning": "Avertissement",
+            "info": "Information"
+        }
     }
 }

@@ -377,5 +377,13 @@
                 "description": "Nachdem Sie Änderungen an Ihren Mods vorgenommen haben, klicken Sie auf Speichern, um sie in die Datei mod_load_order.txt zu schreiben. Vergessen Sie nicht, Ihre Änderungen zu speichern!"
             }
         }
+    },
+    "notifications": {
+        "types": {
+            "success": "Erfolg",
+            "error": "Fehler",
+            "warning": "Warnung",
+            "info": "Information"
+        }
     }
 }

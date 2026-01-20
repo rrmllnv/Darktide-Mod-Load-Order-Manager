@@ -377,5 +377,13 @@
                 "description": "MODに変更を加えた後、保存をクリックして、それらを mod_load_order.txt ファイルに書き込みます。変更を保存することを忘れないでください！"
             }
         }
+    },
+    "notifications": {
+        "types": {
+            "success": "成功",
+            "error": "エラー",
+            "warning": "警告",
+            "info": "情報"
+        }
     }
 }
