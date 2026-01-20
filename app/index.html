@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="styles/settings.css">
     <link rel="stylesheet" href="styles/search.css">
     <link rel="stylesheet" href="styles/profile.css">
+    <link rel="stylesheet" href="styles/custom-select.css">
     <link rel="stylesheet" href="styles/todos.css">
     <link rel="stylesheet" href="styles/mod-list.css">
     <link rel="stylesheet" href="styles/file-operations.css">
@@ -208,7 +209,9 @@
 
             <div class="profiles-frame tour-step">
                 <label class="section-label">Profiles</label>
-                <select id="profiles-list" class="profiles-list" size="6"></select>
+                <div id="profiles-list" class="custom-select profiles-list-wrapper" tabindex="0">
+                    <ul class="custom-select-list profiles-list"></ul>
+                </div>
                 <div class="profile-buttons">
                     <button id="new-profile-btn" class="btn-icon" title="New profile">
                         <i class="fas fa-plus"></i>

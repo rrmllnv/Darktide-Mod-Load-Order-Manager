@@ -267,8 +267,8 @@ export class SettingsComponent {
                 this.app.userConfig.profilesListSize = 6;
             }
             
-            if (this.app.elements.profilesList) {
-                this.app.elements.profilesList.size = this.app.userConfig.profilesListSize;
+            if (this.app.profileComponent && typeof this.app.profileComponent.updateListSize === 'function') {
+                this.app.profileComponent.updateListSize();
             }
         }
         

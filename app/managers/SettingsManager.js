@@ -87,13 +87,8 @@ export class SettingsManager {
             this.applyTheme(this.app.userConfig.theme);
         }
         
-        if (this.app.elements.profilesList && this.app.userConfig.profilesListSize !== undefined) {
-            const sizeValue = parseInt(this.app.userConfig.profilesListSize, 10);
-            if (!isNaN(sizeValue) && sizeValue >= 3 && sizeValue <= 20) {
-                this.app.elements.profilesList.size = sizeValue;
-            } else {
-                this.app.elements.profilesList.size = 6;
-            }
+        if (this.app.profileComponent && typeof this.app.profileComponent.updateListSize === 'function') {
+            this.app.profileComponent.updateListSize();
         }
     }
     

@@ -1,0 +1,67 @@
+.custom-select {
+    position: relative;
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.custom-select-list {
+    width: 100%;
+    border: 1px solid var(--border-secondary);
+    border-radius: 3px;
+    font-size: 8pt;
+    padding: 0;
+    background-color: var(--select-bg);
+    color: var(--text-primary);
+    overflow-y: auto;
+    overflow-x: hidden;
+    list-style: none;
+    margin: 0;
+    max-height: calc(6 * 1.5em + 10px);
+    min-height: calc(6 * 1.5em + 10px);
+}
+
+.custom-select-item {
+    padding: 5px;
+    background-color: var(--select-option-bg);
+    color: var(--text-primary);
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.15s, color 0.15s;
+}
+
+.custom-select-item:hover {
+    background-color: var(--bg-hover);
+}
+
+.custom-select-item.selected {
+    background-color: var(--bg-selected) !important;
+    color: var(--select-option-selected-text, var(--text-primary)) !important;
+}
+
+.custom-select-item.selected:hover {
+    background-color: var(--bg-selected) !important;
+    color: var(--select-option-selected-text, var(--text-primary)) !important;
+}
+
+.custom-select:focus-within .custom-select-list {
+    outline: 2px solid var(--btn-primary-bg);
+    outline-offset: -2px;
+    border-color: var(--btn-primary-bg);
+}
+
+.custom-select-list::-webkit-scrollbar {
+    width: 4px;
+}
+
+.custom-select-list::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+}
+
+.custom-select-list::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 2px;
+}
+
+.custom-select-list::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover);
+}

@@ -11,6 +11,26 @@ export class ProfileComponent {
         await this.updateLocalization();
         await this.initProfilesDirectory();
         this.bindEvents();
+        this.updateListSize();
+    }
+    
+    updateListSize() {
+        const list = this.app.elements.profilesList?.querySelector('.custom-select-list');
+        if (!list) return;
+        
+        const size = this.app.userConfig?.profilesListSize || 6;
+        
+        // Вычисляем высоту списка
+        // font-size: 8pt (0.667em), line-height по умолчанию ≈ 1.2-1.5
+        // padding каждого элемента: 5px сверху и снизу = 10px на элемент
+        // Высота одного элемента = line-height * font-size + padding-top + padding-bottom
+        // Для font-size 8pt (≈10.67px) и line-height 1.5: 10.67 * 1.5 = 16px
+        // С padding: 16px + 10px = 26px на элемент
+        // Но лучше использовать em для line-height и px для padding
+        // Высота = size * (1.5em + 10px), где 1.5em - это line-height
+        const height = `calc(${size} * 1.5em + ${size * 10}px)`;
+        list.style.maxHeight = height;
+        list.style.minHeight = height;
     }
     
     t(key, params = {}) {
@@ -50,14 +70,7 @@ export class ProfileComponent {
     
     bindEvents() {
         if (this.app.elements.profilesList) {
-            this.app.elements.profilesList.addEventListener('change', () => {
-                this.onProfileSelectionChange();
-            });
-            
-            this.app.elements.profilesList.addEventListener('blur', () => {
-                this.onProfileListBlur();
-            });
-            
+            this.setupCustomSelect();
         }
         
         if (this.app.elements.newProfileBtn) {
@@ -91,28 +104,90 @@ export class ProfileComponent {
         }
     }
     
-    onProfileSelectionChange() {
-        const selectedOption = this.app.elements.profilesList.options[this.app.elements.profilesList.selectedIndex];
-        if (selectedOption) {
-            this.selectedProfileName = selectedOption.value;
-            this.app.selectedProfileName = selectedOption.value;
-        } else {
-            this.selectedProfileName = null;
-            this.app.selectedProfileName = null;
+    setupCustomSelect() {
+        const selectContainer = this.app.elements.profilesList;
+        if (!selectContainer) return;
+        
+        // Проверяем, не установлены ли уже обработчики
+        if (selectContainer.dataset.customSelectInitialized === 'true') {
+            return;
         }
-        this.updateProfileListStyles();
+        
+        const list = selectContainer.querySelector('.custom-select-list');
+        if (!list) return;
+        
+        // Используем делегирование событий для кликов
+        list.addEventListener('click', (e) => {
+            const item = e.target.closest('.custom-select-item');
+            if (item && item.dataset.value) {
+                e.stopPropagation();
+                this.selectProfile(item.dataset.value);
+            }
+        });
+        
+        // Клавиатурная навигация
+        selectContainer.addEventListener('keydown', (e) => {
+            const items = Array.from(list.querySelectorAll('.custom-select-item'));
+            if (items.length === 0) return;
+            
+            const selectedItem = list.querySelector('.custom-select-item.selected');
+            let currentIndex = selectedItem ? items.indexOf(selectedItem) : -1;
+            
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                currentIndex = (currentIndex + 1) % items.length;
+                this.selectProfile(items[currentIndex].dataset.value);
+                items[currentIndex].scrollIntoView({ block: 'nearest' });
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                currentIndex = currentIndex <= 0 ? items.length - 1 : currentIndex - 1;
+                this.selectProfile(items[currentIndex].dataset.value);
+                items[currentIndex].scrollIntoView({ block: 'nearest' });
+            } else if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                if (selectedItem) {
+                    this.selectProfile(selectedItem.dataset.value);
+                } else if (items.length > 0) {
+                    this.selectProfile(items[0].dataset.value);
+                }
+            }
+        });
+        
+        // Фокус
+        selectContainer.addEventListener('focus', () => {
+            selectContainer.classList.add('focused');
+        });
+        
+        selectContainer.addEventListener('blur', () => {
+            selectContainer.classList.remove('focused');
+        });
+        
+        // Помечаем, что обработчики установлены
+        selectContainer.dataset.customSelectInitialized = 'true';
     }
     
-    onProfileListBlur() {
+    selectProfile(profileName) {
+        if (!profileName) return;
+        
+        this.selectedProfileName = profileName;
+        this.app.selectedProfileName = profileName;
         this.updateProfileListStyles();
+        
+        // Эмулируем событие change для совместимости
+        const event = new Event('change', { bubbles: true });
+        this.app.elements.profilesList.dispatchEvent(event);
     }
     
     updateProfileListStyles() {
-        Array.from(this.app.elements.profilesList.options).forEach(option => {
-            if (option.value === this.selectedProfileName) {
-                option.classList.add('selected-no-focus');
+        const list = this.app.elements.profilesList?.querySelector('.custom-select-list');
+        if (!list) return;
+        
+        const items = list.querySelectorAll('.custom-select-item');
+        items.forEach(item => {
+            if (item.dataset.value === this.selectedProfileName) {
+                item.classList.add('selected');
             } else {
-                option.classList.remove('selected-no-focus');
+                item.classList.remove('selected');
             }
         });
     }
@@ -309,7 +384,11 @@ export class ProfileComponent {
         }
         
         const previouslySelectedProfile = this.selectedProfileName;
-        this.app.elements.profilesList.innerHTML = '';
+        const list = this.app.elements.profilesList?.querySelector('.custom-select-list');
+        
+        if (!list) return;
+        
+        list.innerHTML = '';
         
         if (!this.profilesDir) {
             return;
@@ -319,18 +398,17 @@ export class ProfileComponent {
             const result = await window.electronAPI.listProfiles(this.profilesDir);
             if (result.success) {
                 result.profiles.forEach(profileName => {
-                    const option = document.createElement('option');
-                    option.value = profileName;
-                    option.textContent = profileName;
-                    this.app.elements.profilesList.appendChild(option);
+                    const item = document.createElement('li');
+                    item.className = 'custom-select-item';
+                    item.dataset.value = profileName;
+                    item.textContent = profileName;
+                    list.appendChild(item);
                 });
                 
                 if (previouslySelectedProfile && result.profiles.includes(previouslySelectedProfile)) {
-                    this.app.elements.profilesList.value = previouslySelectedProfile;
                     this.selectedProfileName = previouslySelectedProfile;
                     this.app.selectedProfileName = previouslySelectedProfile;
                 } else {
-                    this.app.elements.profilesList.selectedIndex = -1;
                     this.selectedProfileName = null;
                     this.app.selectedProfileName = null;
                 }
@@ -395,13 +473,12 @@ export class ProfileComponent {
             return;
         }
         
-        const selectedIndex = this.app.elements.profilesList.selectedIndex;
-        if (selectedIndex === -1) {
+        if (!this.selectedProfileName) {
             await this.app.uiManager.showMessage(this.app.t('messages.common.error'), this.t('messages.profile.selectProfileFromList'));
             return;
         }
         
-        const profileName = this.app.elements.profilesList.options[selectedIndex].value;
+        const profileName = this.selectedProfileName;
         
         try {
             const result = await window.electronAPI.loadProfile(this.profilesDir, profileName);
@@ -461,13 +538,12 @@ export class ProfileComponent {
             return;
         }
         
-        const selectedIndex = this.app.elements.profilesList.selectedIndex;
-        if (selectedIndex === -1) {
+        if (!this.selectedProfileName) {
             await this.app.uiManager.showMessage(this.app.t('messages.common.error'), this.t('messages.profile.selectProfileFromList'));
             return;
         }
         
-        const oldProfileName = this.app.elements.profilesList.options[selectedIndex].value;
+        const oldProfileName = this.selectedProfileName;
         
         if (!this.app.modalManager) {
             console.error('ModalManager not initialized');
@@ -514,13 +590,12 @@ export class ProfileComponent {
             return;
         }
         
-        const selectedIndex = this.app.elements.profilesList.selectedIndex;
-        if (selectedIndex === -1) {
+        if (!this.selectedProfileName) {
             await this.app.uiManager.showMessage(this.app.t('messages.common.error'), this.t('messages.profile.selectProfileToOverwrite'));
             return;
         }
         
-        const profileName = this.app.elements.profilesList.options[selectedIndex].value;
+        const profileName = this.selectedProfileName;
         
         const confirmed = await this.app.uiManager.showConfirm(this.t('messages.profile.overwriteProfileConfirm', { profileName }));
         if (!confirmed) {
@@ -552,13 +627,12 @@ export class ProfileComponent {
             return;
         }
         
-        const selectedIndex = this.app.elements.profilesList.selectedIndex;
-        if (selectedIndex === -1) {
+        if (!this.selectedProfileName) {
             await this.app.uiManager.showMessage(this.app.t('messages.common.error'), this.t('messages.profile.selectProfileFromList'));
             return;
         }
         
-        const profileName = this.app.elements.profilesList.options[selectedIndex].value;
+        const profileName = this.selectedProfileName;
         
         const confirmed = await this.app.uiManager.showConfirm(this.t('messages.profile.deleteProfileConfirm', { profileName }));
         if (!confirmed) {
