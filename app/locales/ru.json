@@ -375,7 +375,8 @@
             "copyError": "Ошибка при копировании",
             "modDeleted": "Мод '{modName}' удален. Не забудьте сохранить файл.",
             "modEnabled": "Мод '{modName}' включен",
-            "modDisabled": "Мод '{modName}' выключен"
+            "modDisabled": "Мод '{modName}' выключен",
+            "modEnabledNotFound": "Мод '{modName}' включен, но не найден в папке модов"
         }
     },
     "tour": {

@@ -371,7 +371,8 @@
             "copyError": "Erreur de copie",
             "modDeleted": "Mod '{modName}' supprimé. N'oubliez pas de sauvegarder le fichier.",
             "modEnabled": "Mod '{modName}' activé",
-            "modDisabled": "Mod '{modName}' désactivé"
+            "modDisabled": "Mod '{modName}' désactivé",
+            "modEnabledNotFound": "Mod '{modName}' activé, mais introuvable dans le dossier des mods"
         }
     },
     "tour": {

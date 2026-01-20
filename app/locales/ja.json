@@ -371,7 +371,8 @@
             "copyError": "コピーエラー",
             "modDeleted": "MOD '{modName}'削除. ファイルを保存することを忘れないでください。",
             "modEnabled": "MOD '{modName}'有効",
-            "modDisabled": "MOD '{modName}'無効"
+            "modDisabled": "MOD '{modName}'無効",
+            "modEnabledNotFound": "MOD '{modName}'有効ですが、MODフォルダに見つかりません"
         }
     },
     "tour": {

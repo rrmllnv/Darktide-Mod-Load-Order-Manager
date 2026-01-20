@@ -5,7 +5,7 @@ export class NotificationComponent {
         this.notifications = new Map();
         this.notificationQueue = [];
         this.notificationIdCounter = 0;
-        this.defaultDuration = 3000;
+        this.defaultDuration = 5000;
         this.maxNotifications = 5;
     }
     

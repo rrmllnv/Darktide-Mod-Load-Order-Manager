@@ -296,7 +296,11 @@ export class ModListComponent {
         
         if (this.app.notificationComponent && modEntry) {
             if (modEntry.enabled) {
-                this.app.notificationComponent.show('success', this.t('status.modList.modEnabled', { modName }));
+                if (modEntry.isNotFound) {
+                    this.app.notificationComponent.show('warning', this.t('status.modList.modEnabledNotFound', { modName }));
+                } else {
+                    this.app.notificationComponent.show('success', this.t('status.modList.modEnabled', { modName }));
+                }
             } else {
                 this.app.notificationComponent.show('success', this.t('status.modList.modDisabled', { modName }));
             }
@@ -721,7 +725,11 @@ export class ModListComponent {
             }
             
             if (this.app.notificationComponent) {
-                this.app.notificationComponent.show('success', this.t('status.modList.modEnabled', { modName }));
+                if (modEntry.isNotFound) {
+                    this.app.notificationComponent.show('warning', this.t('status.modList.modEnabledNotFound', { modName }));
+                } else {
+                    this.app.notificationComponent.show('success', this.t('status.modList.modEnabled', { modName }));
+                }
             }
         }
     }
