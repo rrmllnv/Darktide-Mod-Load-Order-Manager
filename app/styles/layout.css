@@ -45,8 +45,8 @@
 }
 
 .button-frame #save-btn {
-    min-height: 35px;
-    padding: 8px 15px;
+    min-height: 28px;
+    padding: 6px 12px;
 }
 
 .header-label {
@@ -136,15 +136,15 @@
 
 .sort-combo {
     width: 160px;
-    padding: 8px;
+    padding: 6px;
     margin-right: 2px;
     border: 1px solid var(--border-secondary);
     border-radius: 3px;
     background-color: var(--select-bg);
     cursor: pointer;
-    font-size: 13px;
+    font-size: 11px;
     transition: background-color 0.2s;
-    min-height: 35px;
+    min-height: 28px;
     box-sizing: border-box;
     color: var(--text-primary);
 }

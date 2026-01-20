@@ -34,17 +34,17 @@
 
 .btn-icon {
     width: 100%;
-    padding: 8px;
+    padding: 6px;
     border: 1px solid var(--border-secondary);
     border-radius: 3px;
     background-color: var(--btn-bg);
     cursor: pointer;
-    font-size: 14px;
+    font-size: 12px;
     transition: background-color 0.2s;
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 35px;
+    min-height: 28px;
     color: var(--text-primary);
 }
 
@@ -62,7 +62,7 @@
 }
 
 .btn-icon i {
-    font-size: 16px;
+    font-size: 14px;
     color: var(--text-primary);
 }
 
