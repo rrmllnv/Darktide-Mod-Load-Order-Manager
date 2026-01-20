@@ -259,7 +259,7 @@
             "consoleLogsPathError": "Impossible d'obtenir le chemin des journaux de la console.",
             "renameModTitle": "Renommer le mod",
             "renameModPrompt": "Entrez le nouveau nom pour le mod '{modName}':",
-            "renameModConfirm": "Renommer le mod '{oldName}' en '{newName}'?\n\nCela renommera le dossier du mod, les fichiers, les sauvegardes et les todos.",
+            "renameModConfirm": "Renommer le mod '{oldName}' en '{newName}'?\n\nCela renommera le dossier du mod, les fichiers et les chemins.",
             "modRenamed": "Mod '{oldName}' renommé en '{newName}' avec succès!",
             "modRenameError": "Échec du renommage du mod.",
             "modNameAlreadyExists": "Un mod avec le nom '{modName}' existe déjà.",

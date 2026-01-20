@@ -259,7 +259,7 @@
             "consoleLogsPathError": "コンソールログのパスを取得できませんでした。",
             "renameModTitle": "MODの名前を変更",
             "renameModPrompt": "MOD '{modName}'の新しい名前を入力してください:",
-            "renameModConfirm": "MOD '{oldName}'を '{newName}'に名前を変更しますか?\n\nこれにより、MODフォルダ、ファイル、バックアップ、およびTodoが名前変更されます。",
+            "renameModConfirm": "MOD '{oldName}'を '{newName}'に名前を変更しますか?\n\nこれにより、MODフォルダ、ファイル、およびパスが名前変更されます。",
             "modRenamed": "MOD '{oldName}'が '{newName}'に正常に名前変更されました!",
             "modRenameError": "MODの名前変更に失敗しました。",
             "modNameAlreadyExists": "名前 '{modName}'のMODは既に存在します。",

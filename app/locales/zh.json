@@ -259,7 +259,7 @@
             "consoleLogsPathError": "无法获取控制台日志路径。",
             "renameModTitle": "重命名模组",
             "renameModPrompt": "输入模组 '{modName}' 的新名称:",
-            "renameModConfirm": "将模组 '{oldName}' 重命名为 '{newName}'?\n\n这将重命名模组文件夹、文件、备份和待办事项。",
+            "renameModConfirm": "将模组 '{oldName}' 重命名为 '{newName}'?\n\n这将重命名模组文件夹、文件和路径。",
             "modRenamed": "模组 '{oldName}' 已成功重命名为 '{newName}'!",
             "modRenameError": "重命名模组失败。",
             "modNameAlreadyExists": "名为 '{modName}' 的模组已存在。",

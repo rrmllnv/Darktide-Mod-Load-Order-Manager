@@ -263,7 +263,7 @@
             "consoleLogsPathError": "Не удалось получить путь к консольным логам.",
             "renameModTitle": "Переименовать мод",
             "renameModPrompt": "Введите новое имя для мода '{modName}':",
-            "renameModConfirm": "Переименовать мод '{oldName}' в '{newName}'?\n\nЭто переименует папку мода, файлы, бекапы и задачи.",
+            "renameModConfirm": "Переименовать мод '{oldName}' в '{newName}'?\n\nЭто переименует папку мода, файлы и пути.",
             "modRenamed": "Мод '{oldName}' успешно переименован в '{newName}'!",
             "modRenameError": "Не удалось переименовать мод.",
             "modNameAlreadyExists": "Мод с именем '{modName}' уже существует.",

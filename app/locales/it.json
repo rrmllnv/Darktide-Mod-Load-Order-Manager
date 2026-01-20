@@ -259,7 +259,7 @@
             "consoleLogsPathError": "Impossibile ottenere il percorso dei log della console.",
             "renameModTitle": "Rinomina mod",
             "renameModPrompt": "Inserisci il nuovo nome per il mod '{modName}':",
-            "renameModConfirm": "Rinominare il mod '{oldName}' in '{newName}'?\n\nQuesto rinominerà la cartella del mod, i file, i backup e i todos.",
+            "renameModConfirm": "Rinominare il mod '{oldName}' in '{newName}'?\n\nQuesto rinominerà la cartella del mod, i file e i percorsi.",
             "modRenamed": "Mod '{oldName}' rinominato in '{newName}' con successo!",
             "modRenameError": "Impossibile rinominare il mod.",
             "modNameAlreadyExists": "Un mod con il nome '{modName}' esiste già.",

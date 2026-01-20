@@ -259,7 +259,7 @@
             "consoleLogsPathError": "콘솔 로그 경로를 가져오는데 실패했습니다.",
             "renameModTitle": "모드 이름 변경",
             "renameModPrompt": "모드 '{modName}'의 새 이름을 입력하세요:",
-            "renameModConfirm": "모드 '{oldName}'을(를) '{newName}'(으)로 이름을 변경하시겠습니까?\n\n이렇게 하면 모드 폴더, 파일, 백업 및 할 일이 이름이 변경됩니다.",
+            "renameModConfirm": "모드 '{oldName}'을(를) '{newName}'(으)로 이름을 변경하시겠습니까?\n\n이렇게 하면 모드 폴더, 파일 및 경로가 이름이 변경됩니다.",
             "modRenamed": "모드 '{oldName}'이(가) '{newName}'(으)로 성공적으로 이름이 변경되었습니다!",
             "modRenameError": "모드 이름 변경에 실패했습니다.",
             "modNameAlreadyExists": "이름이 '{modName}'인 모드가 이미 존재합니다.",

@@ -259,7 +259,7 @@
             "consoleLogsPathError": "Konsolenprotokoll-Pfad konnte nicht abgerufen werden.",
             "renameModTitle": "Mod umbenennen",
             "renameModPrompt": "Geben Sie den neuen Namen für Mod '{modName}' ein:",
-            "renameModConfirm": "Mod '{oldName}' in '{newName}' umbenennen?\n\nDies benennt den Mod-Ordner, Dateien, Backups und Todos um.",
+            "renameModConfirm": "Mod '{oldName}' in '{newName}' umbenennen?\n\nDies benennt den Mod-Ordner, Dateien und Pfade um.",
             "modRenamed": "Mod '{oldName}' erfolgreich in '{newName}' umbenannt!",
             "modRenameError": "Mod konnte nicht umbenannt werden.",
             "modNameAlreadyExists": "Mod mit dem Namen '{modName}' existiert bereits.",

@@ -263,7 +263,7 @@
             "consoleLogsPathError": "Failed to get console logs path.",
             "renameModTitle": "Rename mod",
             "renameModPrompt": "Enter new name for mod '{modName}':",
-            "renameModConfirm": "Rename mod '{oldName}' to '{newName}'?\n\nThis will rename the mod folder, files, backups, and todos.",
+            "renameModConfirm": "Rename mod '{oldName}' to '{newName}'?\n\nThis will rename the mod folder, files, and paths.",
             "modRenamed": "Mod '{oldName}' renamed to '{newName}' successfully!",
             "modRenameError": "Failed to rename mod.",
             "modNameAlreadyExists": "Mod with name '{modName}' already exists.",
