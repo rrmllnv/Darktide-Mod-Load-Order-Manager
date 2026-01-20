@@ -95,10 +95,9 @@ export class BulkOperationsComponent {
     async bulkEnable() {
         const selected = Array.from(this.app.selectedModNames);
         if (selected.length === 0) {
-            await this.app.uiManager.showMessage(
-                this.t('messages.common.info'),
-                this.t('ui.common.noModsSelected')
-            );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('warning', this.t('ui.common.noModsSelected'));
+            }
             return;
         }
         
@@ -143,10 +142,9 @@ export class BulkOperationsComponent {
     async bulkDisable() {
         const selected = Array.from(this.app.selectedModNames);
         if (selected.length === 0) {
-            await this.app.uiManager.showMessage(
-                this.t('messages.common.info'),
-                this.t('ui.common.noModsSelected')
-            );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('warning', this.t('ui.common.noModsSelected'));
+            }
             return;
         }
         
@@ -191,10 +189,9 @@ export class BulkOperationsComponent {
     async bulkDelete() {
         const selected = Array.from(this.app.selectedModNames);
         if (selected.length === 0) {
-            await this.app.uiManager.showMessage(
-                this.t('messages.common.info'),
-                this.t('ui.common.noModsSelected')
-            );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('warning', this.t('ui.common.noModsSelected'));
+            }
             return;
         }
         
