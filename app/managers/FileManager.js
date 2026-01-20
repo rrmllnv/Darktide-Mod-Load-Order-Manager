@@ -201,10 +201,9 @@ export class FileManager {
     async addModFolder() {
         const modsDir = this.app.filePath ? this.app.filePath.substring(0, this.app.filePath.lastIndexOf('\\')) : '';
         if (!modsDir) {
-            await this.app.uiManager.showMessage(
-                this.app.t('messages.common.error'),
-                this.app.t('messages.common.failedToDetermineModsDir')
-            );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('error', this.app.t('messages.common.failedToDetermineModsDir'));
+            }
             return;
         }
         
@@ -218,10 +217,9 @@ export class FileManager {
         
         const isDirectory = await window.electronAPI.checkIsDirectory(selectedFolder);
         if (!isDirectory) {
-            await this.app.uiManager.showMessage(
-                this.app.t('messages.common.error'),
-                this.app.t('messages.common.dragDropNotFolder') || 'Select a folder, not a file'
-            );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('error', this.app.t('messages.common.dragDropNotFolder') || 'Select a folder, not a file');
+            }
             return;
         }
         
@@ -229,23 +227,21 @@ export class FileManager {
             const copyResult = await window.electronAPI.copyFolderToMods(selectedFolder, modsDir);
             
             if (copyResult.success) {
-                await this.app.uiManager.showMessage(
-                    this.app.t('messages.common.success'),
-                    (this.app.t('messages.common.folderCopied') || 'Folder copied: {folderName}').replace('{folderName}', copyResult.folderName)
-                );
+                const message = (this.app.t('messages.common.folderCopied') || 'Folder copied: {folderName}').replace('{folderName}', copyResult.folderName);
+                if (this.app.notificationComponent) {
+                    this.app.notificationComponent.show('success', message);
+                }
                 
                 await this.app.modListComponent.scanAndUpdate();
             } else {
-                await this.app.uiManager.showMessage(
-                    this.app.t('messages.common.error'),
-                    copyResult.error || (this.app.t('messages.common.folderCopyError') || 'Error copying folder')
-                );
+                if (this.app.notificationComponent) {
+                    this.app.notificationComponent.show('error', copyResult.error || (this.app.t('messages.common.folderCopyError') || 'Error copying folder'));
+                }
             }
         } catch (error) {
-            await this.app.uiManager.showMessage(
-                this.app.t('messages.common.error'),
-                error.message || (this.app.t('messages.common.folderCopyError') || 'Error copying folder')
-            );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('error', error.message || (this.app.t('messages.common.folderCopyError') || 'Error copying folder'));
+            }
         }
     }
     
