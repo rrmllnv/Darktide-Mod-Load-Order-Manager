@@ -201,21 +201,68 @@ export class TodosComponent {
             return;
         }
         
+        const todosList = document.getElementById('todos-list');
+        let savedScrollTop = 0;
+        let savedFirstVisibleId = null;
+        let savedLoadedCount = this.lazyLoading.loadedCount;
+        const previousModName = this.currentModName;
+        
+        if (todosList) {
+            savedScrollTop = todosList.scrollTop;
+            
+            const firstVisibleItem = Array.from(todosList.querySelectorAll('.todo-item')).find(item => {
+                const rect = item.getBoundingClientRect();
+                const listRect = todosList.getBoundingClientRect();
+                return rect.top >= listRect.top && rect.top <= listRect.bottom;
+            });
+            if (firstVisibleItem) {
+                savedFirstVisibleId = firstVisibleItem.getAttribute('data-todo-id');
+            }
+        }
+        
         const modName = this.app.selectedModName || '';
+        const modChanged = previousModName !== modName;
         
         this.updateSortLabel();
         
         if (modName) {
             this.currentModName = modName;
-            await this.loadTodosLazy(modName, 0, this.lazyLoading.batchSize);
+            if (modChanged) {
+                await this.loadTodosLazy(modName, 0, this.lazyLoading.batchSize);
+            } else {
+                const targetLimit = savedLoadedCount > 0 ? savedLoadedCount : this.lazyLoading.batchSize;
+                await this.loadTodosLazy(modName, 0, targetLimit);
+            }
             this.setupLazyLoading();
         } else {
             this.currentModName = null;
-            await this.loadAllTodosLazy(0, this.lazyLoading.batchSize);
+            if (modChanged) {
+                await this.loadAllTodosLazy(0, this.lazyLoading.batchSize);
+            } else {
+                const targetLimit = savedLoadedCount > 0 ? savedLoadedCount : this.lazyLoading.batchSize;
+                await this.loadAllTodosLazy(0, targetLimit);
+            }
             this.setupLazyLoading();
         }
         
         this.renderTodos();
+        
+        if (todosList) {
+            if (modChanged) {
+                requestAnimationFrame(() => {
+                    todosList.scrollTop = 0;
+                });
+            } else if (savedFirstVisibleId) {
+                requestAnimationFrame(() => {
+                    const targetItem = todosList.querySelector(`[data-todo-id="${savedFirstVisibleId}"]`);
+                    if (targetItem) {
+                        targetItem.scrollIntoView({ behavior: 'auto', block: 'start' });
+                    } else if (savedScrollTop > 0 && savedScrollTop < todosList.scrollHeight) {
+                        todosList.scrollTop = savedScrollTop;
+                    }
+                });
+            }
+        }
     }
     
     async loadTodosLazy(modName, offset = 0, limit = 100) {
@@ -348,9 +395,15 @@ export class TodosComponent {
                 }
             }
             
-            const todosToAdd = this.allTodos.slice(offset, offset + limit);
-            this.todos = this.allTodos.slice(0, offset + todosToAdd.length);
-            this.lazyLoading.loadedCount = this.todos.length;
+            if (offset === 0) {
+                const displayCount = Math.min(limit, this.allTodos.length);
+                this.todos = this.allTodos.slice(0, displayCount);
+                this.lazyLoading.loadedCount = this.todos.length;
+            } else {
+                const todosToAdd = this.allTodos.slice(offset, offset + limit);
+                this.todos = this.allTodos.slice(0, offset + todosToAdd.length);
+                this.lazyLoading.loadedCount = this.todos.length;
+            }
         } catch (error) {
             console.error('Error loading all todos:', error);
             if (offset === 0) {
@@ -888,8 +941,68 @@ export class TodosComponent {
     }
     
     async onModSelectionChanged() {
+        const todosList = document.getElementById('todos-list');
+        let savedScrollTop = 0;
+        let savedFirstVisibleId = null;
+        let savedLoadedCount = this.lazyLoading.loadedCount;
+        const previousModName = this.currentModName;
+        
+        if (todosList) {
+            savedScrollTop = todosList.scrollTop;
+            
+            const firstVisibleItem = Array.from(todosList.querySelectorAll('.todo-item')).find(item => {
+                const rect = item.getBoundingClientRect();
+                const listRect = todosList.getBoundingClientRect();
+                return rect.top >= listRect.top && rect.top <= listRect.bottom;
+            });
+            if (firstVisibleItem) {
+                savedFirstVisibleId = firstVisibleItem.getAttribute('data-todo-id');
+            }
+        }
+        
         this.updateSortLabel();
-        await this.loadTodos();
+        
+        const modName = this.app.selectedModName || '';
+        const modChanged = previousModName !== modName;
+        
+        if (modName) {
+            this.currentModName = modName;
+            if (modChanged) {
+                await this.loadTodosLazy(modName, 0, this.lazyLoading.batchSize);
+            } else {
+                const targetLimit = savedLoadedCount > 0 ? savedLoadedCount : this.lazyLoading.batchSize;
+                await this.loadTodosLazy(modName, 0, targetLimit);
+            }
+            this.setupLazyLoading();
+        } else {
+            this.currentModName = null;
+            if (modChanged) {
+                await this.loadAllTodosLazy(0, this.lazyLoading.batchSize);
+            } else {
+                const targetLimit = savedLoadedCount > 0 ? savedLoadedCount : this.lazyLoading.batchSize;
+                await this.loadAllTodosLazy(0, targetLimit);
+            }
+            this.setupLazyLoading();
+        }
+        
+        this.renderTodos();
+        
+        if (todosList) {
+            if (modChanged) {
+                requestAnimationFrame(() => {
+                    todosList.scrollTop = 0;
+                });
+            } else if (savedFirstVisibleId) {
+                requestAnimationFrame(() => {
+                    const targetItem = todosList.querySelector(`[data-todo-id="${savedFirstVisibleId}"]`);
+                    if (targetItem) {
+                        targetItem.scrollIntoView({ behavior: 'auto', block: 'start' });
+                    } else if (savedScrollTop > 0 && savedScrollTop < todosList.scrollHeight) {
+                        todosList.scrollTop = savedScrollTop;
+                    }
+                });
+            }
+        }
     }
     
     attachDragDrop(todoItem, todo, index) {

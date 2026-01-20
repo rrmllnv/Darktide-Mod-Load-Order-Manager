@@ -354,6 +354,8 @@ export class ModListComponent {
     }
     
     clearSelection() {
+        const hadSelectedMod = this.app.selectedModName && this.app.selectedModName !== '';
+        
         this.app.selectedModNames.clear();
         this.app.selectedModName = '';
         this.app.lastSelectedModIndex = -1;
@@ -367,7 +369,7 @@ export class ModListComponent {
             this.app.updateStatistics();
         }
         
-        if (this.app.todosComponent && this.app.todosComponent.onModSelectionChanged) {
+        if (this.app.todosComponent && this.app.todosComponent.onModSelectionChanged && hadSelectedMod) {
             this.app.todosComponent.onModSelectionChanged();
         }
     }
