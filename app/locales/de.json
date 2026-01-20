@@ -150,7 +150,10 @@
             "dragToReorder": "Zum Sortieren ziehen",
             "customOrder": "Benutzerdefinierte Reihenfolge",
             "recentFirst": "Neue zuerst",
-            "pleaseSelectMod": "Bitte wählen Sie zuerst einen Mod aus"
+            "pleaseSelectMod": "Bitte wählen Sie zuerst einen Mod aus",
+            "reopenAll": "Alle erneut öffnen",
+            "completeAll": "Alle abschließen",
+            "deleteAll": "Alle löschen"
         },
         "developer": {
             "tools": "Entwicklertools",
@@ -229,7 +232,16 @@
             "confirmDelete": "Sind Sie sicher, dass Sie diese Aufgabe löschen möchten?",
             "failedToAddTodo": "Aufgabe hinzufügen fehlgeschlagen: {error}",
             "failedToUpdateTodo": "Aufgabe aktualisieren fehlgeschlagen: {error}",
-            "failedToDeleteTodo": "Aufgabe löschen fehlgeschlagen: {error}"
+            "failedToDeleteTodo": "Aufgabe löschen fehlgeschlagen: {error}",
+            "noCompletedTodos": "Keine abgeschlossenen Aufgaben zum erneuten Öffnen",
+            "reopenAllConfirm": "Alle abgeschlossenen Aufgaben erneut öffnen ({count} Stück)?",
+            "reopenedAll": "Erneut geöffnete Aufgaben: {count}",
+            "noActiveTodos": "Keine aktiven Aufgaben zum Abschließen",
+            "completeAllConfirm": "Alle aktiven Aufgaben abschließen ({count} Stück)?",
+            "completedAll": "Abgeschlossene Aufgaben: {count}",
+            "deleteAllConfirm": "Alle Aufgaben für Mod '{modName}' löschen ({count} Stück)?\n\nDiese Aktion kann nicht rückgängig gemacht werden!",
+            "deletedAll": "Gelöschte Aufgaben: {count}",
+            "noTodos": "Keine Aufgaben"
         },
         "modList": {
             "scanNewMods": "Neue Mods gefunden:",

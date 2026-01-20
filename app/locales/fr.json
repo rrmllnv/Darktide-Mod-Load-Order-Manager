@@ -150,7 +150,10 @@
             "dragToReorder": "Glisser pour réorganiser",
             "customOrder": "Ordre personnalisé",
             "recentFirst": "Nouveaux en premier",
-            "pleaseSelectMod": "Veuillez d'abord sélectionner un mod"
+            "pleaseSelectMod": "Veuillez d'abord sélectionner un mod",
+            "reopenAll": "Rouvrir tout",
+            "completeAll": "Tout compléter",
+            "deleteAll": "Tout supprimer"
         },
         "developer": {
             "tools": "Outils développeur",
@@ -229,7 +232,16 @@
             "confirmDelete": "Êtes-vous sûr de vouloir supprimer cette tâche?",
             "failedToAddTodo": "Échec de l'ajout de la tâche: {error}",
             "failedToUpdateTodo": "Échec de la mise à jour de la tâche: {error}",
-            "failedToDeleteTodo": "Échec de la suppression de la tâche: {error}"
+            "failedToDeleteTodo": "Échec de la suppression de la tâche: {error}",
+            "noCompletedTodos": "Aucune tâche terminée à rouvrir",
+            "reopenAllConfirm": "Rouvrir toutes les tâches terminées ({count} éléments)?",
+            "reopenedAll": "Tâches rouvertes: {count}",
+            "noActiveTodos": "Aucune tâche active à compléter",
+            "completeAllConfirm": "Compléter toutes les tâches actives ({count} éléments)?",
+            "completedAll": "Tâches complétées: {count}",
+            "deleteAllConfirm": "Supprimer toutes les tâches du mod '{modName}' ({count} éléments)?\n\nCette action ne peut pas être annulée!",
+            "deletedAll": "Tâches supprimées: {count}",
+            "noTodos": "Aucune tâche"
         },
         "modList": {
             "scanNewMods": "Nouveaux mods trouvés:",

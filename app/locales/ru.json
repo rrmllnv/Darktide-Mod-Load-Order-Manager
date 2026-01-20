@@ -150,7 +150,10 @@
             "dragToReorder": "Перетащите для изменения порядка",
             "customOrder": "Пользовательский порядок",
             "recentFirst": "Сначала новые",
-            "pleaseSelectMod": "Пожалуйста, сначала выберите мод"
+            "pleaseSelectMod": "Пожалуйста, сначала выберите мод",
+            "reopenAll": "Открыть заново все",
+            "completeAll": "Закрыть все",
+            "deleteAll": "Удалить все"
         },
         "developer": {
             "tools": "Инструменты разработчика",
@@ -233,7 +236,16 @@
             "confirmDelete": "Вы уверены, что хотите удалить эту задачу?",
             "failedToAddTodo": "Не удалось добавить задачу: {error}",
             "failedToUpdateTodo": "Не удалось обновить задачу: {error}",
-            "failedToDeleteTodo": "Не удалось удалить задачу: {error}"
+            "failedToDeleteTodo": "Не удалось удалить задачу: {error}",
+            "noCompletedTodos": "Нет закрытых задач для открытия",
+            "reopenAllConfirm": "Открыть заново все закрытые задачи ({count} шт.)?",
+            "reopenedAll": "Открыто заново задач: {count}",
+            "noActiveTodos": "Нет активных задач для закрытия",
+            "completeAllConfirm": "Закрыть все активные задачи ({count} шт.)?",
+            "completedAll": "Закрыто задач: {count}",
+            "deleteAllConfirm": "Удалить все задачи мода '{modName}' ({count} шт.)?\n\nЭто действие нельзя отменить!",
+            "deletedAll": "Удалено задач: {count}",
+            "noTodos": "Нет задач"
         },
         "modList": {
             "scanNewMods": "Найдено новых модов:",

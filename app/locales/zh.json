@@ -150,7 +150,10 @@
             "dragToReorder": "拖拽以重新排序",
             "customOrder": "自定义顺序",
             "recentFirst": "新的优先",
-            "pleaseSelectMod": "请先选择一个模组"
+            "pleaseSelectMod": "请先选择一个模组",
+            "reopenAll": "重新打开全部",
+            "completeAll": "完成全部",
+            "deleteAll": "删除全部"
         },
         "developer": {
             "tools": "开发者工具",
@@ -229,7 +232,16 @@
             "confirmDelete": "您确定要删除此任务吗?",
             "failedToAddTodo": "添加任务失败: {error}",
             "failedToUpdateTodo": "更新任务失败: {error}",
-            "failedToDeleteTodo": "删除任务失败: {error}"
+            "failedToDeleteTodo": "删除任务失败: {error}",
+            "noCompletedTodos": "没有已完成的任务可重新打开",
+            "reopenAllConfirm": "重新打开所有已完成的任务 ({count} 项)?",
+            "reopenedAll": "重新打开的任务: {count}",
+            "noActiveTodos": "没有活动任务可完成",
+            "completeAllConfirm": "完成所有活动任务 ({count} 项)?",
+            "completedAll": "已完成的任务: {count}",
+            "deleteAllConfirm": "删除模组 '{modName}' 的所有任务 ({count} 项)?\n\n此操作无法撤销!",
+            "deletedAll": "已删除的任务: {count}",
+            "noTodos": "无任务"
         },
         "modList": {
             "scanNewMods": "发现新模组:",

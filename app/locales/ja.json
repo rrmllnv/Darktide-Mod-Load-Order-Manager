@@ -150,7 +150,10 @@
             "dragToReorder": "ドラッグして並び替え",
             "customOrder": "カスタム順序",
             "recentFirst": "新しいものを最初に",
-            "pleaseSelectMod": "まずMODを選択してください"
+            "pleaseSelectMod": "まずMODを選択してください",
+            "reopenAll": "すべて再開",
+            "completeAll": "すべて完了",
+            "deleteAll": "すべて削除"
         },
         "developer": {
             "tools": "開発者ツール",
@@ -229,7 +232,16 @@
             "confirmDelete": "このタスクを削除してもよろしいですか?",
             "failedToAddTodo": "タスクの追加に失敗しました: {error}",
             "failedToUpdateTodo": "タスクの更新に失敗しました: {error}",
-            "failedToDeleteTodo": "タスクの削除に失敗しました: {error}"
+            "failedToDeleteTodo": "タスクの削除に失敗しました: {error}",
+            "noCompletedTodos": "再開する完了済みタスクがありません",
+            "reopenAllConfirm": "すべての完了済みタスクを再開しますか ({count}個)?",
+            "reopenedAll": "再開されたタスク: {count}",
+            "noActiveTodos": "完了するアクティブなタスクがありません",
+            "completeAllConfirm": "すべてのアクティブなタスクを完了しますか ({count}個)?",
+            "completedAll": "完了したタスク: {count}",
+            "deleteAllConfirm": "MOD '{modName}'のすべてのタスクを削除しますか ({count}個)?\n\nこの操作は元に戻せません!",
+            "deletedAll": "削除されたタスク: {count}",
+            "noTodos": "タスクなし"
         },
         "modList": {
             "scanNewMods": "新しいMODが見つかりました:",

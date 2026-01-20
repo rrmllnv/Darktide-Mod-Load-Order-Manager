@@ -150,7 +150,10 @@
             "dragToReorder": "Arrastar para reordenar",
             "customOrder": "Ordem personalizada",
             "recentFirst": "Novos primeiro",
-            "pleaseSelectMod": "Por favor, selecione um mod primeiro"
+            "pleaseSelectMod": "Por favor, selecione um mod primeiro",
+            "reopenAll": "Reabrir todos",
+            "completeAll": "Completar todos",
+            "deleteAll": "Excluir todos"
         },
         "developer": {
             "tools": "Ferramentas de desenvolvedor",
@@ -229,7 +232,16 @@
             "confirmDelete": "Tem certeza de que deseja excluir esta tarefa?",
             "failedToAddTodo": "Falha ao adicionar tarefa: {error}",
             "failedToUpdateTodo": "Falha ao atualizar tarefa: {error}",
-            "failedToDeleteTodo": "Falha ao excluir tarefa: {error}"
+            "failedToDeleteTodo": "Falha ao excluir tarefa: {error}",
+            "noCompletedTodos": "Nenhuma tarefa concluída para reabrir",
+            "reopenAllConfirm": "Reabrir todas as tarefas concluídas ({count} itens)?",
+            "reopenedAll": "Tarefas reabertas: {count}",
+            "noActiveTodos": "Nenhuma tarefa ativa para completar",
+            "completeAllConfirm": "Completar todas as tarefas ativas ({count} itens)?",
+            "completedAll": "Tarefas concluídas: {count}",
+            "deleteAllConfirm": "Excluir todas as tarefas do mod '{modName}' ({count} itens)?\n\nEsta ação não pode ser desfeita!",
+            "deletedAll": "Tarefas excluídas: {count}",
+            "noTodos": "Nenhuma tarefa"
         },
         "modList": {
             "scanNewMods": "Novos mods encontrados:",

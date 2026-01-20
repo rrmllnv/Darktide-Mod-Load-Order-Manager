@@ -896,8 +896,45 @@ export class TodosComponent {
             if (showModHeader) {
                 const modHeader = document.createElement('div');
                 modHeader.className = 'todo-mod-header';
-                modHeader.textContent = todoModName;
+                modHeader.setAttribute('data-mod-name', todoModName);
+                
+                const modHeaderText = document.createElement('span');
+                modHeaderText.className = 'todo-mod-header-text';
+                modHeaderText.textContent = todoModName;
+                modHeader.appendChild(modHeaderText);
+                
+                const modHeaderActions = document.createElement('div');
+                modHeaderActions.className = 'todo-mod-header-actions';
+                
+                const reopenAllBtn = document.createElement('button');
+                reopenAllBtn.className = 'todo-mod-action-btn';
+                reopenAllBtn.setAttribute('data-action', 'reopen-all');
+                reopenAllBtn.setAttribute('data-mod-name', todoModName);
+                reopenAllBtn.title = this.t('ui.todos.reopenAll');
+                reopenAllBtn.innerHTML = '<i class="fas fa-redo"></i>';
+                modHeaderActions.appendChild(reopenAllBtn);
+                
+                const completeAllBtn = document.createElement('button');
+                completeAllBtn.className = 'todo-mod-action-btn';
+                completeAllBtn.setAttribute('data-action', 'complete-all');
+                completeAllBtn.setAttribute('data-mod-name', todoModName);
+                completeAllBtn.title = this.t('ui.todos.completeAll');
+                completeAllBtn.innerHTML = '<i class="fas fa-check-double"></i>';
+                modHeaderActions.appendChild(completeAllBtn);
+                
+                const deleteAllBtn = document.createElement('button');
+                deleteAllBtn.className = 'todo-mod-action-btn';
+                deleteAllBtn.setAttribute('data-action', 'delete-all');
+                deleteAllBtn.setAttribute('data-mod-name', todoModName);
+                deleteAllBtn.title = this.t('ui.todos.deleteAll');
+                deleteAllBtn.innerHTML = '<i class="fas fa-trash-alt"></i>';
+                modHeaderActions.appendChild(deleteAllBtn);
+                
+                modHeader.appendChild(modHeaderActions);
                 todosList.appendChild(modHeader);
+                
+                this.attachModHeaderActions(modHeader, todoModName);
+                
                 lastModName = todoModName;
             }
             
@@ -1198,6 +1235,203 @@ export class TodosComponent {
             }
         } catch (error) {
             console.error('Error saving todos order:', error);
+        }
+    }
+    
+    attachModHeaderActions(modHeader, modName) {
+        const reopenAllBtn = modHeader.querySelector('[data-action="reopen-all"]');
+        const completeAllBtn = modHeader.querySelector('[data-action="complete-all"]');
+        const deleteAllBtn = modHeader.querySelector('[data-action="delete-all"]');
+        
+        if (reopenAllBtn) {
+            reopenAllBtn.addEventListener('click', async (e) => {
+                e.stopPropagation();
+                await this.reopenAllTodos(modName);
+            });
+        }
+        
+        if (completeAllBtn) {
+            completeAllBtn.addEventListener('click', async (e) => {
+                e.stopPropagation();
+                await this.completeAllTodosForMod(modName);
+            });
+        }
+        
+        if (deleteAllBtn) {
+            deleteAllBtn.addEventListener('click', async (e) => {
+                e.stopPropagation();
+                await this.deleteAllTodosForMod(modName);
+            });
+        }
+    }
+    
+    async reopenAllTodos(modName) {
+        if (!this.todosDir) {
+            await this.initTodosDirectory();
+        }
+        
+        if (!this.todosDir) {
+            return;
+        }
+        
+        const completedTodos = this.todos.filter(t => t.completed && t.modName === modName);
+        if (completedTodos.length === 0) {
+            if (this.app.uiManager && this.app.uiManager.showMessage) {
+                await this.app.uiManager.showMessage(
+                    this.app.t('messages.common.info'),
+                    this.t('messages.todos.noCompletedTodos')
+                );
+            }
+            return;
+        }
+        
+        const confirmed = await this.app.uiManager.showConfirm(
+            this.t('messages.todos.reopenAllConfirm', { count: completedTodos.length })
+        );
+        if (!confirmed) {
+            return;
+        }
+        
+        try {
+            for (const todo of completedTodos) {
+                todo.completed = false;
+                const result = await window.electronAPI.updateTodo(this.todosDir, modName, todo.id, { completed: false });
+                if (!result.success) {
+                    console.error(`Error reopening todo ${todo.id}:`, result.error);
+                }
+            }
+            
+            this.lazyLoading.loadedCount = 0;
+            this.lazyLoading.totalCount = 0;
+            await this.loadTodos();
+            
+            if (this.app.uiManager && this.app.uiManager.showMessage) {
+                await this.app.uiManager.showMessage(
+                    this.app.t('messages.common.success'),
+                    this.t('messages.todos.reopenedAll', { count: completedTodos.length })
+                );
+            }
+        } catch (error) {
+            console.error('Error reopening all todos:', error);
+            if (this.app.uiManager && this.app.uiManager.showMessage) {
+                await this.app.uiManager.showMessage(
+                    this.app.t('messages.common.error'),
+                    error.message || String(error)
+                );
+            }
+        }
+    }
+    
+    async completeAllTodosForMod(modName) {
+        if (!this.todosDir) {
+            await this.initTodosDirectory();
+        }
+        
+        if (!this.todosDir) {
+            return;
+        }
+        
+        const activeTodos = this.todos.filter(t => !t.completed && t.modName === modName);
+        if (activeTodos.length === 0) {
+            if (this.app.uiManager && this.app.uiManager.showMessage) {
+                await this.app.uiManager.showMessage(
+                    this.app.t('messages.common.info'),
+                    this.t('messages.todos.noActiveTodos')
+                );
+            }
+            return;
+        }
+        
+        const confirmed = await this.app.uiManager.showConfirm(
+            this.t('messages.todos.completeAllConfirm', { count: activeTodos.length })
+        );
+        if (!confirmed) {
+            return;
+        }
+        
+        try {
+            for (const todo of activeTodos) {
+                todo.completed = true;
+                const result = await window.electronAPI.updateTodo(this.todosDir, modName, todo.id, { completed: true });
+                if (!result.success) {
+                    console.error(`Error completing todo ${todo.id}:`, result.error);
+                }
+            }
+            
+            this.lazyLoading.loadedCount = 0;
+            this.lazyLoading.totalCount = 0;
+            await this.loadTodos();
+            
+            if (this.app.uiManager && this.app.uiManager.showMessage) {
+                await this.app.uiManager.showMessage(
+                    this.app.t('messages.common.success'),
+                    this.t('messages.todos.completedAll', { count: activeTodos.length })
+                );
+            }
+        } catch (error) {
+            console.error('Error completing all todos:', error);
+            if (this.app.uiManager && this.app.uiManager.showMessage) {
+                await this.app.uiManager.showMessage(
+                    this.app.t('messages.common.error'),
+                    error.message || String(error)
+                );
+            }
+        }
+    }
+    
+    async deleteAllTodosForMod(modName) {
+        if (!this.todosDir) {
+            await this.initTodosDirectory();
+        }
+        
+        if (!this.todosDir) {
+            return;
+        }
+        
+        const todosToDelete = this.todos.filter(t => t.modName === modName);
+        if (todosToDelete.length === 0) {
+            if (this.app.uiManager && this.app.uiManager.showMessage) {
+                await this.app.uiManager.showMessage(
+                    this.app.t('messages.common.info'),
+                    this.t('messages.todos.noTodos')
+                );
+            }
+            return;
+        }
+        
+        const confirmed = await this.app.uiManager.showConfirm(
+            this.t('messages.todos.deleteAllConfirm', { count: todosToDelete.length, modName })
+        );
+        if (!confirmed) {
+            return;
+        }
+        
+        try {
+            for (const todo of todosToDelete) {
+                const result = await window.electronAPI.deleteTodo(this.todosDir, modName, todo.id);
+                if (!result.success) {
+                    console.error(`Error deleting todo ${todo.id}:`, result.error);
+                }
+            }
+            
+            this.lazyLoading.loadedCount = 0;
+            this.lazyLoading.totalCount = 0;
+            await this.loadTodos();
+            
+            if (this.app.uiManager && this.app.uiManager.showMessage) {
+                await this.app.uiManager.showMessage(
+                    this.app.t('messages.common.success'),
+                    this.t('messages.todos.deletedAll', { count: todosToDelete.length })
+                );
+            }
+        } catch (error) {
+            console.error('Error deleting all todos:', error);
+            if (this.app.uiManager && this.app.uiManager.showMessage) {
+                await this.app.uiManager.showMessage(
+                    this.app.t('messages.common.error'),
+                    error.message || String(error)
+                );
+            }
         }
     }
 }

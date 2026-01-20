@@ -150,7 +150,10 @@
             "dragToReorder": "Trascina per riordinare",
             "customOrder": "Ordine personalizzato",
             "recentFirst": "Nuovi prima",
-            "pleaseSelectMod": "Seleziona prima un mod"
+            "pleaseSelectMod": "Seleziona prima un mod",
+            "reopenAll": "Riapri tutto",
+            "completeAll": "Completa tutto",
+            "deleteAll": "Elimina tutto"
         },
         "developer": {
             "tools": "Strumenti sviluppatore",
@@ -229,7 +232,16 @@
             "confirmDelete": "Sei sicuro di voler eliminare questa attività?",
             "failedToAddTodo": "Impossibile aggiungere attività: {error}",
             "failedToUpdateTodo": "Impossibile aggiornare attività: {error}",
-            "failedToDeleteTodo": "Impossibile eliminare attività: {error}"
+            "failedToDeleteTodo": "Impossibile eliminare attività: {error}",
+            "noCompletedTodos": "Nessuna attività completata da riaprire",
+            "reopenAllConfirm": "Riaprire tutte le attività completate ({count} elementi)?",
+            "reopenedAll": "Attività riaperte: {count}",
+            "noActiveTodos": "Nessuna attività attiva da completare",
+            "completeAllConfirm": "Completare tutte le attività attive ({count} elementi)?",
+            "completedAll": "Attività completate: {count}",
+            "deleteAllConfirm": "Eliminare tutte le attività del mod '{modName}' ({count} elementi)?\n\nQuesta azione non può essere annullata!",
+            "deletedAll": "Attività eliminate: {count}",
+            "noTodos": "Nessuna attività"
         },
         "modList": {
             "scanNewMods": "Nuovi mod trovati:",

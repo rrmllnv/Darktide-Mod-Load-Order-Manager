@@ -150,7 +150,10 @@
             "dragToReorder": "Drag to reorder",
             "customOrder": "Custom order",
             "recentFirst": "New first",
-            "pleaseSelectMod": "Please select a mod first"
+            "pleaseSelectMod": "Please select a mod first",
+            "reopenAll": "Reopen all",
+            "completeAll": "Complete all",
+            "deleteAll": "Delete all"
         },
         "developer": {
             "tools": "Developer tools",
@@ -233,7 +236,16 @@
             "confirmDelete": "Are you sure you want to delete this task?",
             "failedToAddTodo": "Failed to add todo: {error}",
             "failedToUpdateTodo": "Failed to update todo: {error}",
-            "failedToDeleteTodo": "Failed to delete todo: {error}"
+            "failedToDeleteTodo": "Failed to delete todo: {error}",
+            "noCompletedTodos": "No completed tasks to reopen",
+            "reopenAllConfirm": "Reopen all completed tasks ({count} items)?",
+            "reopenedAll": "Reopened tasks: {count}",
+            "noActiveTodos": "No active tasks to complete",
+            "completeAllConfirm": "Complete all active tasks ({count} items)?",
+            "completedAll": "Completed tasks: {count}",
+            "deleteAllConfirm": "Delete all tasks for mod '{modName}' ({count} items)?\n\nThis action cannot be undone!",
+            "deletedAll": "Deleted tasks: {count}",
+            "noTodos": "No tasks"
         },
         "modList": {
             "scanNewMods": "New mods found:",
