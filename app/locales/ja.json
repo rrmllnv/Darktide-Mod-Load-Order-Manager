@@ -234,6 +234,11 @@
         },
         "todos": {
             "confirmDelete": "このタスクを削除してもよろしいですか?",
+            "todoAdded": "タスクが追加されました",
+            "todoUpdated": "タスクが更新されました",
+            "todoDeleted": "タスクが削除されました",
+            "todoCompleted": "タスクが完了しました",
+            "todoReopened": "タスクが再開されました",
             "failedToAddTodo": "タスクの追加に失敗しました: {error}",
             "failedToUpdateTodo": "タスクの更新に失敗しました: {error}",
             "failedToDeleteTodo": "タスクの削除に失敗しました: {error}",

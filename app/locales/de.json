@@ -234,6 +234,11 @@
         },
         "todos": {
             "confirmDelete": "Sind Sie sicher, dass Sie diese Aufgabe löschen möchten?",
+            "todoAdded": "Aufgabe hinzugefügt",
+            "todoUpdated": "Aufgabe aktualisiert",
+            "todoDeleted": "Aufgabe gelöscht",
+            "todoCompleted": "Aufgabe abgeschlossen",
+            "todoReopened": "Aufgabe erneut geöffnet",
             "failedToAddTodo": "Aufgabe hinzufügen fehlgeschlagen: {error}",
             "failedToUpdateTodo": "Aufgabe aktualisieren fehlgeschlagen: {error}",
             "failedToDeleteTodo": "Aufgabe löschen fehlgeschlagen: {error}",

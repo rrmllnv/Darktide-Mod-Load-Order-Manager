@@ -238,6 +238,11 @@
         },
         "todos": {
             "confirmDelete": "Вы уверены, что хотите удалить эту задачу?",
+            "todoAdded": "Задача добавлена",
+            "todoUpdated": "Задача обновлена",
+            "todoDeleted": "Задача удалена",
+            "todoCompleted": "Задача закрыта",
+            "todoReopened": "Задача открыта",
             "failedToAddTodo": "Не удалось добавить задачу: {error}",
             "failedToUpdateTodo": "Не удалось обновить задачу: {error}",
             "failedToDeleteTodo": "Не удалось удалить задачу: {error}",

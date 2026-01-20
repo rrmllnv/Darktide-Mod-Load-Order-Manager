@@ -234,6 +234,11 @@
         },
         "todos": {
             "confirmDelete": "Sei sicuro di voler eliminare questa attività?",
+            "todoAdded": "Attività aggiunta",
+            "todoUpdated": "Attività aggiornata",
+            "todoDeleted": "Attività eliminata",
+            "todoCompleted": "Attività completata",
+            "todoReopened": "Attività riaperta",
             "failedToAddTodo": "Impossibile aggiungere attività: {error}",
             "failedToUpdateTodo": "Impossibile aggiornare attività: {error}",
             "failedToDeleteTodo": "Impossibile eliminare attività: {error}",

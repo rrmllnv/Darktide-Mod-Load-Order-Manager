@@ -234,6 +234,11 @@
         },
         "todos": {
             "confirmDelete": "Tem certeza de que deseja excluir esta tarefa?",
+            "todoAdded": "Tarefa adicionada",
+            "todoUpdated": "Tarefa atualizada",
+            "todoDeleted": "Tarefa excluída",
+            "todoCompleted": "Tarefa concluída",
+            "todoReopened": "Tarefa reaberta",
             "failedToAddTodo": "Falha ao adicionar tarefa: {error}",
             "failedToUpdateTodo": "Falha ao atualizar tarefa: {error}",
             "failedToDeleteTodo": "Falha ao excluir tarefa: {error}",

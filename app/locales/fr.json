@@ -234,6 +234,11 @@
         },
         "todos": {
             "confirmDelete": "Êtes-vous sûr de vouloir supprimer cette tâche?",
+            "todoAdded": "Tâche ajoutée",
+            "todoUpdated": "Tâche mise à jour",
+            "todoDeleted": "Tâche supprimée",
+            "todoCompleted": "Tâche terminée",
+            "todoReopened": "Tâche rouverte",
             "failedToAddTodo": "Échec de l'ajout de la tâche: {error}",
             "failedToUpdateTodo": "Échec de la mise à jour de la tâche: {error}",
             "failedToDeleteTodo": "Échec de la suppression de la tâche: {error}",

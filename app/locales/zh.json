@@ -234,6 +234,11 @@
         },
         "todos": {
             "confirmDelete": "您确定要删除此任务吗?",
+            "todoAdded": "任务已添加",
+            "todoUpdated": "任务已更新",
+            "todoDeleted": "任务已删除",
+            "todoCompleted": "任务已完成",
+            "todoReopened": "任务已重新打开",
             "failedToAddTodo": "添加任务失败: {error}",
             "failedToUpdateTodo": "更新任务失败: {error}",
             "failedToDeleteTodo": "删除任务失败: {error}",

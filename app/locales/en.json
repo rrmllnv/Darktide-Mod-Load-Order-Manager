@@ -238,6 +238,11 @@
         },
         "todos": {
             "confirmDelete": "Are you sure you want to delete this task?",
+            "todoAdded": "Task added",
+            "todoUpdated": "Task updated",
+            "todoDeleted": "Task deleted",
+            "todoCompleted": "Task completed",
+            "todoReopened": "Task reopened",
             "failedToAddTodo": "Failed to add todo: {error}",
             "failedToUpdateTodo": "Failed to update todo: {error}",
             "failedToDeleteTodo": "Failed to delete todo: {error}",

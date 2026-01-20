@@ -234,6 +234,11 @@
         },
         "todos": {
             "confirmDelete": "이 작업을 삭제하시겠습니까?",
+            "todoAdded": "작업 추가됨",
+            "todoUpdated": "작업 업데이트됨",
+            "todoDeleted": "작업 삭제됨",
+            "todoCompleted": "작업 완료됨",
+            "todoReopened": "작업 다시 열림",
             "failedToAddTodo": "할 일 추가 실패: {error}",
             "failedToUpdateTodo": "할 일 업데이트 실패: {error}",
             "failedToDeleteTodo": "할 일 삭제 실패: {error}",

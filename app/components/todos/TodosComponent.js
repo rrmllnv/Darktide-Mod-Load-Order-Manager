@@ -515,10 +515,9 @@ export class TodosComponent {
         const modName = this.app.selectedModName || '';
         
         if (!modName) {
-            await this.app.uiManager.showMessage(
-                this.t('messages.common.error'),
-                this.t('ui.todos.pleaseSelectMod')
-            );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('error', this.t('ui.todos.pleaseSelectMod'));
+            }
             return;
         }
         
@@ -536,17 +535,18 @@ export class TodosComponent {
                 todosInput.value = '';
                 todosInput.style.height = 'auto';
                 await this.loadTodos(true);
+                if (this.app.notificationComponent) {
+                    this.app.notificationComponent.show('success', this.t('messages.todos.todoAdded'));
+                }
             } else {
-                await this.app.uiManager.showMessage(
-                    this.t('messages.common.error'),
-                    this.t('messages.todos.failedToAddTodo', { error: result.error })
-                );
+                if (this.app.notificationComponent) {
+                    this.app.notificationComponent.show('error', this.t('messages.todos.failedToAddTodo', { error: result.error }));
+                }
             }
         } catch (error) {
-            await this.app.uiManager.showMessage(
-                this.t('messages.common.error'),
-                this.t('messages.todos.failedToAddTodo', { error: error.message })
-            );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('error', this.t('messages.todos.failedToAddTodo', { error: error.message }));
+            }
         }
     }
     
@@ -593,7 +593,15 @@ export class TodosComponent {
         
         try {
             const result = await window.electronAPI.updateTodo(this.todosDir, modName, todoId, todo);
-            if (!result.success) {
+            if (result.success) {
+                if (this.app.notificationComponent) {
+                    if (newCompletedState) {
+                        this.app.notificationComponent.show('success', this.t('messages.todos.todoCompleted'));
+                    } else {
+                        this.app.notificationComponent.show('warning', this.t('messages.todos.todoReopened'));
+                    }
+                }
+            } else {
                 todo.completed = !newCompletedState;
                 
                 if (todoItem) {
@@ -613,10 +621,9 @@ export class TodosComponent {
                     }
                 }
                 
-                await this.app.uiManager.showMessage(
-                    this.t('messages.common.error'),
-                    this.t('messages.todos.failedToUpdateTodo', { error: result.error })
-                );
+                if (this.app.notificationComponent) {
+                    this.app.notificationComponent.show('error', this.t('messages.todos.failedToUpdateTodo', { error: result.error }));
+                }
             }
         } catch (error) {
             todo.completed = !newCompletedState;
@@ -638,10 +645,9 @@ export class TodosComponent {
                 }
             }
             
-            await this.app.uiManager.showMessage(
-                this.t('messages.common.error'),
-                this.t('messages.todos.failedToUpdateTodo', { error: error.message })
-            );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('error', this.t('messages.todos.failedToUpdateTodo', { error: error.message }));
+            }
         }
     }
     
@@ -676,17 +682,18 @@ export class TodosComponent {
                 this.lazyLoading.loadedCount = 0;
                 this.lazyLoading.totalCount = 0;
                 await this.loadTodos();
+                if (this.app.notificationComponent) {
+                    this.app.notificationComponent.show('success', this.t('messages.todos.todoDeleted'));
+                }
             } else {
-                await this.app.uiManager.showMessage(
-                    this.t('messages.common.error'),
-                    this.t('messages.todos.failedToDeleteTodo', { error: result.error })
-                );
+                if (this.app.notificationComponent) {
+                    this.app.notificationComponent.show('error', this.t('messages.todos.failedToDeleteTodo', { error: result.error }));
+                }
             }
         } catch (error) {
-            await this.app.uiManager.showMessage(
-                this.t('messages.common.error'),
-                this.t('messages.todos.failedToDeleteTodo', { error: error.message })
-            );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('error', this.t('messages.todos.failedToDeleteTodo', { error: error.message }));
+            }
         }
     }
     
@@ -782,6 +789,10 @@ export class TodosComponent {
                 this.editingTodoId = null;
                 await this.loadTodos();
                 
+                if (this.app.notificationComponent) {
+                    this.app.notificationComponent.show('success', this.t('messages.todos.todoUpdated'));
+                }
+                
                 if (todosList && savedFirstVisibleId) {
                     requestAnimationFrame(() => {
                         const targetItem = todosList.querySelector(`[data-todo-id="${savedFirstVisibleId}"]`);
@@ -797,18 +808,16 @@ export class TodosComponent {
                     });
                 }
             } else {
-                await this.app.uiManager.showMessage(
-                    this.t('messages.common.error'),
-                    this.t('messages.todos.failedToUpdateTodo', { error: result.error })
-                );
+                if (this.app.notificationComponent) {
+                    this.app.notificationComponent.show('error', this.t('messages.todos.failedToUpdateTodo', { error: result.error }));
+                }
                 this.editingTodoId = null;
                 this.renderTodos();
             }
         } catch (error) {
-            await this.app.uiManager.showMessage(
-                this.t('messages.common.error'),
-                this.t('messages.todos.failedToUpdateTodo', { error: error.message })
-            );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('error', this.t('messages.todos.failedToUpdateTodo', { error: error.message }));
+            }
             this.editingTodoId = null;
             this.renderTodos();
         }
@@ -1276,11 +1285,8 @@ export class TodosComponent {
         
         const completedTodos = this.todos.filter(t => t.completed && t.modName === modName);
         if (completedTodos.length === 0) {
-            if (this.app.uiManager && this.app.uiManager.showMessage) {
-                await this.app.uiManager.showMessage(
-                    this.app.t('messages.common.info'),
-                    this.t('messages.todos.noCompletedTodos')
-                );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('info', this.t('messages.todos.noCompletedTodos'));
             }
             return;
         }
@@ -1305,19 +1311,13 @@ export class TodosComponent {
             this.lazyLoading.totalCount = 0;
             await this.loadTodos();
             
-            if (this.app.uiManager && this.app.uiManager.showMessage) {
-                await this.app.uiManager.showMessage(
-                    this.app.t('messages.common.success'),
-                    this.t('messages.todos.reopenedAll', { count: completedTodos.length })
-                );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('warning', this.t('messages.todos.reopenedAll', { count: completedTodos.length }));
             }
         } catch (error) {
             console.error('Error reopening all todos:', error);
-            if (this.app.uiManager && this.app.uiManager.showMessage) {
-                await this.app.uiManager.showMessage(
-                    this.app.t('messages.common.error'),
-                    error.message || String(error)
-                );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('error', error.message || String(error));
             }
         }
     }
@@ -1333,11 +1333,8 @@ export class TodosComponent {
         
         const activeTodos = this.todos.filter(t => !t.completed && t.modName === modName);
         if (activeTodos.length === 0) {
-            if (this.app.uiManager && this.app.uiManager.showMessage) {
-                await this.app.uiManager.showMessage(
-                    this.app.t('messages.common.info'),
-                    this.t('messages.todos.noActiveTodos')
-                );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('info', this.t('messages.todos.noActiveTodos'));
             }
             return;
         }
@@ -1362,19 +1359,13 @@ export class TodosComponent {
             this.lazyLoading.totalCount = 0;
             await this.loadTodos();
             
-            if (this.app.uiManager && this.app.uiManager.showMessage) {
-                await this.app.uiManager.showMessage(
-                    this.app.t('messages.common.success'),
-                    this.t('messages.todos.completedAll', { count: activeTodos.length })
-                );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('success', this.t('messages.todos.completedAll', { count: activeTodos.length }));
             }
         } catch (error) {
             console.error('Error completing all todos:', error);
-            if (this.app.uiManager && this.app.uiManager.showMessage) {
-                await this.app.uiManager.showMessage(
-                    this.app.t('messages.common.error'),
-                    error.message || String(error)
-                );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('error', error.message || String(error));
             }
         }
     }
@@ -1390,11 +1381,8 @@ export class TodosComponent {
         
         const todosToDelete = this.todos.filter(t => t.modName === modName);
         if (todosToDelete.length === 0) {
-            if (this.app.uiManager && this.app.uiManager.showMessage) {
-                await this.app.uiManager.showMessage(
-                    this.app.t('messages.common.info'),
-                    this.t('messages.todos.noTodos')
-                );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('info', this.t('messages.todos.noTodos'));
             }
             return;
         }
@@ -1418,19 +1406,13 @@ export class TodosComponent {
             this.lazyLoading.totalCount = 0;
             await this.loadTodos();
             
-            if (this.app.uiManager && this.app.uiManager.showMessage) {
-                await this.app.uiManager.showMessage(
-                    this.app.t('messages.common.success'),
-                    this.t('messages.todos.deletedAll', { count: todosToDelete.length })
-                );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('success', this.t('messages.todos.deletedAll', { count: todosToDelete.length }));
             }
         } catch (error) {
             console.error('Error deleting all todos:', error);
-            if (this.app.uiManager && this.app.uiManager.showMessage) {
-                await this.app.uiManager.showMessage(
-                    this.app.t('messages.common.error'),
-                    error.message || String(error)
-                );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('error', error.message || String(error));
             }
         }
     }
