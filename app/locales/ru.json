@@ -42,6 +42,7 @@
             "cancel": "Отмена",
             "yes": "Да",
             "no": "Нет",
+            "continue": "Продолжить",
             "select": "Выбрать",
             "message": "Сообщение",
             "confirmation": "Подтверждение",
@@ -201,6 +202,10 @@
             "fileNotFoundPleaseSelect": "Для начала работы выберите файл mod_load_order.txt.\n\nНажмите кнопку Обзор, чтобы найти файл.",
             "fileNotFoundCannotSave": "Файл не найден. Возможно, файл был удален или перемещен.\n\nПожалуйста, выберите файл снова с помощью кнопки Обзор.",
             "welcomeFileFound": "Файл mod_load_order.txt найден и загружен.\n\nДавайте начнем знакомство с приложением."
+        },
+        "welcome": {
+            "selectLanguage": "Выбор языка",
+            "selectLanguageText": "Пожалуйста, выберите предпочитаемый язык:"
         },
         "profile": {
             "overwriteProfileConfirm": "Перезаписать профиль '{profileName}' текущим состоянием?",

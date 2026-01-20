@@ -8,6 +8,7 @@ export class ConfigManager {
             fileUrlModLoadOrder: '',
             theme: '',
             locale: 'en',
+            localeSelected: false,
             hideNewMods: false,
             hideNotFoundMods: false,
             hideUnusedMods: false,

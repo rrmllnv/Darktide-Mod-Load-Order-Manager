@@ -88,4 +88,64 @@ export class UIManager {
             noBtn.addEventListener('click', handleNo);
         });
     }
+    
+    showLanguageSelection() {
+        return new Promise((resolve) => {
+            const dialog = document.getElementById('language-selection-dialog');
+            const title = document.getElementById('language-selection-title');
+            const text = document.getElementById('language-selection-text');
+            const select = document.getElementById('language-selection-select');
+            const okBtn = document.getElementById('language-selection-ok-btn');
+            
+            if (!dialog || !title || !text || !select || !okBtn) {
+                resolve('en');
+                return;
+            }
+            
+            const detectSystemLanguage = () => {
+                const systemLang = navigator.language || navigator.userLanguage || 'en';
+                const langMap = {
+                    'en': 'en',
+                    'ru': 'ru',
+                    'de': 'de',
+                    'fr': 'fr',
+                    'it': 'it',
+                    'pt': 'pt',
+                    'ko': 'ko',
+                    'zh': 'zh',
+                    'zh-CN': 'zh',
+                    'zh-TW': 'zh',
+                    'ja': 'ja'
+                };
+                
+                const langCode = systemLang.split('-')[0].toLowerCase();
+                return langMap[langCode] || langMap[systemLang] || 'en';
+            };
+            
+            const detectedLang = detectSystemLanguage();
+            select.value = detectedLang;
+            
+            title.textContent = 'Select Language';
+            text.textContent = 'Please select your preferred language:';
+            okBtn.textContent = 'Continue';
+            
+            dialog.classList.add('show');
+            
+            const handleOk = () => {
+                const selectedLocale = select.value || 'en';
+                dialog.classList.remove('show');
+                okBtn.removeEventListener('click', handleOk);
+                resolve(selectedLocale);
+            };
+            
+            okBtn.addEventListener('click', handleOk);
+            
+            select.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    handleOk();
+                }
+            });
+        });
+    }
 }

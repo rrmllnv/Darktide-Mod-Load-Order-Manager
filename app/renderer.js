@@ -140,7 +140,17 @@ class ModLoadOrderManager {
         
         await this.themeComponent.init();
         
-        const locale = this.userConfig?.locale || 'en';
+        let locale = this.userConfig?.locale || 'en';
+        const localeSelected = this.userConfig?.localeSelected !== undefined ? this.userConfig.localeSelected : false;
+        
+        if (!localeSelected) {
+            const selectedLocale = await this.uiManager.showLanguageSelection();
+            locale = selectedLocale;
+            this.userConfig.locale = locale;
+            this.userConfig.localeSelected = true;
+            await this.configManager.saveUserConfig();
+        }
+        
         await this.localeManager.loadLocale(locale);
         
         if (this.themeComponent) {

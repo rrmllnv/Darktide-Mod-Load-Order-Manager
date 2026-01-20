@@ -42,6 +42,7 @@
             "cancel": "Cancel",
             "yes": "Yes",
             "no": "No",
+            "continue": "Continue",
             "select": "Select",
             "message": "Message",
             "confirmation": "Confirmation",
@@ -201,6 +202,10 @@
             "fileNotFoundPleaseSelect": "To get started, select the mod_load_order.txt file.\n\nClick the Browse button to find the file.",
             "fileNotFoundCannotSave": "File not found. The file may have been deleted or moved.\n\nPlease select the file again using the Browse button.",
             "welcomeFileFound": "The mod_load_order.txt file has been found and loaded.\n\nLet's start getting familiar with the application."
+        },
+        "welcome": {
+            "selectLanguage": "Select Language",
+            "selectLanguageText": "Please select your preferred language:"
         },
         "profile": {
             "overwriteProfileConfirm": "Overwrite profile '{profileName}' with current state?",

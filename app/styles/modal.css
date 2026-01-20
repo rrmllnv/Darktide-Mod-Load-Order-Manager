@@ -52,6 +52,67 @@
     max-height: 80vh;
 }
 
+.modal-content-language {
+    max-width: 400px;
+}
+
+.language-selection-text {
+    margin-bottom: 15px;
+    color: var(--text-primary);
+}
+
+.language-selection-select-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.language-selection-select {
+    width: 100%;
+    padding: 8px;
+    padding-right: 30px;
+    font-size: 14px;
+    border: 1px solid var(--border-secondary);
+    border-radius: 3px;
+    background-color: var(--select-bg);
+    color: var(--text-primary);
+    cursor: pointer;
+    box-sizing: border-box;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    transition: border-color 0.2s, background-color 0.2s;
+}
+
+.language-selection-select-wrapper::after {
+    content: '';
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid var(--text-primary);
+    pointer-events: none;
+}
+
+.language-selection-select:hover {
+    border-color: var(--border-selected);
+}
+
+.language-selection-select:focus {
+    outline: 2px solid var(--btn-primary-bg);
+    outline-offset: -2px;
+    border-color: var(--btn-primary-bg);
+}
+
+.language-selection-select option {
+    background-color: var(--select-option-bg);
+    color: var(--text-primary);
+    padding: 8px;
+}
+
 .backup-list {
     max-height: 400px;
     overflow-y: auto;
