@@ -218,6 +218,11 @@ export class SettingsComponent {
         if (projectPathInput) {
             projectPathInput.value = this.app.userConfig.projectPath || '';
         }
+        
+        const todosGroupByMod = document.getElementById('settings-todos-group-by-mod-checkbox');
+        if (todosGroupByMod) {
+            todosGroupByMod.checked = this.app.userConfig.todosGroupByMod !== undefined ? this.app.userConfig.todosGroupByMod : true;
+        }
     }
     
     saveSettingsFromForm() {
@@ -277,8 +282,17 @@ export class SettingsComponent {
             this.app.userConfig.projectPath = projectPathInput.value || '';
         }
         
+        const todosGroupByMod = document.getElementById('settings-todos-group-by-mod-checkbox');
+        if (todosGroupByMod) {
+            this.app.userConfig.todosGroupByMod = todosGroupByMod.checked;
+        }
+        
         if (this.app.configManager && this.app.configManager.saveUserConfig) {
             this.app.configManager.saveUserConfig();
+        }
+        
+        if (this.app.todosComponent && this.app.todosComponent.loadTodos) {
+            this.app.todosComponent.loadTodos();
         }
     }
     
@@ -393,6 +407,19 @@ export class SettingsComponent {
         }
         
         const developerModeLabel = document.getElementById('settings-developer-mode-label');
+        if (developerModeLabel) {
+            developerModeLabel.textContent = this.t('ui.settings.developerMode');
+        }
+        
+        const todosSectionLabel = document.getElementById('settings-todos-section-label');
+        if (todosSectionLabel) {
+            todosSectionLabel.textContent = this.t('ui.settings.todosSection');
+        }
+        
+        const todosGroupByModLabel = document.getElementById('settings-todos-group-by-mod-label');
+        if (todosGroupByModLabel) {
+            todosGroupByModLabel.textContent = this.t('ui.settings.todosGroupByMod');
+        }
         if (developerModeLabel) {
             developerModeLabel.textContent = this.t('ui.settings.developerMode');
         }

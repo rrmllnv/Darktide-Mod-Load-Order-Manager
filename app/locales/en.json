@@ -124,6 +124,8 @@
             "profilesListSize": "Profiles list size:",
             "developerMode": "Enable developer mode",
             "projectPath": "Specify the path to your project",
+            "todosSection": "Todos",
+            "todosGroupByMod": "Group mod tasks in general list",
             "save": "Save",
             "cancel": "Cancel"
         },

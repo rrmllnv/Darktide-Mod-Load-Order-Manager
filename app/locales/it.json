@@ -125,6 +125,8 @@
             "profilesListSize": "Numero di righe dell'elenco profili:",
             "developerMode": "Abilita modalità sviluppatore",
             "projectPath": "Specifica il percorso del tuo progetto",
+            "todosSection": "Attività",
+            "todosGroupByMod": "Raggruppa le attività del mod nell'elenco generale",
             "save": "Salva",
             "cancel": "Annulla"
         },

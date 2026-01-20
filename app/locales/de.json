@@ -125,6 +125,8 @@
             "profilesListSize": "Anzahl der Profillistenzeilen:",
             "developerMode": "Entwicklermodus aktivieren",
             "projectPath": "Geben Sie den Pfad zu Ihrem Projekt an",
+            "todosSection": "Aufgaben",
+            "todosGroupByMod": "Mod-Aufgaben in allgemeiner Liste gruppieren",
             "save": "Speichern",
             "cancel": "Abbrechen"
         },

@@ -125,6 +125,8 @@
             "profilesListSize": "Tamanho da lista de perfis:",
             "developerMode": "Ativar modo desenvolvedor",
             "projectPath": "Especifique o caminho para o seu projeto",
+            "todosSection": "Tarefas",
+            "todosGroupByMod": "Agrupar tarefas do mod na lista geral",
             "save": "Salvar",
             "cancel": "Cancelar"
         },

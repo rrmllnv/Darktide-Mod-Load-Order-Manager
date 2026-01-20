@@ -125,6 +125,8 @@
             "profilesListSize": "Nombre de lignes de la liste des profils:",
             "developerMode": "Activer le mode développeur",
             "projectPath": "Spécifiez le chemin vers votre projet",
+            "todosSection": "Tâches",
+            "todosGroupByMod": "Grouper les tâches du mod dans la liste générale",
             "save": "Enregistrer",
             "cancel": "Annuler"
         },

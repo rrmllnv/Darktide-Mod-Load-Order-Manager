@@ -125,6 +125,8 @@
             "profilesListSize": "프로필 목록 행 수:",
             "developerMode": "개발자 모드 활성화",
             "projectPath": "프로젝트 경로를 지정하세요",
+            "todosSection": "할 일",
+            "todosGroupByMod": "일반 목록에서 모드 작업 그룹화",
             "save": "저장",
             "cancel": "취소"
         },

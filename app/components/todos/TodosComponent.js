@@ -219,39 +219,53 @@ export class TodosComponent {
                 const result = await window.electronAPI.loadAllTodos(this.todosDir);
                 if (result.success) {
                     const allTodos = result.allTodos || [];
-                    const todosByMod = {};
+                    const groupByMod = this.app.userConfig && this.app.userConfig.todosGroupByMod !== undefined 
+                        ? this.app.userConfig.todosGroupByMod 
+                        : true;
                     
-                    allTodos.forEach(todo => {
-                        const modName = todo.modName || '';
-                        if (!todosByMod[modName]) {
-                            todosByMod[modName] = [];
+                    if (groupByMod) {
+                        const todosByMod = {};
+                        
+                        allTodos.forEach(todo => {
+                            const modName = todo.modName || '';
+                            if (!todosByMod[modName]) {
+                                todosByMod[modName] = [];
+                            }
+                            todosByMod[modName].push(todo);
+                        });
+                        
+                        Object.keys(todosByMod).forEach(modName => {
+                            todosByMod[modName].sort((a, b) => {
+                                const dateA = new Date(a.created || 0);
+                                const dateB = new Date(b.created || 0);
+                                return dateB - dateA;
+                            });
+                        });
+                        
+                        const sortedMods = Object.keys(todosByMod).sort((a, b) => {
+                            const todosA = todosByMod[a];
+                            const todosB = todosByMod[b];
+                            const dateA = todosA.length > 0 ? new Date(todosA[0].created || 0) : 0;
+                            const dateB = todosB.length > 0 ? new Date(todosB[0].created || 0) : 0;
+                            return dateB - dateA;
+                        });
+                        
+                        this.todos = [];
+                        for (const modName of sortedMods) {
+                            this.todos.push(...todosByMod[modName]);
+                            if (this.todos.length >= 10) {
+                                this.todos = this.todos.slice(0, 10);
+                                break;
+                            }
                         }
-                        todosByMod[modName].push(todo);
-                    });
-                    
-                    Object.keys(todosByMod).forEach(modName => {
-                        todosByMod[modName].sort((a, b) => {
+                    } else {
+                        this.todos = allTodos.sort((a, b) => {
                             const dateA = new Date(a.created || 0);
                             const dateB = new Date(b.created || 0);
                             return dateB - dateA;
                         });
-                    });
-                    
-                    const sortedMods = Object.keys(todosByMod).sort((a, b) => {
-                        const todosA = todosByMod[a];
-                        const todosB = todosByMod[b];
-                        const dateA = todosA.length > 0 ? new Date(todosA[0].created || 0) : 0;
-                        const dateB = todosB.length > 0 ? new Date(todosB[0].created || 0) : 0;
-                        return dateB - dateA;
-                    });
-                    
-                    this.todos = [];
-                    for (const modName of sortedMods) {
-                        this.todos.push(...todosByMod[modName]);
-                        if (this.todos.length >= 10) {
-                            this.todos = this.todos.slice(0, 10);
-                            break;
-                        }
+                        
+                        this.todos = this.todos.slice(0, 10);
                     }
                 } else {
                     this.todos = [];

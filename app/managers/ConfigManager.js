@@ -22,6 +22,7 @@ export class ConfigManager {
             projectPath: '',
             developerViewMode: false,
             todosShowOnlyActive: false,
+            todosGroupByMod: true,
             rightPanelWidth: 300
         };
     }
@@ -53,6 +54,9 @@ export class ConfigManager {
             this.app.userConfig.hideUnusedMods = this.app.hideUnusedMods;
             if (this.app.todosShowOnlyActive !== undefined) {
                 this.app.userConfig.todosShowOnlyActive = this.app.todosShowOnlyActive;
+            }
+            if (this.app.userConfig.todosGroupByMod !== undefined) {
+                this.app.userConfig.todosGroupByMod = this.app.userConfig.todosGroupByMod;
             }
             if (this.app.rightPanelWidth !== undefined) {
                 this.app.userConfig.rightPanelWidth = this.app.rightPanelWidth;

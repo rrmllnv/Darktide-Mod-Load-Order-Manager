@@ -125,6 +125,8 @@
             "profilesListSize": "プロファイルリストの行数:",
             "developerMode": "開発者モードを有効にする",
             "projectPath": "プロジェクトのパスを指定してください",
+            "todosSection": "タスク",
+            "todosGroupByMod": "一般リストでMODタスクをグループ化",
             "save": "保存",
             "cancel": "キャンセル"
         },
