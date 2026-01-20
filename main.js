@@ -563,7 +563,7 @@ ipcMain.handle('list-backups', async (event, modName) => {
           versionName: entry.name,
           path: backupPath,
           size: sizeResult.size,
-          sizeFormatted: formatBytes(size),
+          sizeFormatted: formatBytes(sizeResult.size),
           created: stats.birthtime || stats.mtime,
           comment: backupMeta.comment || ''
         });
