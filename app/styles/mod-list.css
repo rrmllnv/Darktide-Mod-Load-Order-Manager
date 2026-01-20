@@ -55,7 +55,7 @@
 }
 
 .mod-switch-container {
-    margin-right: 5px;
+    margin-right: 15px;
     flex-shrink: 0;
 }
 
@@ -69,27 +69,29 @@
     color: var(--flag-new-color);
     font-weight: bold;
     font-size: 7pt;
-    margin-right: 5px;
+    margin-left: 5px;
 }
 
 .mod-not-found-label {
     color: var(--flag-not-found-color);
     font-weight: bold;
     font-size: 7pt;
-    margin-right: 5px;
+    margin-left: 5px;
 }
 
 .mod-symlink-label {
     color: var(--flag-symlink-color);
     font-weight: bold;
     font-size: 7pt;
-    margin-right: 5px;
+    margin-left: 5px;
 }
 
 .mod-size {
     font-size: 0.85em;
     color: var(--text-secondary);
-    margin-left: 8px;
+    width: 60px;
+    text-align: right;
+    flex-shrink: 0;
 }
 
 .canvas-frame::-webkit-scrollbar {
