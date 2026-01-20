@@ -175,12 +175,12 @@ export class FileManager {
             }
             await this.app.fileService.saveFile(this.app.filePath, this.app.headerLines, this.app.modEntries, sortedModEntries);
             
+            await this.loadFile();
+            
             this.app.setStatus(this.app.t('messages.common.fileSavedStatus'));
             if (this.app.notificationComponent) {
                 this.app.notificationComponent.show('success', this.app.t('messages.common.fileSaved'));
             }
-            
-            await this.loadFile();
             
         } catch (error) {
             this.app.setStatus(`${this.app.t('messages.common.saveError')} ${error.message}`);
