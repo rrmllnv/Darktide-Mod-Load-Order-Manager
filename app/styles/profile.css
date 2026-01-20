@@ -12,6 +12,9 @@
     padding: 0;
     background-color: var(--select-bg);
     color: var(--text-primary);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 }
 
 .profiles-list:focus {
@@ -38,6 +41,46 @@
     box-shadow: 0 0 0 100px var(--bg-selected) inset !important;
 }
 
+.profiles-list:focus option:checked:hover {
+    background-color: var(--bg-selected) !important;
+    color: var(--select-option-selected-text, var(--text-primary)) !important;
+}
+
+.profiles-list:focus option:checked:active {
+    background-color: var(--bg-selected) !important;
+    color: var(--select-option-selected-text, var(--text-primary)) !important;
+}
+
+.profiles-list:focus > option:checked {
+    background-color: var(--bg-selected) !important;
+    color: var(--select-option-selected-text, var(--text-primary)) !important;
+    box-shadow: 0 0 0 100px var(--bg-selected) inset !important;
+}
+
+.profiles-list option:checked:focus {
+    background-color: var(--bg-selected) !important;
+    color: var(--select-option-selected-text, var(--text-primary)) !important;
+    box-shadow: 0 0 0 100px var(--bg-selected) inset !important;
+}
+
+.profiles-list option:checked:active {
+    background-color: var(--bg-selected) !important;
+    color: var(--select-option-selected-text, var(--text-primary)) !important;
+    box-shadow: 0 0 0 100px var(--bg-selected) inset !important;
+}
+
+.profiles-list option:selected {
+    background-color: var(--bg-selected) !important;
+    color: var(--select-option-selected-text, var(--text-primary)) !important;
+    box-shadow: 0 0 0 100px var(--bg-selected) inset !important;
+}
+
+.profiles-list:focus option:selected {
+    background-color: var(--bg-selected) !important;
+    color: var(--select-option-selected-text, var(--text-primary)) !important;
+    box-shadow: 0 0 0 100px var(--bg-selected) inset !important;
+}
+
 .profiles-list:not(:focus) option:checked {
     background-color: var(--bg-selected) !important;
     color: var(--select-option-selected-text, var(--text-primary)) !important;
@@ -50,19 +93,8 @@
 }
 
 .profiles-list option.selected-no-focus {
-    background-color: var(--bg-selected-no-focus-light);
-    color: var(--text-selected-no-focus-light);
-}
-
-body.theme-dark .profiles-list option.selected-no-focus,
-body.theme-high-contrast .profiles-list option.selected-no-focus,
-body.theme-oled-dark .profiles-list option.selected-no-focus,
-body.theme-blue-light .profiles-list option.selected-no-focus,
-body.theme-nord .profiles-list option.selected-no-focus,
-body.theme-dracula .profiles-list option.selected-no-focus,
-body.theme-solarized .profiles-list option.selected-no-focus {
-    background-color: var(--bg-selected-no-focus-dark);
-    color: var(--text-selected-no-focus-dark);
+    background-color: var(--bg-selected-no-focus-light, var(--bg-selected-no-focus-dark, var(--bg-selected)));
+    color: var(--text-selected-no-focus-light, var(--text-selected-no-focus-dark, var(--text-primary)));
 }
 
 .profile-buttons {

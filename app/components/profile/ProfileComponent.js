@@ -57,6 +57,7 @@ export class ProfileComponent {
             this.app.elements.profilesList.addEventListener('blur', () => {
                 this.onProfileListBlur();
             });
+            
         }
         
         if (this.app.elements.newProfileBtn) {
@@ -333,6 +334,8 @@ export class ProfileComponent {
                     this.selectedProfileName = null;
                     this.app.selectedProfileName = null;
                 }
+                
+                this.updateProfileListStyles();
             }
         } catch (error) {
             console.error('Error refreshing profiles list:', error);
