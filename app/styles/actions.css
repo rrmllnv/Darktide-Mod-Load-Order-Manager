@@ -43,7 +43,7 @@
 .bulk-actions-info {
     font-size: 11px;
     color: var(--text-primary);
-    text-align: right;
+    text-align: left;
     margin-top: 5px;
 }
 
