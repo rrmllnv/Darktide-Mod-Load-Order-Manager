@@ -32,6 +32,9 @@
 
 .todos-filter-label .switch-label {
     font-size: 10pt;
+    line-height: 1;
+    display: flex;
+    align-items: center;
 }
 
 .todos-input-wrapper {
