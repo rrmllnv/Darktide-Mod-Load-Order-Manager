@@ -330,7 +330,9 @@
             "symlinkCreated": "심볼릭 링크 생성: {modName}",
             "modNameCopied": "모드 이름 복사됨: {modName}",
             "copyError": "복사 오류",
-            "modDeleted": "모드 '{modName}' 삭제됨. 파일을 저장하는 것을 잊지 마세요."
+            "modDeleted": "모드 '{modName}' 삭제됨. 파일을 저장하는 것을 잊지 마세요.",
+            "modEnabled": "모드 '{modName}' 활성화됨",
+            "modDisabled": "모드 '{modName}' 비활성화됨"
         }
     },
     "tour": {

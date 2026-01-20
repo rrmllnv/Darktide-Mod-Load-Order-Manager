@@ -330,7 +330,9 @@
             "symlinkCreated": "シンボリックリンク作成: {modName}",
             "modNameCopied": "MOD名をコピーしました: {modName}",
             "copyError": "コピーエラー",
-            "modDeleted": "MOD '{modName}'削除. ファイルを保存することを忘れないでください。"
+            "modDeleted": "MOD '{modName}'削除. ファイルを保存することを忘れないでください。",
+            "modEnabled": "MOD '{modName}'有効",
+            "modDisabled": "MOD '{modName}'無効"
         }
     },
     "tour": {

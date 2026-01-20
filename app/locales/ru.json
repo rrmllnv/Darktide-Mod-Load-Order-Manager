@@ -334,7 +334,9 @@
             "symlinkCreated": "Символическая ссылка создана: {modName}",
             "modNameCopied": "Название мода скопировано: {modName}",
             "copyError": "Ошибка при копировании",
-            "modDeleted": "Мод '{modName}' удален. Не забудьте сохранить файл."
+            "modDeleted": "Мод '{modName}' удален. Не забудьте сохранить файл.",
+            "modEnabled": "Мод '{modName}' включен",
+            "modDisabled": "Мод '{modName}' выключен"
         }
     },
     "tour": {

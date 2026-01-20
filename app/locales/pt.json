@@ -330,7 +330,9 @@
             "symlinkCreated": "Link simbólico criado: {modName}",
             "modNameCopied": "Nome do mod copiado: {modName}",
             "copyError": "Erro ao copiar",
-            "modDeleted": "Mod '{modName}' excluído. Não se esqueça de salvar o arquivo."
+            "modDeleted": "Mod '{modName}' excluído. Não se esqueça de salvar o arquivo.",
+            "modEnabled": "Mod '{modName}' ativado",
+            "modDisabled": "Mod '{modName}' desativado"
         }
     },
     "tour": {

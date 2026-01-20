@@ -584,6 +584,10 @@ export class ModListComponent {
             if (this.app.updateStatistics) {
                 this.app.updateStatistics();
             }
+            
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('success', this.t('status.modList.modEnabled', { modName }));
+            }
         }
     }
     
@@ -601,6 +605,10 @@ export class ModListComponent {
             if (this.app.updateStatistics) {
                 this.app.updateStatistics();
             }
+            
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('success', this.t('status.modList.modDisabled', { modName }));
+            }
         }
     }
     
@@ -609,6 +617,9 @@ export class ModListComponent {
             navigator.clipboard.writeText(modName).then(() => {
                 if (this.app.setStatus) {
                     this.app.setStatus(this.t('status.modList.modNameCopied', { modName }));
+                }
+                if (this.app.notificationComponent) {
+                    this.app.notificationComponent.show('success', this.t('status.modList.modNameCopied', { modName }));
                 }
             }).catch(() => {
                 const textArea = document.createElement('textarea');
@@ -622,9 +633,15 @@ export class ModListComponent {
                     if (this.app.setStatus) {
                         this.app.setStatus(this.t('status.modList.modNameCopied', { modName }));
                     }
+                    if (this.app.notificationComponent) {
+                        this.app.notificationComponent.show('success', this.t('status.modList.modNameCopied', { modName }));
+                    }
                 } catch (err) {
                     if (this.app.setStatus) {
                         this.app.setStatus(this.t('status.modList.copyError'));
+                    }
+                    if (this.app.notificationComponent) {
+                        this.app.notificationComponent.show('error', this.t('status.modList.copyError'));
                     }
                 }
                 document.body.removeChild(textArea);
@@ -641,9 +658,15 @@ export class ModListComponent {
                 if (this.app.setStatus) {
                     this.app.setStatus(this.t('status.modList.modNameCopied', { modName }));
                 }
+                if (this.app.notificationComponent) {
+                    this.app.notificationComponent.show('success', this.t('status.modList.modNameCopied', { modName }));
+                }
             } catch (err) {
                 if (this.app.setStatus) {
                     this.app.setStatus(this.t('status.modList.copyError'));
+                }
+                if (this.app.notificationComponent) {
+                    this.app.notificationComponent.show('error', this.t('status.modList.copyError'));
                 }
             }
             document.body.removeChild(textArea);

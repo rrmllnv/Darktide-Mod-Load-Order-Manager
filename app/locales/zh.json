@@ -330,7 +330,9 @@
             "symlinkCreated": "符号链接已创建: {modName}",
             "modNameCopied": "模组名称已复制: {modName}",
             "copyError": "复制错误",
-            "modDeleted": "模组 '{modName}' 已删除. 不要忘记保存文件。"
+            "modDeleted": "模组 '{modName}' 已删除. 不要忘记保存文件。",
+            "modEnabled": "模组 '{modName}' 已启用",
+            "modDisabled": "模组 '{modName}' 已禁用"
         }
     },
     "tour": {

@@ -334,7 +334,9 @@
             "symlinkCreated": "Symbolic link created: {modName}",
             "modNameCopied": "Mod name copied: {modName}",
             "copyError": "Copy error",
-            "modDeleted": "Mod '{modName}' deleted. Don't forget to save the file."
+            "modDeleted": "Mod '{modName}' deleted. Don't forget to save the file.",
+            "modEnabled": "Mod '{modName}' enabled",
+            "modDisabled": "Mod '{modName}' disabled"
         }
     },
     "tour": {
