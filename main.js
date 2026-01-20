@@ -1194,9 +1194,6 @@ ipcMain.handle('rename-mod', async (event, projectPath, oldName, newName, todosD
         await fs.rename(oldDataFile, newDataFile);
       }
       if (existsSync(oldLocalizationFile)) {
-        let localizationContent = await fs.readFile(oldLocalizationFile, 'utf-8');
-        localizationContent = localizationContent.replace(new RegExp(oldName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'), newName);
-        await fs.writeFile(oldLocalizationFile, localizationContent, 'utf-8');
         await fs.rename(oldLocalizationFile, newLocalizationFile);
       }
       if (existsSync(oldMainFile)) {
