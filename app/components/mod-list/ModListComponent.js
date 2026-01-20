@@ -475,13 +475,11 @@ export class ModListComponent {
         }
         
         let sizeElement = null;
-        if (!isDeveloperViewMode) {
-            sizeElement = document.createElement('span');
-            sizeElement.className = 'mod-size';
-            sizeElement.textContent = '...';
-            
-            this.loadModSize(modEntry, sizeElement);
-        }
+        sizeElement = document.createElement('span');
+        sizeElement.className = 'mod-size';
+        sizeElement.textContent = '...';
+        
+        this.loadModSize(modEntry, sizeElement);
         
         modItem.addEventListener('click', (e) => {
             if ((!checkboxContainer || !checkboxContainer.contains(e.target)) && !modItem.classList.contains('dragging')) {
