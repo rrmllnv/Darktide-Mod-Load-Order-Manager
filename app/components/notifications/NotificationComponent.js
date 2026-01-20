@@ -3,8 +3,10 @@ export class NotificationComponent {
         this.app = app;
         this.container = null;
         this.notifications = new Map();
+        this.notificationQueue = [];
         this.notificationIdCounter = 0;
         this.defaultDuration = 5000;
+        this.maxNotifications = 5;
     }
     
     async init() {
@@ -33,6 +35,28 @@ export class NotificationComponent {
         const duration = options.duration !== undefined ? options.duration : this.defaultDuration;
         const closable = options.closable !== undefined ? options.closable : true;
         
+        const notificationData = {
+            id: id,
+            type: type,
+            message: message,
+            duration: duration,
+            closable: closable,
+            timestamp: Date.now()
+        };
+        
+        // Если есть место, показываем сразу, иначе добавляем в очередь
+        if (this.notifications.size < this.maxNotifications) {
+            this.displayNotification(notificationData);
+        } else {
+            this.notificationQueue.push(notificationData);
+        }
+        
+        return id;
+    }
+    
+    displayNotification(notificationData) {
+        const { id, type, message, duration, closable } = notificationData;
+        
         const notification = this.createNotification(id, type, message, closable);
         this.container.appendChild(notification.element);
         
@@ -41,7 +65,8 @@ export class NotificationComponent {
             type: type,
             message: message,
             timeoutId: null,
-            closeButton: notification.closeButton
+            closeButton: notification.closeButton,
+            timestamp: notificationData.timestamp
         });
         
         // Анимация появления
@@ -56,8 +81,6 @@ export class NotificationComponent {
             }, duration);
             this.notifications.get(id).timeoutId = timeoutId;
         }
-        
-        return id;
     }
     
     createNotification(id, type, message, closable) {
@@ -138,7 +161,18 @@ export class NotificationComponent {
                 notification.element.parentNode.removeChild(notification.element);
             }
             this.notifications.delete(id);
+            
+            // Показываем следующее уведомление из очереди, если есть место
+            this.processQueue();
         }, 300);
+    }
+    
+    processQueue() {
+        // Показываем уведомления из очереди пока есть место
+        while (this.notifications.size < this.maxNotifications && this.notificationQueue.length > 0) {
+            const nextNotification = this.notificationQueue.shift();
+            this.displayNotification(nextNotification);
+        }
     }
     
     closeAll() {
