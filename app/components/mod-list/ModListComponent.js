@@ -206,10 +206,12 @@ export class ModListComponent {
             filterText = this.app.searchComponent ? this.app.searchComponent.getSearchText() : '';
         }
         
-        const hideSymlinks = this.app.hideSymlinks || false;
-        const hideNewMods = this.app.hideNewMods || false;
-        const hideUnusedMods = this.app.hideUnusedMods || false;
-        const hideNotFoundMods = this.app.hideNotFoundMods || false;
+        const isDeveloperViewMode = this.app && this.app.userConfig && this.app.userConfig.developerViewMode;
+        
+        const hideSymlinks = isDeveloperViewMode ? false : (this.app.hideSymlinks || false);
+        const hideNewMods = isDeveloperViewMode ? false : (this.app.hideNewMods || false);
+        const hideUnusedMods = isDeveloperViewMode ? false : (this.app.hideUnusedMods || false);
+        const hideNotFoundMods = isDeveloperViewMode ? false : (this.app.hideNotFoundMods || false);
         const selectedModName = this.app.selectedModName || '';
         const selectedModNames = this.app.selectedModNames || new Set();
         
