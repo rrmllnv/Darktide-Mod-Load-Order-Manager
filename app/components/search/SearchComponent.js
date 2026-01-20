@@ -133,19 +133,19 @@ export class SearchComponent {
             this.app.elements.clearSearchBtn.title = this.t('ui.search.clear');
         }
         
-        const hideNewModsSpan = document.querySelector('#hide-new-mods-checkbox')?.nextElementSibling;
-        if (hideNewModsSpan) {
-            hideNewModsSpan.textContent = this.t('ui.search.hideNewMods');
+        const hideNewModsLabel = document.querySelector('#hide-new-mods-checkbox')?.parentElement?.querySelector('.switch-label');
+        if (hideNewModsLabel) {
+            hideNewModsLabel.textContent = this.t('ui.search.hideNewMods');
         }
         
-        const hideNotFoundModsSpan = document.querySelector('#hide-not-found-mods-checkbox')?.nextElementSibling;
-        if (hideNotFoundModsSpan) {
-            hideNotFoundModsSpan.textContent = this.t('ui.search.hideNotFoundMods');
+        const hideNotFoundModsLabel = document.querySelector('#hide-not-found-mods-checkbox')?.parentElement?.querySelector('.switch-label');
+        if (hideNotFoundModsLabel) {
+            hideNotFoundModsLabel.textContent = this.t('ui.search.hideNotFoundMods');
         }
         
-        const hideUnusedModsSpan = document.querySelector('#hide-unused-mods-checkbox')?.nextElementSibling;
-        if (hideUnusedModsSpan) {
-            hideUnusedModsSpan.textContent = this.t('ui.search.hideUnusedMods');
+        const hideUnusedModsLabel = document.querySelector('#hide-unused-mods-checkbox')?.parentElement?.querySelector('.switch-label');
+        if (hideUnusedModsLabel) {
+            hideUnusedModsLabel.textContent = this.t('ui.search.hideUnusedMods');
         }
     }
 }
