@@ -202,6 +202,10 @@ export class SettingsComponent {
                 this.app.developerComponent.updateVisibility();
             }
             
+            if (this.app.searchComponent && this.app.searchComponent.updateFiltersVisibility) {
+                this.app.searchComponent.updateFiltersVisibility();
+            }
+            
             this.closeSettings();
             
             if (shouldRestartTour) {
@@ -307,6 +311,26 @@ export class SettingsComponent {
         if (todosGroupByMod) {
             todosGroupByMod.checked = this.app.userConfig.todosGroupByMod !== undefined ? this.app.userConfig.todosGroupByMod : true;
         }
+        
+        const showFilterSymlinks = document.getElementById('settings-show-filter-symlinks');
+        if (showFilterSymlinks) {
+            showFilterSymlinks.checked = this.app.userConfig.showFilterSymlinks !== undefined ? this.app.userConfig.showFilterSymlinks : false;
+        }
+        
+        const showFilterNewMods = document.getElementById('settings-show-filter-new-mods');
+        if (showFilterNewMods) {
+            showFilterNewMods.checked = this.app.userConfig.showFilterNewMods !== undefined ? this.app.userConfig.showFilterNewMods : true;
+        }
+        
+        const showFilterNotFoundMods = document.getElementById('settings-show-filter-not-found-mods');
+        if (showFilterNotFoundMods) {
+            showFilterNotFoundMods.checked = this.app.userConfig.showFilterNotFoundMods !== undefined ? this.app.userConfig.showFilterNotFoundMods : true;
+        }
+        
+        const showFilterUnusedMods = document.getElementById('settings-show-filter-unused-mods');
+        if (showFilterUnusedMods) {
+            showFilterUnusedMods.checked = this.app.userConfig.showFilterUnusedMods !== undefined ? this.app.userConfig.showFilterUnusedMods : true;
+        }
     }
     
     saveSettingsFromForm() {
@@ -355,6 +379,26 @@ export class SettingsComponent {
         const confirmBeforeDeleteProfile = document.getElementById('settings-confirm-before-delete-profile');
         if (confirmBeforeDeleteProfile) {
             this.app.userConfig.confirmBeforeDeleteProfile = confirmBeforeDeleteProfile.checked;
+        }
+        
+        const showFilterSymlinks = document.getElementById('settings-show-filter-symlinks');
+        if (showFilterSymlinks) {
+            this.app.userConfig.showFilterSymlinks = showFilterSymlinks.checked;
+        }
+        
+        const showFilterNewMods = document.getElementById('settings-show-filter-new-mods');
+        if (showFilterNewMods) {
+            this.app.userConfig.showFilterNewMods = showFilterNewMods.checked;
+        }
+        
+        const showFilterNotFoundMods = document.getElementById('settings-show-filter-not-found-mods');
+        if (showFilterNotFoundMods) {
+            this.app.userConfig.showFilterNotFoundMods = showFilterNotFoundMods.checked;
+        }
+        
+        const showFilterUnusedMods = document.getElementById('settings-show-filter-unused-mods');
+        if (showFilterUnusedMods) {
+            this.app.userConfig.showFilterUnusedMods = showFilterUnusedMods.checked;
         }
         
         const profilesListSize = document.getElementById('settings-profiles-list-size');
@@ -440,6 +484,8 @@ export class SettingsComponent {
                 const section = menuItem.getAttribute('data-section');
                 if (section === 'general') {
                     item.textContent = this.t('ui.settings.general');
+                } else if (section === 'search') {
+                    item.textContent = this.t('ui.settings.search');
                 } else if (section === 'profiles') {
                     item.textContent = this.t('ui.settings.profiles');
                 } else if (section === 'development') {
@@ -456,6 +502,31 @@ export class SettingsComponent {
         const settingsLocaleLabel = document.getElementById('settings-locale-label');
         if (settingsLocaleLabel) {
             settingsLocaleLabel.textContent = this.t('ui.settings.locale');
+        }
+        
+        const settingsShowFiltersLabel = document.getElementById('settings-show-filters-label');
+        if (settingsShowFiltersLabel) {
+            settingsShowFiltersLabel.textContent = this.t('ui.settings.showFilters');
+        }
+        
+        const settingsShowFilterSymlinksLabel = document.getElementById('settings-show-filter-symlinks-label');
+        if (settingsShowFilterSymlinksLabel) {
+            settingsShowFilterSymlinksLabel.textContent = this.t('ui.settings.showFilterSymlinks');
+        }
+        
+        const settingsShowFilterNewModsLabel = document.getElementById('settings-show-filter-new-mods-label');
+        if (settingsShowFilterNewModsLabel) {
+            settingsShowFilterNewModsLabel.textContent = this.t('ui.settings.showFilterNewMods');
+        }
+        
+        const settingsShowFilterNotFoundModsLabel = document.getElementById('settings-show-filter-not-found-mods-label');
+        if (settingsShowFilterNotFoundModsLabel) {
+            settingsShowFilterNotFoundModsLabel.textContent = this.t('ui.settings.showFilterNotFoundMods');
+        }
+        
+        const settingsShowFilterUnusedModsLabel = document.getElementById('settings-show-filter-unused-mods-label');
+        if (settingsShowFilterUnusedModsLabel) {
+            settingsShowFilterUnusedModsLabel.textContent = this.t('ui.settings.showFilterUnusedMods');
         }
         
         if (this.app.elements.settingsOkBtn) {

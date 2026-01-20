@@ -6,6 +6,7 @@ export class SearchComponent {
     async init() {
         this.bindEvents();
         this.updateLocalization();
+        this.updateFiltersVisibility();
     }
     
     t(key, params = {}) {
@@ -160,6 +161,8 @@ export class SearchComponent {
                 this.app.elements.hideUnusedModsCheckbox.checked = this.app.hideUnusedMods;
             }
         }
+        
+        this.updateFiltersVisibility();
     }
     
     updateLocalization() {
@@ -194,6 +197,36 @@ export class SearchComponent {
         const hideUnusedModsLabel = document.querySelector('#hide-unused-mods-checkbox')?.parentElement?.querySelector('.switch-label');
         if (hideUnusedModsLabel) {
             hideUnusedModsLabel.textContent = this.t('ui.search.hideUnusedMods');
+        }
+    }
+    
+    updateFiltersVisibility() {
+        if (!this.app.userConfig) {
+            return;
+        }
+        
+        const symlinksFrame = document.querySelector('#hide-symlinks-checkbox')?.closest('.hide-new-mods-frame');
+        if (symlinksFrame) {
+            const showFilterSymlinks = this.app.userConfig.showFilterSymlinks !== undefined ? this.app.userConfig.showFilterSymlinks : false;
+            symlinksFrame.style.display = showFilterSymlinks ? 'block' : 'none';
+        }
+        
+        const newModsFrame = document.querySelector('#hide-new-mods-checkbox')?.closest('.hide-new-mods-frame');
+        if (newModsFrame) {
+            const showFilterNewMods = this.app.userConfig.showFilterNewMods !== undefined ? this.app.userConfig.showFilterNewMods : true;
+            newModsFrame.style.display = showFilterNewMods ? 'block' : 'none';
+        }
+        
+        const notFoundModsFrame = document.querySelector('#hide-not-found-mods-checkbox')?.closest('.hide-unused-mods-frame');
+        if (notFoundModsFrame) {
+            const showFilterNotFoundMods = this.app.userConfig.showFilterNotFoundMods !== undefined ? this.app.userConfig.showFilterNotFoundMods : true;
+            notFoundModsFrame.style.display = showFilterNotFoundMods ? 'block' : 'none';
+        }
+        
+        const unusedModsFrame = document.querySelector('#hide-unused-mods-checkbox')?.closest('.hide-unused-mods-frame');
+        if (unusedModsFrame) {
+            const showFilterUnusedMods = this.app.userConfig.showFilterUnusedMods !== undefined ? this.app.userConfig.showFilterUnusedMods : true;
+            unusedModsFrame.style.display = showFilterUnusedMods ? 'block' : 'none';
         }
     }
 }

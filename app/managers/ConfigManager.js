@@ -13,6 +13,10 @@ export class ConfigManager {
             hideNewMods: false,
             hideNotFoundMods: false,
             hideUnusedMods: false,
+            showFilterSymlinks: false,
+            showFilterNewMods: true,
+            showFilterNotFoundMods: true,
+            showFilterUnusedMods: true,
             tourCompleted: false,
             browseTourCompleted: false,
             saveProfileHideNewMods: true,
@@ -55,6 +59,19 @@ export class ConfigManager {
             this.app.userConfig.hideNewMods = this.app.hideNewMods;
             this.app.userConfig.hideNotFoundMods = this.app.hideNotFoundMods;
             this.app.userConfig.hideUnusedMods = this.app.hideUnusedMods;
+            
+            if (this.app.userConfig.showFilterSymlinks !== undefined) {
+                this.app.userConfig.showFilterSymlinks = this.app.userConfig.showFilterSymlinks;
+            }
+            if (this.app.userConfig.showFilterNewMods !== undefined) {
+                this.app.userConfig.showFilterNewMods = this.app.userConfig.showFilterNewMods;
+            }
+            if (this.app.userConfig.showFilterNotFoundMods !== undefined) {
+                this.app.userConfig.showFilterNotFoundMods = this.app.userConfig.showFilterNotFoundMods;
+            }
+            if (this.app.userConfig.showFilterUnusedMods !== undefined) {
+                this.app.userConfig.showFilterUnusedMods = this.app.userConfig.showFilterUnusedMods;
+            }
             if (this.app.todosShowOnlyActive !== undefined) {
                 this.app.userConfig.todosShowOnlyActive = this.app.todosShowOnlyActive;
             }

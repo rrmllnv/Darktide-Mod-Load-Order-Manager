@@ -371,6 +371,9 @@
                     <button class="settings-menu-item active" data-section="general">
                         <span class="settings-menu-item-text">General</span>
                     </button>
+                    <button class="settings-menu-item" data-section="search">
+                        <span class="settings-menu-item-text">Search</span>
+                    </button>
                     <button class="settings-menu-item" data-section="profiles">
                         <span class="settings-menu-item-text">Profiles</span>
                     </button>
@@ -413,6 +416,29 @@
                                 <input type="checkbox" id="settings-restart-tour-checkbox" />
                                 <span id="settings-restart-tour-label">Take the training tour again</span>
                             </label>
+                        </div>
+                    </div>
+                    <div class="settings-content-section" id="settings-section-search">
+                        <div class="settings-section">
+                            <label class="settings-label" id="settings-show-filters-label">Display filters:</label>
+                            <div class="settings-checkbox-group">
+                                <label class="settings-label">
+                                    <input type="checkbox" id="settings-show-filter-symlinks" />
+                                    <span id="settings-show-filter-symlinks-label">Symlinks</span>
+                                </label>
+                                <label class="settings-label">
+                                    <input type="checkbox" id="settings-show-filter-new-mods" />
+                                    <span id="settings-show-filter-new-mods-label">Pending</span>
+                                </label>
+                                <label class="settings-label">
+                                    <input type="checkbox" id="settings-show-filter-not-found-mods" />
+                                    <span id="settings-show-filter-not-found-mods-label">Not found</span>
+                                </label>
+                                <label class="settings-label">
+                                    <input type="checkbox" id="settings-show-filter-unused-mods" />
+                                    <span id="settings-show-filter-unused-mods-label">Unused</span>
+                                </label>
+                            </div>
                         </div>
                     </div>
                     <div class="settings-content-section" id="settings-section-profiles">
