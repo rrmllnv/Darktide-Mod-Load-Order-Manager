@@ -116,9 +116,13 @@
         "settings": {
             "settings": "Configurações",
             "general": "Geral",
+            "modList": "Lista de mods",
             "search": "Pesquisa",
             "profiles": "Perfis",
             "development": "Desenvolvimento",
+            "showModSize": "Exibir tamanho da pasta",
+            "showModDate": "Exibir data de criação da pasta",
+            "showModFilesCount": "Exibir quantidade de arquivos e pastas",
             "showFilters": "Exibir filtros:",
             "showFilterSymlinks": "Ocultar symlinks",
             "showFilterNewMods": "Ocultar mods aguardando adição",

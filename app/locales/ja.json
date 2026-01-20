@@ -116,9 +116,13 @@
         "settings": {
             "settings": "設定",
             "general": "一般",
+            "modList": "MODリスト",
             "search": "検索",
             "profiles": "プロファイル",
             "development": "開発",
+            "showModSize": "フォルダサイズを表示",
+            "showModDate": "フォルダ作成日を表示",
+            "showModFilesCount": "ファイルとフォルダの数を表示",
             "showFilters": "フィルターを表示:",
             "showFilterSymlinks": "シンボリックリンクを非表示",
             "showFilterNewMods": "追加待ちのMODを非表示",

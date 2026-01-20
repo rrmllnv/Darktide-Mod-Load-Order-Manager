@@ -17,6 +17,9 @@ export class ConfigManager {
             showFilterNewMods: true,
             showFilterNotFoundMods: true,
             showFilterUnusedMods: true,
+            showModSize: true,
+            showModDate: true,
+            showModFilesCount: true,
             tourCompleted: false,
             browseTourCompleted: false,
             saveProfileHideNewMods: true,
@@ -71,6 +74,15 @@ export class ConfigManager {
             }
             if (this.app.userConfig.showFilterUnusedMods !== undefined) {
                 this.app.userConfig.showFilterUnusedMods = this.app.userConfig.showFilterUnusedMods;
+            }
+            if (this.app.userConfig.showModSize !== undefined) {
+                this.app.userConfig.showModSize = this.app.userConfig.showModSize;
+            }
+            if (this.app.userConfig.showModDate !== undefined) {
+                this.app.userConfig.showModDate = this.app.userConfig.showModDate;
+            }
+            if (this.app.userConfig.showModFilesCount !== undefined) {
+                this.app.userConfig.showModFilesCount = this.app.userConfig.showModFilesCount;
             }
             if (this.app.todosShowOnlyActive !== undefined) {
                 this.app.userConfig.todosShowOnlyActive = this.app.todosShowOnlyActive;

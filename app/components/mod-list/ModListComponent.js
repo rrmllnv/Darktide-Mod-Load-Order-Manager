@@ -527,13 +527,26 @@ export class ModListComponent {
         if (newLabel) {
             modItem.appendChild(newLabel);
         }
-        if (sizeElement) {
+        const showModSize = this.app.userConfig?.showModSize !== undefined ? this.app.userConfig.showModSize : true;
+        const showModDate = this.app.userConfig?.showModDate !== undefined ? this.app.userConfig.showModDate : true;
+        const showModFilesCount = this.app.userConfig?.showModFilesCount !== undefined ? this.app.userConfig.showModFilesCount : true;
+        
+        if (sizeElement && showModSize) {
+            modItem.appendChild(sizeElement);
+        } else if (sizeElement) {
+            sizeElement.style.display = 'none';
             modItem.appendChild(sizeElement);
         }
-        if (dateElement) {
+        if (dateElement && showModDate) {
+            modItem.appendChild(dateElement);
+        } else if (dateElement) {
+            dateElement.style.display = 'none';
             modItem.appendChild(dateElement);
         }
-        if (filesCountElement) {
+        if (filesCountElement && showModFilesCount) {
+            modItem.appendChild(filesCountElement);
+        } else if (filesCountElement) {
+            filesCountElement.style.display = 'none';
             modItem.appendChild(filesCountElement);
         }
         

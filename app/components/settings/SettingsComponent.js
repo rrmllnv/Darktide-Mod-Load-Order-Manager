@@ -206,6 +206,11 @@ export class SettingsComponent {
                 this.app.searchComponent.updateFiltersVisibility();
             }
             
+            if (this.app.modListComponent && this.app.modListComponent.updateModList) {
+                const searchText = this.app.searchComponent ? this.app.searchComponent.getSearchText() : '';
+                this.app.modListComponent.updateModList(searchText);
+            }
+            
             this.closeSettings();
             
             if (shouldRestartTour) {
@@ -331,6 +336,21 @@ export class SettingsComponent {
         if (showFilterUnusedMods) {
             showFilterUnusedMods.checked = this.app.userConfig.showFilterUnusedMods !== undefined ? this.app.userConfig.showFilterUnusedMods : true;
         }
+        
+        const showModSize = document.getElementById('settings-show-mod-size');
+        if (showModSize) {
+            showModSize.checked = this.app.userConfig.showModSize !== undefined ? this.app.userConfig.showModSize : true;
+        }
+        
+        const showModDate = document.getElementById('settings-show-mod-date');
+        if (showModDate) {
+            showModDate.checked = this.app.userConfig.showModDate !== undefined ? this.app.userConfig.showModDate : true;
+        }
+        
+        const showModFilesCount = document.getElementById('settings-show-mod-files-count');
+        if (showModFilesCount) {
+            showModFilesCount.checked = this.app.userConfig.showModFilesCount !== undefined ? this.app.userConfig.showModFilesCount : true;
+        }
     }
     
     saveSettingsFromForm() {
@@ -399,6 +419,21 @@ export class SettingsComponent {
         const showFilterUnusedMods = document.getElementById('settings-show-filter-unused-mods');
         if (showFilterUnusedMods) {
             this.app.userConfig.showFilterUnusedMods = showFilterUnusedMods.checked;
+        }
+        
+        const showModSize = document.getElementById('settings-show-mod-size');
+        if (showModSize) {
+            this.app.userConfig.showModSize = showModSize.checked;
+        }
+        
+        const showModDate = document.getElementById('settings-show-mod-date');
+        if (showModDate) {
+            this.app.userConfig.showModDate = showModDate.checked;
+        }
+        
+        const showModFilesCount = document.getElementById('settings-show-mod-files-count');
+        if (showModFilesCount) {
+            this.app.userConfig.showModFilesCount = showModFilesCount.checked;
         }
         
         const profilesListSize = document.getElementById('settings-profiles-list-size');
@@ -484,6 +519,8 @@ export class SettingsComponent {
                 const section = menuItem.getAttribute('data-section');
                 if (section === 'general') {
                     item.textContent = this.t('ui.settings.general');
+                } else if (section === 'modList') {
+                    item.textContent = this.t('ui.settings.modList');
                 } else if (section === 'search') {
                     item.textContent = this.t('ui.settings.search');
                 } else if (section === 'profiles') {
@@ -527,6 +564,21 @@ export class SettingsComponent {
         const settingsShowFilterUnusedModsLabel = document.getElementById('settings-show-filter-unused-mods-label');
         if (settingsShowFilterUnusedModsLabel) {
             settingsShowFilterUnusedModsLabel.textContent = this.t('ui.settings.showFilterUnusedMods');
+        }
+        
+        const settingsShowModSizeLabel = document.getElementById('settings-show-mod-size-label');
+        if (settingsShowModSizeLabel) {
+            settingsShowModSizeLabel.textContent = this.t('ui.settings.showModSize');
+        }
+        
+        const settingsShowModDateLabel = document.getElementById('settings-show-mod-date-label');
+        if (settingsShowModDateLabel) {
+            settingsShowModDateLabel.textContent = this.t('ui.settings.showModDate');
+        }
+        
+        const settingsShowModFilesCountLabel = document.getElementById('settings-show-mod-files-count-label');
+        if (settingsShowModFilesCountLabel) {
+            settingsShowModFilesCountLabel.textContent = this.t('ui.settings.showModFilesCount');
         }
         
         if (this.app.elements.settingsOkBtn) {

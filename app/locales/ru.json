@@ -116,9 +116,13 @@
         "settings": {
             "settings": "Настройки",
             "general": "Общие",
+            "modList": "Список модов",
             "search": "Поиск",
             "profiles": "Профили",
             "development": "Разработка",
+            "showModSize": "Отображать размер папки",
+            "showModDate": "Отображать дату создания папки",
+            "showModFilesCount": "Отображать количество файлов и папок",
             "showFilters": "Отображать фильтры:",
             "showFilterSymlinks": "Скрыть симлинки",
             "showFilterNewMods": "Скрыть моды ожидающие добавления",

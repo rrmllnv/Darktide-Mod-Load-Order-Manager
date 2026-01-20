@@ -116,9 +116,13 @@
         "settings": {
             "settings": "설정",
             "general": "일반",
+            "modList": "모드 목록",
             "search": "검색",
             "profiles": "프로필",
             "development": "개발",
+            "showModSize": "폴더 크기 표시",
+            "showModDate": "폴더 생성 날짜 표시",
+            "showModFilesCount": "파일 및 폴더 수 표시",
             "showFilters": "필터 표시:",
             "showFilterSymlinks": "심볼릭 링크 숨기기",
             "showFilterNewMods": "추가 대기 중인 모드 숨기기",
