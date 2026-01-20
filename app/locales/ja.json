@@ -119,7 +119,7 @@
             "locale": "言語:",
             "restartTour": "チュートリアルツアーを再開",
             "saveProfileFilters": "プロフィールにフィルターを保存:",
-            "saveProfileHideNewMods": "新しいMODを非表示",
+            "saveProfileHideNewMods": "追加待ちのMODを非表示",
             "saveProfileHideNotFoundMods": "見つからないMODを非表示",
             "saveProfileHideUnusedMods": "使用されていないMODをすべて非表示",
             "saveProfileSort": "プロフィールに並び順を保存",

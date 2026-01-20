@@ -119,7 +119,7 @@
             "locale": "Idioma:",
             "restartTour": "Reiniciar tour tutorial",
             "saveProfileFilters": "Salvar filtros no perfil:",
-            "saveProfileHideNewMods": "Ocultar novos mods",
+            "saveProfileHideNewMods": "Ocultar mods aguardando adição",
             "saveProfileHideNotFoundMods": "Ocultar mods não encontrados",
             "saveProfileHideUnusedMods": "Ocultar todos os mods não utilizados",
             "saveProfileSort": "Salvar ordem de classificação no perfil",

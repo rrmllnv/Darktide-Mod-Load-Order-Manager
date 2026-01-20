@@ -119,7 +119,7 @@
             "locale": "Langue:",
             "restartTour": "Relancer le tutoriel",
             "saveProfileFilters": "Enregistrer les filtres dans le profil:",
-            "saveProfileHideNewMods": "Masquer les nouveaux mods",
+            "saveProfileHideNewMods": "Masquer les mods en attente d'ajout",
             "saveProfileHideNotFoundMods": "Masquer les mods introuvables",
             "saveProfileHideUnusedMods": "Masquer tous les mods inutilisés",
             "saveProfileSort": "Enregistrer l'ordre de tri dans le profil",

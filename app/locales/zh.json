@@ -119,7 +119,7 @@
             "locale": "语言:",
             "restartTour": "重新开始教程",
             "saveProfileFilters": "在配置文件中保存过滤器:",
-            "saveProfileHideNewMods": "隐藏新模组",
+            "saveProfileHideNewMods": "隐藏等待添加的模组",
             "saveProfileHideNotFoundMods": "隐藏未找到的模组",
             "saveProfileHideUnusedMods": "隐藏所有未使用的模组",
             "saveProfileSort": "在配置文件中保存排序顺序",
