@@ -686,22 +686,16 @@ export class ModListComponent {
     
     async deleteModFolder(modName) {
         if (!modName) {
-            if (this.app.uiManager && this.app.uiManager.showMessage) {
-                await this.app.uiManager.showMessage(
-                    this.app.t('messages.common.error'),
-                    this.app.t('messages.developer.noModSelected')
-                );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('error', this.app.t('messages.developer.noModSelected'));
             }
             return;
         }
         
         const modsDir = this.app.filePath ? this.app.filePath.substring(0, this.app.filePath.lastIndexOf('\\')) : '';
         if (!modsDir) {
-            if (this.app.uiManager && this.app.uiManager.showMessage) {
-                await this.app.uiManager.showMessage(
-                    this.app.t('messages.common.error'),
-                    this.app.t('messages.common.failedToDetermineModsDir')
-                );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('error', this.app.t('messages.common.failedToDetermineModsDir'));
             }
             return;
         }
@@ -710,11 +704,8 @@ export class ModListComponent {
         const isDirectory = await window.electronAPI.checkIsDirectory(modPath);
         
         if (!isDirectory) {
-            if (this.app.uiManager && this.app.uiManager.showMessage) {
-                await this.app.uiManager.showMessage(
-                    this.app.t('messages.common.error'),
-                    this.app.t('messages.developer.modNotFoundInProject')
-                );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('error', this.app.t('messages.developer.modNotFoundInProject'));
             }
             return;
         }
@@ -731,11 +722,8 @@ export class ModListComponent {
         try {
             const deleteResult = await window.electronAPI.deleteFolder(modPath);
             if (deleteResult.success) {
-                if (this.app.uiManager && this.app.uiManager.showMessage) {
-                    await this.app.uiManager.showMessage(
-                        this.app.t('messages.common.success'),
-                        this.app.t('messages.developer.modFolderDeleted', { modName })
-                    );
+                if (this.app.notificationComponent) {
+                    this.app.notificationComponent.show('success', this.app.t('messages.developer.modFolderDeleted', { modName }));
                 }
                 
                 if (this.app.modScanService) {
@@ -749,21 +737,15 @@ export class ModListComponent {
                 }
             } else {
                 const errorMessage = deleteResult.error || this.app.t('messages.developer.modFolderDeleteError');
-                if (this.app.uiManager && this.app.uiManager.showMessage) {
-                    await this.app.uiManager.showMessage(
-                        this.app.t('messages.common.error'),
-                        `${this.app.t('messages.developer.modFolderDeleteError')}\n\n${errorMessage}\n\nМод: ${modName}\nПуть: ${modPath}`
-                    );
+                if (this.app.notificationComponent) {
+                    this.app.notificationComponent.show('error', `${this.app.t('messages.developer.modFolderDeleteError')}\n${errorMessage}\nМод: ${modName}\nПуть: ${modPath}`);
                 }
             }
         } catch (error) {
             console.error('Error deleting mod folder:', error);
             const errorPath = modPath || 'неизвестно';
-            if (this.app.uiManager && this.app.uiManager.showMessage) {
-                await this.app.uiManager.showMessage(
-                    this.app.t('messages.common.error'),
-                    `${this.app.t('messages.developer.modFolderDeleteError')}\n\n${error.message || String(error)}\n\nМод: ${modName}\nПуть: ${errorPath}`
-                );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('error', `${this.app.t('messages.developer.modFolderDeleteError')}\n${error.message || String(error)}\nМод: ${modName}\nПуть: ${errorPath}`);
             }
         }
     }

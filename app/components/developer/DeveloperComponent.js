@@ -854,11 +854,8 @@ export class DeveloperComponent {
         let modPath = null;
         
         if (!modName) {
-            if (this.app.uiManager && this.app.uiManager.showMessage) {
-                await this.app.uiManager.showMessage(
-                    this.app.t('messages.common.error'),
-                    this.app.t('messages.developer.noModSelected')
-                );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('error', this.app.t('messages.developer.noModSelected'));
             }
             return;
         }
@@ -869,21 +866,15 @@ export class DeveloperComponent {
         
         projectPath = this.app.userConfig && this.app.userConfig.projectPath;
         if (!projectPath || typeof projectPath !== 'string') {
-            if (this.app.uiManager && this.app.uiManager.showMessage) {
-                await this.app.uiManager.showMessage(
-                    this.app.t('messages.common.error'),
-                    this.app.t('messages.developer.projectPathNotSet')
-                );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('error', this.app.t('messages.developer.projectPathNotSet'));
             }
             return;
         }
         
         if (!this.app.modEntries || !this.app.modEntries.find(m => m.name === modName)) {
-            if (this.app.uiManager && this.app.uiManager.showMessage) {
-                await this.app.uiManager.showMessage(
-                    this.app.t('messages.common.error'),
-                    `${this.app.t('messages.developer.modNotFoundInProject')}\n\nMod '${modName}' not found in current mod list.`
-                );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('error', `${this.app.t('messages.developer.modNotFoundInProject')}\nMod '${modName}' not found in current mod list.`);
             }
             return;
         }
@@ -893,11 +884,8 @@ export class DeveloperComponent {
         const isDirectory = await window.electronAPI.checkIsDirectory(modPath);
         
         if (!isDirectory) {
-            if (this.app.uiManager && this.app.uiManager.showMessage) {
-                await this.app.uiManager.showMessage(
-                    this.app.t('messages.common.error'),
-                    `${this.app.t('messages.developer.modNotFoundInProject')}\n\nMod: ${modName}\nPath: ${modPath}`
-                );
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('error', `${this.app.t('messages.developer.modNotFoundInProject')}\nMod: ${modName}\nPath: ${modPath}`);
             }
             return;
         }
@@ -977,11 +965,8 @@ export class DeveloperComponent {
             console.log('Delete result:', deleteResult);
             
             if (deleteResult && deleteResult.success) {
-                if (this.app.uiManager && this.app.uiManager.showMessage) {
-                    const successTitle = this.t('messages.common.success');
-                    const successMessage = this.t('messages.developer.modFolderDeleted', { modName: savedModName });
-                    
-                    await this.app.uiManager.showMessage(successTitle, successMessage);
+                if (this.app.notificationComponent) {
+                    this.app.notificationComponent.show('success', this.t('messages.developer.modFolderDeleted', { modName: savedModName }));
                 }
                 
                 if (this.app.modScanService && this.app.modEntries) {
@@ -1006,23 +991,17 @@ export class DeveloperComponent {
                 }
             } else {
                 console.error('Delete folder error:', deleteResult.error);
-                if (this.app.uiManager && this.app.uiManager.showMessage) {
+                if (this.app.notificationComponent) {
                     const errorMessage = deleteResult.error || this.app.t('messages.developer.modFolderDeleteError');
-                    await this.app.uiManager.showMessage(
-                        this.app.t('messages.common.error'),
-                        `${this.app.t('messages.developer.modFolderDeleteError')}\n\n${errorMessage}\n\nМод: ${modName}\nПуть: ${modPath}`
-                    );
+                    this.app.notificationComponent.show('error', `${this.app.t('messages.developer.modFolderDeleteError')}\n${errorMessage}\nМод: ${modName}\nПуть: ${modPath}`);
                 }
             }
         } catch (error) {
             console.error('Error deleting mod folder:', error);
-            if (this.app.uiManager && this.app.uiManager.showMessage) {
+            if (this.app.notificationComponent) {
                 const errorMessage = error.message || String(error);
                 const errorPath = modPath || 'неизвестно';
-                await this.app.uiManager.showMessage(
-                    this.app.t('messages.common.error'),
-                    `${this.app.t('messages.developer.modFolderDeleteError')}\n\n${errorMessage}\n\nМод: ${modName}\nПуть: ${errorPath}`
-                );
+                this.app.notificationComponent.show('error', `${this.app.t('messages.developer.modFolderDeleteError')}\n${errorMessage}\nМод: ${modName}\nПуть: ${errorPath}`);
             }
         }
     }
