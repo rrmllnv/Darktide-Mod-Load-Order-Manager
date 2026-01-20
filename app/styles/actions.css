@@ -27,9 +27,9 @@
 .bulk-actions-buttons {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-    align-self: flex-end;
-    gap: 2px;
+    justify-content: flex-start;
+    align-self: flex-start;
+    gap: 5px;
     color: var(--text-primary);
 }
 

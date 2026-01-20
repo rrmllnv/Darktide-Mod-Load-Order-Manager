@@ -15,7 +15,7 @@
     min-width: 570px;
     overflow: hidden;
     color: var(--text-primary);
-    padding-right: 5px;
+    padding-right: 3px;
 }
 
 .header-frame {
@@ -58,7 +58,7 @@
 .button-frame {
     display: flex;
     align-items: center;
-    gap: 2px;
+    gap: 5px;
     color: var(--text-primary);
 }
 
@@ -193,7 +193,7 @@
     gap: 5px;
     color: var(--text-primary);
     flex-shrink: 0;
-    padding-left: 5px;
+    padding-left: 3px;
 }
 
 .save-frame {
