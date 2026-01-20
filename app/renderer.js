@@ -332,7 +332,6 @@ class ModLoadOrderManager {
         
         if (this.elements.contextMenuOpenFolder) {
             this.elements.contextMenuOpenFolder.addEventListener('click', async () => {
-                // Обычное меню - открывает папку мода из папки модов игры
                 if (this.contextMenuModName && this.filePath) {
                     const modName = this.contextMenuModName;
                     const modsDir = this.filePath.substring(0, this.filePath.lastIndexOf('\\'));
