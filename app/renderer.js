@@ -232,13 +232,18 @@ class ModLoadOrderManager {
                                  target.closest('#confirm-no-btn') ||
                                  target.closest('#confirm-checkboxes-yes-btn') ||
                                  target.closest('#confirm-checkboxes-no-btn');
+            const isTour = target.closest('#tour-overlay') || 
+                          target.closest('#tour-tooltip') ||
+                          target.closest('#tour-highlight') ||
+                          target.closest('.tour-tooltip') ||
+                          target.closest('.tour-btn');
             
             const anyModalOpen = document.querySelector('.modal.show');
             
             if (isModal || isModalContent || isModalBody || 
                 isModalFooter || isModalHeader || isInputDialog ||
                 isMessageDialog || isConfirmCheckboxesDialog || 
-                isBackupDialog || isLanguageDialog || isModalButton || anyModalOpen) {
+                isBackupDialog || isLanguageDialog || isModalButton || anyModalOpen || isTour) {
                 return;
             }
             
