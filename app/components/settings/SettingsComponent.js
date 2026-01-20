@@ -472,7 +472,7 @@ export class SettingsComponent {
         if (saveProfileFiltersLabel) {
             saveProfileFiltersLabel.textContent = this.t('ui.settings.saveProfileFilters');
         }
-        
+                
         const saveProfileHideNewModsLabel = document.getElementById('settings-save-profile-hide-new-mods-label');
         if (saveProfileHideNewModsLabel) {
             saveProfileHideNewModsLabel.textContent = this.t('ui.settings.saveProfileHideNewMods');
@@ -539,6 +539,41 @@ export class SettingsComponent {
         const projectPathBrowseBtn = document.getElementById('settings-project-path-browse-btn');
         if (projectPathBrowseBtn) {
             projectPathBrowseBtn.textContent = this.t('ui.fileOperations.browse');
+        }
+
+        if (this.app && this.app.elements && this.app.elements.settingsLocaleSelect) {
+            const select = this.app.elements.settingsLocaleSelect;
+            const options = select.options;
+            if (options && options.length > 0) {
+                const langNames = this.app.localeManager?.translations?.ui?.common?.languageNames || {};
+                const nativeNames = {
+                    'en': 'English',
+                    'ru': 'Русский',
+                    'de': 'Deutsch',
+                    'fr': 'Français',
+                    'it': 'Italiano',
+                    'pt': 'Português',
+                    'ko': '한국어',
+                    'zh': '中文',
+                    'ja': '日本語'
+                };
+                const languageCodes = ['en', 'ru', 'de', 'fr', 'it', 'pt', 'ko', 'zh', 'ja'];
+                
+                for (let i = 0; i < languageCodes.length && i < options.length; i++) {
+                    const langCode = languageCodes[i];
+                    const option = options[i];
+                    if (!option) continue;
+                    
+                    const nativeName = nativeNames[langCode];
+                    const localizedName = langNames[langCode];
+                    
+                    if (localizedName) {
+                        option.textContent = `${nativeName} (${localizedName})`;
+                    } else {
+                        option.textContent = nativeName;
+                    }
+                }
+            }
         }
     }
 }

@@ -115,6 +115,7 @@ class ModLoadOrderManager {
             settingsDialog: document.getElementById('settings-dialog'),
             settingsThemeSelect: document.getElementById('settings-theme-select'),
             settingsLocaleSelect: document.getElementById('settings-locale-select'),
+            languageSelectionSelect: document.getElementById('language-selection-select'),
             settingsOkBtn: document.getElementById('settings-ok-btn'),
             settingsCancelBtn: document.getElementById('settings-cancel-btn'),
             inputDialog: document.getElementById('input-dialog'),
@@ -673,9 +674,13 @@ class ModLoadOrderManager {
         const localeLabel = document.getElementById('settings-locale-label');
         if (localeLabel) localeLabel.textContent = t('ui.settings.locale');
         
-        if (this.elements.settingsLocaleSelect) {
-            const localeOptions = this.elements.settingsLocaleSelect.options;
-            const langNames = this.localeManager.translations.ui?.languageNames || {};
+        const updateLanguageSelectOptions = (selectElement) => {
+            if (!selectElement) return;
+            
+            const options = selectElement.options;
+            if (!options || options.length === 0) return;
+            
+            const langNames = this.localeManager.translations?.ui?.common?.languageNames || {};
             
             const nativeNames = {
                 'en': 'English',
@@ -689,43 +694,26 @@ class ModLoadOrderManager {
                 'ja': '日本語'
             };
             
-            if (localeOptions[0]) {
-                const enName = langNames['en'] || 'English';
-                localeOptions[0].textContent = `English (${enName})`;
+            const languageCodes = ['en', 'ru', 'de', 'fr', 'it', 'pt', 'ko', 'zh', 'ja'];
+            
+            for (let i = 0; i < languageCodes.length && i < options.length; i++) {
+                const langCode = languageCodes[i];
+                const option = options[i];
+                if (!option) continue;
+                
+                const nativeName = nativeNames[langCode];
+                const localizedName = langNames[langCode];
+                
+                if (localizedName) {
+                    option.textContent = `${nativeName} (${localizedName})`;
+                } else {
+                    option.textContent = nativeName;
+                }
             }
-            if (localeOptions[1]) {
-                const ruName = langNames['ru'] || 'Russian';
-                localeOptions[1].textContent = `${nativeNames['ru']} (${ruName})`;
-            }
-            if (localeOptions[2]) {
-                const deName = langNames['de'] || 'German';
-                localeOptions[2].textContent = `${nativeNames['de']} (${deName})`;
-            }
-            if (localeOptions[3]) {
-                const frName = langNames['fr'] || 'French';
-                localeOptions[3].textContent = `${nativeNames['fr']} (${frName})`;
-            }
-            if (localeOptions[4]) {
-                const itName = langNames['it'] || 'Italian';
-                localeOptions[4].textContent = `${nativeNames['it']} (${itName})`;
-            }
-            if (localeOptions[5]) {
-                const ptName = langNames['pt'] || 'Portuguese';
-                localeOptions[5].textContent = `${nativeNames['pt']} (${ptName})`;
-            }
-            if (localeOptions[6]) {
-                const koName = langNames['ko'] || 'Korean';
-                localeOptions[6].textContent = `${nativeNames['ko']} (${koName})`;
-            }
-            if (localeOptions[7]) {
-                const zhName = langNames['zh'] || 'Chinese';
-                localeOptions[7].textContent = `${nativeNames['zh']} (${zhName})`;
-            }
-            if (localeOptions[8]) {
-                const jaName = langNames['ja'] || 'Japanese';
-                localeOptions[8].textContent = `${nativeNames['ja']} (${jaName})`;
-            }
-        }
+        };
+        
+        updateLanguageSelectOptions(this.elements.settingsLocaleSelect);
+        updateLanguageSelectOptions(this.elements.languageSelectionSelect);
         
         if (this.elements.settingsOkBtn) this.elements.settingsOkBtn.textContent = t('ui.settings.save');
         if (this.elements.settingsCancelBtn) this.elements.settingsCancelBtn.textContent = t('ui.settings.cancel');
