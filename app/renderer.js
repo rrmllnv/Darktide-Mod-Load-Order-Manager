@@ -110,9 +110,11 @@ class ModLoadOrderManager {
             contextMenuEnable: document.getElementById('context-menu-enable'),
             contextMenuDisable: document.getElementById('context-menu-disable'),
             contextMenuCopy: document.getElementById('context-menu-copy'),
+            contextMenuOpenFolder: document.getElementById('context-menu-open-folder'),
             contextMenuDelete: document.getElementById('context-menu-delete'),
             contextMenuDeleteFolder: document.getElementById('context-menu-delete-folder'),
             contextMenuDevCopyName: document.getElementById('context-menu-dev-copy-name'),
+            contextMenuDevOpenFolder: document.getElementById('context-menu-dev-open-folder'),
             contextMenuDevDeleteFolder: document.getElementById('context-menu-dev-delete-folder'),
             settingsDialog: document.getElementById('settings-dialog'),
             settingsThemeSelect: document.getElementById('settings-theme-select'),
@@ -314,6 +316,21 @@ class ModLoadOrderManager {
             });
         }
         
+        if (this.elements.contextMenuOpenFolder) {
+            this.elements.contextMenuOpenFolder.addEventListener('click', async () => {
+                if (this.contextMenuModName && this.app.filePath) {
+                    const modName = this.contextMenuModName;
+                    const modsDir = this.app.filePath.substring(0, this.app.filePath.lastIndexOf('\\'));
+                    const modPath = `${modsDir}\\${modName}`;
+                    this.hideContextMenu();
+                    const result = await window.electronAPI.openFolder(modPath);
+                    if (!result.success && this.app.notificationComponent) {
+                        this.app.notificationComponent.show('error', result.error || this.app.t('messages.common.failedToOpenFolder'));
+                    }
+                }
+            });
+        }
+        
         if (this.elements.contextMenuDelete) {
             this.elements.contextMenuDelete.addEventListener('click', async () => {
                 if (this.contextMenuModName) {
@@ -339,6 +356,20 @@ class ModLoadOrderManager {
                 if (this.contextMenuModName && this.modListComponent) {
                     this.modListComponent.copyModName(this.contextMenuModName);
                     this.hideContextMenu();
+                }
+            });
+        }
+        
+        if (this.elements.contextMenuDevOpenFolder) {
+            this.elements.contextMenuDevOpenFolder.addEventListener('click', async () => {
+                if (this.contextMenuModName && this.userConfig && this.userConfig.projectPath) {
+                    const modName = this.contextMenuModName;
+                    const modPath = `${this.userConfig.projectPath}\\${modName}`;
+                    this.hideContextMenu();
+                    const result = await window.electronAPI.openFolder(modPath);
+                    if (!result.success && this.notificationComponent) {
+                        this.notificationComponent.show('error', result.error || this.t('messages.common.failedToOpenFolder'));
+                    }
                 }
             });
         }
@@ -755,6 +786,9 @@ class ModLoadOrderManager {
             if (this.elements.contextMenuDevCopyName && this.elements.contextMenuDevCopyName.querySelector('span')) {
                 this.elements.contextMenuDevCopyName.querySelector('span').textContent = this.t('ui.common.contextMenuCopyName');
             }
+            if (this.elements.contextMenuDevOpenFolder && this.elements.contextMenuDevOpenFolder.querySelector('span')) {
+                this.elements.contextMenuDevOpenFolder.querySelector('span').textContent = this.t('ui.common.contextMenuOpenModFolder');
+            }
             if (this.elements.contextMenuDevDeleteFolder && this.elements.contextMenuDevDeleteFolder.querySelector('span')) {
                 this.elements.contextMenuDevDeleteFolder.querySelector('span').textContent = this.t('ui.developer.deleteModFolder');
             }
@@ -782,6 +816,9 @@ class ModLoadOrderManager {
             }
             if (this.elements.contextMenuCopy && this.elements.contextMenuCopy.querySelector('span')) {
                 this.elements.contextMenuCopy.querySelector('span').textContent = this.t('ui.common.contextMenuCopyName');
+            }
+            if (this.elements.contextMenuOpenFolder && this.elements.contextMenuOpenFolder.querySelector('span')) {
+                this.elements.contextMenuOpenFolder.querySelector('span').textContent = this.t('ui.common.contextMenuOpenModFolder');
             }
             if (this.elements.contextMenuDelete && this.elements.contextMenuDelete.querySelector('span')) {
                 this.elements.contextMenuDelete.querySelector('span').textContent = this.t('ui.common.contextMenuDeleteFromFile');

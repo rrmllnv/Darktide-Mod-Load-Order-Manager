@@ -24,6 +24,7 @@
             "contextMenuEnable": "Aktivieren",
             "contextMenuDisable": "Deaktivieren",
             "contextMenuCopyName": "Namen kopieren",
+            "contextMenuOpenModFolder": "Mod-Ordner öffnen",
             "contextMenuDeleteFromFile": "Aus Datei löschen",
             "contextMenuDeleteFolder": "Mod-Ordner löschen",
             "languageNames": {

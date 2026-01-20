@@ -24,6 +24,7 @@
             "contextMenuEnable": "활성화",
             "contextMenuDisable": "비활성화",
             "contextMenuCopyName": "이름 복사",
+            "contextMenuOpenModFolder": "모드 폴더 열기",
             "contextMenuDeleteFromFile": "파일에서 삭제",
             "contextMenuDeleteFolder": "모드 폴더 삭제",
             "languageNames": {

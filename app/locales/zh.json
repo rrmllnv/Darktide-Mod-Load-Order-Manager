@@ -24,6 +24,7 @@
             "contextMenuEnable": "启用",
             "contextMenuDisable": "禁用",
             "contextMenuCopyName": "复制名称",
+            "contextMenuOpenModFolder": "打开模组文件夹",
             "contextMenuDeleteFromFile": "从文件删除",
             "contextMenuDeleteFolder": "删除模组文件夹",
             "languageNames": {
