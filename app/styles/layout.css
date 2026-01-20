@@ -15,6 +15,7 @@
     min-width: 570px;
     overflow: hidden;
     color: var(--text-primary);
+    padding-right: 5px;
 }
 
 .header-frame {
@@ -180,6 +181,7 @@
     gap: 5px;
     color: var(--text-primary);
     flex-shrink: 0;
+    padding-left: 5px;
 }
 
 .save-frame {
