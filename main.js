@@ -1376,7 +1376,15 @@ ipcMain.handle('get-directory-size', async (event, dirPath) => {
     }
     
     const size = await getDirectorySize(dirPath);
-    return { success: true, size, sizeFormatted: formatBytes(size) };
+    const stats = statSync(dirPath);
+    const createdDate = stats.birthtime || stats.mtime;
+    
+    return { 
+      success: true, 
+      size, 
+      sizeFormatted: formatBytes(size),
+      createdDate: createdDate.toISOString()
+    };
   } catch (error) {
     return { success: false, error: error.message };
   }

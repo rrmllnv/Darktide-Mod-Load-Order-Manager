@@ -91,6 +91,15 @@
     flex-shrink: 0;
 }
 
+.mod-date {
+    font-size: 0.85em;
+    color: var(--text-secondary);
+    width: 90px;
+    text-align: right;
+    flex-shrink: 0;
+    margin-left: 10px;
+}
+
 .canvas-frame::-webkit-scrollbar {
     width: 4px;
 }

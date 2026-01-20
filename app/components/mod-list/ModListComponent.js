@@ -283,9 +283,7 @@ export class ModListComponent {
     onCheckboxChange(modName) {
         const modEntry = this._modEntries.find(m => m.name === modName);
         if (modEntry) {
-            if (modEntry.sizeElement) {
-                this.loadModSize(modEntry, modEntry.sizeElement);
-            }
+            this.loadModInfo(modEntry, modEntry.sizeElement, modEntry.dateElement);
         }
         
         if (this.app.updateStatistics) {
@@ -394,9 +392,7 @@ export class ModListComponent {
             if (modEntry.checkbox) {
                 modEntry.checkbox.checked = true;
             }
-            if (modEntry.sizeElement) {
-                this.loadModSize(modEntry, modEntry.sizeElement);
-            }
+            this.loadModInfo(modEntry, modEntry.sizeElement, modEntry.dateElement);
         });
         const searchText = this.app.searchComponent ? this.app.searchComponent.getSearchText() : '';
         this.updateModList(searchText);
@@ -412,9 +408,7 @@ export class ModListComponent {
             if (modEntry.checkbox) {
                 modEntry.checkbox.checked = false;
             }
-            if (modEntry.sizeElement) {
-                this.loadModSize(modEntry, modEntry.sizeElement);
-            }
+            this.loadModInfo(modEntry, modEntry.sizeElement, modEntry.dateElement);
         });
         const searchText = this.app.searchComponent ? this.app.searchComponent.getSearchText() : '';
         this.updateModList(searchText);
@@ -487,7 +481,12 @@ export class ModListComponent {
         sizeElement.className = 'mod-size';
         sizeElement.textContent = '...';
         
-        this.loadModSize(modEntry, sizeElement);
+        let dateElement = null;
+        dateElement = document.createElement('span');
+        dateElement.className = 'mod-date';
+        dateElement.textContent = '...';
+        
+        this.loadModInfo(modEntry, sizeElement, dateElement);
         
         modItem.addEventListener('click', (e) => {
             if ((!checkboxContainer || !checkboxContainer.contains(e.target)) && !modItem.classList.contains('dragging')) {
@@ -526,19 +525,23 @@ export class ModListComponent {
         if (sizeElement) {
             modItem.appendChild(sizeElement);
         }
+        if (dateElement) {
+            modItem.appendChild(dateElement);
+        }
         
             modEntry.checkbox = checkbox;
             if (checkboxContainer) {
                 modEntry.checkboxContainer = checkboxContainer;
             }
         modEntry.sizeElement = sizeElement;
+        modEntry.dateElement = dateElement;
         modEntry.modItem = modItem;
         
         return modItem;
     }
     
-    async loadModSize(modEntry, sizeElement) {
-        if (!sizeElement || !modEntry) {
+    async loadModInfo(modEntry, sizeElement, dateElement) {
+        if (!modEntry) {
             return;
         }
         
@@ -554,19 +557,49 @@ export class ModListComponent {
             }
             
             if (!modPath) {
-                sizeElement.textContent = '';
+                if (sizeElement) {
+                    sizeElement.textContent = '';
+                }
+                if (dateElement) {
+                    dateElement.textContent = '';
+                }
                 return;
             }
             
             const result = await window.electronAPI.getDirectorySize(modPath);
             if (result.success) {
-                sizeElement.textContent = result.sizeFormatted;
+                if (sizeElement) {
+                    sizeElement.textContent = result.sizeFormatted || '';
+                }
+                if (dateElement && result.createdDate) {
+                    const date = new Date(result.createdDate);
+                    const formattedDate = date.toLocaleString('ru-RU', {
+                        year: 'numeric',
+                        month: '2-digit',
+                        day: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                    dateElement.textContent = formattedDate;
+                } else if (dateElement) {
+                    dateElement.textContent = '';
+                }
             } else {
-                sizeElement.textContent = '';
+                if (sizeElement) {
+                    sizeElement.textContent = '';
+                }
+                if (dateElement) {
+                    dateElement.textContent = '';
+                }
             }
         } catch (error) {
-            console.error('Error loading mod size:', error);
-            sizeElement.textContent = '';
+            console.error('Error loading mod info:', error);
+            if (sizeElement) {
+                sizeElement.textContent = '';
+            }
+            if (dateElement) {
+                dateElement.textContent = '';
+            }
         }
     }
     
@@ -625,9 +658,7 @@ export class ModListComponent {
             if (modEntry.checkbox) {
                 modEntry.checkbox.checked = true;
             }
-            if (modEntry.sizeElement) {
-                this.loadModSize(modEntry, modEntry.sizeElement);
-            }
+            this.loadModInfo(modEntry, modEntry.sizeElement, modEntry.dateElement);
             if (this.app.updateStatistics) {
                 this.app.updateStatistics();
             }
@@ -645,9 +676,7 @@ export class ModListComponent {
             if (modEntry.checkbox) {
                 modEntry.checkbox.checked = false;
             }
-            if (modEntry.sizeElement) {
-                this.loadModSize(modEntry, modEntry.sizeElement);
-            }
+            this.loadModInfo(modEntry, modEntry.sizeElement, modEntry.dateElement);
             if (this.app.updateStatistics) {
                 this.app.updateStatistics();
             }
