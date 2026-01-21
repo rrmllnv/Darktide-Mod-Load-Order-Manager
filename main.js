@@ -5,6 +5,8 @@ const { existsSync, readdirSync, statSync, lstatSync, symlink } = require('fs');
 const { promisify } = require('util');
 const { spawn } = require('child_process');
 const symlinkAsync = promisify(symlink);
+const https = require('https');
+const http = require('http');
 
 async function copyDirectory(src, dest) {
   await fs.mkdir(dest, { recursive: true });
@@ -1385,6 +1387,99 @@ ipcMain.handle('get-directory-size', async (event, dirPath) => {
       dirCount: result.dirCount,
       createdDate: createdDate.toISOString()
     };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+});
+
+// Обработчик для GraphQL запросов к Nexus Mods API
+ipcMain.handle('nexus-graphql-query', async (event, query, variables, apiKey) => {
+  try {
+    if (!apiKey) {
+      return { success: false, error: 'API key is required' };
+    }
+
+    const graphqlEndpoint = 'https://api.nexusmods.com/v2/graphql';
+    
+    const requestBody = JSON.stringify({
+      query: query,
+      variables: variables || {}
+    });
+
+    const url = new URL(graphqlEndpoint);
+    const options = {
+      hostname: url.hostname,
+      port: url.port || 443,
+      path: url.pathname,
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Content-Length': Buffer.byteLength(requestBody),
+        'apikey': apiKey,
+        'Application-Name': 'Darktide Mod Load Order Manager',
+        'Application-Version': '1.0.0'
+      }
+    };
+
+    return new Promise((resolve, reject) => {
+      const req = https.request(options, (res) => {
+        let data = '';
+
+        res.on('data', (chunk) => {
+          data += chunk;
+        });
+
+        res.on('end', () => {
+          if (res.statusCode !== 200) {
+            resolve({ 
+              success: false, 
+              error: `HTTP ${res.statusCode}: ${res.statusMessage}` 
+            });
+            return;
+          }
+
+          if (!data || data.trim() === '') {
+            resolve({ 
+              success: false, 
+              error: 'Empty response from server' 
+            });
+            return;
+          }
+
+          try {
+            const result = JSON.parse(data);
+            
+            if (result.errors) {
+              resolve({ 
+                success: false, 
+                error: `GraphQL errors: ${JSON.stringify(result.errors)}`,
+                errors: result.errors
+              });
+            } else {
+              resolve({ 
+                success: true, 
+                data: result.data 
+              });
+            }
+          } catch (parseError) {
+            resolve({ 
+              success: false, 
+              error: `Failed to parse response: ${parseError.message}` 
+            });
+          }
+        });
+      });
+
+      req.on('error', (error) => {
+        resolve({ 
+          success: false, 
+          error: `Request failed: ${error.message}` 
+        });
+      });
+
+      req.write(requestBody);
+      req.end();
+    });
   } catch (error) {
     return { success: false, error: error.message };
   }

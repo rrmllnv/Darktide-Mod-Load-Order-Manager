@@ -270,13 +270,25 @@ export class FileManager {
             return;
         }
         
+        // ВРЕМЕННО: Тестирование Nexus API
         try {
-            const result = await window.electronAPI.launchDtkitPatch(gameDir);
-            if (!result.success) {
-                await this.app.uiManager.showMessage(this.app.t('messages.common.error'), result.error || this.app.t('messages.common.launchDtkitPatchError') || 'Error launching application');
-            }
+            const { exampleUsage } = await import('../examples/NexusApiExample.js');
+            console.log('Запуск теста Nexus API...');
+            await exampleUsage(this.app);
         } catch (error) {
-            await this.app.uiManager.showMessage(this.app.t('messages.common.error'), error.message || this.app.t('messages.common.launchDtkitPatchError') || 'Error launching application');
+            console.error('Ошибка при тестировании Nexus API:', error);
+            if (this.app.notificationComponent) {
+                this.app.notificationComponent.show('error', `Ошибка теста Nexus API: ${error.message}`);
+            }
         }
+        
+        // try {
+        //     const result = await window.electronAPI.launchDtkitPatch(gameDir);
+        //     if (!result.success) {
+        //         await this.app.uiManager.showMessage(this.app.t('messages.common.error'), result.error || this.app.t('messages.common.launchDtkitPatchError') || 'Error launching application');
+        //     }
+        // } catch (error) {
+        //     await this.app.uiManager.showMessage(this.app.t('messages.common.error'), error.message || this.app.t('messages.common.launchDtkitPatchError') || 'Error launching application');
+        // }
     }
 }

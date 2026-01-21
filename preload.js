@@ -46,5 +46,6 @@ contextBridge.exposeInMainWorld('electronAPI', {
   checkModHasTodos: (modName) => ipcRenderer.invoke('check-mod-has-todos', modName),
   deleteModBackups: (modName) => ipcRenderer.invoke('delete-mod-backups', modName),
   deleteModTodos: (modName) => ipcRenderer.invoke('delete-mod-todos', modName),
-  getDirectorySize: (dirPath) => ipcRenderer.invoke('get-directory-size', dirPath)
+  getDirectorySize: (dirPath) => ipcRenderer.invoke('get-directory-size', dirPath),
+  nexusGraphQLQuery: (query, variables, apiKey) => ipcRenderer.invoke('nexus-graphql-query', query, variables, apiKey)
 });
